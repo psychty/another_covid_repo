@@ -1,0 +1,149 @@
+
+*{
+  font-family: 'Open Sans', sans-serif;
+  font-size: .85rem;
+  }
+
+
+/* Tables */
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: .9rem;
+color: #000000;
+}
+
+/* Tables */
+table.case_summary {
+width: 500px;
+border-collapse: collapse;
+font-size: .9rem;
+color: #000000;
+}
+
+tr:nth-of-type(odd) {
+background: #d6ebff;
+}
+
+th {
+background-color: #ffffff;
+color: #256cb2;
+font-size: 1.2rem;
+}
+
+td, th {
+padding-top: 2px;
+padding-right: 5px;
+padding-left: 1px;
+padding-bottom: 2px;
+font-size: .9rem;
+border: 1px solid #ffffff;
+vertical-align: top;
+text-align: left;
+}
+/* * {-webkit-font-smoothing: antialiased;} */
+
+.header {
+ margin: auto;
+ width: calc(100% - 40px);
+ text-align: center;
+ margin-top: 20px;
+ margin-left: 20px;
+ margin-right: 20px;
+ margin-bottom: 30px;
+}
+
+.left-sidebar {
+float: left;
+width: calc(20% - 40px);
+top: 0;
+margin-left: 20px;
+margin-right: 20px;
+/* display: inline-block; */
+position: sticky;
+}
+
+.main {
+width: calc(80% - 40px);
+top: 0;
+margin-left: 20px;
+margin-right: 20px;
+float: right;
+display: inline-block;
+}
+
+.content {
+float: none;
+width: calc(65% - 10px);
+margin-right: 10px;
+display: inline-block;
+}
+
+.right-sidebar {
+float: right;
+width: calc(35% - 40px);
+color: #444;
+margin-left: 20px;
+margin-right: 20px;
+top: 0;
+display: inline-block;
+}
+
+/* Fonts */
+p {
+  font-size: .9rem;
+}
+
+a {
+color: #cc0052;
+}
+
+h1 {
+font-size: 1.8rem;
+font-weight: bold;
+color: #256cb2;
+}
+
+h2 {
+font-size: 1.2rem;
+font-weight: bold;
+color: #256cb2;
+}
+
+h3 {
+font-size: 1.2rem;
+font-weight: bold;
+color: #000;
+}
+
+p.side_important {
+text-align: justify;
+font-weight: bold;
+color: red;
+text-justify: inter-word;
+ }
+
+
+.menu_list {
+display: block;
+padding: 0.5em 0.5em;
+border: none;
+color: #000000;
+background: #ffffff;
+cursor: pointer;
+text-align: left;
+font-size: .8rem;
+font-family: inherit;
+margin: 0 0 1px;
+border-left: 8px solid #ccc;
+position: relative;
+}
+
+.menu_list:hover{
+background: #ccc;
+}
+
+.footer {
+ font-size: .8rem;
+ float: right;
+ }

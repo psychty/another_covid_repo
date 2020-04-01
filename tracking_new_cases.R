@@ -36,28 +36,6 @@ ph_theme = function(){
   ) 
 }
 
-ph_cal_theme = function(){
-  theme( 
-    legend.position = "bottom", 
-    legend.title = element_text(colour = "#000000", size = 10), 
-    legend.key.size = unit(0.5, "lines"), 
-    legend.background = element_rect(fill = "#ffffff"), 
-    legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"), 
-    legend.text = element_text(colour = "#000000", size = 10), 
-    plot.background = element_rect(fill = "white", colour = "#E2E2E3"), 
-    panel.background = element_rect(fill = "white"), 
-    axis.text.x = element_text(colour = "#000000", size = 9), 
-    plot.title = element_text(colour = "#000000", face = "bold", size = 12, vjust = 1), 
-    axis.title = element_text(colour = "#327d9c", face = "bold", size = 10),     
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(), 
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor.y = element_blank(), 
-    strip.text = element_text(colour = "#000000", face = "bold"),
-    strip.background = element_rect(fill = "#ffffff"), 
-    axis.ticks = element_blank() 
-  )}
-
 github_repo_dir = '~/Documents/Repositories/another_covid_repo'
 
 download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
@@ -66,9 +44,6 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   rename(Population = OBS_VALUE,
          Code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME)
-
-
-
 
 daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
   gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
@@ -107,9 +82,18 @@ se_daily_cases <- se_daily_cases %>%
   mutate(Name = factor(Name, levels = levels(se_cases_summary$Name))) %>% 
   arrange(Name)
 
-se_cases_summary %>% 
-  write.csv(., './se_daily_case_summary.csv')
-  
+se_cases_summary %>%
+  select(-highlight) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
+
+se_daily_cases %>%
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases.json'))
+
+
+
+
 ggplot(se_daily_cases, aes(x = Date, 
                 y = Name, 
                 fill = new_case_key)) + 

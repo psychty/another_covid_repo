@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>New covid-19 case summary South East</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css", type="text/css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div class="wrapper">
+<div class = 'header'>
+  <h1>New Coronavirus (covid-19) cases - South East region</h1>
+</div>
+
+<div class = "main">
+</div>
+
+<div class = 'left-sidebar'>
+  <p>Jump to a section</p>
+  <div id="list-example" class="list-group">
+    <a class="menu_list" href="#section_summary">Introduction</a>
+    <a class="menu_list"  href="#latest_diagnoses">Regional summary</a>
+  </div>
+</div>
+
+<div class="main" id = 'section_summary'>
+
+<div class = "content">
+<p>This page summarises the number of diagnosed coronavirus (covid-19) cases recorded daily by Public Health England (PHE).</p>
+<p>The PHE dashboard presents the number of cases, recovered patients, and deaths nationally as well as daily cumulative counts of cases for NHS Regions and Upper Tier Local Authorities and Unitary Authorities.</p>
+<p>Data collection started on the 9th March 2020.</p>
+<p id = 'data_recency'></p>
+
+</div>
+
+<div class = 'right-sidebar'>
+  <p class = 'side_important'>This page works best in certain browsers such as Chrome, Firefox, and Safari, and does not work so well currently in Internet Explorer.</p>
+</div>
+</div>
+
+<div class="main" id = 'latest_diagnoses'>
+
+<div class = "content">
+
+<div id = 'case_summary_table'></div>
+
+<div>
+<p>West Sussex</p>
+<div id = 'new_cases_plotted'></div>
+<div>
+
+</div>
+
+<div class = 'right-sidebar'>
+  <p class = 'side'>In some cases, number of diagnosed cases can go down.</p>
+</div>
+</div>
+
+
+<footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a>2020</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
+<script src= "https://unpkg.com/shpjs@latest/dist/shp.js"></script>
+<script src="https://d3js.org/d3-format.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src = "daily_tracking.js"></script>
+
+</body>
+</html>
