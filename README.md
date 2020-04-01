@@ -1,2 +1,2 @@
 # another_covid_repo
-tracking cover cases
+tracking covid cases
