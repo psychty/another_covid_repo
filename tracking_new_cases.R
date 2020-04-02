@@ -45,7 +45,7 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
          Code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME)
 
-daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
+daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 8) %>% 
   gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
   rename(Name = `Area Name`) %>% 
   rename(Code = `Area Code`) %>% 
@@ -90,8 +90,6 @@ se_cases_summary %>%
 se_daily_cases %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases.json'))
-
-
 
 
 ggplot(se_daily_cases, aes(x = Date, 

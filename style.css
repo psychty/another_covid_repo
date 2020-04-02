@@ -147,3 +147,18 @@ background: #ccc;
  font-size: .8rem;
  float: right;
  }
+
+
+.same_row {
+  display:inline-block !important;
+  vertical-align: top;
+    margin: 0;
+}
+
+.same_row_text {
+  width: calc(100% - 360px);
+  display:inline-block !important;
+  vertical-align: top;
+  margin: 0;
+  text-align: justify;
+}
