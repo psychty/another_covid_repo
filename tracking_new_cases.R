@@ -3,7 +3,7 @@ library(easypackages)
 
 libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", "viridis", "rgdal", "officer", "flextable", "tmaptools", "lemon", "fingertipsR", "PHEindicatormethods", 'jsonlite', 'readODS', 'zoo'))
 
-github_repo_dir <- "~/Documents/Repositories/critical_care_sitrep"
+github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
 capwords = function(s, strict = FALSE) {
   cap = function(s) paste(toupper(substring(s, 1, 1)),
@@ -36,8 +36,6 @@ ph_theme = function(){
   ) 
 }
 
-github_repo_dir = '~/Documents/Repositories/another_covid_repo'
-
 download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1941962753...1941962984&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
@@ -45,7 +43,7 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
          Code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME)
 
-daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 8) %>% 
+daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
   gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
   rename(Name = `Area Name`) %>% 
   rename(Code = `Area Code`) %>% 
@@ -54,26 +52,37 @@ daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx')
   arrange(Name, Date) %>% 
   group_by(Name) %>% 
   mutate(New_cases = Cumulative_cases - lag(Cumulative_cases)) %>% 
+  mutate(Three_day_average =rollapply(New_cases, 3, mean, align = 'right', fill=NA)) %>% 
   ungroup() %>% 
   filter(Name != 'Unconfirmed') %>% 
   left_join(mye_total, by = c('Code','Name')) %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
-  mutate(new_case_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases < 0, 'Data revised down', ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 5, '1-5', ifelse(New_cases >= 6 & New_cases <= 10, '6-10', ifelse(New_cases >= 11 & New_cases <= 15, '11-15', ifelse(New_cases >= 16 & New_cases <= 20, '16-20', ifelse(New_cases > 20, 'Above 20', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-5', '6-10', '11-15', '16-20', 'Above 20')))
+  mutate(new_case_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases < 0, 'Data revised down', ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases > 75, 'More than 75 cases', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', 'More than 75 cases'))) %>% 
+  mutate(new_case_per_100000_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 5, '1-5 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 6 & round(New_cases_per_100000,0) <= 10, '6-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 11 & round(New_cases_per_100000, 0) <= 15, '11-15 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 16 & round(New_cases_per_100000,0) <= 20, '16-20 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 20, 'More than 20 new cases per 100,000', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-5 new cases per 100,000', '6-10 new cases per 100,000', '11-15 new cases per 100,000', '16-20 new cases per 100,000', 'More than 20 new cases per 100,000')))
+
+levels(daily_cases$new_case_key) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/daily_cases_bands.json'))
+
+levels(daily_cases$new_case_per_100000_key) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/daily_cases_per_100000_bands.json'))
 
 se_daily_cases <- daily_cases %>% 
   filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham')) 
 
-summary(se_daily_cases$New_cases)
-summary(se_daily_cases$New_cases_per_100000)
+# summary(se_daily_cases$New_cases)
+# summary(se_daily_cases$New_cases_per_100000)
 
 se_cases_summary <- se_daily_cases %>% 
   filter(Date == max(Date)) %>% 
-  select(Name, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000) %>%
+  select(Name, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Three_day_average) %>%
   rename(`Total cases` = Cumulative_cases,
          `Total cases per 100,000 population` = Cumulative_per_100000,
          `New cases in past 24 hours` = New_cases,
-         `New cases per 100,000 population` = New_cases_per_100000) %>%
+         `New cases per 100,000 population` = New_cases_per_100000,
+         `Average number of new cases past three days` = Three_day_average) %>%
   arrange(`Total cases`) %>% 
   mutate(Name = factor(Name, levels = unique(Name))) %>% 
   mutate(highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'), 'bold', 'plain'))
@@ -88,13 +97,14 @@ se_cases_summary %>%
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
 
 se_daily_cases %>%
+  select(-c(Code, DATE_NAME)) %>% 
+  mutate(Period = format(Date, '%d %B')) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases.json'))
 
-
 ggplot(se_daily_cases, aes(x = Date, 
                 y = Name, 
-                fill = new_case_key)) + 
+                fill = new_case_per_100000_key)) + 
   scale_fill_manual(values = c('#dcf3f5','#a6b4d8','#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'),
                     name = 'Tile colour\nkey') +
   geom_tile(colour = "#ffffff") +
@@ -120,8 +130,5 @@ ggplot(se_daily_cases, aes(x = Date,
         legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"), 
         strip.text = element_text(colour = "#000000", face = "bold"),
         strip.background = element_rect(fill = "#ffffff"))
-
-sse <-daily_cases %>% 
-  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'))
 
 
