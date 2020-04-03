@@ -271,7 +271,7 @@ var mouseover = function(d) {
 
 var mousemove = function(d) {
 tooltip_new_case_day
-.html('<h4>' + d.Name + ' - ' + d.Period + '</h4><p>The number of new covid-19 cases recorded in the previous 24 hours in ' + d.Name + ' was ' + d3.format(',.0f')(d.New_cases) + '.<p><p>The new cases reported on this day represent ' + d3.format('0.1%')(d.New_cases / d.Cumulative_cases) + ' of the total number of cumulative cases recorded to this date (' + d.Period + ') in ' + d.Name + ' (' + d.Cumulative_cases + ' cases).</p><p>In the previous three days, the average number of new cases was ' + d3.format(',.0f')(d.Three_day_average) + ' cases.</p>')
+.html('<h4>' + d.Name + ' - ' + d.Period + '</h4><p>'+ d.label_1 + '</p><p>' +d.label_2 + '</p><p>' + d.label_3 + '</p>')
   .style("top", (event.pageY - 10) + "px")
   .style("left", (event.pageX + 10) + "px")
 .style('opacity', 1)
