@@ -5,26 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>New covid-19 case summary South East</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css", type="text/css">
+<title>Covid-19 case summary South East</title>
 <link rel="stylesheet" type="text/css" href="style.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 
 <body>
 <div class="wrapper">
 <div class = 'header'>
-  <h1>New Coronavirus (covid-19) cases - South East region</h1>
+  <h1>Coronavirus (Covid-19) case summary - Sussex and South East region</h1>
 </div>
-
-
-<!-- <div class = 'left-sidebar'>
-  <p>Jump to a section</p>
-  <div id="list-example" class="list-group">
-    <a class="menu_list" href="#section_summary">Introduction</a>
-    <a class="menu_list"  href="#latest_diagnoses">Regional summary</a>
-  </div>
-</div> -->
 
 <div class="main" id = 'section_summary'>
 
@@ -34,27 +25,38 @@
 <p>Data collection started on the 9th March 2020 and is usually updated at 6pm each day for the previous days figures.</p>
 <p id = 'data_recency'></p>
 
-</div>
+<div>
+<p>The table below is ordered by the descending number of total (cumulative) cases to date.</p>
 
+<form class="btn-group btn-group-toggle stay-right-classy" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name = 'toggle_count_rate' value = 'counts muth' checked = 'checked' onchange="toggle_count_rate_func();">actual cases<br>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name = 'toggle_count_rate' value = 'rate per yo' onchange ='toggle_count_rate_func();'>cases per 100,000<br>
+  </label>
+</form>
+
+</div>
+</div>
 <div class = 'right-sidebar'>
   <p class = 'side'>This page works best in certain browsers such as Chrome, Firefox, and Safari, and does not work so well currently in Internet Explorer.</p>
 </div>
 </div>
 
-<div class='main'>
-
+<div class='main' id = 'new_daily_cases'>
 <div class = "content">
-<div id = 'case_summary_table'></div>
 <div id = 'new_case_headings'></div>
 <div id = 'new_cases_plotted'></div>
-
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side'>In some cases, number of diagnosed cases can go down.</p>
-  <p class = 'side'>As at the beginning of April, there are vast differences among the regions local authorities with Hampshire and Surrey having more than 600 cases in total whilst the Isle of Wight has less than 20 (as of 2nd April). The colour key below has been chosen to try and capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
+  <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p>
+  <p class = 'side'>As at the beginning of April, there are vast differences among the regions local authorities with Hampshire and Surrey having more than 600 cases in total whilst the Isle of Wight has less than 20 (as of 2nd April). The colour key below has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
+
+  <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
-<div id = 'new_case_key_figure'></div>
+
 </div>
 </div>
 
@@ -67,6 +69,9 @@
 <script src= "https://unpkg.com/shpjs@latest/dist/shp.js"></script>
 <script src="https://d3js.org/d3-format.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 <script src = "daily_tracking.js"></script>
 
 </body>

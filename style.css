@@ -128,7 +128,6 @@ p.key_list .side_tt {
     font-size: .8rem !important;
 }
 
-
 .tooltip_class {
   max-width: 280px;
   padding-left: 5px;
@@ -138,4 +137,8 @@ p.key_list .side_tt {
   border-radius: 5px;
   border: 1px solid #000;
   text-align: left !important;
+}
+
+.stay-right-classy{
+  float: right;
 }

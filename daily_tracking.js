@@ -3,27 +3,29 @@ var width_hm = 900
 var height_hm = 25
 var height_hm_title = 45
 
+var areas = ['Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham']
+
+var local_areas_compare = ['Brighton and Hove', 'East Sussex', 'West Sussex', 'Sussex', 'South East region', 'England']
+
 var request = new XMLHttpRequest();
     request.open("GET", "./se_case_summary.json", false);
     request.send(null);
+var case_summary = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
-var json_case_summary = JSON.parse(request.responseText); // parse the fetched json data into a variable
-
-json_case_summary.sort(function(a, b) {
-    return d3.descending(a['Total cases'], b['Total cases']);
-    });
+var sussex_summary = case_summary.filter(function(d,i){ return local_areas_compare.indexOf(d.Name) >= 0 })
+var se_summary = case_summary.filter(function(d,i){ return areas.indexOf(d.Name) >= 0 })
 
 var request = new XMLHttpRequest();
     request.open("GET", "./se_daily_cases.json", false);
     request.send(null);
 
-var json_daily_cases = JSON.parse(request.responseText); // parse the fetched json data into a variable
+var daily_cases = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
-var latest_date = d3.max(json_daily_cases, function (d) {
+var latest_date = d3.max(daily_cases, function (d) {
   return d.Date;}).split('-');
 latest_date = new Date(latest_date[0], latest_date[1] - 1, latest_date[2]);
 
-var first_date = d3.min(json_daily_cases, function (d) {
+var first_date = d3.min(daily_cases, function (d) {
   return d.Date;}).split('-');
 first_date = new Date(first_date[0], first_date[1] - 1, first_date[2]);
 
@@ -47,7 +49,7 @@ var color_new_per_100000_cases = d3.scaleOrdinal()
 .domain(new_cases_per_100000_bands)
 .range(new_cases_colours)
 
-var dates = d3.map(json_daily_cases, function(d){
+var dates = d3.map(daily_cases, function(d){
 return(d.Date)})
 .keys()
 
@@ -61,7 +63,7 @@ var x = d3.scaleBand()
   .domain(dates)
   .padding(0.05);
 
-order_areas = d3.map(json_case_summary, function(d){
+order_areas = d3.map(se_summary, function(d){
 return(d.Name)})
 .keys()
 
@@ -195,6 +197,7 @@ svg_title
 .append("text")
 .attr("x", 410)
 .attr("y", 10)
+.attr('id', 'what_am_i_showing_tiles')
 .text('New cases by day')
 .attr("text-anchor", "start")
 // .attr('fill', '#256cb2')
@@ -233,19 +236,22 @@ svg_title
   .attr('y2', height_hm_title)
   .attr('stroke', '#000000')
 
+function counts_new_cases_tile_plot() {
+
 // Create a function for tabulating the data
 function new_case_daily_plot(area_x_chosen, svg_x) {
 
-area_x = json_daily_cases.filter(function (d) { // gets a subset of the json data
+area_x = daily_cases.filter(function (d) { // gets a subset of the json data
     return d.Name === area_x_chosen
 })
 
-area_x_case_summary = json_case_summary.filter(function (d) { // gets a subset of the json data
+area_x_case_summary = case_summary.filter(function (d) { // gets a subset of the json data
     return d.Name === area_x_chosen
 })
 
 var svg = d3.select('#new_cases_plotted')
   .append('svg')
+  .attr('id', 'catch_me_svg')
   .attr('width', width_hm)
   .attr('height', height_hm)
   .append('g')
@@ -422,3 +428,289 @@ function key_1_new_cases() {
 }
 
 key_1_new_cases();
+
+}
+
+function counts_new_cases_rates_tile_plot() {
+
+function new_case_daily_plot(area_x_chosen, svg_x) {
+
+area_x = daily_cases.filter(function (d) { // gets a subset of the json data
+    return d.Name === area_x_chosen
+})
+
+area_x_case_summary = case_summary.filter(function (d) { // gets a subset of the json data
+    return d.Name === area_x_chosen
+})
+
+var svg = d3.select('#new_cases_plotted')
+  .append('svg')
+  .attr('id', 'catch_me_svg')
+  .attr('width', width_hm)
+  .attr('height', height_hm)
+  .append('g')
+
+var tooltip_new_case_day = d3.select("#new_cases_plotted")
+.append("div")
+.style("opacity", 0)
+.attr("class", "tooltip_class")
+.style("position", "absolute")
+.style("z-index", "10")
+.style("background-color", "white")
+.style("border", "solid")
+.style('font-size', '12px')
+.style("border-width", "1px")
+.style("border-radius", "5px")
+.style("padding", "10px")
+
+var mouseover = function(d) {
+  d3.select(this)
+    .style("stroke", "black")
+    .style('stroke-width', '1px')
+  }
+
+var mousemove = function(d) {
+tooltip_new_case_day
+.html('<h4>' + d.Name + ' - ' + d.Period + '</h4><p>'+ d.label_1 + '</p><p>' +d.label_2 + '</p><p>' + d.label_3 + '</p>')
+  .style("top", (event.pageY - 10) + "px")
+  .style("left", (event.pageX + 10) + "px")
+.style('opacity', 1)
+
+}
+
+var mouseleave = function(d) {
+tooltip_new_case_day
+.style("opacity", 0)
+
+d3.select(this)
+.style("stroke", "none")
+}
+
+svg
+.append("text")
+.attr("x", 1)
+.attr("y", height_hm * .5)
+.text(area_x_chosen)
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.append("text")
+.attr("x", 125)
+.attr("y", height_hm * .5)
+.text(function(d) {
+        return d3.format(",.0f")(area_x_case_summary[0]['Total cases'])})
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.append("text")
+.attr("x", 175)
+.attr("y", height_hm * .5)
+.text(function(d) {
+        return d3.format(",.0f")(area_x_case_summary[0]['Total cases per 100,000 population'])})
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.append("text")
+.attr("x", 250)
+.attr("y", height_hm * .5)
+.text(function(d) {
+        return d3.format(",.0f")(area_x_case_summary[0]['New cases in past 24 hours'])})
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.append("text")
+.attr("x", 320)
+.attr("y", height_hm * .5)
+.text(function(d) {
+        return d3.format(",.0f")(area_x_case_summary[0]['New cases per 100,000 population'])})
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.selectAll()
+.data(area_x)
+.enter()
+.append("rect")
+.attr("x", function(d) { return x(d.Date) })
+.attr("rx", 4)
+.attr("ry", 4)
+.attr("width", x.bandwidth() )
+.attr("height", height_hm - 4)
+.style("fill", function(d) { return color_new_per_100000_cases(d.new_case_per_100000_key)} )
+.style("stroke-width", 4)
+.style("stroke", "none")
+.style("opacity", 0.8)
+ .on("mouseover", mouseover)
+ .on("mousemove", mousemove)
+ .on("mouseleave", mouseleave)
+
+svg
+.append('line')
+  .attr('x1', 0)
+  .attr('y1', height_hm)
+  .attr('x2', width_hm)
+  .attr('y2', height_hm)
+  .attr('stroke', '#c9c9c9')
+
+}
+
+new_case_daily_plot(order_areas[0])
+new_case_daily_plot(order_areas[1])
+new_case_daily_plot(order_areas[2])
+new_case_daily_plot(order_areas[3])
+new_case_daily_plot(order_areas[4])
+new_case_daily_plot(order_areas[5])
+new_case_daily_plot(order_areas[6])
+new_case_daily_plot(order_areas[7])
+new_case_daily_plot(order_areas[8])
+new_case_daily_plot(order_areas[9])
+new_case_daily_plot(order_areas[10])
+new_case_daily_plot(order_areas[11])
+new_case_daily_plot(order_areas[12])
+new_case_daily_plot(order_areas[13])
+new_case_daily_plot(order_areas[14])
+new_case_daily_plot(order_areas[15])
+new_case_daily_plot(order_areas[16])
+new_case_daily_plot(order_areas[17])
+new_case_daily_plot(order_areas[18])
+
+function key_1_new_cases() {
+    new_cases_per_100000_bands.forEach(function (item, index) {
+        var list = document.createElement("li");
+        list.innerHTML = item;
+        list.className = 'key_list';
+        list.style.borderColor = color_new_per_100000_cases(index);
+        var tt = document.createElement('div');
+        tt.className = 'side_tt';
+        tt.style.borderColor = color_new_cases(index);
+        var tt_h3_1 = document.createElement('h3');
+        tt_h3_1.innerHTML = item.Cause;
+
+        tt.appendChild(tt_h3_1);
+        var div = document.getElementById("new_case_key_figure");
+        div.appendChild(list);
+    })
+}
+
+key_1_new_cases();
+
+}
+
+counts_new_cases_tile_plot()
+
+function toggle_count_rate_func() {
+var type = document.getElementsByName('toggle_count_rate');
+if(type[0].checked){
+console.log("We'll put the count version on for you")
+
+$('.key_list').remove();
+
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+
+counts_new_cases_tile_plot()
+
+svg_title
+.selectAll("#what_am_i_showing_tiles")
+.remove();
+
+svg_title
+.append("text")
+.attr("x", 410)
+.attr("y", 10)
+.attr('id', 'what_am_i_showing_tiles')
+.text('New cases by day')
+.attr("text-anchor", "start")
+.style('font-weight', 'bold')
+.style("font-size", "10px")
+
+}
+else if(type[1].checked)
+{console.log("We'll put the rate version on for you")
+
+
+$('.key_list').remove();
+
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+$('#catch_me_svg').remove();
+
+counts_new_cases_rates_tile_plot()
+
+svg_title
+.selectAll("#what_am_i_showing_tiles")
+.remove();
+
+svg_title
+.append("text")
+.attr("x", 410)
+.attr("y", 10)
+.attr('id', 'what_am_i_showing_tiles')
+.text('New cases per 100,000 population by day')
+.attr("text-anchor", "start")
+.style('font-weight', 'bold')
+.style("font-size", "10px")
+}
+};
