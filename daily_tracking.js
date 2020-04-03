@@ -53,7 +53,7 @@ return(d.Date)})
 
 d3.select("#data_recency")
     .html(function(d) {
-        return 'The latest available data in this analysis is for <b>' + latest_date.toDateString().split(' ').slice(1).join(' ') +'</b>.'});
+        return 'The latest available data in this analysis are for <b>' + latest_date.toDateString().split(' ').slice(1).join(' ') +'</b>.'});
 
 // Build X scale
 var x = d3.scaleBand()
