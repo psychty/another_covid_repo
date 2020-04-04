@@ -55,9 +55,21 @@ return(d.Date)})
 
 d3.select("#data_recency")
     .html(function(d) {
-        return 'The latest available data in this analysis are for <b>' + latest_date.toDateString().split(' ').slice(1).join(' ') +'</b>.'});
+        return 'Data collection started on 9 March 2020 and is usually updated at 6pm each day for the previous days figures. The latest available data in this analysis are for <b>' + latest_date.toDateString().split(' ').slice(1).join(' ') +'</b>.'});
 
-// Build X scale
+var request = new XMLHttpRequest();
+    request.open("GET", "./unconfirmed_latest.json", false);
+    request.send(null);
+
+var unconfirmed_latest = JSON.parse(request.responseText);
+
+console.log(unconfirmed_latest)
+
+d3.select("#unconfirmed_cases_count")
+   .data(unconfirmed_latest)
+   .html(function(d) {
+        return 'Counts are based on cases reported to PHE by diagnostic laboratories and details of the postcode of residence are matched to Office for National Statistics (ONS) administrative geography codes. As of ' + latest_date.toDateString().split(' ').slice(1).join(' ') + ', ' + d3.format(',.0f')(d.Unconfirmed) + ' cases ('+ d3.format('.0%')(d.Proportion_unconfirmed) +') of the ' + d3.format(',.0f')(d.England) + ' cases in England were not attributed to a local area. It is possible that some of these unconfirmed cases are from the areas analysed here.'});
+
 var x = d3.scaleBand()
   .range([410, width_hm])
   .domain(dates)

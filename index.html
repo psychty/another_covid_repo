@@ -14,19 +14,16 @@
 <body>
 <div class="wrapper">
 <div class = 'header'>
-  <h1>Coronavirus (Covid-19) case summary - Sussex and South East region</h1>
+  <h1>Coronavirus (Covid-19) local case summary - Sussex and the South East region</h1>
 </div>
 
 <div class="main" id = 'section_summary'>
 
 <div class = "content">
-<p>This page summarises the number of diagnosed coronavirus (covid-19) cases recorded daily by Public Health England (PHE).</p>
-<p>The PHE dashboard presents the number of cases, recovered patients, and deaths nationally as well as daily cumulative counts of cases for NHS Regions and Upper Tier Local Authorities and Unitary Authorities.</p>
-<p>Data collection started on the 9th March 2020 and is usually updated at 6pm each day for the previous days figures.</p>
+<p>This analysis summarises the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE). This is primarily for the Sussex (Brighton and Hove, East Sussex, and West Sussex) Local Authorities, but it also covers the 19 Upper Tier Local Authorities and Unitary Authorities in the South East region of England.</p>
 <p id = 'data_recency'></p>
-
-<div>
-<p>The table below is ordered by the descending number of total (cumulative) cases to date.</p>
+<p>The first table and visualisation below shows the most recent recorded cases and the number of new cases by day. It is ordered by total number (cumulative) of cases to date with the highest number of confirmed cases at the top.</p>
+<p>You can toggle between viewing the coloured squares as actual cases or as cases per 100,000 population. The areas across the South East have vast differences in population sizes. Bracknell Forest, the smallest area in terms of population, is estimated to be home for around 121,600 residents whilst Kent, the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there. Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.
 
 <form class="btn-group btn-group-toggle stay-right-classy" data-toggle="buttons">
   <label class="btn btn-secondary active">
@@ -38,9 +35,9 @@
 </form>
 
 </div>
-</div>
 <div class = 'right-sidebar'>
   <p class = 'side'>This page works best in certain browsers such as Chrome, Firefox, and Safari, and does not work so well currently in Internet Explorer.</p>
+  <p id = 'unconfirmed_cases_count' class = 'side'></p>
 </div>
 </div>
 
@@ -52,7 +49,7 @@
 
 <div class = 'right-sidebar'>
   <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p>
-  <p class = 'side'>As at the beginning of April, there are vast differences among the regions local authorities with Hampshire and Surrey having more than 600 cases in total whilst the Isle of Wight has less than 20 (as of 2nd April). The colour key below has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
+  <p class = 'side'>The colour key below has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
 
   <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
