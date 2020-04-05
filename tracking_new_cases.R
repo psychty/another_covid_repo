@@ -45,7 +45,7 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
   select(-Name)
 
 daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
-  gather(key = "Date", value = "Cumulative_cases", 5:ncol(.)) %>% 
+  gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
   rename(Name = `Area Name`) %>% 
   rename(Code = `Area Code`) %>% 
   mutate(Name = ifelse(is.na(Name), 'Unconfirmed', Name)) %>% 
@@ -92,7 +92,7 @@ sussex_daily_cases <- daily_cases %>%
   group_by(Date) %>% 
   summarise(Cumulative_cases = sum(Cumulative_cases, na.rm = TRUE),
             Population = sum(Population, na.rm = TRUE)) %>% 
-  mutate(Name = 'Sussex') %>% 
+  mutate(Name = 'Sussex areas combined') %>% 
   mutate(New_cases = Cumulative_cases - lag(Cumulative_cases)) %>% 
   mutate(New_cases_revised = ifelse(New_cases < 0, NA, New_cases)) %>% 
   mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
@@ -132,10 +132,29 @@ daily_cases_local <- daily_cases %>%
   bind_rows(sussex_daily_cases) %>% 
   bind_rows(south_east_region_daily_cases)
 
-daily_cases_local %>% 
-  filter(Date == max(Date)) %>% 
-  select(Name, Population) %>% 
-  View()
+# daily_cases_local %>% 
+#   filter(Date == max(Date)) %>% 
+#   select(Name, Population) %>% 
+#   View()
+
+#### to do - doubling time ####
+# https://jglobalbiosecurity.com/articles/10.31646/gbio.61/
+# https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
+
+# double_time =(2*ln(2))/(ln(1000/500))
+
+# I have used log base2 here as it's handy for working out the doubling rate, which is a concept that I think a lot of people understand.
+
+# using log base2 the double rate is just 1/gradient of the line. R code to get gradient would be something like
+
+library(stats)
+
+# ?lm()
+# 
+# ?log()
+# 
+# output <- lm(log(CumCases, base=2) ~ Days, data=data)	> coef(output)[2]" (would need to run for both lines seperately). 'lm' is in in the "stats" package which is a base package.  "summary(output)" will give you stuff like R^2, to see how well the line fits (for england, very well). 
+
 
 local_cases_summary <- daily_cases_local %>% 
   filter(Date == max(Date)) %>% 

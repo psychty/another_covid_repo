@@ -53,6 +53,18 @@ text-align: left;
  margin-bottom: 30px;
 }
 
+.main {
+margin-top: 20px;
+margin-left: 20px;
+margin-right: 20px;
+float: right;
+display: inline-block;
+}
+
+.drop{
+float: right;
+}
+
 .content {
 float: none;
 width: calc(75% - 50px);
