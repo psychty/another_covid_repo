@@ -156,6 +156,13 @@ library(stats)
 # output <- lm(log(CumCases, base=2) ~ Days, data=data)	> coef(output)[2]" (would need to run for both lines seperately). 'lm' is in in the "stats" package which is a base package.  "summary(output)" will give you stuff like R^2, to see how well the line fits (for england, very well). 
 
 
+# So all my code is doing, in theory, is running a regression on cumulative cases against the number of days. From that it will output the gradient of the line of best fit (assumes its linear). So there should be no issue on running it on subsets (say 5 days), although obviously this method would be more susceptible to daily variation (which is a little more evident in Sussex).
+
+#So we need to convert date into number of days since case number x.
+# Over a subset of days would be better than the whole series
+
+
+
 local_cases_summary <- daily_cases_local %>% 
   filter(Date == max(Date)) %>% 
   select(Name, Cumulative_cases, Cumulative_per_100000, New_cases, New_cases_per_100000, Three_day_average_new_cases) %>%
@@ -210,4 +217,30 @@ daily_cases_local %>%
 #         strip.text = element_text(colour = "#000000", face = "bold"),
 #         strip.background = element_rect(fill = "#ffffff"))
 
+# NHS 111 symptom data ####
 
+# Many caveats around this, not counts of people, people might not use this or might use it multiple times over the course of their symptoms (and maybe not at the start of their symptoms).
+
+# https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest
+
+# Might be useful to have a cumulative count of number of people using the system
+# West Sussex CCG has 390 triages per 100,000, whilst cases are around 26 diagnosed cases per 100,000. YOU ARE COMPARING SMALL APPLES AND REALLY RIPE CRAB APPLES
+
+# People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment.
+
+nhs_111_pathways <- read_csv('https://files.digital.nhs.uk/8E/AE4094/NHS%20Pathways%20Covid-19%20data%202020-04-02.csv')
+unique(nhs_111_pathways$AgeBand)
+
+nhs_111_online <- read_csv('https://files.digital.nhs.uk/9D/E01A56/111%20Online%20Covid-19%20data_2020-04-02.csv')
+
+nhs_111_online %>% 
+  filter(journeydate == '31/03/2020') %>% 
+  filter(ccgname %in% c('NHS Coastal West Sussex CCG', 'NHS Crawley CCG', 'NHS Horsham and Mid Sussex CCG')) %>% 
+  summarise(Total = sum(Total, na.rm = TRUE))
+
+
+# Mortality data ####
+
+download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/04/COVID-19-total-announced-deaths-5-April-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+              
+refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_england.xlsx"), skip = 15)

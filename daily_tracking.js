@@ -726,64 +726,64 @@ svg_title
 };
 
 // Line graph one - actual cases - linear scale
-var height_line = 350;
-
-var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
-.append("svg")
-.attr("width", width_hm)
-.attr("height", height_line)
-.append("g")
-.attr("transform", "translate(" + 30 + "," + 30 + ")");
-
-var estimate_key = d3.scaleOrdinal()
-  .domain(['Mid year estimate', 'Projection'])
-  .range(['#460061', '#966fa6'])
-
-var estimate_key_eng = d3.scaleOrdinal()
-  .domain(['Mid year estimate', 'Projection'])
-  .range(['#666666', '#9f9f9f'])
-
-// List of years in the dataset
-var areas_line = ['Brighton and Hove', 'East Sussex', 'West Sussex', 'Sussex areas combined', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire','Windsor and Maidenhead', 'Wokingham']
-
-// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
-d3.select("#select_line_1_area_button")
-  .selectAll('myOptions')
-  .data(areas_line)
-  .enter()
-  .append('option')
-  .text(function (d) {
-        return d; }) // text to appear in the menu - this does not have to be as it is in the data (you can concatenate other values).
-  .attr("value", function (d) {
-        return d; }) // corresponding value returned by the button
-
-var x_line = d3.scaleLinear()
-.domain(dates)
-.range([0, width_hm - 60]);
-
-var xAxis_line = svg_cumulative_actual_linear
-.append("g")
-.attr("transform", "translate(0," + 290 + ")")
-
-xAxis_line
-.call(d3.axisBottom(x_line))
-
-xAxis_line
-.selectAll("text")
-.attr("transform", "rotate(-45)")
-.style("text-anchor", "end")
-
-function update_cumulative_actual_linear(){
-
-var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
-
-d3.select("#selected_line_1_compare_title")
-   .html(function(d) {
-        return 'Covid-19 cumulative cases over time; ' + selected_line_1_area_option});
-
-line_1_chosen = daily_cases.filter(function (d) { // gets a subset of the json data - This time it excludes SE and England values
-    return d.Name === selected_line_1_area_option
-});
+// var height_line = 350;
+//
+// var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
+// .append("svg")
+// .attr("width", width_hm)
+// .attr("height", height_line)
+// .append("g")
+// .attr("transform", "translate(" + 30 + "," + 30 + ")");
+//
+// var estimate_key = d3.scaleOrdinal()
+//   .domain(['Mid year estimate', 'Projection'])
+//   .range(['#460061', '#966fa6'])
+//
+// var estimate_key_eng = d3.scaleOrdinal()
+//   .domain(['Mid year estimate', 'Projection'])
+//   .range(['#666666', '#9f9f9f'])
+//
+// // List of years in the dataset
+// var areas_line = ['Brighton and Hove', 'East Sussex', 'West Sussex', 'Sussex areas combined', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire','Windsor and Maidenhead', 'Wokingham']
+//
+// // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+// d3.select("#select_line_1_area_button")
+//   .selectAll('myOptions')
+//   .data(areas_line)
+//   .enter()
+//   .append('option')
+//   .text(function (d) {
+//         return d; }) // text to appear in the menu - this does not have to be as it is in the data (you can concatenate other values).
+//   .attr("value", function (d) {
+//         return d; }) // corresponding value returned by the button
+//
+// var x_line = d3.scaleLinear()
+// .domain(dates)
+// .range([0, width_hm - 60]);
+//
+// var xAxis_line = svg_cumulative_actual_linear
+// .append("g")
+// .attr("transform", "translate(0," + 290 + ")")
+//
+// xAxis_line
+// .call(d3.axisBottom(x_line))
+//
+// xAxis_line
+// .selectAll("text")
+// .attr("transform", "rotate(-45)")
+// .style("text-anchor", "end")
+//
+// function update_cumulative_actual_linear(){
+//
+// var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
+//
+// d3.select("#selected_line_1_compare_title")
+//    .html(function(d) {
+//         return 'Covid-19 cumulative cases over time; ' + selected_line_1_area_option});
+//
+// line_1_chosen = daily_cases.filter(function (d) { // gets a subset of the json data - This time it excludes SE and England values
+//     return d.Name === selected_line_1_area_option
+// });
 
 
 //
@@ -1006,31 +1006,31 @@ line_1_chosen = daily_cases.filter(function (d) { // gets a subset of the json d
 //
 // }
 //
-
-}
-
-update_cumulative_actual_linear()
-
-
-d3.select("#select_line_1_area_button").on("change", function (d) {
-var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
-    update_cumulative_actual_linear()
-})
-
-// Line graph two - per 100,000 cases - linear scale
-
-var svg_cumulative_actual_linear = d3.select("#cumulative_ts_per100000_linear")
-.append("svg")
-.attr("width", width_hm)
-.attr("height", height_line)
-.append("g")
-.attr("transform", "translate(" + 30 + "," + 30 + ")");
-
-// Log scale - doubling time
-
-var svg_cumulative_actual_linear = d3.select("#cumulative_log")
-.append("svg")
-.attr("width", width_hm)
-.attr("height", height_line)
-.append("g")
-.attr("transform", "translate(" + 30 + "," + 30 + ")");
+//
+// }
+//
+// update_cumulative_actual_linear()
+//
+//
+// d3.select("#select_line_1_area_button").on("change", function (d) {
+// var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
+//     update_cumulative_actual_linear()
+// })
+//
+// // Line graph two - per 100,000 cases - linear scale
+//
+// var svg_cumulative_actual_linear = d3.select("#cumulative_ts_per100000_linear")
+// .append("svg")
+// .attr("width", width_hm)
+// .attr("height", height_line)
+// .append("g")
+// .attr("transform", "translate(" + 30 + "," + 30 + ")");
+//
+// // Log scale - doubling time
+//
+// var svg_cumulative_actual_linear = d3.select("#cumulative_log")
+// .append("svg")
+// .attr("width", width_hm)
+// .attr("height", height_line)
+// .append("g")
+// .attr("transform", "translate(" + 30 + "," + 30 + ")");
