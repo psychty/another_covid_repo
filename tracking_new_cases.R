@@ -36,13 +36,14 @@ ph_theme = function(){
   ) 
 }
 
-download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1941962753...1941962984,2092957699&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
   rename(Population = OBS_VALUE,
          Code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME) %>% 
   select(-Name)
+
+download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
   gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
