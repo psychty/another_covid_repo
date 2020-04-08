@@ -1,7 +1,7 @@
 
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", "viridis", "rgdal", "officer", "flextable", "tmaptools", "lemon", "fingertipsR", "PHEindicatormethods", 'jsonlite', 'readODS', 'zoo'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", "viridis", "rgdal", "officer", "flextable", "tmaptools", "lemon", "fingertipsR", "PHEindicatormethods", 'jsonlite', 'readODS', 'zoo', 'stats'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -141,6 +141,14 @@ daily_cases_local <- daily_cases %>%
 #### to do - doubling time ####
 # https://jglobalbiosecurity.com/articles/10.31646/gbio.61/
 # https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
+# https://blogs.sas.com/content/iml/2020/04/01/estimate-doubling-time-exponential-growth.html
+
+# checking <- read_csv('~/Downloads/data-2hF22.csv') %>% 
+#   filter(days %in% c('Day 0', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10'))
+# 
+# output <- lm(log(as.numeric(`South Korea`), base=2) ~ days, data=checking)
+# 
+# 1 / coef(output)[2]
 
 # double_time =(2*ln(2))/(ln(1000/500))
 
@@ -148,13 +156,19 @@ daily_cases_local <- daily_cases %>%
 
 # using log base2 the double rate is just 1/gradient of the line. R code to get gradient would be something like
 
-library(stats)
+area_x <- daily_cases %>% 
+  filter(Name == 'England')
 
-# ?lm()
-# 
-# ?log()
-# 
-# output <- lm(log(CumCases, base=2) ~ Days, data=data)	> coef(output)[2]" (would need to run for both lines seperately). 'lm' is in in the "stats" package which is a base package.  "summary(output)" will give you stuff like R^2, to see how well the line fits (for england, very well). 
+?log()
+area_x$Cumulative_cases
+log(area_x$Cumulative_cases, base=2)
+
+output <- lm(log(Cumulative_cases, base=2) ~ Date, data=area_x)
+
+1 / coef(output)[2]
+summary(output)
+
+# (would need to run for both lines seperately). 'lm' is in in the "stats" package which is a base package.  "summary(output)" will give you stuff like R^2, to see how well the line fits (for england, very well). 
 
 
 # So all my code is doing, in theory, is running a regression on cumulative cases against the number of days. From that it will output the gradient of the line of best fit (assumes its linear). So there should be no issue on running it on subsets (say 5 days), although obviously this method would be more susceptible to daily variation (which is a little more evident in Sussex).
@@ -229,19 +243,45 @@ daily_cases_local %>%
 
 # People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment.
 
-nhs_111_pathways <- read_csv('https://files.digital.nhs.uk/8E/AE4094/NHS%20Pathways%20Covid-19%20data%202020-04-02.csv')
-unique(nhs_111_pathways$AgeBand)
+# nhs_111_pathways <- read_csv('https://files.digital.nhs.uk/8E/AE4094/NHS%20Pathways%20Covid-19%20data%202020-04-02.csv')
 
-nhs_111_online <- read_csv('https://files.digital.nhs.uk/9D/E01A56/111%20Online%20Covid-19%20data_2020-04-02.csv')
+# nhs_111_online <- read_csv('https://files.digital.nhs.uk/9D/E01A56/111%20Online%20Covid-19%20data_2020-04-02.csv')
 
-nhs_111_online %>% 
-  filter(journeydate == '31/03/2020') %>% 
-  filter(ccgname %in% c('NHS Coastal West Sussex CCG', 'NHS Crawley CCG', 'NHS Horsham and Mid Sussex CCG')) %>% 
-  summarise(Total = sum(Total, na.rm = TRUE))
+# nhs_111_online %>% 
+  # filter(journeydate == '31/03/2020') %>% 
+  # filter(ccgname %in% c('NHS Coastal West Sussex CCG', 'NHS Crawley CCG', 'NHS Horsham and Mid Sussex CCG')) %>% 
+  # summarise(Total = sum(Total, na.rm = TRUE))
 
 
 # Mortality data ####
 
+# Deaths of patients who have died in hospitals in England and had tested positive for Covid-19 at time of death. All deaths are recorded against the date of death rather than the day the deaths were announced. Likely to be some revision.
+
+# Note: interpretation of the figures should take into account the fact that totals by date of death, particularly for recent prior days, are likely to be updated in future releases. For example as deaths are confirmed as testing positive for Covid-19, as more post-mortem tests are processed and data from them are validated. Any changes are made clear in the daily files.					
+
+if(!file.exists(paste0(github_repo_dir, '/etr.csv'))){
+  download.file('https://files.digital.nhs.uk/assets/ods/current/etr.zip', paste0(github_repo_dir, '/etr.zip'), mode = 'wb')
+  unzip(paste0(github_repo_dir, '/etr.zip'), exdir = github_repo_dir)
+  file.remove(paste0(github_repo_dir, '/etr.zip'), paste0(github_repo_dir, '/etr.pdf'))
+}
+
+etr <- read_csv(paste0(github_repo_dir, '/etr.csv'),col_names = c('Code', 'Name', 'National_grouping', 'Health_geography', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'Address_5', 'Postcode', 'Open_date', 'Close_date', 'Null_1', 'Null_2', 'Null_3', 'Null_4', 'Null_5', 'Contact', 'Null_6', 'Null_7', 'Null_8', 'Amended_record_indicator', 'Null_9', 'GOR', 'Null_10', 'Null_11', 'Null_12')) %>%
+  select(Code, Name, National_grouping) %>% 
+  mutate(Name = capwords(Name, strict = TRUE)) %>% 
+  mutate(Name = gsub(' And ', ' and ', Name)) %>% 
+  mutate(Name = gsub(' Of ', ' of ', Name)) %>% 
+  mutate(Name = gsub(' Nhs ', ' NHS ', Name)) %>% 
+  add_row( Code = '-', Name = 'England', National_grouping = '-')
+
 download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/04/COVID-19-total-announced-deaths-5-April-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
               
-refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_england.xlsx"), skip = 15)
+refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), skip = 15) %>% 
+  select(-c(...2, Total)) %>% 
+  filter(!is.na(Code)) %>% 
+  mutate(Name = capwords(Name, strict = TRUE)) %>% 
+  gather(key = "Date", value = "Deaths", 5:ncol(.)) %>% 
+  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
+  filter(!is.na(Date))
+
+  
+  
