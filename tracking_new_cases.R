@@ -36,7 +36,6 @@ ph_theme = function(){
   ) 
 }
 
-
 mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1941962753...1941962984,2092957699&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
   rename(Population = OBS_VALUE,
          Code = GEOGRAPHY_CODE,
@@ -143,40 +142,31 @@ daily_cases_local <- daily_cases %>%
 # https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
 # https://blogs.sas.com/content/iml/2020/04/01/estimate-doubling-time-exponential-growth.html
 
-# checking <- read_csv('~/Downloads/data-2hF22.csv') %>% 
-#   filter(days %in% c('Day 0', 'Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10'))
-# 
-# output <- lm(log(as.numeric(`South Korea`), base=2) ~ days, data=checking)
-# 
-# 1 / coef(output)[2]
-
-# double_time =(2*ln(2))/(ln(1000/500))
-
-# I have used log base2 here as it's handy for working out the doubling rate, which is a concept that I think a lot of people understand.
-
-# using log base2 the double rate is just 1/gradient of the line. R code to get gradient would be something like
-
-area_x <- daily_cases %>% 
-  filter(Name == 'England')
-
-?log()
-area_x$Cumulative_cases
-log(area_x$Cumulative_cases, base=2)
-
-output <- lm(log(Cumulative_cases, base=2) ~ Date, data=area_x)
-
-1 / coef(output)[2]
-summary(output)
-
-# (would need to run for both lines seperately). 'lm' is in in the "stats" package which is a base package.  "summary(output)" will give you stuff like R^2, to see how well the line fits (for england, very well). 
-
-
 # So all my code is doing, in theory, is running a regression on cumulative cases against the number of days. From that it will output the gradient of the line of best fit (assumes its linear). So there should be no issue on running it on subsets (say 5 days), although obviously this method would be more susceptible to daily variation (which is a little more evident in Sussex).
 
 #So we need to convert date into number of days since case number x.
+
+# TODO ###
+# filter for first instance of 10 cases (not just remove any values of less than 10 incase there is a revision that makes the count go down)
+# Add in a safety that says if there are not seven data points in a 'period_in_reverse', then do not calculate doubling_time
+#####
+
 # Over a subset of days would be better than the whole series
 
+double_time_period <- 7 # this could be 5 or 7 
 
+# I've made an ifelse function for 12 weeks of data
+
+doubling_time_df <- daily_cases_local %>% 
+  group_by(Name) %>% 
+  mutate(Days = row_number()-1) %>% 
+  mutate(Log10Cumul = log10(Cumulative_cases)) %>% 
+  mutate(period_in_reverse = ifelse(Days > max(Days) -double_time_period, 1, ifelse(Days > max(Days)-(double_time_period*2), 2, ifelse(Days > max(Days)-(double_time_period*3), 3, ifelse(Days > max(Days) - (double_time_period*4), 4, ifelse(Days > max(Days) - (double_time_period *5), 5, ifelse(Days > max(Days) - (double_time_period * 6), 6, ifelse(Days > max(Days) - (double_time_period * 7), 7, ifelse(Days > max(Days) - (double_time_period * 8), 8, ifelse(Days > max(Days) - (double_time_period * 9), 9, ifelse(Days > max(Days) - (double_time_period * 10), 10, ifelse(Days > max(Days) - (double_time_period * 11), 11, ifelse(Days > max(Days) - (double_time_period * 12), 12, NA))))))))))))) %>% 
+  group_by(Name, period_in_reverse) %>%   
+  mutate(Slope = coef(lm(Log10Cumul ~ Days))[2]) %>% 
+  mutate(Double_time = log(2, base = 10)/coef(lm(Log10Cumul ~ Days))[2]) %>% 
+  select(Name, period_in_reverse, Slope, Double_time) %>% 
+  unique()
 
 local_cases_summary <- daily_cases_local %>% 
   filter(Date == max(Date)) %>% 
