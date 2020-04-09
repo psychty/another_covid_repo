@@ -132,10 +132,7 @@ daily_cases_local <- daily_cases %>%
   bind_rows(sussex_daily_cases) %>% 
   bind_rows(south_east_region_daily_cases)
 
-# daily_cases_local %>% 
-#   filter(Date == max(Date)) %>% 
-#   select(Name, Population) %>% 
-#   View()
+rm(sussex_daily_cases, south_east_region_daily_cases)
 
 #### to do - doubling time ####
 # https://jglobalbiosecurity.com/articles/10.31646/gbio.61/
@@ -147,6 +144,8 @@ daily_cases_local <- daily_cases %>%
 #So we need to convert date into number of days since case number x.
 
 # TODO ###
+
+
 # filter for first instance of 10 cases (not just remove any values of less than 10 incase there is a revision that makes the count go down)
 # Add in a safety that says if there are not seven data points in a 'period_in_reverse', then do not calculate doubling_time
 #####
@@ -190,8 +189,18 @@ local_cases_summary %>%
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
 
 daily_cases_local %>%
+  mutate(Date_label = format(Date, '%a %d %B')) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases.json'))
+
+daily_cases_local %>% 
+  filter(Date == min(Date) | Date == max(Date)) %>% 
+  select(Date) %>% 
+  unique() %>% 
+  arrange(Date) %>% 
+  add_column(Order = c('First', 'Last')) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/range_dates.json'))
 
 # ggplot(se_daily_cases, aes(x = Date, 
 #                 y = Name, 

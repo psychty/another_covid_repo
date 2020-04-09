@@ -20,20 +20,22 @@
 <div class="main" id = 'section_summary'>
 
 <div class = "content">
-<p>This analysis summarises the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE). This is primarily for the Sussex Local Authorities (Brighton and Hove, East Sussex, and West Sussex), but it also covers the 19 Upper Tier Local Authorities and Unitary Authorities in the South East region of England.</p>
+<p>This analysis summarises the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE) for Upper Tier Local Authority and Unitary Authority (UTLA) areas. This is primarily for the Sussex Local Authorities (Brighton and Hove, East Sussex, and West Sussex), but it also covers the 19 UTLAs in the South East region of England.</p>
+<p>These figures reflect the cases confirmed as a result of the testing strategy carried out at the time. At the start of the outbreak, the testing capacity was limited but is increasing over time. The current (March and April) strategy has largely been to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>). As capacity increases, more and more healthcare workers will be prioritised for testing.</p>
 <p id = 'data_recency'></p>
-  <p id = 'unconfirmed_cases_count'></p>
-
+<p id = 'unconfirmed_cases_count'></p>
 </div>
+
 <div class = 'right-sidebar'>
   <p class = 'side'>This page works best in certain browsers such as Chrome, Firefox, and Safari, and does not work so well currently in Internet Explorer.</p>
-<p class = 'side'>This analysis has been created by Rich Tyler and Ryan Walkley at the West Sussex Public Health and Social Research Unit. Email...</p>
-
+  <p class = 'side'>This analysis has been created by Rich Tyler and Ryan Walkley at the West Sussex Public Health and Social Research Unit.</p>
 </div>
+
 </div>
 
 <div class='main' id = 'new_daily_cases'>
 <div class = 'content'>
+<h4 id = 'summary_cases_title'></h4>
 <p>The first table and visualisation below shows the most recent recorded cases and the number of new cases by day. It is ordered by total number (cumulative) of cases to date with the highest number of confirmed cases at the top.</p>
 <p>You can toggle between viewing the coloured squares as actual cases or as cases per 100,000 population. The areas across the South East have vast differences in population sizes. Bracknell Forest, the smallest area in terms of population, is estimated to be home for around 121,600 residents whilst Kent, the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there. Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.
 
@@ -51,31 +53,34 @@
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p>
+  <p class = 'side_important'>It is important to consider the testing strategy, capacity limitations, and any lag or delay in testing results, as outlined above, when interpreting cases as this can have an impact on the daily figures for local areas.</p>
+  <p class = 'side_important'>A Surge in cases can in part be due to the amount of testing done locally from one day to the next.</p>
   <p class = 'side'>The colour key below has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
-
   <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
-
+  <p class = 'side'><b>Data revised down</b></p>
+  <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p>
+  </div>
 </div>
-</div>
-
-<!-- <div class='main' id = 'case_time_series'>
+<!--
+<div class='main' id = 'case_time_series'>
 <div class = "content">
 <p>The first line chart below shows the actual number of confirmed Covid-19 cases over time. You can choose which area to display using the drop down menu.</p>
+
 <div class = 'drop'>
 <span>Area: </span>
 <select id='select_line_1_area_button'></select>
 </div>
+
 <h4 id = 'selected_line_1_compare_title'></h4>
 <div id = 'cumulative_ts_actual_linear'></div>
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side'>Notes</p>
-</div>
+  <p class = 'side'>The dashed line represents the averege number of cases reported over the last three days. This goes some way in smoothing </p>
+</div> -->
 
-<div class = 'content'>
+<!-- <div class = 'content'>
 <div id = 'cumulative_ts_per100000_linear'></div>
 </div>
 
@@ -89,9 +94,9 @@
 </div>
 <div class = 'right-sidebar'>
   <p class = 'side'>Much like the importance of considering actual cases and cases per 100,000, it is also important to view the data from both a linear and a logarithmic scale. <b>The data remains the same</b> however the logarithmic scale is more sensitive to changes in the rate of case increases. This would make it easier to highlight significant changes in trends.</p>
-  <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.
+  <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.</p>
+ </div>  -->
 </div>
-</div> -->
 
 
 <!-- <div class="main"> -->
