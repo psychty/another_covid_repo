@@ -45,6 +45,8 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
 download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
+  rename(`43930` = `43930...34`,
+         `43931` = `43930...35`) %>% 
   gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
   rename(Name = `Area Name`) %>% 
   rename(Code = `Area Code`) %>% 
@@ -145,7 +147,6 @@ rm(sussex_daily_cases, south_east_region_daily_cases)
 
 # TODO ###
 
-
 # filter for first instance of 10 cases (not just remove any values of less than 10 incase there is a revision that makes the count go down)
 # Add in a safety that says if there are not seven data points in a 'period_in_reverse', then do not calculate doubling_time
 #####
@@ -197,6 +198,7 @@ daily_cases_local %>%
   filter(Date == min(Date) | Date == max(Date)) %>% 
   select(Date) %>% 
   unique() %>% 
+  mutate(Date_label = format(Date, '%a %d %B')) %>% 
   arrange(Date) %>% 
   add_column(Order = c('First', 'Last')) %>% 
   toJSON() %>% 
