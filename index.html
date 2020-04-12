@@ -21,7 +21,7 @@
 
 <div class = "content">
 <p>This analysis summarises the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE) for Upper Tier Local Authority and Unitary Authority (UTLA) areas. This is primarily for the Sussex Local Authorities (Brighton and Hove, East Sussex, and West Sussex), but it also covers the 19 UTLAs in the South East region of England.</p>
-<p>These figures reflect the cases confirmed as a result of the testing strategy carried out at the time. At the start of the outbreak, the testing capacity was limited but is increasing over time. The current (March and April) strategy has largely been to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>). As capacity increases, more and more healthcare workers will be prioritised for testing.</p>
+<p>These figures reflect the cases confirmed as a result of the testing strategy carried out at the time. At the start of the outbreak, the testing capacity was limited but is increasing over time. The current (March and April) strategy has largely been to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>). As capacity increases, more and more healthcare workers will be prioritised for testing in what has been termed 'Pillar 2' testing and beyond this the government is planning to expand diagnostics to antibody testing to confirm that a person has had the virus and is therefore immune to catching it again. See <a href = 'https://www.gov.uk/government/publications/coronavirus-covid-19-scaling-up-testing-programmes/coronavirus-covid-19-scaling-up-our-testing-programmes'>Government testing plans April 6th 2020</a> for more details.</p>
 <p id = 'data_recency'></p>
 <p id = 'unconfirmed_cases_count'></p>
 </div>
@@ -55,6 +55,8 @@
 <div class = 'right-sidebar'>
   <p class = 'side_important'>It is important to consider the testing strategy, capacity limitations, and any lag or delay in testing results, as outlined above, when interpreting cases as this can have an impact on the daily figures for local areas.</p>
   <p class = 'side_important'>A Surge in cases can in part be due to the amount of testing done locally from one day to the next.</p>
+  <p>The time of day at which the total was taken has varied some days, and this may have an impact on daily variation (if a snapshot is taken at 9am one day and 5pm the next there will likely be greater numbers of cases) but this is likely to smooth out using average counts (e.g. over three days).</p>
+  <p>From 11th April 2020, the totals include the additional cases identified through Pillar 2 (healthcare and other criticial key worker) testing.</p>
   <p class = 'side'>The colour key below has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
   <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
@@ -63,7 +65,7 @@
   </div>
 </div>
 
-<div class='main' id = 'case_time_series'>
+<!-- <div class='main' id = 'case_time_series'>
 <div class = "content">
 <p>The first line chart below shows the actual number of confirmed Covid-19 cases over time. You can choose which area to display using the drop down menu.</p>
 
@@ -79,6 +81,8 @@
 <div class = 'right-sidebar'>
   <p class = 'side'>The dashed line represents the averege number of cases reported over the last three days. This goes some way in smoothing </p>
 </div>
+
+<h2>Maybe add an early description of trends for each area compared to England which can be displayed on the plots</h2> -->
 
 <!-- <div class = 'content'>
 <div id = 'cumulative_ts_per100000_linear'></div>
