@@ -106,6 +106,17 @@ doubling_time_df <- df %>%
   select(Area, period_in_reverse, Slope, Double_time) %>% 
   unique()
 
+# 
+# wsx <- data.frame(Cumulative_cases = c(220, 224, 266, 320, 330, 363, 373)) %>% 
+#   mutate(Area = 'West Sussex',
+#          Days = row_number() - 1) %>% 
+#   mutate(Log10Cumul = log10(Cumulative_cases)) %>% 
+#   mutate(Slope = coef(lm(Log10Cumul ~ Days))[2]) %>% 
+#   mutate(Double_time = log(2, base = 10)/coef(lm(Log10Cumul ~ Days))[2])# %>% 
+#   select(Area, period_in_reverse, Slope, Double_time) %>% 
+#   unique()
+
+
 # This transposes the period_in_reverse to show change over time (1 is last week)
 doubling_time_df_summary <- doubling_time_df %>% 
   select(-Slope) %>% 

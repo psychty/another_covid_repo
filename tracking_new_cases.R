@@ -1,7 +1,7 @@
 
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "png", "tidyverse", "reshape2", "scales", "viridis", "rgdal", "officer", "flextable", "tmaptools", "lemon", "fingertipsR", "PHEindicatormethods", 'jsonlite', 'readODS', 'zoo', 'stats'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -134,64 +134,75 @@ daily_cases_local <- daily_cases %>%
   bind_rows(sussex_daily_cases) %>% 
   bind_rows(south_east_region_daily_cases)
 
-rm(sussex_daily_cases, south_east_region_daily_cases)
+rm(sussex_daily_cases, south_east_region_daily_cases, daily_cases, mye_total)
 
-#### to do - doubling time ####
+# Doubling time ####
 # https://jglobalbiosecurity.com/articles/10.31646/gbio.61/
 # https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
 # https://blogs.sas.com/content/iml/2020/04/01/estimate-doubling-time-exponential-growth.html
 
-# So all my code is doing, in theory, is running a regression on cumulative cases against the number of days. From that it will output the gradient of the line of best fit (assumes its linear). So there should be no issue on running it on subsets (say 5 days), although obviously this method would be more susceptible to daily variation (which is a little more evident in Sussex).
+# We need to convert date into number of days since case number x.
+case_x_number = 10 # This could be changed
 
-#So we need to convert date into number of days since case number x.
-
-# TODO ###
-
-# filter for first instance of 10 cases (not just remove any values of less than 10 incase there is a revision that makes the count go down).
+# Here we find the first instance of 10 (or whatever) cases (not just remove any values of less than 10 incase there is a revision that makes the count go down). In the case of Brighton and Hove which got 10 cases, then the figure was revised to nine cases.
 
 # Not all areas will reach '10' cases exactly on a single day, so this will be the first date an area reached 10 or more cases. 
 
-first_10_date <- daily_cases_local %>% 
+# And for England, cases were at 280 by the time daily recording of cases was broken down into UK's constituent countries.
+
+first_x_date <- daily_cases_local %>% 
   group_by(Name) %>% 
-  filter(Cumulative_cases >= 10) %>% 
+  filter(Cumulative_cases >= case_x_number) %>% 
   slice(1) %>% 
   ungroup() %>% 
   select(Name, Date) %>% 
-  rename(First_date_10_cases = Date) 
+  rename(First_date_x_cases = Date) 
 
-# Over a subset of days would be better than the whole series
+daily_cases_local <- daily_cases_local %>% 
+  group_by(Name) %>% 
+  mutate(Days_since_collection_start = row_number()-1) %>% # add days since start of data
+  left_join(first_x_date, by = c('Name')) %>% 
+  mutate(Days_since_case_x = as.numeric(difftime(Date, First_date_x_cases, units = c("days")))) %>% 
+  select(-First_date_x_cases) %>% 
+  ungroup()
 
+# We create a doubling time using the most recent 7 day period (and doubling time is recalculated every day once new data is available) 
 double_time_period <- 7 # this could be 5 or 7 
 
-# I've made an ifelse function for 12 weeks of data
-
+# I've made an ifelse function that identifies 7 day periods for 12 weeks of data and this may have to change in the future, but at Easter we are on week four.
 doubling_time_df <- daily_cases_local %>% 
-  group_by(Name) %>% 
-  mutate(Days_since_collection_start = row_number()-1) %>% 
-  left_join(first_10_date, by = c('Name')) %>% 
-  mutate(Days_since_10 = as.numeric(difftime(Date, First_date_10_cases, units = c("days")))) %>% 
-  select(-First_date_10_cases) %>% 
-  filter(Days_since_10 >= 0) %>%
+  filter(Days_since_case_x >= 0) %>%
   mutate(Log10Cumul = log10(Cumulative_cases)) %>% 
   mutate(period_in_reverse = ifelse(Days_since_collection_start > max(Days_since_collection_start) -double_time_period, 1, ifelse(Days_since_collection_start > max(Days_since_collection_start)-(double_time_period*2), 2, ifelse(Days_since_collection_start > max(Days_since_collection_start)-(double_time_period*3), 3, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period*4), 4, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period *5), 5, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 6), 6, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 7), 7, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 8), 8, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 9), 9, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 10), 10, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 11), 11, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 12), 12, NA))))))))))))) %>% 
   group_by(Name, period_in_reverse) %>%   
   mutate(Slope = coef(lm(Log10Cumul ~ Days_since_collection_start))[2]) %>% 
   mutate(Double_time = log(2, base = 10)/coef(lm(Log10Cumul ~ Days_since_collection_start))[2]) %>%
-  mutate(N_days_in_7_day_period = n()) %>% 
-  mutate(Double_time = ifelse(N_days_in_7_day_period != 7, NA, Double_time)) %>%
-  mutate(Slope = ifelse(N_days_in_7_day_period != 7, NA, Slope)) %>% 
-  mutate(date_range_label = paste0(ifelse(period_in_reverse == '1', 'Last seven days (', ifelse(period_in_reverse == '2', 'Previous seven days (', paste0('Week ', period_in_reverse, ' ('))), format(min(Date), '%d-%B'), ' - ', format(max(Date), '%d-%B'), ')')) %>% 
-  mutate(date_range_label = ifelse(N_days_in_7_day_period != 7, NA, date_range_label)) %>% 
+  mutate(N_days_in_doubling_period = n()) %>% 
+  mutate(Double_time = ifelse(N_days_in_doubling_period != double_time_period, NA, Double_time)) %>%
+  mutate(Slope = ifelse(N_days_in_doubling_period != double_time_period, NA, Slope)) %>% 
+  mutate(date_range_label = paste0(ifelse(period_in_reverse == '1', paste0('Most recent ', double_time_period, ' days ('), ifelse(period_in_reverse == '2', paste0('Previous ', double_time_period, ' days ('), paste0('Week ', period_in_reverse, ' ('))), format(min(Date), '%d-%B'), ' - ', format(max(Date), '%d-%B'), ')')) %>% 
+  mutate(date_range_label = ifelse(N_days_in_doubling_period != double_time_period, NA, date_range_label)) %>% 
   ungroup() 
 
-date_labels_fs_doubling_time <- doubling_time_df %>% 
-  filter(period_in_reverse == 1)
+# We might use doubling time in the last seven days and in the previous seven days in the table.
+
+# This exports a json data object with the date labels for doubling time periods. We can use this object in the javascript file to update labels.
+doubling_time_df %>% 
+  select(period_in_reverse, date_range_label) %>% 
+  unique() %>% 
+  filter(!is.na(date_range_label)) %>% 
+  arrange(period_in_reverse) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/date_range_doubling.json'))
 
 # This transposes the period_in_reverse to show change over time (1 is last week)
 doubling_time_df_summary <- doubling_time_df %>% 
   select(Name, period_in_reverse, Double_time) %>% 
   unique() %>% 
-  spread(period_in_reverse, Double_time) 
+  spread(period_in_reverse, Double_time) %>% 
+  select(Name, `1`,`2`) #%>% 
+  # rename(Latest_doubling_time = `1`,
+  #        Previous_doubling_time = `2`)
 
 local_cases_summary <- daily_cases_local %>% 
   filter(Date == max(Date)) %>% 
@@ -201,25 +212,24 @@ local_cases_summary <- daily_cases_local %>%
          `New cases in past 24 hours` = New_cases,
          `New cases per 100,000 population` = New_cases_per_100000,
          `Average number of new cases past three days` = Three_day_average_new_cases) %>%
-  mutate(highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'), 'bold', 'plain')) %>% 
+  # mutate(highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'), 'bold', 'plain')) %>% 
   left_join(doubling_time_df_summary, by = 'Name') %>% 
   arrange(-`Total cases`) %>% 
-  mutate(Name = factor(Name, levels = unique(Name)))
+  mutate(Name = factor(Name, levels = unique(Name))) %>% 
+  mutate(summary_label_doubling = paste0('In the most recent ', double_time_period, ' day time period, the cases were estimated to potentially double in ', round(`1`, 1), ' days. Compared to the previous ', double_time_period, ' days, the doubling time has ', ifelse(`1` > `2`, paste0(' increased from ', round(`2`, 1), ' days (meaning a slowing down of new cases).'), paste0(' decreased from ', round(`2`, 1), ' days (meaning a speeding up of new cases.')), '<b> It should be noted that in some areas, particularly with relatively low numbers of cases, there can be a large amount of fluctuation which can have an impact on doubling time.</b>'))
 
-doubling_time_df %>% 
-  select(period_in_reverse, date_range_label) %>% 
-  filter(!is.na(date_range_label)) %>% 
-  unique() %>% 
-  arrange(period_in_reverse) %>% 
-  toJSON() %>% 
-  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/date_range_doubling.json'))
-  
 daily_cases_local <- daily_cases_local %>% 
+  left_join(doubling_time_df[c('Name', 'Date', 'Log10Cumul', 'period_in_reverse', 'Double_time', 'date_range_label')], by = c('Name', 'Date')) %>% 
+  mutate(double_time_label_1 = paste0(ifelse(Days_since_case_x == 0, paste0('This is the day that the total (cumulative) cases was ', case_x_number, ' or more.'), paste0('This is day ', Days_since_case_x, ' since the number of diagnosed cases reached ', case_x_number, ' or more.')), paste0(' The total (cumulative) number of cases on this day was ', format(Cumulative_cases, big.mark = ',', trim = TRUE)))) %>% 
+  mutate(double_time_label_1 = ifelse(Days_since_case_x < 0, NA, double_time_label_1)) %>% 
+  mutate(double_time_label_2 = paste0('The doubling time is calculated using data for every ', double_time_period, ' day period starting from the latest available date back to the date on which cases reached ', case_x_number, ' or more. ', ifelse(is.na(date_range_label), 'Although there are data for this day, there are not enough data points to calculate a doubling time.', ifelse(period_in_reverse == 1, paste0('This day is in the ', gsub('Most', 'most', date_range_label), ' time period. At the start of this period, it was estimated that cases could potentially double in ', round(Double_time, 1), ' days.'), ifelse(period_in_reverse == 2, paste0('This day is in the ', gsub('Previous', 'previous', date_range_label), ' time period. At the start of this period, it was estimated that cases could potentially double in ', round(Double_time, 1), ' days.'), paste0('This day is in ', gsub('Week', 'week', date_range_label), ' from the most recent data. At the start of this period, it was estimated that cases could potentially double in ', round(Double_time, 1), ' days.')))))) %>% 
   mutate(Name = factor(Name, levels = levels(local_cases_summary$Name))) %>% 
   arrange(Name)
 
+rm(first_x_date, doubling_time_df, doubling_time_df_summary)
+
 local_cases_summary %>%
-  select(-highlight) %>%
+  # select(-highlight) %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
 
