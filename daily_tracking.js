@@ -1,5 +1,7 @@
 
-var width_hm = 900
+// var width_hm = 900
+var width_hm = document.getElementById("content_size").offsetWidth;
+
 var height_hm = 25
 var height_hm_title = 45
 
@@ -28,8 +30,6 @@ var daily_cases = JSON.parse(request.responseText); // parse the fetched json da
 //     date: parseTime(d.Date)
 //   };
 // });
-
-
 
 var request = new XMLHttpRequest();
     request.open("GET", "./daily_cases_bands.json", false);
@@ -82,13 +82,32 @@ d3.select("#summary_cases_title")
         return 'Summary of Covid-19 confirmed cases; ' + first_date + ' - ' + latest_date});
 
 var x = d3.scaleBand()
-  .range([410, width_hm])
+  .range([510, width_hm])
   .domain(dates)
   .padding(0.05);
 
 order_areas = d3.map(se_summary, function(d){
 return(d.Name)})
 .keys()
+
+var request = new XMLHttpRequest();
+    request.open("GET", "./date_range_doubling.json", false);
+    request.send(null);
+
+var date_range_doubling = JSON.parse(request.responseText);
+
+var eng_doubling = case_summary.filter(function(d){ return d.Name === 'England' });
+
+var doubling_week_1_label = (date_range_doubling[0]['short_date_label'])
+var doubling_week_2_label = (date_range_doubling[1]['short_date_label'])
+
+d3.select("#doubling_time_narrative_1")
+   .html(function(d) {
+        return 'The table also shows doubling times of confirmed cases in the last seven days (between ' + date_range_doubling[0]['long_date_label'] + ') with the doubling times in the seven days before that ' + date_range_doubling[1]['long_date_label'] + '. This is the length of time it takes the total (cumulative) number of cases to double over the specified time period (often using recent days or weeks to explore the current trajectory). <b>A longer doubling time indicates slower growth and a shorter doubling time indicates growth rate is increasing.</b> This concept is explored in more detail later in this analysis.'});
+
+d3.select("#doubling_time_narrative_2")
+   .html(function(d) {
+        return 'Using data from the last 7 days, the confirmed cases in England double in <b>' + d3.format(',.1f')(eng_doubling[0]['1']) + ' days </b>compared to ' + d3.format(',.1f')(eng_doubling[0]['2']) + ' days in the 7 days before that.'});
 
 var svg_title = d3.select('#new_case_headings')
 .append('svg')
@@ -190,7 +209,7 @@ svg_title
 .append("text")
 .attr("x", 320)
 .attr("y", 10)
-.text('New cases per')
+.text('Case doubling')
 .attr("text-anchor", "start")
 // .attr('fill', '#256cb2')
 .style('font-weight', 'bold')
@@ -200,7 +219,7 @@ svg_title
 .append("text")
 .attr("x", 320)
 .attr("y", 25)
-.text('100,000 in')
+.text('time* between')
 .attr("text-anchor", "start")
 // .attr('fill', '#256cb2')
 .style('font-weight', 'bold')
@@ -210,7 +229,7 @@ svg_title
 .append("text")
 .attr("x", 320)
 .attr("y", 40)
-.text('past 24 hours')
+.text(doubling_week_2_label)
 .attr("text-anchor", "start")
 // .attr('fill', '#256cb2')
 .style('font-weight', 'bold')
@@ -219,6 +238,36 @@ svg_title
 svg_title
 .append("text")
 .attr("x", 410)
+.attr("y", 10)
+.text('Case doubling')
+.attr("text-anchor", "start")
+// .attr('fill', '#256cb2')
+.style('font-weight', 'bold')
+.style("font-size", "10px")
+
+svg_title
+.append("text")
+.attr("x", 410)
+.attr("y", 25)
+.text('time* between')
+.attr("text-anchor", "start")
+// .attr('fill', '#256cb2')
+.style('font-weight', 'bold')
+.style("font-size", "10px")
+
+svg_title
+.append("text")
+.attr("x", 410)
+.attr("y", 40)
+.text(doubling_week_1_label)
+.attr("text-anchor", "start")
+// .attr('fill', '#256cb2')
+.style('font-weight', 'bold')
+.style("font-size", "10px")
+
+svg_title
+.append("text")
+.attr("x", 510)
 .attr("y", 10)
 .attr('id', 'what_am_i_showing_tiles')
 .text('New cases by day')
@@ -229,7 +278,7 @@ svg_title
 
 svg_title
 .append("text")
-.attr("x", 410)
+.attr("x", 510)
 .attr("y", 40)
 .text(first_date)
 .attr("text-anchor", "start")
@@ -375,7 +424,21 @@ svg
 .attr("x", 320)
 .attr("y", height_hm * .5)
 .text(function(d) {
-        return d3.format(",.0f")(area_x_case_summary[0]['New cases per 100,000 population'])})
+        return d3.format(",.1f")(area_x_case_summary[0]['2']) + ' days'})
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.append("text")
+.attr("x", 410)
+.attr("y", height_hm * .5)
+.text(function(d) {
+        return d3.format(",.1f")(area_x_case_summary[0]['1']) + ' days'})
 .attr("text-anchor", "start")
 .attr('font-weight', function(d) {
   if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
@@ -568,7 +631,21 @@ svg
 .attr("x", 320)
 .attr("y", height_hm * .5)
 .text(function(d) {
-        return d3.format(",.0f")(area_x_case_summary[0]['New cases per 100,000 population'])})
+        return d3.format(",.1f")(area_x_case_summary[0]['2']) + ' days'})
+.attr("text-anchor", "start")
+.attr('font-weight', function(d) {
+  if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    return ('bold')}
+    else {
+    return ('normal')}})
+.style("font-size", "10px")
+
+svg
+.append("text")
+.attr("x", 410)
+.attr("y", height_hm * .5)
+.text(function(d) {
+        return d3.format(",.1f")(area_x_case_summary[0]['1']) + ' days'})
 .attr("text-anchor", "start")
 .attr('font-weight', function(d) {
   if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
@@ -683,7 +760,7 @@ svg_title
 
 svg_title
 .append("text")
-.attr("x", 410)
+.attr("x", 510)
 .attr("y", 10)
 .attr('id', 'what_am_i_showing_tiles')
 .text('New cases by day')
@@ -726,7 +803,7 @@ svg_title
 
 svg_title
 .append("text")
-.attr("x", 410)
+.attr("x", 510)
 .attr("y", 10)
 .attr('id', 'what_am_i_showing_tiles')
 .text('New cases per 100,000 population by day')

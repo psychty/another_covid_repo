@@ -182,13 +182,18 @@ doubling_time_df <- daily_cases_local %>%
   mutate(Slope = ifelse(N_days_in_doubling_period != double_time_period, NA, Slope)) %>% 
   mutate(date_range_label = paste0(ifelse(period_in_reverse == '1', paste0('Most recent ', double_time_period, ' days ('), ifelse(period_in_reverse == '2', paste0('Previous ', double_time_period, ' days ('), paste0('Week ', period_in_reverse, ' ('))), format(min(Date), '%d-%B'), ' - ', format(max(Date), '%d-%B'), ')')) %>% 
   mutate(date_range_label = ifelse(N_days_in_doubling_period != double_time_period, NA, date_range_label)) %>% 
+  mutate(short_date_label = paste0(format(min(Date), '%d-%b'), '-', format(max(Date), '%d-%b'))) %>% 
+  mutate(long_date_label = paste0(format(min(Date), '%d-%B'), ' and ', format(max(Date), '%d-%B'))) %>% 
+  mutate(date_range_label = ifelse(N_days_in_doubling_period != double_time_period, NA, date_range_label)) %>% 
+  mutate(short_date_label = ifelse(N_days_in_doubling_period != double_time_period, NA, short_date_label)) %>% 
+  mutate(long_date_label = ifelse(N_days_in_doubling_period != double_time_period, NA, long_date_label)) %>% 
   ungroup() 
 
 # We might use doubling time in the last seven days and in the previous seven days in the table.
 
 # This exports a json data object with the date labels for doubling time periods. We can use this object in the javascript file to update labels.
 doubling_time_df %>% 
-  select(period_in_reverse, date_range_label) %>% 
+  select(period_in_reverse, date_range_label, short_date_label, long_date_label) %>% 
   unique() %>% 
   filter(!is.na(date_range_label)) %>% 
   arrange(period_in_reverse) %>% 

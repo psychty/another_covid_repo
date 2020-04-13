@@ -130,7 +130,7 @@ text-justify: inter-word;
   font-size: .8rem;
   font-family: inherit;
   margin: 0 0 1px;
-  border-left: 16px solid #ccc;
+  border-left: 13px solid #ccc;
   opacity: .8;
   position: relative;
 }
