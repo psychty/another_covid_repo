@@ -62,6 +62,8 @@ var request = new XMLHttpRequest();
 var first_date = JSON.parse(request.responseText).filter(function(d){ return d.Order == 'First' })[0]['Date_label']
 var latest_date = JSON.parse(request.responseText).filter(function(d){ return d.Order == 'Last' })[0]['Date_label']
 
+var most_recent = JSON.parse(request.responseText).filter(function(d){ return d.Order == 'Last' })[0]['Date']
+
 d3.select("#data_recency")
     .html(function(d) {
         return 'Data collection started on 09 March 2020 and is usually updated at 6pm each day for the previous days figures. The latest available data in this analysis are for <b>' + latest_date +'</b>.'});
@@ -772,7 +774,6 @@ svg_title
 else if(type[1].checked)
 {console.log("We'll put the rate version on for you")
 
-
 $('.key_list').remove();
 
 $('#catch_me_svg').remove();
@@ -813,203 +814,253 @@ svg_title
 }
 };
 //
-// // Line graph one - actual cases - linear scale
-// var height_line = 380;
+// Line graph one - actual cases - linear scale
+var height_line = 380;
 //
-// var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
-// .append("svg")
-// .attr("width", width_hm)
-// .attr("height", height_line)
-// .append("g")
-// .attr("transform", "translate(" + 50 + "," + 50 + ")");
-//
-// // List of years in the dataset
-// var areas_line = [ 'Sussex areas combined','Brighton and Hove', 'East Sussex', 'West Sussex', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire','Windsor and Maidenhead', 'Wokingham']
-//
-// // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
-// d3.select("#select_line_1_area_button")
-//   .selectAll('myOptions')
-//   .data(areas_line)
-//   .enter()
-//   .append('option')
-//   .text(function (d) {
-//         return d; }) // text to appear in the menu - this does not have to be as it is in the data (you can concatenate other values).
-//   .attr("value", function (d) {
-//         return d; }) // corresponding value returned by the button
-//
-// // Retrieve the selected area name
-// var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
-//
-// // Update text based on selected area
-// d3.select("#selected_line_1_compare_title")
-//    .html(function(d) {
-//         return 'Covid-19 cumulative cases over time; ' + selected_line_1_area_option});
-//
-//
-// line_1_chosen = daily_cases.filter(function (d) {
-//     return d.Name === selected_line_1_area_option});
-//
-// var x_c1 = d3.scaleLinear()
-//   .domain(d3.extent(line_1_chosen, function(d) { return d3.timeParse("%Y-%m-%d")(d.Date); }))
-//   .range([0, width_hm - 100]);
-//
-// var xAxis_line = svg_cumulative_actual_linear
-//     .append("g")
-//     .attr("transform", 'translate(0,' + (height_line - 120) + ")")
-//     .call(d3.axisBottom(x_c1).tickFormat(d3.timeFormat("%d-%B")).tickValues(line_1_chosen.map(function(d) { return d3.timeParse("%Y-%m-%d")(d.Date); })));
-//
-// xAxis_line
-// .selectAll("text")
-// .attr("transform", "rotate(-45)")
-// .style("text-anchor", "end")
-//
-// var y_c1_ts = d3.scaleLinear()
-// .domain([0, d3.max(line_1_chosen, function(d) { return +d.Cumulative_cases; })])
-// .range([height_line - 120, 0]);
-//
-// var y_c1_ts_axis = svg_cumulative_actual_linear
-// .append("g")
-// .attr("transform", 'translate(0,0)')
-// .call(d3.axisLeft(y_c1_ts));
-//
-//
-// var tooltip_c1 = d3.select("#cumulative_ts_actual_linear")
-//     .append("div")
-//     .style("opacity", 0)
-//     .attr("class", "tooltip_class")
-//     .style("position", "absolute")
-//     .style("z-index", "10")
-//     .style("background-color", "white")
-//     .style("border", "solid")
-//     .style("border-width", "1px")
-//     .style("border-radius", "5px")
-//     .style("padding", "10px")
-//
-// var showTooltip_c1 = function(d) {
-//
-// tooltip_c1
-//   .html("<h3>" + d.Name + ' - ' + d.Date_label + '</h3><p class = "side"><font color = "#1e4b7a"><b>' + d3.format(',.0f')(d.Cumulative_cases) + '</font></b></p>')
-//   .style("opacity", 1)
-//   .style("top", (event.pageY - 10) + "px")
-//   .style("left", (event.pageX + 10) + "px")
-//   .style("visibility", "visible")
-//         }
-//
-// var mouseleave_c1 = function(d) {
-//
-// tooltip_c1
-// .style("visibility", "hidden")
-//     }
-//
-// var lines_c1 = svg_cumulative_actual_linear
-// .append("path")
-// .datum(line_1_chosen)
-//       .attr("fill", "none")
-//       .attr("stroke", "steelblue")
-//       .attr("stroke-width", 1.5)
-//       .attr("d", d3.line()
-//         .x(function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) })
-//         .y(function(d) { return y_c1_ts(d.Cumulative_cases) })
-//         )
-//
-// var lines_c1_three_day_smooth = svg_cumulative_actual_linear
-//   .append('g')
-//   .append("path")
-//   .datum(line_1_chosen)
-// .attr("stroke", '#dbdbdb')
-// .style("stroke-width", 1)
-// .style("fill", "none")
-//   .attr("d", d3.line()
-//   .x(function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) })
-//   .y(function(d) { return y_c1_ts(d.Three_day_average_new_cases) })
-//       );
-//
-// var dots_c1 = svg_cumulative_actual_linear
-//   .selectAll('myCircles')
-//   .data(line_1_chosen)
-// .enter()
-//   .append("circle")
-//   .attr("cx", function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) } )
-//   .attr("cy", function(d) { return y_c1_ts(d.Cumulative_cases) } )
-//   .attr("r", 4)
-//   .style("fill", function(d){ return 'green'})
-//   .attr("stroke", "green")
-//     .on("mousemove", showTooltip_c1)
-//     .on('mouseout', mouseleave_c1);
-//
-// function update_cumulative_actual_linear(){
-//
-// var tooltip_c1 = d3.select("#cumulative_ts_actual_linear")
-//     .append("div")
-//     .style("opacity", 0)
-//     .attr("class", "tooltip_class")
-//     .style("position", "absolute")
-//     .style("z-index", "10")
-//     .style("background-color", "white")
-//     .style("border", "solid")
-//     .style("border-width", "1px")
-//     .style("border-radius", "5px")
-//     .style("padding", "10px")
-//
-// var showTooltip_c1 = function(d) {
-//
-// tooltip_c1
-//   .html("<h3>" + d.Name + ' - ' + d.Date_label + '</h3><p class = "side"><font color = "#1e4b7a"><b>' + d3.format(',.0f')(d.Cumulative_cases) + '</font></b></p>')
-//   .style("opacity", 1)
-//   .style("top", (event.pageY - 10) + "px")
-//   .style("left", (event.pageX + 10) + "px")
-//   .style("visibility", "visible")
-//         }
-//
-// var mouseleave_c1 = function(d) {
-//
-// tooltip_c1
-// .style("visibility", "hidden")
-//     }
-//
-//
-// var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
-//
-// d3.select("#selected_line_1_compare_title")
-//    .html(function(d) {
-//         return 'Covid-19 cumulative cases over time; ' + selected_line_1_area_option});
-//
-// line_1_chosen = daily_cases.filter(function (d) {
-//     return d.Name === selected_line_1_area_option
-// });
-//
-// y_c1_ts
-// .domain([0, d3.max(line_1_chosen, function(d) { return +d.Cumulative_cases; })])
-//
-// // Redraw axis
-// y_c1_ts_axis
-// .transition()
-// .duration(1000)
-// .call(d3.axisLeft(y_c1_ts));
-//
-// lines_c1
-// .datum(line_1_chosen)
-// .transition()
-// .duration(1000)
-// .attr("d", d3.line()
-// .x(function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) })
-// .y(function(d) { return y_c1_ts(d.Cumulative_cases) })
-//   )
-//
-// dots_c1
-// .data(line_1_chosen)
-// .transition()
-// .duration(1000)
-// .attr("cx", function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))})
-// .attr("cy", function(d) { return y_c1_ts(d.Cumulative_cases)})
-// }
-//
-// update_cumulative_actual_linear()
-//
-// d3.select("#select_line_1_area_button").on("change", function (d) {
-// var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
-//     update_cumulative_actual_linear()
-// })
+var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
+.append("svg")
+.attr("width", width_hm)
+.attr("height", height_line)
+.append("g")
+.attr("transform", "translate(" + 50 + "," + 50 + ")");
+
+// List of years in the dataset
+var areas_line = [ 'Sussex areas combined','Brighton and Hove', 'East Sussex', 'West Sussex', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire','Windsor and Maidenhead', 'Wokingham']
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_line_1_area_button")
+  .selectAll('myOptions')
+  .data(areas_line)
+  .enter()
+  .append('option')
+  .text(function (d) {
+        return d; }) // text to appear in the menu - this does not have to be as it is in the data (you can concatenate other values).
+  .attr("value", function (d) {
+        return d; }) // corresponding value returned by the button
+
+// Retrieve the selected area name
+var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
+
+// Update text based on selected area
+d3.select("#selected_line_1_compare_title")
+   .html(function(d) {
+        return 'Covid-19 cumulative cases over time; ' + selected_line_1_area_option});
+
+var line_1_chosen = daily_cases.filter(function (d) {
+    return d.Name === selected_line_1_area_option});
+
+var new_n = line_1_chosen.filter(function(d){
+  return d.Date  === most_recent ;
+})[0]['Cumulative_cases']
+
+var x_c1 = d3.scaleLinear()
+  .domain(d3.extent(line_1_chosen, function(d) { return d3.timeParse("%Y-%m-%d")(d.Date); }))
+  .range([0, width_hm - 100]);
+
+var xAxis_line = svg_cumulative_actual_linear
+    .append("g")
+    .attr("transform", 'translate(0,' + (height_line - 120) + ")")
+    .call(d3.axisBottom(x_c1).tickFormat(d3.timeFormat("%d-%B")).tickValues(line_1_chosen.map(function(d) { return d3.timeParse("%Y-%m-%d")(d.Date); })));
+
+xAxis_line
+.selectAll("text")
+.attr("transform", "rotate(-45)")
+.style("text-anchor", "end")
+
+var y_c1_ts = d3.scaleLinear()
+.domain([0, d3.max(line_1_chosen, function(d) { return +d.Cumulative_cases; })])
+.range([height_line - 120, 0]);
+
+var y_c1_ts_axis = svg_cumulative_actual_linear
+.append("g")
+.attr("transform", 'translate(0,0)')
+.call(d3.axisLeft(y_c1_ts));
+
+var tooltip_c1 = d3.select("#cumulative_ts_actual_linear")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip_class")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+
+var showTooltip_c1 = function(d) {
+
+tooltip_c1
+  .html("<h3>" + d.Name + ' - ' + d.Date_label + '</h3><p class = "side"><font color = "#1e4b7a"><b>' + d3.format(',.0f')(d.Cumulative_cases) + '</font></b></p>')
+  .style("opacity", 1)
+  .style("top", (event.pageY - 10) + "px")
+  .style("left", (event.pageX + 10) + "px")
+  .style("visibility", "visible")
+        }
+
+var mouseleave_c1 = function(d) {
+
+tooltip_c1
+.style("visibility", "hidden")
+    }
+
+var lines_c1 = svg_cumulative_actual_linear
+.append("path")
+.datum(line_1_chosen)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("d", d3.line()
+        .x(function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) })
+        .y(function(d) { return y_c1_ts(d.Cumulative_cases) })
+        )
+
+var lines_c1_three_day_smooth = svg_cumulative_actual_linear
+  .append('g')
+  .append("path")
+  .datum(line_1_chosen)
+.attr("stroke", '#dbdbdb')
+.style("stroke-width", 1)
+.style("fill", "none")
+  .attr("d", d3.line()
+  .x(function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) })
+  .y(function(d) { return y_c1_ts(d.Three_day_average_new_cases) })
+      );
+
+var dots_c1 = svg_cumulative_actual_linear
+  .selectAll('myCircles')
+  .data(line_1_chosen)
+.enter()
+  .append("circle")
+  .attr("cx", function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) } )
+  .attr("cy", function(d) { return y_c1_ts(d.Cumulative_cases) } )
+  .attr("r", 4)
+  .style("fill", function(d){ return 'green'})
+  .attr("stroke", "green")
+    .on("mousemove", showTooltip_c1)
+    .on('mouseout', mouseleave_c1);
+
+var number_cumulative_cases_total = svg_cumulative_actual_linear
+ .append("text")
+ .attr("x", width_hm *.03)
+ .attr("y", 40)
+ .attr('id', 'number_within_2542')
+ .attr("text-anchor", "start")
+ .style('font-weight', 'bold')
+ .style("font-size", "22px")
+
+var i_change = d3.interpolate(0, new_n);
+
+number_cumulative_cases_total
+.transition()
+.duration(1500)
+.tween("interventions", function() {
+  return function(t) {
+    current_n = i_change(t);
+    number_cumulative_cases_total.text(d3.format(",.0f")(current_n));
+  };
+});
+
+svg_cumulative_actual_linear
+ .append("text")
+ .attr("x", width_hm *.03)
+ .attr("y", 50)
+ .text('cases confirmed so far')
+ .attr("text-anchor", "start")
+
+function update_cumulative_actual_linear(){
+
+var tooltip_c1 = d3.select("#cumulative_ts_actual_linear")
+    .append("div")
+    .style("opacity", 0)
+    .attr("class", "tooltip_class")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("background-color", "white")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px")
+
+var showTooltip_c1 = function(d) {
+
+tooltip_c1
+  .html("<h3>" + d.Name + ' - ' + d.Date_label + '</h3><p class = "side"><font color = "#1e4b7a"><b>' + d3.format(',.0f')(d.Cumulative_cases) + '</font></b></p>')
+  .style("opacity", 1)
+  .style("top", (event.pageY - 10) + "px")
+  .style("left", (event.pageX + 10) + "px")
+  .style("visibility", "visible")
+        }
+
+var mouseleave_c1 = function(d) {
+
+tooltip_c1
+.style("visibility", "hidden")
+    }
+
+var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
+
+d3.select("#selected_line_1_compare_title")
+   .html(function(d) {
+        return 'Covid-19 cumulative cases over time; ' + selected_line_1_area_option});
+
+var old_n = line_1_chosen.filter(function(d){
+  return d.Date  === most_recent ;
+})[0]['Cumulative_cases']
+
+line_1_chosen = daily_cases.filter(function (d) {
+    return d.Name === selected_line_1_area_option
+});
+
+var new_n = line_1_chosen.filter(function(d){
+  return d.Date  === most_recent ;
+})[0]['Cumulative_cases']
+
+y_c1_ts
+.domain([0, d3.max(line_1_chosen, function(d) { return +d.Cumulative_cases; })])
+
+// Redraw axis
+y_c1_ts_axis
+.transition()
+.duration(1000)
+.call(d3.axisLeft(y_c1_ts));
+
+lines_c1
+.datum(line_1_chosen)
+.transition()
+.duration(1000)
+.attr("d", d3.line()
+.x(function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date)) })
+.y(function(d) { return y_c1_ts(d.Cumulative_cases) })
+  )
+
+dots_c1
+.data(line_1_chosen)
+.transition()
+.duration(1000)
+.attr("cx", function(d) { return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))})
+.attr("cy", function(d) { return y_c1_ts(d.Cumulative_cases)})
+
+var i_change = d3.interpolate(old_n, new_n);
+
+number_cumulative_cases_total
+.transition()
+.duration(2500)
+.tween("interventions", function() {
+  return function(t) {
+    current_n = i_change(t);
+    number_cumulative_cases_total.text(d3.format(",.0f")(current_n));
+  };
+});
+
+}
+
+update_cumulative_actual_linear()
+
+d3.select("#select_line_1_area_button").on("change", function (d) {
+var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
+    update_cumulative_actual_linear()
+})
 
 
 //
