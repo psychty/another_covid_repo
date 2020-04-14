@@ -42,7 +42,7 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
          Name = GEOGRAPHY_NAME) %>% 
   select(-Name)
 
-download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
+#download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
   # rename(`43930` = `43930...34`,
@@ -59,6 +59,7 @@ daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx')
   mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
   mutate(Three_day_average_new_cases = ifelse(rule_2 == 'some missing', NA, rollapply(New_cases, 3, mean, align = 'right', fill=NA))) %>%
   select(-c(New_cases_revised, rule_2)) %>% 
+  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill=NA)) %>%
   ungroup() %>% 
   # filter(Name != 'Unconfirmed') %>% 
   left_join(mye_total, by = c('Code')) %>% 
@@ -100,6 +101,7 @@ sussex_daily_cases <- daily_cases %>%
   mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
   mutate(Three_day_average_new_cases = ifelse(rule_2 == 'some missing', NA, rollapply(New_cases, 3, mean, align = 'right', fill=NA))) %>%
   select(-c(New_cases_revised, rule_2)) %>% 
+  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill=NA)) %>%
   mutate(Period = format(Date, '%d %B')) %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
@@ -120,6 +122,7 @@ south_east_region_daily_cases <- daily_cases %>%
   mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
   mutate(Three_day_average_new_cases = ifelse(rule_2 == 'some missing', NA, rollapply(New_cases, 3, mean, align = 'right', fill=NA))) %>%
   select(-c(New_cases_revised, rule_2)) %>% 
+  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill=NA)) %>%
   mutate(Period = format(Date, '%d %B')) %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
@@ -309,29 +312,29 @@ daily_cases_local %>%
 
 # Note: interpretation of the figures should take into account the fact that totals by date of death, particularly for recent prior days, are likely to be updated in future releases. For example as deaths are confirmed as testing positive for Covid-19, as more post-mortem tests are processed and data from them are validated. Any changes are made clear in the daily files.					
 
-if(!file.exists(paste0(github_repo_dir, '/etr.csv'))){
-  download.file('https://files.digital.nhs.uk/assets/ods/current/etr.zip', paste0(github_repo_dir, '/etr.zip'), mode = 'wb')
-  unzip(paste0(github_repo_dir, '/etr.zip'), exdir = github_repo_dir)
-  file.remove(paste0(github_repo_dir, '/etr.zip'), paste0(github_repo_dir, '/etr.pdf'))
-}
-
-etr <- read_csv(paste0(github_repo_dir, '/etr.csv'),col_names = c('Code', 'Name', 'National_grouping', 'Health_geography', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'Address_5', 'Postcode', 'Open_date', 'Close_date', 'Null_1', 'Null_2', 'Null_3', 'Null_4', 'Null_5', 'Contact', 'Null_6', 'Null_7', 'Null_8', 'Amended_record_indicator', 'Null_9', 'GOR', 'Null_10', 'Null_11', 'Null_12')) %>%
-  select(Code, Name, National_grouping) %>% 
-  mutate(Name = capwords(Name, strict = TRUE)) %>% 
-  mutate(Name = gsub(' And ', ' and ', Name)) %>% 
-  mutate(Name = gsub(' Of ', ' of ', Name)) %>% 
-  mutate(Name = gsub(' Nhs ', ' NHS ', Name)) %>% 
-  add_row( Code = '-', Name = 'England', National_grouping = '-')
-
-download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/04/COVID-19-total-announced-deaths-5-April-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
-              
-refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), skip = 15) %>% 
-  select(-c(...2, Total)) %>% 
-  filter(!is.na(Code)) %>% 
-  mutate(Name = capwords(Name, strict = TRUE)) %>% 
-  gather(key = "Date", value = "Deaths", 5:ncol(.)) %>% 
-  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
-  filter(!is.na(Date))
+# if(!file.exists(paste0(github_repo_dir, '/etr.csv'))){
+#   download.file('https://files.digital.nhs.uk/assets/ods/current/etr.zip', paste0(github_repo_dir, '/etr.zip'), mode = 'wb')
+#   unzip(paste0(github_repo_dir, '/etr.zip'), exdir = github_repo_dir)
+#   file.remove(paste0(github_repo_dir, '/etr.zip'), paste0(github_repo_dir, '/etr.pdf'))
+# }
+# 
+# etr <- read_csv(paste0(github_repo_dir, '/etr.csv'),col_names = c('Code', 'Name', 'National_grouping', 'Health_geography', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'Address_5', 'Postcode', 'Open_date', 'Close_date', 'Null_1', 'Null_2', 'Null_3', 'Null_4', 'Null_5', 'Contact', 'Null_6', 'Null_7', 'Null_8', 'Amended_record_indicator', 'Null_9', 'GOR', 'Null_10', 'Null_11', 'Null_12')) %>%
+#   select(Code, Name, National_grouping) %>% 
+#   mutate(Name = capwords(Name, strict = TRUE)) %>% 
+#   mutate(Name = gsub(' And ', ' and ', Name)) %>% 
+#   mutate(Name = gsub(' Of ', ' of ', Name)) %>% 
+#   mutate(Name = gsub(' Nhs ', ' NHS ', Name)) %>% 
+#   add_row( Code = '-', Name = 'England', National_grouping = '-')
+# 
+# download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/04/COVID-19-total-announced-deaths-14-April-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+#               
+# refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), skip = 15) %>% 
+#   select(-c(...2, Total)) %>% 
+#   filter(!is.na(Code)) %>% 
+#   mutate(Name = capwords(Name, strict = TRUE)) %>% 
+#   gather(key = "Date", value = "Deaths", 5:ncol(.)) %>% 
+#   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
+#   filter(!is.na(Date))
 
   
   
