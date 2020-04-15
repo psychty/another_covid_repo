@@ -1070,8 +1070,6 @@ svg_cumulative_actual_linear
 
 function update_cumulative_actual_linear() {
 
-
-
   var tooltip_c1 = d3.select("#cumulative_ts_actual_linear")
     .append("div")
     .style("opacity", 0)
@@ -1085,9 +1083,8 @@ function update_cumulative_actual_linear() {
     .style("padding", "10px")
 
   var showTooltip_c1 = function(d) {
-
     tooltip_c1
-      .html("<h3>" + d.Name + ' - ' + d.Date_label + '</h3><p class = "side"><font color = "#1e4b7a"><b>' + d3.format(',.0f')(d.Cumulative_cases) + '</font></b></p>')
+      .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">The cumulative total averaged over the last three days (rounded) is ' + d3.format(',.0f')(d.Three_day_average_cumulative_cases) + ' cases.<p class = "side">' + d.double_time_label_2 + '</p>')
       .style("opacity", 1)
       .style("top", (event.pageY - 10) + "px")
       .style("left", (event.pageX + 10) + "px")
@@ -1145,10 +1142,10 @@ function update_cumulative_actual_linear() {
     .transition()
     .duration(1000)
     .attr("d", d3.line()
-    .x(function(d) {
+      .x(function(d) {
         return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))
       })
-    .y(function(d) {
+      .y(function(d) {
         return y_c1_ts(d.Cumulative_cases)
       })
     )
@@ -1216,36 +1213,356 @@ function update_cumulative_actual_linear() {
     .attr("y", 60)
     .text('in ' + selected_line_1_area_option)
     .attr("text-anchor", "start")
-
 }
-
-// update_cumulative_actual_linear()
 
 d3.select("#select_line_1_area_button").on("change", function(d) {
   var selected_line_1_area_option = d3.select('#select_line_1_area_button').property("value")
   update_cumulative_actual_linear()
 })
 
+// Line graph two - per 100,000 cases - linear scale
+var svg_cumulative_rate_linear = d3.select("#cumulative_ts_per100000_linear")
+  .append("svg")
+  .attr("width", width_hm)
+  .attr("height", height_line)
+  .append("g")
+  .attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_line_2_area_button")
+  .selectAll('myOptions')
+  .data(areas_line)
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_line_2_comp_area_button")
+  .selectAll('myOptions')
+  .data(['England', 'Sussex areas combined', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+var selected_line_2_area_option = d3.select('#select_line_2_area_button').property("value")
+var selected_line_2_comp_area_option = d3.select('#select_line_2_comp_area_button').property("value")
+
+// Update text based on selected area
+d3.select("#selected_line_2_compare_title")
+  .html(function(d) {
+    return 'Covid-19 cumulative cases over time; rate per 100,000 population; ' + selected_line_2_area_option + ' compared to ' + selected_line_2_comp_area_option
+  });
+
+var line_2_chosen = daily_cases.filter(function(d) {
+  return d.Name === selected_line_2_area_option
+});
+
+var line_2_comp_chosen = daily_cases.filter(function(d) {
+  return d.Name === selected_line_2_comp_area_option
+});
+
+var tooltip_area_c2 = d3.select("#cumulative_ts_per100000_linear")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+var tooltip_area_comp_c2 = d3.select("#cumulative_ts_per100000_linear")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+  var showTooltip_area_c2 = function(d) {
+    tooltip_area_c2
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">' + d.double_time_label_2 + '</p>')
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style("visibility", "visible")
+  }
+
+  var showTooltip_comp_area_c2 = function(d) {
+    tooltip_area_comp_c2
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">' + d.double_time_label_2 + '</p>')
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style("visibility", "visible")
+  }
+
+  var mouseleave_c2 = function(d) {
+  tooltip_area_c2
+      .style("visibility", "hidden")
+
+  tooltip_area_comp_c2
+      .style("visibility", "hidden")
+  }
+
+var x_c2 = d3.scaleLinear()
+  .domain(d3.extent(line_2_chosen, function(d) {
+    return d3.timeParse("%Y-%m-%d")(d.Date);
+  }))
+  .range([0, width_hm - 100]);
+
+var xAxis_line_2 = svg_cumulative_rate_linear
+  .append("g")
+  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .call(d3.axisBottom(x_c2).tickFormat(d3.timeFormat("%d-%B")).tickValues(line_2_chosen.map(function(d) {
+    return d3.timeParse("%Y-%m-%d")(d.Date);
+  })));
+
+xAxis_line_2
+  .selectAll("text")
+  .attr("transform", "rotate(-45)")
+  .style("text-anchor", "end")
+
+var y_c2_ts = d3.scaleLinear()
+  .domain([0, d3.max([d3.max(line_2_chosen, function(d) {
+    return +d.Cumulative_per_100000;
+  }), d3.max(line_2_comp_chosen, function(d) {
+    return +d.Cumulative_per_100000;
+  })])])
+  .range([height_line - 90, 0]);
+
+var y_c2_ts_axis = svg_cumulative_rate_linear
+  .append("g")
+  .attr("transform", 'translate(0,0)')
+  .call(d3.axisLeft(y_c2_ts));
+
+var lines_area_c2 = svg_cumulative_rate_linear
+  .append("path")
+  .datum(line_2_chosen)
+  .attr("d", d3.line()
+    .x(function(d) {
+      return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+    })
+    .y(function(d) {
+      return y_c2_ts(d.Cumulative_per_100000)
+    })
+  )
+  .style("fill", "none")
+  .style("stroke-width", 1.5)
+  .attr("stroke", '#5e106d')
+
+var dots_area_c2 = svg_cumulative_rate_linear
+  .selectAll('myCircles')
+  .data(line_2_chosen)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) {
+    return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c2_ts(d.Cumulative_per_100000)
+  })
+  .attr("r", 4)
+  .style("fill", '#5e106d')
+  .attr("stroke", '#5e106d')
+  .on("mousemove", showTooltip_area_c2)
+  .on('mouseout', mouseleave_c2);
+
+var lines_comp_area_c2 = svg_cumulative_rate_linear
+  .append("path")
+  .datum(line_2_comp_chosen)
+  .attr("d", d3.line()
+    .x(function(d) {
+      return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+    })
+    .y(function(d) {
+      return y_c2_ts(d.Cumulative_per_100000)
+    })
+  )
+  .style("fill", "none")
+  .style("stroke-width", 1.5)
+  .attr("stroke", '#f69602')
+
+var dots_comp_area_c2 = svg_cumulative_rate_linear
+  .selectAll('myCircles')
+  .data(line_2_comp_chosen)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) {
+    return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c2_ts(d.Cumulative_per_100000)
+  })
+  .attr("r", 4)
+  .style("fill", '#f69602')
+  .attr("stroke", '#f69602')
+  .on("mousemove", showTooltip_comp_area_c2)
+  .on('mouseout', mouseleave_c2);
+
+svg_cumulative_rate_linear
+    .append("circle")
+    .attr("cx", width_hm * .03)
+    .attr("cy", 40)
+    .attr("r", 4)
+    .style("fill", '#5e106d')
+
+svg_cumulative_rate_linear
+    .append("circle")
+    .attr("cx", width_hm * .03)
+    .attr("cy", 55)
+    .attr("r", 4)
+    .style("fill", '#f69602')
+
+svg_cumulative_rate_linear
+    .append("text")
+    .attr('id', 'area_c2')
+    .attr("x", width_hm * .03 + 10)
+    .attr("y", 43)
+    .text(selected_line_2_area_option)
+    .attr("text-anchor", "start")
+
+svg_cumulative_rate_linear
+    .append("text")
+    .attr('id', 'area_comp_c2')
+    .attr("x", width_hm * .03 + 10)
+    .attr("y", 58)
+    .text(selected_line_2_comp_area_option)
+    .attr("text-anchor", "start")
+
+function update_cumulative_actual_rate_per_100000() {
+  var selected_line_2_area_option = d3.select('#select_line_2_area_button').property("value")
+  var selected_line_2_comp_area_option = d3.select('#select_line_2_comp_area_button').property("value")
+
+  d3.select("#selected_line_2_compare_title")
+    .html(function(d) {
+      return 'Covid-19 cumulative cases over time; rate per 100,000 population; ' + selected_line_2_area_option + ' compared to ' + selected_line_2_comp_area_option
+    });
+
+  var line_2_chosen = daily_cases.filter(function(d) {
+    return d.Name === selected_line_2_area_option
+  });
+
+  var line_2_comp_chosen = daily_cases.filter(function(d) {
+    return d.Name === selected_line_2_comp_area_option
+  });
+
+  y_c2_ts
+    .domain([0, d3.max([d3.max(line_2_chosen, function(d) {
+      return +d.Cumulative_per_100000;
+    }), d3.max(line_2_comp_chosen, function(d) {
+      return +d.Cumulative_per_100000;
+    })])])
+
+  // Redraw axis
+  y_c2_ts_axis
+    .transition()
+    .duration(1000)
+    .call(d3.axisLeft(y_c2_ts));
+
+  lines_area_c2
+    .datum(line_2_chosen)
+    .transition()
+    .duration(1000)
+    .attr("d", d3.line()
+      .x(function(d) {
+        return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+      })
+      .y(function(d) {
+        return y_c2_ts(d.Cumulative_per_100000)
+      })
+    )
+
+  dots_area_c2
+  .data(line_2_chosen)
+  .transition()
+  .duration(1000)
+  .attr("cx", function(d) {
+    return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c2_ts(d.Cumulative_per_100000)
+  })
+
+  lines_comp_area_c2
+    .datum(line_2_comp_chosen)
+    .transition()
+    .duration(1000)
+    .attr("d", d3.line()
+      .x(function(d) {
+        return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+      })
+      .y(function(d) {
+        return y_c2_ts(d.Cumulative_per_100000)
+      })
+    )
+
+  dots_comp_area_c2
+  .data(line_2_comp_chosen)
+  .transition()
+  .duration(1000)
+  .attr("cx", function(d) {
+    return x_c2(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c2_ts(d.Cumulative_per_100000)
+  })
+
+svg_cumulative_rate_linear
+    .selectAll("#area_c2")
+    .remove();
+
+svg_cumulative_rate_linear
+    .selectAll("#area_comp_c2")
+    .remove();
+
+svg_cumulative_rate_linear
+    .append("text")
+    .attr('id', 'area_c2')
+    .attr("x", width_hm * .03 + 10)
+    .attr("y", 43)
+    .text(selected_line_2_area_option)
+    .attr("text-anchor", "start")
+
+svg_cumulative_rate_linear
+    .append("text")
+    .attr('id', 'area_comp_c2')
+    .attr("x", width_hm * .03 + 10)
+    .attr("y", 58)
+    .text(selected_line_2_comp_area_option)
+    .attr("text-anchor", "start")
+
+}
+
+d3.select("#select_line_2_area_button").on("change", function(d) {
+  var selected_line_2_area_option = d3.select('#select_line_2_area_button').property("value")
+  var selected_line_2_comp_area_option = d3.select('#select_line_2_comp_area_button').property("value")
+  update_cumulative_actual_rate_per_100000()
+})
+
+d3.select("#select_line_2_comp_area_button").on("change", function(d) {
+  var selected_line_2_area_option = d3.select('#select_line_2_area_button').property("value")
+  var selected_line_2_comp_area_option = d3.select('#select_line_2_comp_area_button').property("value")
+  update_cumulative_actual_rate_per_100000()
+})
 
 //
-//
-//
-//
-//
-//
-//
-//
-//
-// //
-// // // Line graph two - per 100,000 cases - linear scale
-// //
-// // var svg_cumulative_actual_linear = d3.select("#cumulative_ts_per100000_linear")
-// // .append("svg")
-// // .attr("width", width_hm)
-// // .attr("height", height_line)
-// // .append("g")
-// // .attr("transform", "translate(" + 30 + "," + 30 + ")");
-// //
 // // // Log scale - doubling time
 // //
 // // var svg_cumulative_actual_linear = d3.select("#cumulative_log")

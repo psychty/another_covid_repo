@@ -86,14 +86,26 @@
 
 <!-- <h2>Maybe add an early description of trends for each area compared to England which can be displayed on the plots</h2> -->
 
-<!-- <div class = 'content'>
+<div class = 'content'>
+<p>This figure shows the number of confirmed Covid-19 cases per 100,000 population over time. It allows you to compare different areas as if they had the same size population.</p>
+<h4 id = 'selected_line_2_compare_title'></h4>
+<div class = 'drop'>
+<span>Area: </span>
+<select id='select_line_2_area_button'></select>
+<span>Second area (for comparison): </span>
+<select id='select_line_2_comp_area_button'></select>
+</div>
+
 <div id = 'cumulative_ts_per100000_linear'></div>
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side'>This figure shows the number of confirmed Covid-19 cases per 100,000 population over time. It allows you to compare different areas as if they had the same size population.</p>
+<p class = 'side'>Whilst comparing rates per 100,000 helps to standardise the total population size, it does not take into account different demographics of the populations in each area (e.g. the age and sex structure of a population). Data on the confirmed cases by age and sex, particularly at sub-national level, is currently unavailable. When and if these data become available, the figures will be updated to include age-sex standardised rates.</p>
+<p class = 'side'>Population denominators are taken from the mid-year estimates for 2018 published by the <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland'>Office for National Statistics</a>.</p>
+<p class = 'side'>Rates are rounded to the nearest whole number (case). It should be noted that whilst cases are relatively low in some areas, rates may not be robust and in many cases may hover around zero for some time, although this does not necessarily mean zero cases.</p>
 </div>
 
+<!--
 <div class = 'content'>
 <div id = 'cumulative_log'></div>
 <h2>Add what case x is (as it is different for each area)</h2>
