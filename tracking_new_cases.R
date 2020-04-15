@@ -36,7 +36,7 @@ ph_theme = function(){
   ) 
 }
 
-mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1941962753...1941962984,2092957699&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
+mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
   rename(Population = OBS_VALUE,
          Code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME) %>% 
@@ -44,24 +44,51 @@ mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.
 
 #download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
-daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'),sheet = "UTLAs", skip = 6) %>% 
-  # rename(`43930` = `43930...34`,
-  #        `43931` = `43930...35`) %>% 
-  gather(key = "Date", value = "Cumulative_cases", 3:ncol(.)) %>% 
-  rename(Name = `Area Name`) %>% 
-  rename(Code = `Area Code`) %>% 
-  mutate(Name = ifelse(is.na(Name), 'Unconfirmed', Name)) %>% 
-  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
-  arrange(Name, Date) %>% 
+# On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specemin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
+
+# Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like the most recent days' cases (which are still being reported daily) are sloping off (getting smaller). This is not the case, it is just that the most recent testing results may take several days to be reported. PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.
+
+# Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specemin was taken, which means the time series starts at different dates for different areas. The first specimins for a confirmed Covid-19 infection were taken on Janurary 30th 2020.
+
+daily_cases <- read_csv(paste0(github_repo_dir, '/coronavirus-cases.csv')) %>% 
+  rename(Name = `Area name`) %>% 
+  rename(Code = `Area code`) %>% 
+  rename(Date = `Specimen date`) %>% 
+  rename(New_cases = `Daily lab-confirmed cases`) %>% 
+  rename(Cumulative_cases = `Cumulative lab-confirmed cases`) %>% 
+  arrange(Name, Date) 
+
+# Because we now have a date of specimin for each area, if no specimins are taken on a day, there is no row for it, and it would be missing data. Indeed, the only zeros are on the latest day. We need to therefore backfill and say if no date exists where it should, then add it, with the cumulative total and zero for new cases.
+
+first_date <- min(daily_cases$Date)
+last_date <- max(daily_cases$Date)
+
+Areas = daily_cases %>% 
+  select(Name, Code, `Area type`) %>% 
+  unique()
+  
+Dates = seq.Date(first_date, last_date, by = '1 day')
+
+daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), `Area type` = rep(Areas$`Area type`, length(Dates)), check.names = FALSE) %>% 
+  arrange(Name) %>% 
   group_by(Name) %>% 
-  mutate(New_cases = Cumulative_cases - lag(Cumulative_cases)) %>% 
-  mutate(New_cases_revised = ifelse(New_cases < 0, NA, New_cases)) %>% 
-  mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
-  mutate(Three_day_average_new_cases = ifelse(rule_2 == 'some missing', NA, rollapply(New_cases, 3, mean, align = 'right', fill=NA))) %>%
-  select(-c(New_cases_revised, rule_2)) %>% 
-  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill=NA)) %>%
-  ungroup() %>% 
-  # filter(Name != 'Unconfirmed') %>% 
+  mutate(Date = seq.Date(first_date, last_date, by = '1 day')) %>% 
+  left_join(daily_cases, by = c('Name', 'Code', 'Area type', 'Date')) %>% 
+  mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
+  mutate(New_cumulative = cumsum(New_cases)) %>% 
+  filter(!is.na(Cumulative_cases)) %>% 
+  mutate(calcus = ifelse(Cumulative_cases == New_cumulative, 'Yaas', 'mofono'))
+
+daily_cases_reworked %>% 
+  group_by(calcus) %>% 
+  summarise(n())
+
+# The problem with City of London is that there were 5 cumulative cases to start with (and not 0), we need to change that in the dataset to say if cumulative is not blank but new cases is blank, then whats going on.
+
+#%>% 
+  group_by(Name) %>% 
+  mutate(Three_day_average_new_cases = rollapply(New_cases, 3, mean, align = 'right', fill = NA)) %>%
+  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill = NA)) %>%
   left_join(mye_total, by = c('Code')) %>% 
   select(-c(Code, DATE_NAME)) %>% 
   mutate(Period = format(Date, '%d %B')) %>% 
@@ -71,17 +98,28 @@ daily_cases <- read_excel(paste0(github_repo_dir, '/refreshed_daily_cases.xlsx')
   mutate(new_case_per_100000_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 5, '1-5 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 6 & round(New_cases_per_100000,0) <= 10, '6-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 11 & round(New_cases_per_100000, 0) <= 15, '11-15 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 16 & round(New_cases_per_100000,0) <= 20, '16-20 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 20, 'More than 20 new cases per 100,000', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-5 new cases per 100,000', '6-10 new cases per 100,000', '11-15 new cases per 100,000', '16-20 new cases per 100,000', 'More than 20 new cases per 100,000'))) %>% 
   mutate(label_1 = ifelse(new_case_key == 'Starting cases', paste0('This is the first day of recording cases at UTLA level. On the 9th March there ', ifelse(Cumulative_cases == 0, ' were no cases', ifelse(Cumulative_cases == 1, ' was one Covid-19 case ', Cumulative_cases)), ' reported in ', Name, '.'), ifelse(new_case_key == 'Data revised down', paste0("The cumulative number of cases was revised on this day (", Period, ") which meant the number of new cases was negative, these have been reset to zero, with tomorrow's new cases calculated based on the revised cumulative value."), paste0('The number of new cases reported in the previous 24 hours was ', New_cases, '.')))) %>% 
   mutate(label_2 = ifelse(new_case_key %in% c('Starting cases', 'Data revised down'), paste0('The total (cumulative) number of COVID-19 cases reported to date (', Period, ') is <b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>. This is <b>', round(Cumulative_per_100000,0), '</b> cases per 100,000 population.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>'), paste0('The new cases reported on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of COVID-19 cases reported to date (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>). The current cumulative total per 100,000 population is <b>', round(Cumulative_per_100000,0), '</b>.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')))  %>% 
-  mutate(label_3 = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average for this date (', Period, ') because one of the values in the last three days is missing or revised.'), paste0('The rolling average number of new cases in the last three days is <b>', round(Three_day_average_new_cases, 0), '</b> cases. <i>Note: the rolling average has been rounded to the nearest whole number.</i>'))) 
+  mutate(label_3 = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average for this date (', Period, ') because one of the values in the last three days is missing or revised.'), paste0('The rolling average number of new cases in the last three days is <b>', round(Three_day_average_new_cases, 0), '</b> cases. <i>Note: the rolling average has been rounded to the nearest whole number.</i>'))) %>% 
+  ungroup()
 
-daily_cases %>% 
-  filter(Name %in% c('Unconfirmed', 'England')) %>% 
+
+
+
+
+
+unconfirmed <- daily_cases %>% 
   filter(Date == max(Date)) %>% 
-  select(Date, Name, Cumulative_cases) %>% 
-  spread(key = Name, value = Cumulative_cases) %>% 
+  group_by(`Area type`, Date) %>% 
+  summarise(Cumulative_cases = sum(Cumulative_cases)) %>% 
+  filter(`Area type` != 'Upper tier local authority') %>% 
+  rename(Area = `Area type`) %>% 
+  spread(value = Cumulative_cases, key = Area) %>%
+  mutate(Unconfirmed = Country - Region) %>% 
+  rename(England = Country) %>% 
+  select(-Region) %>% 
   mutate(Proportion_unconfirmed = Unconfirmed / England) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/unconfirmed_latest.json'))
-
+  
 levels(daily_cases$new_case_key) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/daily_cases_bands.json'))
@@ -91,7 +129,7 @@ levels(daily_cases$new_case_per_100000_key) %>%
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/daily_cases_per_100000_bands.json'))
 
 sussex_daily_cases <- daily_cases %>% 
-  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
+  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) #%>% 
   group_by(Date) %>% 
   summarise(Cumulative_cases = sum(Cumulative_cases, na.rm = TRUE),
             Population = sum(Population, na.rm = TRUE)) %>% 
@@ -111,33 +149,35 @@ sussex_daily_cases <- daily_cases %>%
   mutate(label_2 = ifelse(new_case_key %in% c('Starting cases', 'Data revised down'), paste0('The total (cumulative) number of COVID-19 cases reported to date (', Period, ') is <b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>. This is <b>', round(Cumulative_per_100000,0), '</b> cases per 100,000 population.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>'), paste0('The new cases reported on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of COVID-19 cases reported to date (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>). The current cumulative total per 100,000 population is <b>', round(Cumulative_per_100000,0), '</b>.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')))  %>% 
   mutate(label_3 = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average for this date (', Period, ') because one of the values in the last three days is missing or revised.'), paste0('The rolling average number of new cases in the last three days is <b>', round(Three_day_average_new_cases, 0), '</b> cases. <i>Note: the rolling average has been rounded to the nearest whole number.</i>'))) 
 
-south_east_region_daily_cases <- daily_cases %>% 
-  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham')) %>% 
-  group_by(Date) %>% 
-  summarise(Cumulative_cases = sum(Cumulative_cases, na.rm = TRUE),
-            Population = sum(Population, na.rm = TRUE)) %>% 
-  mutate(Name = 'South East region') %>% 
-  mutate(New_cases = Cumulative_cases - lag(Cumulative_cases)) %>% 
-  mutate(New_cases_revised = ifelse(New_cases < 0, NA, New_cases)) %>% 
-  mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
-  mutate(Three_day_average_new_cases = ifelse(rule_2 == 'some missing', NA, rollapply(New_cases, 3, mean, align = 'right', fill=NA))) %>%
-  select(-c(New_cases_revised, rule_2)) %>% 
-  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill=NA)) %>%
-  mutate(Period = format(Date, '%d %B')) %>% 
-  mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
-  mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
-  mutate(new_case_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases < 0, 'Data revised down', ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases > 75, 'More than 75 cases', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', 'More than 75 cases'))) %>% 
-  mutate(new_case_per_100000_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 5, '1-5 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 6 & round(New_cases_per_100000,0) <= 10, '6-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 11 & round(New_cases_per_100000, 0) <= 15, '11-15 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 16 & round(New_cases_per_100000,0) <= 20, '16-20 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 20, 'More than 20 new cases per 100,000', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-5 new cases per 100,000', '6-10 new cases per 100,000', '11-15 new cases per 100,000', '16-20 new cases per 100,000', 'More than 20 new cases per 100,000'))) %>% 
-  mutate(label_1 = ifelse(new_case_key == 'Starting cases', paste0('This is the first day of recording cases at UTLA level. On the 9th March there ', ifelse(Cumulative_cases == 0, ' were no cases', ifelse(Cumulative_cases == 1, ' was one Covid-19 case ', Cumulative_cases)), ' reported in ', Name, '.'), ifelse(new_case_key == 'Data revised down', paste0("The cumulative number of cases was revised on this day (", Period, ") which meant the number of new cases was negative, these have been reset to zero, with tomorrow's new cases calculated based on the revised cumulative value."), paste0('The number of new cases reported in the previous 24 hours was ', New_cases, '.')))) %>% 
-  mutate(label_2 = ifelse(new_case_key %in% c('Starting cases', 'Data revised down'), paste0('The total (cumulative) number of COVID-19 cases reported on (', Period, ') was <b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>. This is <b>', round(Cumulative_per_100000,0), '</b> cases per 100,000 population.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>'), paste0('The new cases reported on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of COVID-19 cases reported to date (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>). The current cumulative total per 100,000 population is <b>', round(Cumulative_per_100000,0), '</b>.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')))  %>% 
-  mutate(label_3 = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average for this date (', Period, ') because one of the values in the last three days is missing or revised.'), paste0('The rolling average number of new cases in the last three days is <b>', round(Three_day_average_new_cases, 0), '</b> cases. <i>Note: the rolling average has been rounded to the nearest whole number.</i>'))) 
+# south_east_region_daily_cases <- daily_cases %>% 
+#   filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham')) %>% 
+#   group_by(Date) %>% 
+#   summarise(Cumulative_cases = sum(Cumulative_cases, na.rm = TRUE),
+#             Population = sum(Population, na.rm = TRUE)) %>% 
+#   mutate(Name = 'South East region') %>% 
+#   mutate(New_cases = Cumulative_cases - lag(Cumulative_cases)) %>% 
+#   mutate(New_cases_revised = ifelse(New_cases < 0, NA, New_cases)) %>% 
+#   mutate(rule_2 = rollapply(New_cases_revised, 3, function(x)if(any(is.na(x))) 'some missing' else 'all there', align = 'right', partial = TRUE)) %>% 
+#   mutate(Three_day_average_new_cases = ifelse(rule_2 == 'some missing', NA, rollapply(New_cases, 3, mean, align = 'right', fill=NA))) %>%
+#   select(-c(New_cases_revised, rule_2)) %>% 
+#   mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill=NA)) %>%
+#   mutate(Period = format(Date, '%d %B')) %>% 
+#   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
+#   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
+#   mutate(new_case_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases < 0, 'Data revised down', ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases > 75, 'More than 75 cases', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', 'More than 75 cases'))) %>% 
+#   mutate(new_case_per_100000_key = factor(ifelse(Date == min(Date), 'Starting cases', ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 5, '1-5 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 6 & round(New_cases_per_100000,0) <= 10, '6-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 11 & round(New_cases_per_100000, 0) <= 15, '11-15 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 16 & round(New_cases_per_100000,0) <= 20, '16-20 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 20, 'More than 20 new cases per 100,000', NA)))))))), levels =  c('Starting cases', 'Data revised down', 'No new cases', '1-5 new cases per 100,000', '6-10 new cases per 100,000', '11-15 new cases per 100,000', '16-20 new cases per 100,000', 'More than 20 new cases per 100,000'))) %>% 
+#   mutate(label_1 = ifelse(new_case_key == 'Starting cases', paste0('This is the first day of recording cases at UTLA level. On the 9th March there ', ifelse(Cumulative_cases == 0, ' were no cases', ifelse(Cumulative_cases == 1, ' was one Covid-19 case ', Cumulative_cases)), ' reported in ', Name, '.'), ifelse(new_case_key == 'Data revised down', paste0("The cumulative number of cases was revised on this day (", Period, ") which meant the number of new cases was negative, these have been reset to zero, with tomorrow's new cases calculated based on the revised cumulative value."), paste0('The number of new cases reported in the previous 24 hours was ', New_cases, '.')))) %>% 
+#   mutate(label_2 = ifelse(new_case_key %in% c('Starting cases', 'Data revised down'), paste0('The total (cumulative) number of COVID-19 cases reported on (', Period, ') was <b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>. This is <b>', round(Cumulative_per_100000,0), '</b> cases per 100,000 population.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>'), paste0('The new cases reported on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of COVID-19 cases reported to date (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>). The current cumulative total per 100,000 population is <b>', round(Cumulative_per_100000,0), '</b>.</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')))  %>% 
+#   mutate(label_3 = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average for this date (', Period, ') because one of the values in the last three days is missing or revised.'), paste0('The rolling average number of new cases in the last three days is <b>', round(Three_day_average_new_cases, 0), '</b> cases. <i>Note: the rolling average has been rounded to the nearest whole number.</i>'))) 
   
 daily_cases_local <- daily_cases %>% 
-  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'England')) %>% 
-  bind_rows(sussex_daily_cases) %>% 
-  bind_rows(south_east_region_daily_cases)
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'South East', 'England')) %>% 
+  bind_rows(sussex_daily_cases) 
 
 rm(sussex_daily_cases, south_east_region_daily_cases, daily_cases, mye_total)
+
+
+
 
 # Doubling time ####
 # https://jglobalbiosecurity.com/articles/10.31646/gbio.61/
@@ -163,7 +203,7 @@ first_x_date <- daily_cases_local %>%
 
 daily_cases_local <- daily_cases_local %>% 
   group_by(Name) %>% 
-  mutate(Days_since_collection_start = row_number()-1) %>% # add days since start of data
+  mutate(Days_since_first_case = row_number()-1) %>% # add days since start of data
   left_join(first_x_date, by = c('Name')) %>% 
   mutate(Days_since_case_x = as.numeric(difftime(Date, First_date_x_cases, units = c("days")))) %>% 
   select(-First_date_x_cases) %>% 
@@ -176,10 +216,11 @@ double_time_period <- 7 # this could be 5 or 7
 doubling_time_df <- daily_cases_local %>% 
   filter(Days_since_case_x >= 0) %>%
   mutate(Log10Cumul = log10(Cumulative_cases)) %>% 
-  mutate(period_in_reverse = ifelse(Days_since_collection_start > max(Days_since_collection_start) -double_time_period, 1, ifelse(Days_since_collection_start > max(Days_since_collection_start)-(double_time_period*2), 2, ifelse(Days_since_collection_start > max(Days_since_collection_start)-(double_time_period*3), 3, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period*4), 4, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period *5), 5, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 6), 6, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 7), 7, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 8), 8, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 9), 9, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 10), 10, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 11), 11, ifelse(Days_since_collection_start > max(Days_since_collection_start) - (double_time_period * 12), 12, NA))))))))))))) %>% 
+  filter(Date <= max(Date - 5)) #%>%  # If we're expecting that the most recent five days are incomplete then we should remove them from the doubling time calculation.
+  mutate(period_in_reverse = ifelse(Days_since_first_case > max(Days_since_first_case) -double_time_period, 1, ifelse(Days_since_first_case > max(Days_since_first_case)-(double_time_period*2), 2, ifelse(Days_since_first_case > max(Days_since_first_case)-(double_time_period*3), 3, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period*4), 4, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period *5), 5, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 6), 6, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 7), 7, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 8), 8, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 9), 9, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 10), 10, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 11), 11, ifelse(Days_since_first_case > max(Days_since_first_case) - (double_time_period * 12), 12, NA)))))))))))))# %>% 
   group_by(Name, period_in_reverse) %>%   
-  mutate(Slope = coef(lm(Log10Cumul ~ Days_since_collection_start))[2]) %>% 
-  mutate(Double_time = log(2, base = 10)/coef(lm(Log10Cumul ~ Days_since_collection_start))[2]) %>%
+  mutate(Slope = coef(lm(Log10Cumul ~ Days_since_first_case))[2]) %>% 
+  mutate(Double_time = log(2, base = 10)/coef(lm(Log10Cumul ~ Days_since_first_case))[2]) %>%
   mutate(N_days_in_doubling_period = n()) %>% 
   mutate(Double_time = ifelse(N_days_in_doubling_period != double_time_period, NA, Double_time)) %>%
   mutate(Slope = ifelse(N_days_in_doubling_period != double_time_period, NA, Slope)) %>% 
