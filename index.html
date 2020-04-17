@@ -21,16 +21,22 @@
 
 <div class = "content"  id = 'content_size'>
 <p>This analysis summarises the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE) for Upper Tier Local Authority and Unitary Authority (UTLA) areas. This is primarily for the Sussex Local Authorities (Brighton and Hove, East Sussex, and West Sussex), but it also covers the 19 UTLAs in the South East region of England.</p>
-<p>These figures reflect the cases confirmed as a result of the testing strategy carried out at the time. At the start of the outbreak, the testing capacity was limited but is increasing over time. The current (March and April) strategy has largely been to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>). As capacity increases, more and more healthcare workers will be prioritised for testing in what has been termed 'Pillar 2' testing and beyond this the government is planning to expand diagnostics to antibody testing to confirm that a person has had the virus and is therefore immune to catching it again. See <a href = 'https://www.gov.uk/government/publications/coronavirus-covid-19-scaling-up-testing-programmes/coronavirus-covid-19-scaling-up-our-testing-programmes'>Government testing plans April 6th 2020</a> for more details.</p>
+<p>On 14th April, the way in which PHE share data on cases changed. Prior to the 14th April, data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and particularly whilst capacity is being increased, there is some delay in returning results. For example, a patient having a swab taken on 1st April, with a positive result returned and reported to PHE on 5th April would be attributed to 5th April even though the patient was infected at least four days earlier.</p>
+
+<p>From the 14th April, the new method of reporting shows confirmed cases by the date at which the specemin for testing was taken. The first positive specimen date is used and duplicate tests for the same patient are removed.</p>
+
+<p>Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like the most recent days' cases (which are still being reported daily) are sloping off (getting smaller). <b>This is not the case, it is just that the most recent testing results may take several days to be reported.</b> PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.</p>
+
 <p id = 'data_recency'></p>
 <p id = 'unconfirmed_cases_count'></p>
-<p>The time of day at which the total was taken has varied some days, and this may have an impact on daily variation (if a snapshot is taken at 9am one day and 5pm the next there will likely be greater numbers of cases) but this is likely to smooth out using average counts (e.g. over three days).</p>
-<p>From 11th April 2020, the totals include the additional cases identified through 'Pillar 2' (healthcare and other criticial key worker) testing.</p>
+
+<p>Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specimin was taken, which means the time series starts at different dates for different areas. The first specimins for a confirmed Covid-19 infection were taken on Janurary 30th 2020.</p>
 </div>
 
 <div class = 'right-sidebar'>
   <p class = 'side'>This page works best in certain browsers such as Chrome, Firefox, and Safari, and does not work so well currently in Internet Explorer.</p>
   <p class = 'side'>This analysis has been created by Rich Tyler and Ryan Walkley at the West Sussex Public Health and Social Research Unit.</p>
+<p class = 'side'>These figures reflect the cases confirmed as a result of the testing strategy carried out at the time. At the start of the outbreak, the testing capacity was limited but is increasing over time. The current (March and April) strategy has largely been to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>). As capacity increases, more and more healthcare workers will be prioritised for testing in what has been termed 'Pillar 2' testing and beyond this the government is planning to expand diagnostics to antibody testing to confirm that a person has had the virus and is therefore immune to catching it again. See <a href = 'https://www.gov.uk/government/publications/coronavirus-covid-19-scaling-up-testing-programmes/coronavirus-covid-19-scaling-up-our-testing-programmes'>Government testing plans April 6th 2020</a> for more details.</p>
 </div>
 </div>
 
@@ -38,9 +44,12 @@
 <div class = 'content'>
 <h4 id = 'summary_cases_title'></h4>
 <p>The first table and visualisation below shows the most recent recorded cases and the number of new cases by day. It is ordered by total number (cumulative) of cases to date with the highest number of confirmed cases at the top.</p>
+<p>The table also shows the most recent doubling times of confirmed cases over <u>five day periods</u>. This is the length of time it takes the total (cumulative) number of cases to double over the specified time period and often uses recent days or weeks to explore the current trajectory (accounting for recent interventions to slow the virus spread). <b>A longer doubling time indicates slower growth and a shorter doubling time indicates growth rate is increasing.</b> This concept is explored in more detail later in this analysis. </p>
 <p id = 'doubling_time_narrative_1'></p>
 <p id = 'doubling_time_narrative_2'></p>
+
 <p>You can toggle between viewing the coloured squares as actual cases or as cases per 100,000 population. The areas across the South East have vast differences in population sizes. Bracknell Forest, the smallest area in terms of population, is estimated to be home for around 121,600 residents whilst Kent, with the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there. Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</p>
+<p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six prior (latest complete date).</font></p>
 
 <form class="btn-group btn-group-toggle stay-right-classy" data-toggle="buttons">
   <label class="btn btn-secondary active">
@@ -51,7 +60,7 @@
   </label>
 </form>
 
-<div id = 'new_case_headings'></div>
+<div id = 'case_headings'></div>
 <div id = 'new_cases_plotted'></div>
 </div>
 
@@ -62,8 +71,8 @@
   <p class = 'side'>The colour key for the tiles has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
   <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
-  <p class = 'side'><b>Data revised down</b></p>
-  <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p>
+  <!-- <p class = 'side'><b>Data revised down</b></p> -->
+  <!-- <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p> -->
   </div>
 </div>
 
@@ -82,6 +91,8 @@
 
 <div class = 'right-sidebar'>
   <p class = 'side'>The dashed line represents the averege number of cases reported over the last three days. This goes some way in smoothing out fluctuation occuring daily as a result of delays or validation.</p>
+  <p class = 'side_important'>You might notice that the lines and dots shift up and down as you change the area, giving the impression that one area is higher than another.</p>
+<p class = 'side_important'>The y axis is redrawn when you choose a new area so be sure to check that the count of confirmed cases on the chart.</p>
 </div>
 
 <!-- <h2>Maybe add an early description of trends for each area compared to England which can be displayed on the plots</h2> -->
@@ -105,31 +116,34 @@
 <p class = 'side'>Rates are rounded to the nearest whole number (case). It should be noted that whilst cases are relatively low in some areas, rates may not be robust and in many cases may hover around zero for some time, although this does not necessarily mean zero cases.</p>
 </div>
 
-<!--
-<div class = 'content'>
-<div id = 'cumulative_log'></div>
-<h2>Add what case x is (as it is different for each area)</h2>
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>Much like the importance of considering actual cases and cases per 100,000, it is also important to view the data from both a linear and a logarithmic scale. <b>The data remains the same</b> however the logarithmic scale is more sensitive to changes in the rate of case increases. This would make it easier to highlight significant changes in trends.</p>
-  <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.</p>
- </div>  -->
-</div>
+<!-- <div class = 'content'>
+<h4 id = 'selected_line_3_log_title'></h4>
+<div id = 'cumulative_log'></div> -->
 
-
-<!-- <div class="main"> -->
-<!-- <footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a>2020</footer> -->
+<!-- <h2>Add what case x is (as it is different for each area)</h2> -->
 <!-- </div> -->
+
+<!-- <div class = 'right-sidebar'>
+  <p class = 'side'>Much like the importance of considering both actual cases and cases per 100,000, it is also useful to view the data from both a linear and a logarithmic scale.</p>
+  <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.</p>
+<p class = 'side'><b>The data remains the same</b> however the logarithmic scale is more sensitive to changes in the rate of case increases. This would make it easier to highlight significant changes in trends.</p>
+</div> -->
+</div>
+
+
+<div class="main">
+<footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a>2020</footer>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
-<script src= "https://unpkg.com/shpjs@latest/dist/shp.js"></script>
 <script src="https://d3js.org/d3-format.v1.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<script src = "daily_tracking.js"></script>
+<script src = "covid_tracking_data_summary.js"></script>
+<script src = "covid_heatmap.js"></script>
+<script src = "covid_se_time_series.js"></script>
 
 </body>
 </html>

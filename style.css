@@ -153,3 +153,7 @@ p.key_list .side_tt {
 .stay-right-classy{
   float: right;
 }
+
+.ticked_off.tick:nth-child(2n) text {
+    visibility: hidden;
+}

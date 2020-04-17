@@ -8,6 +8,4 @@ All code is open; including an R script 'tracking_new_cases.R' to compile and an
 
 As more data becomes available, more will be added to the data visualisation.
 
-You can view the site [here](https://covid-case-new-daily.netlify.com).
-
-This version is hosted on netlify. [![Netlify Status](https://api.netlify.com/api/v1/badges/8f6e7454-e1c4-4a93-8e76-fd008d7d85bb/deploy-status)](https://app.netlify.com/sites/covid-case-new-daily/deploys)
+You can view the site [here](https://covid.tylerinsight.co.uk).
