@@ -49,7 +49,7 @@
 <p id = 'doubling_time_narrative_2'></p>
 
 <p>You can toggle between viewing the coloured squares as actual cases or as cases per 100,000 population. The areas across the South East have vast differences in population sizes. Bracknell Forest, the smallest area in terms of population, is estimated to be home for around 121,600 residents whilst Kent, with the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there. Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</p>
-<p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six prior (latest complete date).</font></p>
+<p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date).</font></p>
 
 <form class="btn-group btn-group-toggle stay-right-classy" data-toggle="buttons">
   <label class="btn btn-secondary active">
@@ -71,15 +71,14 @@
   <p class = 'side'>The colour key for the tiles has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
   <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
-  <!-- <p class = 'side'><b>Data revised down</b></p> -->
-  <!-- <p class = 'side'>In some cases, number of diagnosed cases can go down as a result of revision or validation.</p> -->
   </div>
 </div>
 
 <div class='main' id = 'case_time_series'>
 <div class = "content">
 <p>The first line chart below shows the actual number of confirmed Covid-19 cases over time. You can choose which area to display using the drop down menu.</p>
-
+<p>Remember, the last five dots on this figure should be considered incomplete whilst specimins taken on these dates take time to be tested.</p>
+<p>The dashed line represents the averege number of cases reported over the last three days. This goes some way in smoothing out fluctuation occuring daily as a result of delays or validation. The average line will usually trail a little lower than the actual line whilst cases continue to increase each day.</p>
 <div class = 'drop'>
 <span>Area: </span>
 <select id='select_line_1_area_button'></select>
@@ -90,18 +89,19 @@
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side'>The dashed line represents the averege number of cases reported over the last three days. This goes some way in smoothing out fluctuation occuring daily as a result of delays or validation.</p>
+
   <p class = 'side_important'>You might notice that the lines and dots shift up and down as you change the area, giving the impression that one area is higher than another.</p>
 <p class = 'side_important'>The y axis is redrawn when you choose a new area so be sure to check that the count of confirmed cases on the chart.</p>
 </div>
-
+</div>
 <!-- <h2>Maybe add an early description of trends for each area compared to England which can be displayed on the plots</h2> -->
-
+<div class="main" id = 'case_time_series_rate'>
 <div class = 'content'>
 <p>This figure shows the number of confirmed Covid-19 cases per 100,000 population over time. It allows you to compare different areas as if they had the same size population.</p>
+<p>England is shown as the second, reference line, in purple. However, you can change both the chosen area and the second area for comparison to explore differences between any pair of areas in the South East region or against national and regional values.</p>
 <h4 id = 'selected_line_2_compare_title'></h4>
 <div class = 'drop'>
-<span>Area: </span>
+<span class = 'give_me_space'>Area: </span>
 <select id='select_line_2_area_button'></select>
 <span>Second area (for comparison): </span>
 <select id='select_line_2_comp_area_button'></select>
@@ -115,11 +115,13 @@
 <p class = 'side'>Population denominators are taken from the mid-year estimates for 2018 published by the <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland'>Office for National Statistics</a>.</p>
 <p class = 'side'>Rates are rounded to the nearest whole number (case). It should be noted that whilst cases are relatively low in some areas, rates may not be robust and in many cases may hover around zero for some time, although this does not necessarily mean zero cases.</p>
 </div>
+</div>
 
-<!-- <div class = 'content'>
+<div class="main" id = 'loglinear_timeseries'>
+<div class = 'content'>
 <p>So far we have compared areas over time using counts and rates. These have shown vast differences across areas, and particularly highlighted that some local areas might be much further along their individual outbreaks than others. Indeed, we see that some areas such as Kent are recording their 2,000th confirmed case whilst the Isle of Wight is recording their 50th.</p>
 <p>As some areas record their first few confirmed cases on different days, we have redrawn the x axis (along the bottom from left to right) on the next figure to count the number of days since case number 10. By doing this, you pull all of the trajectories to start at the same point on the figure and they can be compared with other areas on this basis. Starting on case number 10, rather than case number 1, means that the trajectories are a little more established and potentially showing transmission within an area as opposed to a single case coming into the area.</p>
-<p>In addition, we have redrawn the y axis (vertical) to show the cumulative number of confirmed cases on a logarithmic scale (briefly explained on the right) by default to particularly highlight changes in growth (speeding up or slowing down) of infections. You can toggle between loglinear and linear scales to consider what each representation does to the data and trends.</p>
+<p>In addition, we have redrawn the y (vertical) axis to show the cumulative number of confirmed cases on a logarithmic scale (briefly explained on the right) to particularly highlight changes in growth (speeding up or slowing down) of infections. You can toggle between loglinear and linear scales to consider what each representation does to the data and trends.</p>
 <p>The figure shows all of the South East region Local Authority areas on one figure (South East region and England have been excluded to make it easier to see each local area). You can hover over an area with you mouse pointer to find out more or choose an area from the drop down menu to highlight without hovering.</p>
 
 <h4 id = 'selected_line_3_log_title'></h4>
@@ -132,11 +134,10 @@
     <input type="radio" name = 'toggle_c3_scale' value = 'linear' onchange ='toggle_scale_c3_func();'>linear scale<br>
   </label>
 </form>
-<span>Area to highlight: </span>
+<span class = 'give_me_space'>Area to highlight: </span>
 <select id='select_line_3_area_button'></select>
 </div>
 <div id = 'cumulative_log'></div>
-
 </div>
 
 <div class = 'right-sidebar'>
@@ -144,9 +145,10 @@
   <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.</p>
 <p class = 'side'><b>The data remains the same</b> however the logarithmic scale is more sensitive to changes in the rate of case increases. This would make it easier to highlight significant changes in trends.</p>
 </div>
-
+</div>
+<!-- <div class="main" id = 'loglinear_timeseries_plus_doubling'>
 <div class = 'content'>
-<p>The last figure for confirmed cases shows when we might expect the confirmed cases for a single area to double given the most recent doubling time estimate (e.g. based on the most recent five days of complete data).</p>
+<p>The last figure for confirmed cases shows when we might expect the confirmed cases for a single area to double; given the most recent doubling time estimate (e.g. based on the most recent five days of complete data).</p>
 <p>In this figure you can select an area to show the current trajectory, highlighting what the current trajectory means in terms of confirmed cases in the near future. You can also toggle between viewing the figure on a logarithmic scale (by default) or linear scale.</p>
 <h4 id = 'selected_line_4_log_title'></h4>
 <div class = 'drop'>
@@ -158,23 +160,29 @@
     <input type="radio" name = 'toggle_scale' value = 'linear' onchange ='toggle_scale_func();'>linear scale<br>
   </label>
 </form>
-<span>Area: </span>
+<span class = 'give_me_space'>Area: </span>
 <select id='select_line_4_area_button'></select>
 </div>
 
 <div id = 'cumulative_log_double_time_added'></div>
 
 <div id = 'test_animated_line'></div>
-
 </div>
-
 <div class = 'right-sidebar'>
   <p class = 'side'>The dashed lines show the doubling of cases from the last 'complete' day of data as if the trajectory continued on its current course.</p>
   <p class = 'side_important'>It should be noted that the effects of measures such as social distancing will hopefully continue to alter the trajectory and will impact the doubling time.</p>
 </div>
-
 </div> -->
 
+<div class="main" id = 'other_cases_and_metrics'>
+<div class ='content'>
+<p>The data presented so far has been based on confirmed cases of Covid-19. The confirmed cases are only a representation of the testing strategy and currently only show test results for patients in hospital as well as 'frontline' healthcare workers. <b>There will be many un-diagnosed cases</b> in the community (outside of hospital), in carehomes, and in other settings (such as prisons).</p>
+<p>Until a robust community testing capability is realised, it is impossible to define the true spread of Covid-19. However, there are some other data sources and measures that can help to fill in the gaps.</p>
+<p>Symptom tracker applications such as the 'COVID Symptom Tracker' by researchers at King's College London, Guys and St Thomas' Hospitals, and ZOE Global ltd. This allows users to enter how they are physically feeling daily along with information on their sex, age, ethnicity, and first part of their postcode. Users can say if they are feeling well and have no symptoms or to indicate that they are symptomatic. Whilst much of this detailed data is not publicly available, it is possible to see at lower tier local authority level, the proportion of users who report at least some symptoms of the Covid-19 virus. In the UK (as at 18th April), there were 462,672 people aged 20-69 who reported currently having symptoms of the virus. Of course, not all those with symptoms will use the application, and the local figures do not include those under the age of 20 or over the age of 69.</p>
+<p>Another source of information comes from the the NHS 111 symptom reporting pathways and 111 online. This shows, at the level of Clinical Commissioning Groups (which are largely coterminous with local authority boundaries through aggregation), the number of pathway triages and online assessments in which a user reports Covid-19 symptoms. Data include assessments by sex and broad age group (0-18, 19-69, and 70-120 years) of the user. There are many caveats around this, including that the data are not counts of people but rather assessments, people with symptoms might not use this or might use it multiple times over the course of their symptoms (and maybe not at the start of their symptoms). People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment. However, this data may give some indication of the symptom reporting locally.</p>
+<p><font color = 'red'><b>Both the COVID Symptom Tracker, and NHS triage data, are for reporting of symptoms and they are not in anyway representative of confirmed cases of Covid-19.</font></b></p>
+</div>
+</div>
 
 <div class="main">
 <footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a>2020</footer>

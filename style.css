@@ -54,9 +54,7 @@ text-align: left;
 }
 
 .main {
-margin-top: 20px;
-margin-left: 20px;
-margin-right: 20px;
+margin: 20px;
 float: left;
 display: inline-block;
 }
@@ -173,3 +171,7 @@ stroke: #d2d2d2;
 opacity: 0;
 stroke-width: 10;
 } */
+
+.give_me_space {
+margin-left: 5px;
+}
