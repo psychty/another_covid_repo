@@ -52,10 +52,6 @@ mye_total <- mye_total %>%
   bind_rows(sussex_pop) %>% 
   select(-Name)
 
-
-
-
-
 #download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 # On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specemin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
@@ -325,10 +321,31 @@ local_cases_summary %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
 
-daily_cases_local %>%
+# This is the next point in our data series
+predicted_double_time_visualised <- daily_cases_local %>% 
+  select(Name, Date, Cumulative_cases, Data_completeness, Double_time) %>% 
+  group_by(Name) %>% 
+  filter(Data_completeness == 'Complete') %>% 
+  filter(Date == max(Date)) %>% 
+  mutate(Date = Date + Double_time) %>% 
+  mutate(Cumulative_cases = Cumulative_cases * 2) %>% 
+  mutate(Data_type = 'Predicted') %>% 
+  select(Name, Date, Cumulative_cases, Data_type)
+
+daily_cases_local %>% 
   mutate(Date_label = format(Date, '%a %d %B')) %>% 
+  select(-Log10Cumulative_cases) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases.json'))
+
+daily_cases_local %>% 
+  filter(Data_completeness == 'Complete') %>% 
+  filter(Date == max(Date)) %>% 
+  mutate(Data_type = 'Recorded') %>% 
+  bind_rows(predicted_double_time_visualised) %>%
+  select(Name, Date, Data_type, Cumulative_cases) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases_doubling_shown.json'))
 
 daily_cases_local %>% 
   filter(Date == min(Date) | Date == max(Date)) %>% 

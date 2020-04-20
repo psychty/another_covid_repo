@@ -117,18 +117,63 @@
 </div>
 
 <!-- <div class = 'content'>
+<p>So far we have compared areas over time using counts and rates. These have shown vast differences across areas, and particularly highlighted that some local areas might be much further along their individual outbreaks than others. Indeed, we see that some areas such as Kent are recording their 2,000th confirmed case whilst the Isle of Wight is recording their 50th.</p>
+<p>As some areas record their first few confirmed cases on different days, we have redrawn the x axis (along the bottom from left to right) on the next figure to count the number of days since case number 10. By doing this, you pull all of the trajectories to start at the same point on the figure and they can be compared with other areas on this basis. Starting on case number 10, rather than case number 1, means that the trajectories are a little more established and potentially showing transmission within an area as opposed to a single case coming into the area.</p>
+<p>In addition, we have redrawn the y axis (vertical) to show the cumulative number of confirmed cases on a logarithmic scale (briefly explained on the right) by default to particularly highlight changes in growth (speeding up or slowing down) of infections. You can toggle between loglinear and linear scales to consider what each representation does to the data and trends.</p>
+<p>The figure shows all of the South East region Local Authority areas on one figure (South East region and England have been excluded to make it easier to see each local area). You can hover over an area with you mouse pointer to find out more or choose an area from the drop down menu to highlight without hovering.</p>
+
 <h4 id = 'selected_line_3_log_title'></h4>
-<div id = 'cumulative_log'></div> -->
+<div class = 'drop'>
+<form class="btn-group btn-group-toggle stay-left-classy" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name = 'toggle_c3_scale' value = 'log' checked = 'checked' onchange="toggle_scale_c3_func();">loginear scale<br>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name = 'toggle_c3_scale' value = 'linear' onchange ='toggle_scale_c3_func();'>linear scale<br>
+  </label>
+</form>
+<span>Area to highlight: </span>
+<select id='select_line_3_area_button'></select>
+</div>
+<div id = 'cumulative_log'></div>
 
-<!-- <h2>Add what case x is (as it is different for each area)</h2> -->
-<!-- </div> -->
+</div>
 
-<!-- <div class = 'right-sidebar'>
+<div class = 'right-sidebar'>
   <p class = 'side'>Much like the importance of considering both actual cases and cases per 100,000, it is also useful to view the data from both a linear and a logarithmic scale.</p>
   <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.</p>
 <p class = 'side'><b>The data remains the same</b> however the logarithmic scale is more sensitive to changes in the rate of case increases. This would make it easier to highlight significant changes in trends.</p>
-</div> -->
 </div>
+
+<div class = 'content'>
+<p>The last figure for confirmed cases shows when we might expect the confirmed cases for a single area to double given the most recent doubling time estimate (e.g. based on the most recent five days of complete data).</p>
+<p>In this figure you can select an area to show the current trajectory, highlighting what the current trajectory means in terms of confirmed cases in the near future. You can also toggle between viewing the figure on a logarithmic scale (by default) or linear scale.</p>
+<h4 id = 'selected_line_4_log_title'></h4>
+<div class = 'drop'>
+<form class="btn-group btn-group-toggle stay-left-classy" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name = 'toggle_scale' value = 'log' checked = 'checked' onchange="toggle_scale_func();">loginear scale<br>
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name = 'toggle_scale' value = 'linear' onchange ='toggle_scale_func();'>linear scale<br>
+  </label>
+</form>
+<span>Area: </span>
+<select id='select_line_4_area_button'></select>
+</div>
+
+<div id = 'cumulative_log_double_time_added'></div>
+
+<div id = 'test_animated_line'></div>
+
+</div>
+
+<div class = 'right-sidebar'>
+  <p class = 'side'>The dashed lines show the doubling of cases from the last 'complete' day of data as if the trajectory continued on its current course.</p>
+  <p class = 'side_important'>It should be noted that the effects of measures such as social distancing will hopefully continue to alter the trajectory and will impact the doubling time.</p>
+</div>
+
+</div> -->
 
 
 <div class="main">
@@ -144,6 +189,7 @@
 <script src = "covid_tracking_data_summary.js"></script>
 <script src = "covid_heatmap.js"></script>
 <script src = "covid_se_time_series.js"></script>
+<script src = 'test.js'></script>
 
 </body>
 </html>

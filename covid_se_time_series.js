@@ -11,7 +11,7 @@ var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
 // List of years in the dataset
 var areas_line = ['Sussex areas combined', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham']
 
-var myAreaColour = d3.scaleOrdinal()
+var Area_colours = d3.scaleOrdinal()
   .domain(areas_line)
   .range(d3.schemeCategory10);
 
@@ -68,11 +68,6 @@ var xAxis_line = svg_cumulative_actual_linear
     return d3.timeParse("%Y-%m-%d")(d.Date);
   })));
 
-// xAxis_line
-//   .selectAll("text")
-//   .attr("transform", "rotate(-45)")
-//   .style("text-anchor", "end")
-
 xAxis_line
   .selectAll("text")
   .attr("transform", 'translate(-10,10)rotate(-90)')
@@ -80,7 +75,6 @@ xAxis_line
   .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
     if (i%2 != 0) d3.select(this).remove();
     });
-
 
 var y_c1_ts = d3.scaleLinear()
   .domain([0, d3.max(line_1_chosen, function(d) {
@@ -169,10 +163,10 @@ var dots_c1 = svg_cumulative_actual_linear
   })
   .attr("r", 4)
   .style("fill", function(d) {
-    return myAreaColour(d.Name)
+    return Area_colours(d.Name)
   })
   .attr("stroke", function(d) {
-    return myAreaColour(d.Name)
+    return Area_colours(d.Name)
   })
   .on("mousemove", showTooltip_c1)
   .on('mouseout', mouseleave_c1);
@@ -289,7 +283,6 @@ function update_cumulative_actual_linear() {
   }
 
   var mouseleave_c1 = function(d) {
-
     tooltip_c1
       .style('opacity', 0)
       .style("visibility", "hidden")
@@ -361,10 +354,10 @@ function update_cumulative_actual_linear() {
       return y_c1_ts(d.Cumulative_cases)
     })
     .style("fill", function(d) {
-      return myAreaColour(d.Name)
+      return Area_colours(d.Name)
     })
     .style("stroke", function(d) {
-      return myAreaColour(d.Name)
+      return Area_colours(d.Name)
     })
 
   lines_c1_three_day_smooth
@@ -439,7 +432,6 @@ d3.select("#select_line_1_area_button").on("change", function(d) {
 })
 
 // Line graph two - per 100,000 cases - linear scale
-
 var svg_cumulative_rate_linear = d3.select("#cumulative_ts_per100000_linear")
   .append("svg")
   .attr("width", width_hm)
@@ -704,8 +696,6 @@ svg_cumulative_rate_linear
   .text('' + first_incomplete_date.substring(4, first_incomplete_date.length) + '-' + latest_date.substring(4, latest_date.length))
   .attr("text-anchor", "end")
 
-
-
 function update_cumulative_actual_rate_per_100000() {
   var selected_line_2_area_option = d3.select('#select_line_2_area_button').property("value")
   var selected_line_2_comp_area_option = d3.select('#select_line_2_comp_area_button').property("value")
@@ -822,24 +812,81 @@ d3.select("#select_line_2_comp_area_button").on("change", function(d) {
   update_cumulative_actual_rate_per_100000()
 })
 
-// Log scale - doubling time
+
+
+
+
+
+// log or linear plus doubled cases;
+
+// select for area
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_line_4_area_button")
+  .selectAll('myOptions')
+  .data(areas_line)
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+// Retrieve the selected area name
+var chosen_c4_area = d3.select('#select_line_4_area_button').property("value")
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+// d3.select("#select_line_4_scale_button")
+//   .selectAll('myOptions')
+//   .data(['Linear', 'Loglinear'])
+//   .enter()
+//   .append('option')
+//   .text(function(d) {
+//     return d;
+//   })
+//   .attr("value", function(d) {
+//     return d;
+//   })
+//
+// // Retrieve the selected area name
+// var chosen_scale_c4 = d3.select('#select_line_4_scale_button').property("value")
+
+d3.select("#selected_line_4_log_title")
+  .html(function(d) {
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'loglinear' + ' scale'
+});
+
+function toggle_scale_func() {
+  var type_scale = document.getElementsByName('toggle_scale');
+  if (type_scale[0].checked) {
+    console.log("We'll put the loglinear version on for you")
+
+d3.select("#selected_line_4_log_title")
+  .html(function(d) {
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'loglinear' + ' scale'
+});
+
+  } else if (type_scale[1].checked) {
+    console.log("We'll put the linear version on for you")
 
 // Update text based on selected area
-d3.select("#selected_line_3_log_title")
+d3.select("#selected_line_4_log_title")
   .html(function(d) {
-    return 'Covid-19 cumulative cases over time; days since case 10; loglinear scale'
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'linear' + ' scale'
+});
+}
+};
+
+var df_4_linear_log = daily_cases.filter(function(d) {
+  return d.Days_since_case_x >= 0 &
+        d.Name === 'Sussex areas combined'
 });
 
-var line_1_chosen = daily_cases.filter(function(d) {
-  return d.Name === selected_line_1_area_option
-});
-
-var svg_cumulative_actual_linear = d3.select("#cumulative_log")
+var svg_cumulative_actual_linear_log = d3.select("#cumulative_log_double_time_added")
 .append("svg")
 .attr("width", width_hm)
 .attr("height", height_line)
 .append("g")
-.attr("transform", "translate(" + 30 + "," + 30 + ")");
-
-
-d3.scaleLog()
+.attr("transform", "translate(" + 50 + "," + 20 + ")");

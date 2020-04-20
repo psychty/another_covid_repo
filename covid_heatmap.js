@@ -425,6 +425,22 @@ function counts_new_cases_tile_plot() {
       })
       .style("font-size", "10px")
 
+// var increasing_symbol = d3.symbol()
+//   .type('triangle-up')
+//   .size(30);
+//
+// var triangles = svg
+//   .selectAll('path')
+//   .attr('id', 'whatdis')
+//   // .data(data)
+//   // .enter()
+//   .attr('x', 125)
+//   .attr('y', 20)
+//   .append('path')
+//   .attr('d', increasing_symbol)
+//   .attr('stroke', 'black')
+//   .attr('fill', 'green')
+
 svg
   .append('line')
   .attr('x1', x(first_incomplete_date))

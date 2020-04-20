@@ -154,6 +154,22 @@ p.key_list .side_tt {
   float: right;
 }
 
+.stay-left-classy{
+  float: left;
+}
+
 .ticked_off.tick:nth-child(2n) text {
     visibility: hidden;
 }
+
+.c3_all_lines {
+fill: none;
+stroke: #d2d2d2;
+}
+
+/* .c3_ghost_lines {
+fill: none;
+stroke: #d2d2d2;
+opacity: 0;
+stroke-width: 10;
+} */
