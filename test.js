@@ -1,30 +1,11 @@
+// log or linear plus doubled cases;
 
-// Trajectory multiline series
+// select for area
 
-// Remove the aggregated areas
-var df_3 = daily_cases.filter(function(d) {
-  return d.Days_since_case_x >= 0 &
-    d.Name !== 'England' &
-    d.Name !== 'South East region' &
-    d.Name !== 'Sussex areas combined'
-});
-
-// This is based on all cases we know about (even though we believe the data for the last five says are underestimates even of confirmed cases)
-
-// Group the data: I want to draw one line per group
-var c3_ts_group = d3.nest() // nest function allows to group the calculation per level of a factor
-.key(function(d) { return d.Name;})
-.entries(df_3);
-
-var c3_countdays = d3.nest()
-.key(function(d) { return d.Name;})
-.rollup(function(days) { return days.length -1; })
-.entries(df_3);
-
-// This will be to highlight a particular line on the figure (and show some key figures)
-d3.select("#select_line_3_area_button")
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_line_4_area_button")
   .selectAll('myOptions')
-  .data(['Brighton and Hove', 'East Sussex', 'West Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
+  .data(areas_line)
   .enter()
   .append('option')
   .text(function(d) {
@@ -35,402 +16,273 @@ d3.select("#select_line_3_area_button")
   })
 
 // Retrieve the selected area name
-var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property("value")
+var chosen_c4_area = d3.select('#select_line_4_area_button').property("value")
 
-// Add the svg
-var svg_cumulative_actual_log = d3.select("#cumulative_log")
+d3.select("#selected_line_4_log_title")
+  .html(function(d) {
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'loglinear' + ' scale'
+});
+
+function toggle_scale_func() {
+  var type_scale = document.getElementsByName('toggle_scale');
+  if (type_scale[0].checked) {
+
+d3.select("#selected_line_4_log_title")
+  .html(function(d) {
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'loglinear' + ' scale'
+});
+
+  } else if (type_scale[1].checked) {
+
+d3.select("#selected_line_4_log_title")
+  .html(function(d) {
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'linear' + ' scale'
+});
+}
+};
+
+// var df_4_linear_log = daily_cases.filter(function(d) {
+//   return d.Days_since_case_x >= 0
+// });
+
+var chosen_4_linear_log = daily_cases.filter(function(d) {
+  return d.Days_since_case_x >= 0 &&
+         d.Name === chosen_c4_area
+});
+
+var chosen_4_predicted_double = doubling_shown_df.filter(function(d) {
+  return d.Name === chosen_c4_area
+});
+
+var svg_cumulative_double_added = d3.select("#cumulative_log_double_time_added")
 .append("svg")
 .attr("width", width_hm)
 .attr("height", height_line)
 .append("g")
 .attr("transform", "translate(" + 50 + "," + 20 + ")");
 
-// Get the max number of days since case 10 (or x)
-var max_days_case_x = d3.max(df_3, function (d) {
-  return (d.Days_since_case_x)
-  })
+var c4_dates = chosen_4_linear_log.map(function(d) {return d3.timeParse("%Y-%m-%d")(d.Date);});
+c4_dates.push(d3.max(chosen_4_predicted_double, function(d) { return d3.timeParse("%Y-%m-%d")(d.Date);}))
 
-// This will be the x axis scale for days since case x - note this is NOT the date as in previous timeseries. We have used this to compare each area over the same time period.
-var x_c3 = d3.scaleLinear()
-  .domain([0, max_days_case_x])
-  .range([0, width_hm - 60]); // margin left (we pushed the start of the axis over by 50) + another 10 so things do not get cut off
+var x_c4 = d3.scaleLinear()
+  .domain([d3.min(c4_dates, function(d) { return d;}), d3.max(c4_dates, function(d) { return d;})])
+  .range([0, width_hm - 60]); // this is the 50 that was pushed over from the left plus another 10 so that the chart does not get cut off
 
-// Append the x axis
-var xAxis_line_3 = svg_cumulative_actual_log
+var xAxis_line_4 = svg_cumulative_double_added
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 50) + ")")
-  .call(d3.axisBottom(x_c3).ticks(max_days_case_x));
+  .attr('id', 'old_c4_x_axis')
+  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr('class', 'ticked_off')
+  .call(d3.axisBottom(x_c4).tickFormat(d3.timeFormat("%d-%B")).tickValues(c4_dates));
+
+xAxis_line_4
+  .selectAll("text")
+  .attr("transform", 'translate(-10,10)rotate(-90)')
+  .style("text-anchor", "end")
+  // .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
+  //   if (i%2 != 1) d3.select(this).remove(); // This is switched from != 0 to != 1 so that the last date is displayed.
+  //   });
 
 // Log scale for y axis - we will hopefully be able to toggle between log and linear for people to see the difference it makes.
-var y_c3_ts = d3.scaleLog()
-  .domain([1, d3.max(df_3, function(d) {return +d.Cumulative_cases;})])
-  .range([height_line - 50, 0])
-  .base(10);
+// var y_c4_ts = d3.scaleLog()
+//   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
+//   .range([height_line - 50, 0])
+//   .base(10);
+
+var y_c4_ts = d3.scaleLinear()
+  .domain([0, d3.max(chosen_4_predicted_double, function(d) {
+    return +d.Cumulative_cases;
+  })])
+  .range([height_line - 90, 0]);
 
 // Append the y axis
-var y_c3_ts_axis = svg_cumulative_actual_log
+var y_c4_ts_axis = svg_cumulative_double_added
   .append("g")
   .attr("transform", 'translate(0,0)')
-  .call(d3.axisLeft(y_c3_ts).tickFormat(d3.format(',.0f')).tickValues([10, 50, 100, 200, 1000, 2000, 4000]));
+  .call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')));
 
-// Create a tooltip for the lines and functions for displaying the tooltips as well as highlighting certain lines.
-var tooltip_c3 = d3.select("#cumulative_log")
-  .append("div")
-  .style("opacity", 0)
-  .attr("class", "tooltip_class")
-  .style("position", "absolute")
-  .style("z-index", "10")
-  .style("background-color", "white")
-  .style("border", "solid")
-  .style("border-width", "1px")
-  .style("border-radius", "5px")
-  .style("padding", "10px")
+var actual_lines_c4 = svg_cumulative_double_added
+  .append("path")
+  .datum(chosen_4_linear_log)
+  .attr("d", d3.line()
+    .x(function(d) {
+      return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+    })
+    .y(function(d) {
+      return y_c4_ts(d.Cumulative_cases)
+    })
+  )
+  .attr("stroke", function(d){ return Area_colours(chosen_c4_area) })
+  .style("fill", "none")
+  .style("stroke-width", 2)
 
-var showTooltip_c3 = function(d) {
-  tooltip_c3
-    .html("<h5>" + d.values[0].Name + '</h5><p class = "side">The current cumulative total for ' + d.values[0].Name + ' as at (latest date) ' + d.values[0]['Date_label'] + ' is ' +  d3.format(',.0f')(d.values[0]['Cumulative_cases']) + '.</p><p class = "side">It has been<b> ' + 'x days' + ' days</b> since the number of confirmed cases exceeded 10 cases.</p><p class = "side">The latest doubling time calculation suggests that confirmed cases in ' + d.values[0]['Name'] + ' are doubling every ' + ' doubling days '+ ' days.</p>')
-    .style("opacity", 1)
-    .style("top", (event.pageY - 10) + "px")
-    .style("left", (event.pageX + 10) + "px")
-    .style("visibility", "visible");
+var dots_c4 = svg_cumulative_double_added
+  .selectAll('myCircles')
+  .data(chosen_4_linear_log)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) {
+    return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c4_ts(d.Cumulative_cases)
+  })
+  .attr("r", 3)
+  .style("fill", function(d) {
+    return Area_colours(chosen_c4_area)
+  })
+  .attr("stroke", function(d) {
+    return Area_colours(chosen_c4_area)
+  })
 
-  var selection = d3.select(this);
-  selection
-      .transition()
-      .delay("50")
-      .duration("10")
-      .attr('stroke-width', 3)
-      .style("stroke", function(d){ return Area_colours(d.key) })
+var double_lines_c4 = svg_cumulative_double_added
+  .append("path")
+  .datum(chosen_4_predicted_double)
+  .attr("d", d3.line()
+    .x(function(d) {
+      return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+    })
+    .y(function(d) {
+      return y_c4_ts(d.Cumulative_cases)
+    })
+  )
+  .style("fill", "none")
+  .style("stroke-width", 2)
+  .style("stroke", '#000000')
+  .attr("stroke-dasharray", ("3, 3"))
 
-// It might be useful to also show a single circle at the end of the line
-}
+var double_dots_c4 = svg_cumulative_double_added
+  .selectAll('myCircles')
+  .data(chosen_4_predicted_double)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) {
+    return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c4_ts(d.Cumulative_cases)
+  })
+  .attr("r", 3)
+  .style("fill", function(d) {
+    return '#c9c9c9'
+  })
+  .attr("stroke", "#000000")
 
-var mouseleave_c3 = function(d) {
-tooltip_c3
-  .style("visibility", "hidden")
 
-var selection = d3.select(this)
-    selection
-    .transition()
-    .delay("50")
-    .duration("10")
-.style('stroke', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  Area_colours(chosen_c3_highlight_area)}
-      else {
-      return '#d2d2d2'}
-            })
-.attr('stroke-width', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  3}
-      else {
-      return 1}
-            })
-  }
+function update_c4_lines() {
 
-function update_highlight_c3() {
+var chosen_c4_area = d3.select('#select_line_4_area_button').property("value")
 
-var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property("value")
-
-ghost_line_c3
-.transition()
-.duration(200)
-.style('stroke', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  Area_colours(chosen_c3_highlight_area)}
-      else {
-      return '#dbdbdb'}
-            })
-.attr('stroke-width', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  3}
-      else {
-      return 1}
-            })
-}
-
-var lines_c3 = svg_cumulative_actual_log
-.selectAll(".line")
-.data(c3_ts_group)
-.enter()
-.append("path")
-.attr('id', 'c3_lines')
-.attr('class', 'c3_all_lines')
-
-var ghost_line_c3 = svg_cumulative_actual_log
-.selectAll(".line")
-.data(c3_ts_group)
-.enter()
-.append("path")
-.attr('class', 'c3_ghost_lines')
-
-var defined_x = width_hm * 75
-var defined_y = height_line - 180
-
-function toggle_scale_c3_func() {
-
-update_summary_c3()
-
-var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property("value")
-var type_scale = document.getElementsByName('toggle_c3_scale');
-  if (type_scale[0].checked) {
-
-var y_c3_ts = d3.scaleLog()
-  .domain([1, d3.max(df_3, function(d) {
-    return +d.Cumulative_cases;
-  })])
-  .range([height_line - 50, 0])
-  .base(10);
-
-y_c3_ts_axis
-.transition()
-.duration(1000)
-.call(d3.axisLeft(y_c3_ts).tickFormat(d3.format(',.0f')).tickValues([10,50,100,250, 500, 1000, 5000]));
-
-d3.select("#selected_line_3_log_title")
+d3.select("#selected_line_4_log_title")
   .html(function(d) {
-    return 'Covid-19 cumulative cases over time; days since case 10; loglinear scale; ' + chosen_c3_highlight_area + ' highlighted'
+    return 'Covid-19 cumulative cases over time including doubling time visualised; days since case 10; ' + chosen_c4_area + '; ' + 'loglinear' + ' scale'
 });
 
-lines_c3
-.transition()
-.duration(500)
-.attr("d", function(d){
-    return d3.line()
-  .x(function(d) { return x_c3(d.Days_since_case_x); })
-  .y(function(d) { return y_c3_ts(+d.Cumulative_cases); })
-  (d.values)
-})
-
-lines_c3
-.on('mousemove', showTooltip_c3)
-.on('mouseout', mouseleave_c3)
-
-ghost_line_c3
-.transition()
-.duration(500)
-.attr("d", function(d){
-    return d3.line()
-  .x(function(d) { return x_c3(d.Days_since_case_x); })
-  .y(function(d) { return y_c3_ts(+d.Cumulative_cases); })
-  (d.values)
-})
-.style('fill', 'none')
-.style('stroke', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  Area_colours(chosen_c3_highlight_area)}
-      else {
-      return '#dbdbdb'}
-            })
-.attr('stroke-width', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  3}
-      else {
-      return 1}
-            })
-
-ghost_line_c3
-.on('mousemove', showTooltip_c3)
-.on('mouseout', mouseleave_c3)
-
-  } else if (type_scale[1].checked) {
-
-
-y_c3_ts = d3.scaleLinear()
-  .domain([1, d3.max(df_3, function(d) {
-    return +d.Cumulative_cases;
-  })])
-  .range([height_line - 50, 0]);
-
-y_c3_ts_axis
-.transition()
-.duration(1000)
-.call(d3.axisLeft(y_c3_ts).tickFormat(d3.format(',.0f')));
-
-// Update text based on selected area
-d3.select("#selected_line_3_log_title")
-  .html(function(d) {
-    return 'Covid-19 cumulative cases over time; days since case 10; linear scale; ' + chosen_c3_highlight_area + ' highlighted'
+var chosen_4_linear_log = daily_cases.filter(function(d) {
+  return d.Days_since_case_x >= 0 &&
+         d.Name === chosen_c4_area
 });
+
+var chosen_4_predicted_double = doubling_shown_df.filter(function(d) {
+  return d.Name === chosen_c4_area
+});
+
+var c4_dates = chosen_4_linear_log.map(function(d) {return d3.timeParse("%Y-%m-%d")(d.Date);});
+c4_dates.push(d3.max(chosen_4_predicted_double, function(d) { return d3.timeParse("%Y-%m-%d")(d.Date);}))
+
+x_c4
+  .domain([d3.min(c4_dates, function(d) { return d;}), d3.max(c4_dates, function(d) { return d;})])
+
+y_c4_ts
+  .domain([0, d3.max(chosen_4_predicted_double, function(d) { return +d.Cumulative_cases; })])
+
+// Redraw axis
+y_c4_ts_axis
+  .transition()
+  .duration(1000)
+  .call(d3.axisLeft(y_c4_ts));
+
+xAxis_line_4
+  .transition()
+  .duration(1000)
+  .call(d3.axisBottom(x_c4).tickFormat(d3.timeFormat("%d-%B")).tickValues(c4_dates));
+
+xAxis_line_4
+  .selectAll("text")
+  .attr("transform", 'translate(-10,10)rotate(-90)')
+  .style("text-anchor", "end")
+
+actual_lines_c4
+  .datum(chosen_4_linear_log)
+  .transition()
+  .duration(1000)
+  .attr("d", d3.line()
+    .x(function(d) {
+      return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+    })
+    .y(function(d) {
+      return y_c4_ts(d.Cumulative_cases)
+    })
+  )
+  .attr("stroke", function(d){ return Area_colours(chosen_c4_area) })
+
+dots_c4
+  .transition()
+  .attr("r", 0)
+
+dots_c4
+  .data(chosen_4_linear_log)
+  // .append("circle")
+  .transition()
+  .duration(1000)
+  .attr("cx", function(d) {
+    return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c4_ts(d.Cumulative_cases)
+  })
+  .style("fill", function(d) {
+    return Area_colours(chosen_c4_area)
+  })
+  .attr("stroke", function(d) {
+    return Area_colours(chosen_c4_area)
+  })
+  .attr("r", 3)
+
+double_lines_c4
+  .datum(chosen_4_predicted_double)
+  .transition()
+  .duration(1000)
+  .attr("d", d3.line()
+    .x(function(d) {
+      return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+    })
+    .y(function(d) {
+      return y_c4_ts(d.Cumulative_cases)
+    })
+  )
+
+double_dots_c4
+  .data(chosen_4_predicted_double)
+  .transition()
+  .duration(1000)
+  .attr("cx", function(d) {
+    return x_c4(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_c4_ts(d.Cumulative_cases)
+  })
+  .attr("r", 3)
+
 }
 
-lines_c3
-.transition()
-.duration(500)
-.attr("d", function(d){
-    return d3.line()
-  .x(function(d) { return x_c3(d.Days_since_case_x); })
-  .y(function(d) { return y_c3_ts(+d.Cumulative_cases); })
-  (d.values)
+// Fix missing dots after transition
+// Add a label to bottom right saying, a double date further into the future shows slowing down 
+
+d3.select("#select_line_4_area_button").on("change", function(d) {
+var chosen_c4_area = d3.select('#select_line_4_area_button').property("value")
+  update_c4_lines()
 })
-
-lines_c3
-.on('mousemove', showTooltip_c3)
-.on('mouseout', mouseleave_c3)
-
-ghost_line_c3
-.transition()
-.duration(500)
-.attr("d", function(d){
-    return d3.line()
-  .x(function(d) { return x_c3(d.Days_since_case_x); })
-  .y(function(d) { return y_c3_ts(+d.Cumulative_cases); })
-  (d.values)
-})
-.style('fill', 'none')
-.style('stroke', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  Area_colours(chosen_c3_highlight_area)}
-      else {
-      return '#dbdbdb'}
-            })
-.attr('stroke-width', function(d){
-  if (d.values[0]['Name'] === chosen_c3_highlight_area) {
-      return  3}
-      else {
-      return 1}
-            })
-
-ghost_line_c3
-.on('mousemove', showTooltip_c3)
-.on('mouseout', mouseleave_c3)
-
-};
-
-toggle_scale_c3_func()
-
-function update_summary_c3() {
-
-var type_scale = document.getElementsByName('toggle_c3_scale');
-  if (type_scale[0].checked) {
-
-var defined_x = width_hm * .75
-var defined_y = height_line - 180
-
-  } else if (type_scale[1].checked) {
-
-var defined_x = width_hm * .1
-var defined_y = height_line - 280
-}
-
-var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property("value")
-chosen_summary = df_3.filter(function(d){
-  return d.Name === chosen_c3_highlight_area })
-
-chosen_summary = chosen_summary.filter(function(d){
-  return d.Days_since_case_x === d3.max(chosen_summary, function(d) {
-           return +d.Days_since_case_x; })
-})
-
-chosen_doubling_summary = double_df.filter(function(d){
-  return d.Name === chosen_c3_highlight_area &&
-         d.period_in_reverse === 1; })
-
-svg_cumulative_actual_log
-  .selectAll("#highlight_area")
-  .transition()
-  .duration(100)
-  .remove();
-svg_cumulative_actual_log
-  .selectAll("#highlight_area_t1")
-  .transition()
-  .duration(100)
-  .remove();
-svg_cumulative_actual_log
-  .selectAll("#highlight_area_t2")
-  .transition()
-  .duration(100)
-  .remove();
-svg_cumulative_actual_log
-  .selectAll("#highlight_area_t3")
-  .transition()
-  .duration(100)
-  .remove();
-svg_cumulative_actual_log
-  .selectAll("#highlight_area_t4")
-  .transition()
-  .duration(100)
-  .remove();
-
-svg_cumulative_actual_log
-  .append("text")
-  .attr('id', 'highlight_area')
-  .attr("x", defined_x)
-  .attr("y", defined_y)
-  .text(chosen_c3_highlight_area)
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "12px")
-  .attr('opacity', 0)
-  .transition()
-  .duration(500)
-  .attr('opacity', 1)
-
-svg_cumulative_actual_log
-  .append("text")
-  .attr('id', 'highlight_area_t1')
-  .attr("x", defined_x)
-  .attr("y", defined_y + 15)
-  .text(chosen_summary[0].Days_since_case_x + ' days since confirmed case 10')
-  .attr("text-anchor", "start")
-  .attr('opacity', 0)
-  .transition()
-  .duration(500)
-  .attr('opacity', 1)
-
-svg_cumulative_actual_log
-  .append("text")
-  .attr('id', 'highlight_area_t2')
-  .attr("x", defined_x)
-  .attr("y", defined_y + 30)
-  .text(d3.format(',.0f')(chosen_summary[0].Cumulative_cases) + ' confirmed cases so far ('+ d3.format(',.0f')(chosen_summary[0].Cumulative_per_100000) + ' per 100,000)')
-  .attr("text-anchor", "start")
-  .attr('opacity', 0)
-  .transition()
-  .duration(500)
-  .attr('opacity', 1)
-
-svg_cumulative_actual_log
-  .append("text")
-  .attr('id', 'highlight_area_t3')
-  .attr("x", defined_x)
-  .attr("y", defined_y + 50)
-  .text('Confirmed cases doubling every ' + d3.format(',.1f')(chosen_doubling_summary[0].Double_time) +  ' days')
-  .attr("text-anchor", "start")
-  .attr('opacity', 0)
-  .transition()
-  .duration(500)
-  .attr('opacity', 1)
-
-svg_cumulative_actual_log
-  .append("text")
-  .attr('id', 'highlight_area_t4')
-  .attr("x", defined_x)
-  .attr("y", defined_y + 65)
-  .text('(based on cases between ' + chosen_doubling_summary[0].long_date_label +')')
-  .attr("text-anchor", "start")
-  .attr('opacity', 0)
-  .transition()
-  .duration(500)
-  .attr('opacity', 1)
-}
-
-// Initialise the summary text
-update_summary_c3()
-
-// on change of dropdown, highlight area, change colour, and add blurb.
-
-// see why SE missing doubling time in R
-
-d3.select("#select_line_3_area_button").on("change", function(d) {
-var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property("value")
-  toggle_scale_c3_func()
-  update_highlight_c3()
-  update_summary_c3()
-})
-
-
-
 
 // var data = daily_cases.filter(function(d) {
 //   return d.Name === 'West Sussex'

@@ -277,9 +277,8 @@ doubling_time_df_summary <- doubling_time_df %>%
           Previous_doubling_time = `2`)
 
 # Local areas ####
-
 daily_cases_local <- daily_cases_reworked %>% 
-  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East', 'England')) 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) 
 
 local_cases_summary_latest <- daily_cases_local %>% 
   filter(Date == max(Date)) %>% 
@@ -344,7 +343,7 @@ daily_cases_local %>%
   filter(Date == max(Date)) %>% 
   mutate(Data_type = 'Recorded') %>% 
   bind_rows(predicted_double_time_visualised) %>%
-  select(Name, Date, Data_type, Cumulative_cases) %>% 
+  select(Name, Date, Data_type, Cumulative_cases) %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases_doubling_shown.json'))
 

@@ -55,6 +55,11 @@ var dates = d3.map(daily_cases, function(d) {
   .keys()
 
 var request = new XMLHttpRequest();
+request.open("GET", "./se_daily_cases_doubling_shown.json", false);
+request.send(null);
+var doubling_shown_df = JSON.parse(request.responseText); // parse the fetched json data into a variable
+
+var request = new XMLHttpRequest();
 request.open("GET", "./range_dates.json", false);
 request.send(null);
 
