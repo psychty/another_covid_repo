@@ -52,6 +52,8 @@ mye_total <- mye_total %>%
   bind_rows(sussex_pop) %>% 
   select(-Name)
 
+
+
 #download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 # On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specemin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
@@ -60,7 +62,7 @@ mye_total <- mye_total %>%
 
 # Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specemin was taken, which means the time series starts at different dates for different areas. The first specimins for a confirmed Covid-19 infection were taken on Janurary 30th 2020.
 
-daily_cases_raw <- read_csv(paste0(github_repo_dir, '/coronavirus-cases.csv')) %>% 
+daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>% 
   rename(Name = `Area name`) %>% 
   rename(Code = `Area code`) %>% 
   rename(Date = `Specimen date`) %>% 
@@ -154,15 +156,15 @@ rm(daily_cases, mye_total, Areas, Dates, first_date)
 # We need to figure out the starting case report date and what to do with data revised down.
 # We could also concatenate the labels into one set for each tooltip and that way reduce the file size and repeating of text like (this is incomplete).
     
-unconfirmed <- daily_cases_reworked %>% 
+daily_cases_reworked %>% 
   filter(Date == max(Date)) %>% 
   group_by(`Area type`, Date) %>% 
   summarise(Cumulative_cases = sum(Cumulative_cases)) %>% 
   filter(`Area type` != 'Upper tier local authority') %>% 
   rename(Area = `Area type`) %>% 
   spread(value = Cumulative_cases, key = Area) %>%
-  mutate(Unconfirmed = Country - Region) %>% 
-  rename(England = Country) %>% 
+  mutate(Unconfirmed = Nation - Region) %>% 
+  rename(England = Nation) %>% 
   select(-Region) %>% 
   mutate(Proportion_unconfirmed = Unconfirmed / England) %>% 
   toJSON() %>% 
@@ -343,7 +345,8 @@ daily_cases_local %>%
   filter(Date == max(Date)) %>% 
   mutate(Data_type = 'Recorded') %>% 
   bind_rows(predicted_double_time_visualised) %>%
-  select(Name, Date, Data_type, Cumulative_cases) %>%
+  mutate(Period = format(Date, '%d %B')) %>%
+  select(Name, Date, Period, Data_type, Cumulative_cases) %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases_doubling_shown.json'))
 
@@ -454,4 +457,38 @@ daily_cases_local %>%
 #   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
 #   filter(!is.na(Date))
 
-  # it is possible to get msoa level admissions to trust for 2018 which could be attributed to LAs https://app.powerbi.com/view?r=eyJrIjoiYjBiMWY3YzEtM2RhNS00N2M1LWJkZTItM2E1M2MxNzk3MDZjIiwidCI6ImVlNGUxNDk5LTRhMzUtNGIyZS1hZDQ3LTVmM2NmOWRlODY2NiIsImMiOjh9
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtables.xlsx', paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
+
+Registrations <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Registrations - All data', skip = 2)
+
+Occurrences <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2)
+
+# Weekly death figures provide provisional counts of the number of deaths registered in England and Wales for which data are available.	From 31 March 2020 these figures also show the number of deaths involving coronavirus (COVID-19), based on any mention of COVID-19 on the death certificate.											
+
+# The tables include deaths that occurred up to 10 April but were registered up to 18 April. Figures by place of death may differ to previously published figures (week 15) due to improvements in the way we code place of death.											
+
+# These figures do not include deaths of those resident outside England and Wales or those records where the place of residence is either missing or not yet fully coded. For this reason counts may differ to published figures when summed.											
+
+# These figures represent death occurrences and registrations, there can be a delay between the date a death occurred and the date a death was registered. More information can be found in our impact of registration delays release. 											
+
+# Notes and definitions											
+
+# Deaths occurring in England and Wales are registered on the General Register Office's Registration Online system (RON).											
+# Daily extracts of death registration records from RON are processed on our database systems.											
+# Provisional data on deaths registered in each week (ending on a Friday) are compiled at the end of the following week.											
+# Bank Holidays could affect the number of registrations made within those weeks.											
+									
+# The counts of deaths from specific conditons are updated with each weekly publication as the coding of the underlying cause is not always complete at the time of production.											
+# For deaths registered from 1st January 2020, cause of death is coded to the ICD-10 classification using MUSE 5.5 software. Previous years were coded to IRIS 4.2.3, further information about the change in software is available.											
+											
+# Where there are the same values in categories in consecutive weeks, the counts have been checked and are made up of unique death registrations.							 Figures for the latest week are based on boundaries as of February 2020.		
+
+# A total of 10,350 deaths involving COVID-19 were registered in England and Wales between 28 December 2019 and 10 April 2020 (year to date).
+# Including deaths that occurred up to 10 April but were registered up to 18 April, the number involving COVID-19 was 13,121.
+# For deaths that occurred up to 10 April, the comparative number of death notifications reported by the Department of Health and Social Care (DHSC) on GOV.UK for England and Wales was 9,288.
+# NHS England COVID-19 deaths by date of death, which come from the same source as DHSC but are continuously updated, showed 10,260 deaths by 10 April; 2,256 fewer than Office for National Statistics figures for England by date of death (12,516).
+# Week 15 included the Good Friday bank holiday; the five-year average does show a decrease in registrations over the Easter holiday; however, the Coronavirus Act 2020 allowed registry offices to remain open over Easter, which may have reduced any drop in registrations for Week 15 2020.
+
+# The DHSC release daily updates on the GOV.UK website counting the total number of deaths reported to them among patients who had tested positive for COVID-19. This covers all deaths that occurred in hospitals in England and were reported up to 5pm the day before, and all deaths in Wales, Scotland and Northern Ireland wherever they occurred, if known to the public health agencies. To allow comparison, only the numbers for England and Wales are shown here.
+
+# The ONS provides figures based on all deaths registered involving COVID-19 according to death certification, whether in or out of hospital, for England and Wales. We also provide the figures by date of death (occurrence). More information can be found in the Measuring the data section of our weekly deaths publication.

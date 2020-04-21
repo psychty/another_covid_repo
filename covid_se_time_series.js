@@ -917,7 +917,6 @@ var showTooltip_c3 = function(d, i) {
       .attr('stroke-width', 3)
       .style("stroke", function(d){ return Area_colours(d.key) })
 
-// It might be useful to also show a single circle at the end of the line
 }
 
 var mouseleave_c3 = function(d) {
@@ -941,6 +940,9 @@ var selection = d3.select(this)
       else {
       return 1}
             })
+
+update_highlight_c3()
+
   }
 
 function update_highlight_c3() {
@@ -987,8 +989,8 @@ function toggle_scale_c3_func() {
 update_summary_c3()
 
 var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property("value")
-var type_scale = document.getElementsByName('toggle_c3_scale');
-  if (type_scale[0].checked) {
+var type_c3_scale = document.getElementsByName('toggle_c3_scale');
+  if (type_c3_scale[0].checked) {
 
 var y_c3_ts = d3.scaleLog()
   .domain([1, d3.max(df_3, function(d) {
@@ -1048,7 +1050,7 @@ ghost_line_c3
 .on('mousemove', showTooltip_c3)
 .on('mouseout', mouseleave_c3)
 
-  } else if (type_scale[1].checked) {
+  } else if (type_c3_scale[1].checked) {
 
 
 y_c3_ts = d3.scaleLinear()
@@ -1116,18 +1118,18 @@ toggle_scale_c3_func()
 
 function update_summary_c3() {
 
-var type_scale = document.getElementsByName('toggle_c3_scale');
-  if (type_scale[0].checked) {
+var type_c3_scale = document.getElementsByName('toggle_c3_scale');
+  if (type_c3_scale[0].checked) {
 
-if(width_hm < 1000) {
+if(width_hm < 1200) {
 var defined_x = width_hm * .65
 }
-if(width_hm >= 1000) {
+if(width_hm >= 1200) {
 var defined_x = width_hm * .75
 }
 var defined_y = height_line - 180
 
-  } else if (type_scale[1].checked) {
+  } else if (type_c3_scale[1].checked) {
 
 var defined_x = width_hm * .1
 var defined_y = height_line - 280
