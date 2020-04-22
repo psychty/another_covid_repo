@@ -40,7 +40,7 @@ var doubling_week_2_label = (date_range_doubling[1]['short_date_label'])
 
 d3.select("#doubling_time_narrative_1")
   .html(function(d) {
-    return 'Importantly, given that the data is reported by specimin date, <b>the last five days have been concluded as incomplete</b> and it would not be useful to report a doubling time for this incomplete time period. As such, the most recent doubling time period is for ' + date_range_doubling[0]['long_date_label'].replace('and','to') + ' and this is compared to the doubling times in the five days before that (' + date_range_doubling[1]['long_date_label'].replace('and','to') + ').'
+    return 'Importantly, given that the data are reported by specimin date, <b>the last five days of counts have been concluded as incomplete and it would not be useful to report a doubling time for this incomplete time period</b>. As such, the most recent doubling time period is for ' + date_range_doubling[0]['long_date_label'].replace('and','to') + ' and this is compared to the doubling times in the five days before that (' + date_range_doubling[1]['long_date_label'].replace('and','to') + ').'
   });
 
 d3.select("#doubling_time_narrative_2")
@@ -574,7 +574,7 @@ function counts_new_cases_rates_tile_plot() {
 
     var mousemove = function(d) {
       tooltip_new_case_day
-        .html('<h4>' + d.Name + ' - ' + d.Period + '</h4><p>' + d.Case_label + '</p><p>' + d.label_2 + '</p><p>' + d.label_3 + '</p><p><b>Please note that data are subject to revision as new testing results are reported.</b></p>')
+        .html('<h4>' + d.Name + ' - ' + d.Period + '</h4><p>' + d.Case_label + '</p><p>' + d.Rate_label + '</p><p>' + d.Proportion_label + '</p>')
         .style("top", (event.pageY - 10) + "px")
         .style("left", (event.pageX + 10) + "px")
         .style('opacity', 1)
