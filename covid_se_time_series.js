@@ -9,7 +9,7 @@ var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
   .attr("transform", "translate(" + 50 + "," + 20 + ")");
 
 // List of years in the dataset
-var areas_line = ['Sussex areas combined', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham']
+var areas_line = ['Sussex areas combined', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'South East region', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham']
 
 var Area_colours = d3.scaleOrdinal()
   .domain(areas_line)
