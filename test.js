@@ -118,7 +118,7 @@ var tooltip_c4 = d3.select("#cumulative_log_double_time_added")
 var showTooltip_c4 = function(d, i) {
 
   tooltip_c4
-    .html("<h5>" + d.Name + '</h5><p class = "side"></p>')
+    .html("<h5>" + d.Name + '</h5><p class = "side">'+ d.Date + '</p><p class = "side">' +d.Case_label + '</p><p class = "side">' + d.double_time_label_2 + '</p>' )
     .style("opacity", 1)
     .style("top", (event.pageY - 10) + "px")
     .style("left", (event.pageX + 10) + "px")
@@ -130,6 +130,8 @@ var mouseleave_c4 = function(d) {
 tooltip_c4
   .style("visibility", "hidden")
 }
+
+console.log(chosen_4_linear_log)
 
 function update_c4_lines() {
 
@@ -179,7 +181,7 @@ y_c4_ts = d3.scaleLinear()
 y_c4_ts_axis
 .transition()
 .duration(1000)
-.call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')));
+.call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')).tickValues([10, 50, 100, 200, 1000, 2000, 4000, 8000, 10000, 50000, 100000, 200000]));
 }
 
 actual_lines_c4
@@ -285,7 +287,7 @@ var y_c4_ts = d3.scaleLog()
 y_c4_ts_axis
 .transition()
 .duration(1000)
-.call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')));
+.call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')).tickValues([10, 50, 100, 200, 1000, 2000, 4000, 8000, 10000, 50000, 100000, 200000]));
 
 actual_lines_c4
   .datum(chosen_4_linear_log)
@@ -461,6 +463,12 @@ var chosen_4_predicted_double = doubling_shown_df.filter(function(d) {
   return d.Name === chosen_c4_area
 });
 
+chosen_doubling_summary_c4 = double_df.filter(function(d){
+  return d.Name === chosen_c4_area &&
+         d.period_in_reverse === 1; })
+
+console.log(chosen_doubling_summary_c4)
+
 var type_c4_scale = document.getElementsByName('toggle_c4_scale');
   if (type_c4_scale[0].checked) {
 
@@ -474,7 +482,7 @@ var y_c4_ts = d3.scaleLog()
 y_c4_ts_axis
 .transition()
 .duration(1000)
-.call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')));
+.call(d3.axisLeft(y_c4_ts).tickFormat(d3.format(',.0f')).tickValues([10, 50, 100, 200, 1000, 2000, 4000, 8000, 10000, 50000, 100000, 200000]));
 
   } else if (type_c4_scale[1].checked) {
 
@@ -568,7 +576,7 @@ svg_cumulative_double_added
   .attr('id', 'c4_area_t3')
   .attr("x", defined_x)
   .attr("y", defined_y + 50)
-  .text('cases were doubling every ' + d3.format(',.1f')(chosen_doubling_summary[0].Double_time) +  ' days')
+  .text('cases were doubling every ' + d3.format(',.1f')(chosen_doubling_summary_c4[0].Double_time) +  ' days')
   .attr("text-anchor", "start")
   .attr('opacity', 0)
   .transition()
