@@ -115,10 +115,40 @@ var tooltip_c4 = d3.select("#cumulative_log_double_time_added")
   .style("border-radius", "5px")
   .style("padding", "10px")
 
+// Create a tooltip for the lines and functions for displaying the tooltips as well as highlighting certain lines.
+var tooltip_c4_doubled = d3.select("#cumulative_log_double_time_added")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+console
+
 var showTooltip_c4 = function(d, i) {
 
   tooltip_c4
-    .html("<h5>" + d.Name + '</h5><p class = "side">'+ d.Date + '</p><p class = "side">' +d.Case_label + '</p><p class = "side">' + d.double_time_label_2 + '</p>' )
+    .html("<h5>" + d.Name + '</h5><p class = "side">'+ d.Period + '</p><p class = "side">' +d.Case_label + '</p><p class = "side">' + d.double_time_label_2 + '</p>' )
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style("visibility", "visible");
+
+}
+
+var predict_label = d3.scaleOrdinal()
+  .domain(['Recorded', 'Predicted'])
+  .range(['This is the cumulative total on the last complete day of data (', 'This value is based on doubling the number of confirmed cases on the last complete day of data ('])
+
+var showTooltip_c4_doubled = function(d, i) {
+
+  tooltip_c4_doubled
+    .html("<h5>" + d.Name + '</h5><p class = "side">'+ d.Period + '</p><p class = "side"><b>' + d3.format(',.0f')(d.Cumulative_cases) + ' ' + d.Data_type.toLowerCase() + ' confirmed cases</b>.</p><p class = "side">' + predict_label(d.Data_type) + d.Period + ').</p>')
     .style("opacity", 1)
     .style("top", (event.pageY - 10) + "px")
     .style("left", (event.pageX + 10) + "px")
@@ -129,9 +159,10 @@ var showTooltip_c4 = function(d, i) {
 var mouseleave_c4 = function(d) {
 tooltip_c4
   .style("visibility", "hidden")
-}
 
-console.log(chosen_4_linear_log)
+tooltip_c4_doubled
+  .style("visibility", "hidden")
+}
 
 function update_c4_lines() {
 
@@ -250,6 +281,10 @@ double_dots_c4
   })
   .attr("r", 3)
 
+double_dots_c4
+.on('mousemove', showTooltip_c4_doubled)
+.on('mouseout', mouseleave_c4)
+
 update_summary_c4()
 
 }
@@ -355,6 +390,11 @@ double_dots_c4
   })
   .attr("r", 3)
 
+double_dots_c4
+.on('mousemove', showTooltip_c4_doubled)
+.on('mouseout', mouseleave_c4)
+
+
   } else if (type_c4_scale[1].checked) {
 
 var chosen_c4_area = d3.select('#select_line_4_area_button').property("value")
@@ -447,6 +487,11 @@ double_dots_c4
     return y_c4_ts(d.Cumulative_cases)
   })
   .attr("r", 3)
+
+double_dots_c4
+.on('mousemove', showTooltip_c4_doubled)
+.on('mouseout', mouseleave_c4)
+
 }
 };
 
@@ -466,8 +511,6 @@ var chosen_4_predicted_double = doubling_shown_df.filter(function(d) {
 chosen_doubling_summary_c4 = double_df.filter(function(d){
   return d.Name === chosen_c4_area &&
          d.period_in_reverse === 1; })
-
-console.log(chosen_doubling_summary_c4)
 
 var type_c4_scale = document.getElementsByName('toggle_c4_scale');
   if (type_c4_scale[0].checked) {
