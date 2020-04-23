@@ -362,34 +362,37 @@ daily_cases_local %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/range_dates.json'))
 
-# ggplot(se_daily_cases, aes(x = Date, 
-#                 y = Name, 
-#                 fill = new_case_per_100000_key)) + 
-#   scale_fill_manual(values = c('#dcf3f5','#a6b4d8','#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'),
-#                     name = 'Tile colour\nkey') +
-#   geom_tile(colour = "#ffffff") +
-#   labs(x = NULL, 
-#        y = NULL) +
-#   scale_x_date(date_labels = "%b %d",
-#                date_breaks = '1 week',
-#                limits = c(min(se_daily_cases$Date) -1, min(se_daily_cases$Date) + 59),
-#                expand = c(0,0.01)) +
-#   theme(axis.text.x = element_text(angle = 0, hjust = 0),
-#         legend.position = "bottom", 
-#         legend.text = element_text(colour = "#323232", size = 8), 
-#         panel.background = element_rect(fill = "white"), 
-#         plot.title = element_text(colour = "#000000", face = "bold", size = 11, vjust = 1), 
-#         axis.text.y = element_text(colour = "#323232", face = se_cases_summary$highlight, size = 8),  
-#         legend.title = element_text(colour = "#323232", face = "bold", size = 10),  
-#         panel.grid.major.x = element_blank(),
-#         panel.grid.minor.x = element_blank(), 
-#         panel.grid.major.y = element_blank(),
-#         panel.grid.minor.y = element_blank(), 
-#         legend.key.size = unit(0.65, "lines"), 
-#         legend.background = element_rect(fill = "#ffffff"), 
-#         legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"), 
-#         strip.text = element_text(colour = "#000000", face = "bold"),
-#         strip.background = element_rect(fill = "#ffffff"))
+daily_cases_local <- daily_cases_local%>% 
+  mutate(highlight = ifelse(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex'), 'bold', 'plain'))
+
+ggplot(daily_cases_local, aes(x = Date,
+                y = Name,
+                fill = new_case_per_100000_key)) +
+  scale_fill_manual(values = c('#ffffb2', '#fed976', '#feb24c', '#fd8d3c', '#f03b20', '#bd0026'),
+                    name = 'Tile colour\nkey') +
+  geom_tile(colour = "#ffffff") +
+  labs(x = NULL,
+       y = NULL) +
+  scale_x_date(date_labels = "%b %d",
+               date_breaks = '1 week',
+               limits = c(min(daily_cases_local$Date), max(daily_cases_local$Date)),
+               expand = c(0,0.01)) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0),
+        legend.position = "bottom",
+        legend.text = element_text(colour = "#323232", size = 8),
+        panel.background = element_rect(fill = "white"),
+        plot.title = element_text(colour = "#000000", face = "bold", size = 11, vjust = 1),
+        axis.text.y = element_text(colour = "#323232", face = daily_cases_local$highlight, size = 8),
+        legend.title = element_text(colour = "#323232", face = "bold", size = 10),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.key.size = unit(0.65, "lines"),
+        legend.background = element_rect(fill = "#ffffff"),
+        legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"),
+        strip.text = element_text(colour = "#000000", face = "bold"),
+        strip.background = element_rect(fill = "#ffffff"))
 
 # NHS 111 symptom data ####
 

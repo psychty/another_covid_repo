@@ -51,6 +51,16 @@
 <p>You can toggle between viewing the coloured tiles as actual confirmed cases or as confirmed cases per 100,000 population (crude, all age population as at 2018). The areas across the South East have vast differences in population sizes. Bracknell Forest, the smallest area in terms of population, is estimated to be home for around 121,600 residents whilst Kent, with the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there. Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</p>
 <p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date).</font></p>
 
+</div>
+
+<div class = 'right-sidebar'>
+  <p class = 'side_important'>It is important to consider the testing strategy, capacity limitations, and any lag or delay in testing results, as outlined above, when interpreting cases as this can have an impact on the daily figures for local areas.</p>
+  <p class = 'side_important'>A Surge in cases can in part be due to the amount of testing done locally from one day to the next.</p>
+  <p class = 'side_important'>*In some areas, particularly with relatively low numbers of cases, there can be a large amount of fluctuation which can have an impact on doubling time.</p>
+
+  </div>
+
+<div class = 'content'>
 <form class="btn-group btn-group-toggle stay-right-classy" data-toggle="buttons">
   <label class="btn btn-secondary active">
     <input type="radio" name = 'toggle_count_rate' value = 'counts muth' checked = 'checked' onchange="toggle_count_rate_func();">actual cases<br>
@@ -65,13 +75,10 @@
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side_important'>It is important to consider the testing strategy, capacity limitations, and any lag or delay in testing results, as outlined above, when interpreting cases as this can have an impact on the daily figures for local areas.</p>
-  <p class = 'side_important'>A Surge in cases can in part be due to the amount of testing done locally from one day to the next.</p>
-  <p class = 'side_important'>*In some areas, particularly with relatively low numbers of cases, there can be a large amount of fluctuation which can have an impact on doubling time.</p>
   <p class = 'side'>The colour key for the tiles has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
   <div id = 'new_case_key_figure'></div>
   <p class = 'side_important'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
-  </div>
+</div>
 </div>
 
 <div class='main' id = 'case_time_series'>
