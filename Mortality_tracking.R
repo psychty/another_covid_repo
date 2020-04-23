@@ -36,23 +36,27 @@ ph_theme = function(){
 }
 
 # 2018 MYE
-mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
+mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848&date=latest&gender=0&c_age=200,209&measures=20100&select=date_name,geography_name,geography_code,c_age_name,obs_value') %>% 
   rename(Population = OBS_VALUE,
          Area_code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME,
-         Year = DATE_NAME) 
+         Year = DATE_NAME,
+         Age = C_AGE_NAME) 
 
 # We are interested in the whole of Sussex (three LA combined)
 sussex_pop <- mye_total_raw %>% 
   filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>%
-  group_by(Year) %>% 
+  group_by(Year,Age) %>% 
   summarise(Population = sum(Population, na.rm = TRUE)) %>% 
   mutate(Name = 'Sussex areas combined') %>% 
   mutate(Area_code = '-') 
 
 mye_total <- mye_total_raw %>%
   bind_rows(sussex_pop) %>% 
-  select(-Name) 
+  select(-Name) %>% 
+  spread(Age, Population) %>% 
+  rename(All_ages = `All Ages`,
+         Age_65_plus = `Aged 65+`)
 
 rm(mye_total_raw, sussex_pop)
 
@@ -61,6 +65,12 @@ lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c1
   select(-c(FID, LTLA19NM)) %>% 
   left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>% 
   select(-c(FID, LAD19NM))
+
+bh_nn <- c('Nottingham', 'Medway', 'Newcastle upon Tyne', 'Liverpool','Portsmouth','Southampton','Leeds','Sheffield','York','Plymouth','Salford','Coventry','Bristol','Southend-on-Sea','Brighton and Hove', 'Reading')
+
+es_nn <- c('Nottinghamshire','Kent','Lancashire','Norfolk','Worcestershire','Staffordshire','Somerset','East Sussex','Devon','Gloucestershire','North Yorkshire','Suffolk','Warwickshire','Essex', 'West Sussex','Hampshire')
+
+ws_nn <- c('Kent','Northamptonshire','Worcestershire', 'Staffordshire','Somerset','East Sussex', 'Devon', 'Gloucestershire', 'Cambridgeshire','North Yorkshire','Suffolk','Warwickshire','Essex','West Sussex', 'Hampshire', 'Oxfordshire')
 
 # ONS Weekly mortality data ####
 
@@ -146,22 +156,53 @@ All_settings_occurrences <- Occurrences %>%
   group_by(Area_code, Area_name, Cause) %>% 
   arrange(Area_code, Cause, Week_number) %>% 
   mutate(Cumulative_deaths = cumsum(Deaths)) %>% 
-  left_join(mye_total, by = 'Area_code') %>% 
-  mutate(Cumulative_crude_rate_per_10000 = (Cumulative_deaths / Population) * 100000) %>% 
-  mutate(Deaths_crude_rate_per_100000 =  (Deaths / Population) * 100000)
+  left_join(mye_total[c('Area_code','All_ages')], by = 'Area_code') %>% 
+  mutate(Cumulative_crude_rate_per_10000 = (Cumulative_deaths / All_ages) * 100000) %>% 
+  mutate(Deaths_crude_rate_per_100000 =  pois.exact(Deaths, All_ages)[[3]]*100000) %>% 
+  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, All_ages)[[4]]*100000) %>% 
+  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, All_ages)[[5]]*100000) 
 
-Latest_occurrences <- All_settings_occurences %>% 
+# Exact Poisin confidence intervals are calculated using the pois.exact function from the epitools package (see https://www.rdocumentation.org/packages/epitools/versions/0.09/topics/pois.exact for details)
+
+Latest_occurrences <- All_settings_occurrences %>% 
+  filter(Week_ending == max(Week_ending)) %>% 
+  mutate(`Deaths in latest week` = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_100000, 0), big.mark = ',', trim = TRUE), ' per 100,000, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
+
+Latest_occurrences_rate_labels <- Latest_occurrences %>% 
+  select(Area_code, Area_name, Cause, Week_number, Week_ending, `Deaths in latest week`) %>% 
+  spread(Cause, `Deaths in latest week`)
+
+Covid_burden_of_all_mortality <- All_settings_occurrences %>% 
+  select(Area_code, Area_name, Cause, Week_number, Week_ending, Deaths) %>% 
+  group_by(Area_code, Area_name, Week_number, Week_ending) %>% 
+  spread(Cause, Deaths) %>% 
+  mutate(Proportion_covid_deaths = `COVID 19` / `All causes`) %>% 
+  ungroup() %>% 
+  mutate(Cumulative_deaths_all_cause = cumsum(`All causes`)) %>% 
+  mutate(Cumulative_covid_deaths = cumsum(`COVID 19`)) 
+
+Covid_burden_latest <- Covid_burden_of_all_mortality %>% 
   filter(Week_ending == max(Week_ending))
 
+Place_death <- Occurrences %>% 
+  group_by(Area_code, Area_name, Week_number, Week_ending, Cause,Deaths, Place_of_death) %>% 
+  spread(Place_of_death, Deaths)
 
+Care_home_deaths <- Occurrences %>% 
+  filter(Place_of_death == 'Care home') %>% 
+  left_join(mye_total[c('Area_code', 'Age_65_plus')], by = 'Area_code') %>% 
+  mutate(Deaths_crude_rate_per_100000_65_plus =  pois.exact(Deaths, Age_65_plus)[[3]]*100000) %>% 
+  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, Age_65_plus)[[4]]*100000) %>% 
+  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, Age_65_plus)[[5]]*100000) 
 
+Hospital_deaths <- Occurrences %>% 
+  filter(Place_of_death == 'Care home') %>% 
+  left_join(mye_total[c('Area_code', 'All_ages')], by = 'Area_code') %>% 
+  mutate(Deaths_crude_rate_per_100000 =  pois.exact(Deaths, All_ages)[[3]]*100000) %>% 
+  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, All_ages)[[4]]*100000) %>% 
+  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, All_ages)[[5]]*100000) 
 
-names(Registrations)
-
-
-										
-
-# Notes and definitions											
+#  Notes and definitions											
 
 # Deaths occurring in England and Wales are registered on the General Register Office's Registration Online system (RON).											
 # Daily extracts of death registration records from RON are processed on our database systems.											
@@ -173,12 +214,6 @@ names(Registrations)
 
 # Where there are the same values in categories in consecutive weeks, the counts have been checked and are made up of unique death registrations.							 Figures for the latest week are based on boundaries as of February 2020.		
 
-# A total of 10,350 deaths involving COVID-19 were registered in England and Wales between 28 December 2019 and 10 April 2020 (year to date).
-# Including deaths that occurred up to 10 April but were registered up to 18 April, the number involving COVID-19 was 13,121.
-# For deaths that occurred up to 10 April, the comparative number of death notifications reported by the Department of Health and Social Care (DHSC) on GOV.UK for England and Wales was 9,288.
-# NHS England COVID-19 deaths by date of death, which come from the same source as DHSC but are continuously updated, showed 10,260 deaths by 10 April; 2,256 fewer than Office for National Statistics figures for England by date of death (12,516).
-# Week 15 included the Good Friday bank holiday; the five-year average does show a decrease in registrations over the Easter holiday; however, the Coronavirus Act 2020 allowed registry offices to remain open over Easter, which may have reduced any drop in registrations for Week 15 2020.
-
 # The DHSC release daily updates on the GOV.UK website counting the total number of deaths reported to them among patients who had tested positive for COVID-19. This covers all deaths that occurred in hospitals in England and were reported up to 5pm the day before, and all deaths in Wales, Scotland and Northern Ireland wherever they occurred, if known to the public health agencies. To allow comparison, only the numbers for England and Wales are shown here.
 
 # The ONS provides figures based on all deaths registered involving COVID-19 according to death certification, whether in or out of hospital, for England and Wales. We also provide the figures by date of death (occurrence). More information can be found in the Measuring the data section of our weekly deaths publication.
@@ -189,26 +224,34 @@ names(Registrations)
 
 # Note: interpretation of the figures should take into account the fact that totals by date of death, particularly for recent prior days, are likely to be updated in future releases. For example as deaths are confirmed as testing positive for Covid-19, as more post-mortem tests are processed and data from them are validated. Any changes are made clear in the daily files.					
 
-# if(!file.exists(paste0(github_repo_dir, '/etr.csv'))){
-#   download.file('https://files.digital.nhs.uk/assets/ods/current/etr.zip', paste0(github_repo_dir, '/etr.zip'), mode = 'wb')
-#   unzip(paste0(github_repo_dir, '/etr.zip'), exdir = github_repo_dir)
-#   file.remove(paste0(github_repo_dir, '/etr.zip'), paste0(github_repo_dir, '/etr.pdf'))
-# }
-# 
-# etr <- read_csv(paste0(github_repo_dir, '/etr.csv'),col_names = c('Code', 'Name', 'National_grouping', 'Health_geography', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'Address_5', 'Postcode', 'Open_date', 'Close_date', 'Null_1', 'Null_2', 'Null_3', 'Null_4', 'Null_5', 'Contact', 'Null_6', 'Null_7', 'Null_8', 'Amended_record_indicator', 'Null_9', 'GOR', 'Null_10', 'Null_11', 'Null_12')) %>%
-#   select(Code, Name, National_grouping) %>% 
-#   mutate(Name = capwords(Name, strict = TRUE)) %>% 
-#   mutate(Name = gsub(' And ', ' and ', Name)) %>% 
-#   mutate(Name = gsub(' Of ', ' of ', Name)) %>% 
-#   mutate(Name = gsub(' Nhs ', ' NHS ', Name)) %>% 
-#   add_row( Code = '-', Name = 'England', National_grouping = '-')
-# 
-# download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/04/COVID-19-total-announced-deaths-14-April-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
-#               
-# refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), skip = 15) %>% 
-#   select(-c(...2, Total)) %>% 
-#   filter(!is.na(Code)) %>% 
-#   mutate(Name = capwords(Name, strict = TRUE)) %>% 
-#   gather(key = "Date", value = "Deaths", 5:ncol(.)) %>% 
-#   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
-#   filter(!is.na(Date))
+if(!file.exists(paste0(github_repo_dir, '/etr.csv'))){
+  download.file('https://files.digital.nhs.uk/assets/ods/current/etr.zip', paste0(github_repo_dir, '/etr.zip'), mode = 'wb')
+  unzip(paste0(github_repo_dir, '/etr.zip'), exdir = github_repo_dir)
+  file.remove(paste0(github_repo_dir, '/etr.zip'), paste0(github_repo_dir, '/etr.pdf'))
+}
+
+etr <- read_csv(paste0(github_repo_dir, '/etr.csv'),col_names = c('Code', 'Name', 'National_grouping', 'Health_geography', 'Address_1', 'Address_2', 'Address_3', 'Address_4', 'Address_5', 'Postcode', 'Open_date', 'Close_date', 'Null_1', 'Null_2', 'Null_3', 'Null_4', 'Null_5', 'Contact', 'Null_6', 'Null_7', 'Null_8', 'Amended_record_indicator', 'Null_9', 'GOR', 'Null_10', 'Null_11', 'Null_12')) %>%
+  select(Code, Name, National_grouping) %>%
+  mutate(Name = capwords(Name, strict = TRUE)) %>%
+  mutate(Name = gsub(' And ', ' and ', Name)) %>%
+  mutate(Name = gsub(' Of ', ' of ', Name)) %>%
+  mutate(Name = gsub(' Nhs ', ' NHS ', Name)) %>%
+  add_row( Code = '-', Name = 'England', National_grouping = '-')
+
+# This should download the data for today (it will only work after the new file is published at 5pm though), shame on those who release new filenames each day and do not allow for a static url
+download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date(), '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+
+
+refreshed_daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'COVID19 total deaths by trust', skip = 15)%>% 
+   select(-c(...2, Total)) %>% 
+   filter(!is.na(Code)) %>% 
+   mutate(Name = capwords(Name, strict = TRUE)) %>% 
+   gather(key = "Date", value = "Deaths", 5:ncol(.)) %>% 
+   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
+   filter(!is.na(Date))
+
+meta_trust_deaths <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'COVID19 total deaths by trust', skip = 2, col_names = FALSE, n_max = 5) %>% 
+  rename(Item = ...1,
+         Description = ...2) %>%
+  mutate(Description = ifelse(Item == 'Published:', as.character(format(as.Date(as.numeric(Description), origin = "1899-12-30"), '%d-%b-%Y')), Description)) 
+
