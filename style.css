@@ -1,3 +1,18 @@
+/* This query hides the data viz if the window size width drops below 1150px and shows a message to the user. */
+
+.small_screen_show {
+  display: none;
+}
+
+@media screen and (max-width: 640px) {
+    .small_screen_adapt {
+        display: none !important;
+    }
+
+    .small_screen_show {
+        display: block !important;
+    }
+}
 
 *{
   font-family: 'Open Sans', sans-serif;

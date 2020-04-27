@@ -52,8 +52,6 @@ mye_total <- mye_total %>%
   bind_rows(sussex_pop) %>% 
   select(-Name)
 
-
-
 #download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
 # On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specemin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
@@ -62,13 +60,13 @@ mye_total <- mye_total %>%
 
 # Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specemin was taken, which means the time series starts at different dates for different areas. The first specimins for a confirmed Covid-19 infection were taken on Janurary 30th 2020.
 
-daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>% 
-  rename(Name = `Area name`) %>% 
+daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%   rename(Name = `Area name`) %>% 
   rename(Code = `Area code`) %>% 
   rename(Date = `Specimen date`) %>% 
   rename(New_cases = `Daily lab-confirmed cases`) %>% 
   rename(Cumulative_cases = `Cumulative lab-confirmed cases`) %>% 
-  arrange(Name, Date) 
+  arrange(Name, Date) %>% 
+  select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases)
 
 # Create a subset for Sussex
 sussex_daily_cases <- daily_cases_raw %>% 
