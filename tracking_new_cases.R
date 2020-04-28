@@ -48,6 +48,9 @@ sussex_pop <- mye_total %>%
   mutate(Name = 'Sussex areas combined') %>% 
   mutate(Code = '-')
 
+area_code_names <- mye_total %>% 
+  select(Code, Name)
+
 mye_total <- mye_total %>%
   bind_rows(sussex_pop) %>% 
   select(-Name)
@@ -149,7 +152,7 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
   ungroup() %>% 
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
   
-rm(daily_cases, mye_total, Areas, Dates, first_date)
+rm(daily_cases, Areas, Dates, first_date)
 
 # We need to figure out the starting case report date and what to do with data revised down.
 # We could also concatenate the labels into one set for each tooltip and that way reduce the file size and repeating of text like (this is incomplete).
@@ -276,53 +279,46 @@ doubling_time_df_summary <- doubling_time_df %>%
   rename(Latest_doubling_time = `1`,
           Previous_doubling_time = `2`)
 
-# Local areas ####
-daily_cases_local <- daily_cases_reworked %>% 
-  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) 
-
-local_cases_summary_latest <- daily_cases_local %>% 
+# Latest
+case_summary_latest <- daily_cases_reworked %>% 
   filter(Date == max(Date)) %>% 
   select(Name, Cumulative_cases, Cumulative_per_100000, Three_day_average_cumulative_cases) %>% 
   rename(`Total confirmed cases so far` = Cumulative_cases,
          `Total cases per 100,000 population` = Cumulative_per_100000,
          `Three day average cumulative cases` = Three_day_average_cumulative_cases)
-  
-local_cases_summary_complete <- daily_cases_local %>% 
+
+case_summary_complete <- daily_cases_reworked %>% 
   filter(Date == complete_date) %>% 
   select(Name, New_cases, New_cases_per_100000, Three_day_average_new_cases) %>% 
   rename(`Confirmed cases swabbed on most recent complete day` = New_cases,
          `Confirmed cases swabbed per 100,000 population on most recent complete day` = New_cases_per_100000,
          `Average number of confirmed cases tested in past three complete days` = Three_day_average_new_cases) 
 
-local_cases_summary <- local_cases_summary_latest %>% 
-  left_join(local_cases_summary_complete, by = 'Name') %>% 
+case_summary <- case_summary_latest %>% 
+  left_join(case_summary_complete, by = 'Name') %>% 
   left_join(doubling_time_df_summary, by = 'Name') %>% 
   arrange(-`Total confirmed cases so far`) %>% 
   mutate(Name = factor(Name, levels = unique(Name))) %>% 
   mutate(summary_label_doubling = paste0('In the most recent ', double_time_period, ' day time period, cases were set to double in ', round(Latest_doubling_time, 1), ' days. Compared to the previous ', double_time_period, ' days, the doubling time has ', ifelse(Latest_doubling_time > Previous_doubling_time, paste0(' increased from ', round(Previous_doubling_time, 1), ' days (meaning a slowing down of new cases).'), paste0(' decreased from ', round(Previous_doubling_time, 1), ' days (meaning a speeding up of new cases.')), '<b> It should be noted that in some areas, particularly with relatively low numbers of cases, there can be a large amount of fluctuation which can have an impact on doubling time.</b>')) %>% 
   mutate(Growth_rate_change = ifelse(Latest_doubling_time > Previous_doubling_time, 'Slowing', ifelse(Latest_doubling_time < Previous_doubling_time, 'Speeding up', NA)))
 
-rm(local_cases_summary_complete, local_cases_summary_latest)
+rm(case_summary_complete, case_summary_latest)
 
 complete_period <- format(complete_date, '%d %B')
 
-daily_cases_local <- daily_cases_local %>% 
+daily_cases <- daily_cases_reworked %>% 
   select(Name, Date, Period, Data_completeness, Cumulative_cases, Three_day_average_cumulative_cases, Cumulative_per_100000, Log10Cumulative_cases, New_cases, New_cases_per_100000, Case_label, Rate_label, Proportion_label, Three_day_ave_cumulative_label, Three_day_ave_new_label, new_case_key, new_case_per_100000_key, Days_since_case_x, Days_since_first_case) %>% 
   left_join(doubling_time_df[c('Name', 'Date', 'period_in_reverse', 'Double_time', 'date_range_label')], by = c('Name', 'Date')) %>% 
   mutate(double_time_label_1 = paste0(ifelse(Days_since_case_x < 0, '', ifelse(Days_since_case_x == 0, paste0('This is the day that the total (cumulative) cases was ', case_x_number, ' or more.'), paste0('This is day ', Days_since_case_x, ' since the number of diagnosed cases reached ', case_x_number, ' or more.'))), paste0(' The total (cumulative) number of cases on this day was ', format(Cumulative_cases, big.mark = ',', trim = TRUE)))) %>% 
   # mutate(double_time_label_1 = ifelse(Days_since_case_x < 0, NA, double_time_label_1)) %>% 
   mutate(double_time_label_2 = paste0('The doubling time is calculated using data for every ', double_time_period, ' day period starting from the latest available complete date (', complete_period ,') back to the date on which the first confirmed patient was swabbed for testing. ', ifelse(is.na(date_range_label), 'Although there are data for this day, there are not enough data points to calculate a doubling time.', ifelse(period_in_reverse == 1, paste0('This day is in the ', date_range_label, ' time period. At the start of this period, it was estimated that cases could potentially double in ', round(Double_time, 1), ' days.'), ifelse(period_in_reverse == 2, paste0('This day is in the ', date_range_label, ' time period. At the start of this period, it was estimated that cases could potentially double in ', round(Double_time, 1), ' days.'), paste0('This day is in ', date_range_label, '. At the start of this period, it was estimated that cases could potentially double in ', round(Double_time, 1), ' days.')))))) %>% 
-  mutate(Name = factor(Name, levels = levels(local_cases_summary$Name))) %>% 
+  mutate(Name = factor(Name, levels = levels(case_summary$Name))) %>% 
   arrange(Name)
 
 rm(firsts, doubling_time_df, doubling_time_df_summary, daily_cases_reworked)
 
-local_cases_summary %>%
-  toJSON() %>% 
-  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
-
 # This is the next point in our data series
-predicted_double_time_visualised <- daily_cases_local %>% 
+predicted_double_time <- daily_cases %>% 
   select(Name, Date, Cumulative_cases, Data_completeness, Double_time) %>% 
   group_by(Name) %>% 
   filter(Data_completeness == 'Complete') %>% 
@@ -330,25 +326,46 @@ predicted_double_time_visualised <- daily_cases_local %>%
   mutate(Date = Date + Double_time) %>% 
   mutate(Cumulative_cases = Cumulative_cases * 2) %>% 
   mutate(Data_type = 'Predicted') %>% 
-  select(Name, Date, Cumulative_cases, Data_type)
+  select(Name, Date, Cumulative_cases, Data_type) %>% 
+  mutate(Date_label = format(Date, '%a %d %B')) 
 
-daily_cases_local %>% 
+# # Local areas ####
+# daily_cases_SE_order <- daily_cases %>% 
+#   filter(Date == max(Date)) %>%
+#   filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham')) %>% 
+#   arrange(Cumulative_cases) %>% 
+#   select(Name, Cumulative_cases)
+# 
+SE_cases_latest <- case_summary %>%
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) %>%
+  filter(Date == max(Date)) %>% 
+  arrange(-`Total confirmed cases so far`) %>% 
+  mutate(Name = factor(Name, levels = unique(Name)))
+
+SE_cases_latest %>%
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_case_summary.json'))
+
+daily_cases %>% 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) %>%
   mutate(Date_label = format(Date, '%a %d %B')) %>% 
   select(-Log10Cumulative_cases) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases.json'))
 
-daily_cases_local %>% 
+daily_cases %>% 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) %>%
   filter(Data_completeness == 'Complete') %>% 
   filter(Date == max(Date)) %>% 
   mutate(Data_type = 'Recorded') %>% 
-  bind_rows(predicted_double_time_visualised) %>%
+  bind_rows(predicted_double_time) %>%
   mutate(Period = format(Date, '%d %B')) %>%
   select(Name, Date, Period, Data_type, Cumulative_cases) %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/se_daily_cases_doubling_shown.json'))
 
-daily_cases_local %>% 
+daily_cases %>% 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) %>%
   filter(Date == min(Date) | Date == max(Date)) %>% 
   select(Date) %>% 
   unique() %>% 
@@ -360,70 +377,39 @@ daily_cases_local %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/range_dates.json'))
 
-daily_cases_local <- daily_cases_local%>% 
-  mutate(highlight = ifelse(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex'), 'bold', 'plain'))
+# CIPFA dataframes ####
 
-ggplot(daily_cases_local, aes(x = Date,
-                y = Name,
-                fill = new_case_per_100000_key)) +
-  scale_fill_manual(values = c('#ffffb2', '#fed976', '#feb24c', '#fd8d3c', '#f03b20', '#bd0026'),
-                    name = 'Tile colour\nkey') +
-  geom_tile(colour = "#ffffff") +
-  labs(x = NULL,
-       y = NULL) +
-  scale_x_date(date_labels = "%b %d",
-               date_breaks = '1 week',
-               limits = c(min(daily_cases_local$Date), max(daily_cases_local$Date)),
-               expand = c(0,0.01)) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0),
-        legend.position = "bottom",
-        legend.text = element_text(colour = "#323232", size = 8),
-        panel.background = element_rect(fill = "white"),
-        plot.title = element_text(colour = "#000000", face = "bold", size = 11, vjust = 1),
-        axis.text.y = element_text(colour = "#323232", face = daily_cases_local$highlight, size = 8),
-        legend.title = element_text(colour = "#323232", face = "bold", size = 10),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        legend.key.size = unit(0.65, "lines"),
-        legend.background = element_rect(fill = "#ffffff"),
-        legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"),
-        strip.text = element_text(colour = "#000000", face = "bold"),
-        strip.background = element_rect(fill = "#ffffff"))
+library(fingertipsR)
 
-# NHS 111 symptom data ####
 
-# Many caveats around this, not counts of people, people might not use this or might use it multiple times over the course of their symptoms (and maybe not at the start of their symptoms).
 
-# https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest
+SE_area_code_names <- area_code_names %>% 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham'))
 
-# Might be useful to have a cumulative count of number of people using the system
-# West Sussex CCG has 390 triages per 100,000, whilst cases are around 26 diagnosed cases per 100,000. YOU ARE COMPARING SMALL APPLES AND REALLY RIPE CRAB APPLES
+nn_area <- data.frame(Area_code = character(), Area_name = character(), Nearest_neighbour_code = character(), Nearest_neighbour_name = character())
 
-# People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment.
+for(i in 1:nrow(SE_area_code_names)){
+nn_area_x <- data.frame(Nearest_neighbour_code = nearest_neighbours(AreaCode = SE_area_code_names$Code[i], AreaTypeID = 102, measure = 'CIPFA')) %>% 
+  left_join(area_code_names, by = c('Nearest_neighbour_code' = 'Code')) %>% 
+  add_row(Nearest_neighbour_code = SE_area_code_names$Code[i]) %>% 
+  mutate(Area_code = SE_area_code_names$Code[i]) %>% 
+  left_join(area_code_names, by = c('Area_code' = 'Code')) %>% 
+  rename(Area_name = Name.y,
+         Nearest_neighbour_name = Name.x) %>% 
+  mutate(Nearest_neighbour_name = ifelse(is.na(Nearest_neighbour_name), Area_name, Nearest_neighbour_name)) %>% 
+  select(Area_code, Area_name, Nearest_neighbour_code, Nearest_neighbour_name)
 
-# nhs_111_pathways <- read_csv('https://files.digital.nhs.uk/8E/AE4094/NHS%20Pathways%20Covid-19%20data%202020-04-02.csv')
+nn_area <- nn_area %>% 
+  bind_rows(nn_area_x)
 
-# nhs_111_online <- read_csv('https://files.digital.nhs.uk/9D/E01A56/111%20Online%20Covid-19%20data_2020-04-02.csv')
+}
 
-# nhs_111_online %>% 
-  # filter(journeydate == '31/03/2020') %>% 
-  # filter(ccgname %in% c('NHS Coastal West Sussex CCG', 'NHS Crawley CCG', 'NHS Horsham and Mid Sussex CCG')) %>% 
-  # summarise(Total = sum(Total, na.rm = TRUE))
-
-# Google mobility data ####
-
-# mobility <- read_csv('https://www.gstatic.com/covid19/mobility/Global_Mobility_Report.csv') %>% 
-  # filter(country_region == 'United Kingdom') %>% 
-  # filter(sub_region_1 %in% local_cases_summary$Name) %>% 
-  # rename(Area = sub_region_1) %>% 
-  # select(-sub_region_2)
-
-# setdiff(local_cases_summary$Name, unique(mobility$sub_region_1))
-
-# These reports show how visits and length of stay at different places change compared to a baseline. We calculate these changes using the same kind of aggregated and anonymized data used to show popular times for places in Google Maps.
-# Changes for each day are compared to a baseline value for that day of the week:
-  # ● The baseline is the median value, for the corresponding day of the week, during the 5- week period Jan 3–Feb 6, 2020.
-# ● The reports show trends over several weeks with the most recent data representing approximately 2-3 days ago—this is how long it takes to produce the reports.
+nn_area %>% 
+  left_join(case_summary, by = c('Nearest_neighbour_name' = 'Name')) %>% 
+  group_by(Area_code, Area_name) %>% 
+  mutate(`Rank of cumulative cases among CIPFA neighbours` = ordinal(rank(-`Total confirmed cases so far`)))%>%
+  mutate(`Rank of cumulative case rate among CIPFA neighbours` =  ordinal(rank(-`Total cases per 100,000 population`))) %>%  
+  mutate(`Rank of new cases rate among CIPFA neighbours` =  ordinal(rank(-`Confirmed cases swabbed per 100,000 population on most recent complete day`))) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_cases_ranks_SE.json'))
 
