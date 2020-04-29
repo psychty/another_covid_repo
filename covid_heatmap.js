@@ -40,7 +40,7 @@ var doubling_week_2_label = (date_range_doubling[1]['short_date_label'])
 
 d3.select("#doubling_time_narrative_1")
   .html(function(d) {
-    return 'Importantly, given that the data are reported by specimin date, <b>the last five days of counts have been concluded as incomplete and it would not be useful to report a doubling time for this incomplete time period</b>. As such, the most recent doubling time period is for ' + date_range_doubling[0]['long_date_label'].replace('and','to') + ' and this is compared to the doubling times in the five days before that (' + date_range_doubling[1]['long_date_label'].replace('and','to') + ').'
+    return 'The most recent time period for new daily cases is for ' + complete_date + ' and for doubling time, the period is for ' + date_range_doubling[0]['long_date_label'].replace('and','to') + ' and this is compared to the doubling times in the five days before that (' + date_range_doubling[1]['long_date_label'].replace('and','to') + ').'
   });
 
 d3.select("#doubling_time_narrative_2")
@@ -157,7 +157,7 @@ svg_title
   .append("text")
   .attr("x", 335)
   .attr("y", 25)
-  .text('time* between')
+  .text('time between')
   .attr("text-anchor", "start")
   .style('font-weight', 'bold')
   .style("font-size", "10px")
@@ -184,7 +184,7 @@ svg_title
   .append("text")
   .attr("x", 420)
   .attr("y", 25)
-  .text('time* between')
+  .text('time between')
   .attr("text-anchor", "start")
   .style('font-weight', 'bold')
   .style("font-size", "10px")

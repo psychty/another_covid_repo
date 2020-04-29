@@ -2,7 +2,7 @@
 
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'aweek', 'epitools'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'aweek', 'epitools', 'fingertipsR'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -22,6 +22,11 @@ mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.d
          Year = DATE_NAME,
          Age = C_AGE_NAME) 
 
+area_code_names <- mye_total_raw %>% 
+  select(Area_code, Name) %>% 
+  rename(Code = Area_code) %>% 
+  unique() 
+
 # We are interested in the whole of Sussex (three LA combined)
 sussex_pop <- mye_total_raw %>% 
   filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>%
@@ -39,17 +44,36 @@ mye_total <- mye_total_raw %>%
 
 rm(mye_total_raw, sussex_pop)
 
+# Something freaky is happening with downloading of data from Open Geography Portal. The stable urls are broken using the direct reading in R. The quickest workaround (and most frustrating) is to manually download both the ltla to utla and ltla to region look up files and combine them.
+if(!file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
 # Lookups from ltla to utla and region
-lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) %>% 
+lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) #%>% 
   select(-c(FID, LTLA19NM)) %>% 
   left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>% 
   select(-c(FID, LAD19NM))
 
-bh_nn <- c('Nottingham', 'Medway', 'Newcastle upon Tyne', 'Liverpool','Portsmouth','Southampton','Leeds','Sheffield','York','Plymouth','Salford','Coventry','Bristol','Southend-on-Sea','Brighton and Hove', 'Reading')
+}
 
-es_nn <- c('Nottinghamshire','Kent','Lancashire','Norfolk','Worcestershire','Staffordshire','Somerset','East Sussex','Devon','Gloucestershire','North Yorkshire','Suffolk','Warwickshire','Essex', 'West Sussex','Hampshire')
+if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
+  lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
+}
 
-ws_nn <- c('Kent','Northamptonshire','Worcestershire', 'Staffordshire','Somerset','East Sussex', 'Devon', 'Gloucestershire', 'Cambridgeshire','North Yorkshire','Suffolk','Warwickshire','Essex','West Sussex', 'Hampshire', 'Oxfordshire')
+# I suspect this will break tomorrow because it has the number of 'hospital deaths' as the heading for the cumulative number
+read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-deaths_latest.csv') %>%
+  filter(`Area name` == 'England') %>% 
+  filter(`Reporting date` == max(`Reporting date`)) %>% 
+  rename(Cumulative_deaths = 'Cumulative hospital deaths',
+         New_deaths = 'Daily hospital deaths') %>% 
+  select(-c(`Area code`, `Area name`)) %>% 
+  mutate(Date_label = format(`Reporting date`, '%a %d %B')) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/england_latest_mortality.json'))
+
+# bh_nn <- c('Nottingham', 'Medway', 'Newcastle upon Tyne', 'Liverpool','Portsmouth','Southampton','Leeds','Sheffield','York','Plymouth','Salford','Coventry','Bristol','Southend-on-Sea','Brighton and Hove', 'Reading')
+# 
+# es_nn <- c('Nottinghamshire','Kent','Lancashire','Norfolk','Worcestershire','Staffordshire','Somerset','East Sussex','Devon','Gloucestershire','North Yorkshire','Suffolk','Warwickshire','Essex', 'West Sussex','Hampshire')
+# 
+# ws_nn <- c('Kent','Northamptonshire','Worcestershire', 'Staffordshire','Somerset','East Sussex', 'Devon', 'Gloucestershire', 'Cambridgeshire','North Yorkshire','Suffolk','Warwickshire','Essex','West Sussex', 'Hampshire', 'Oxfordshire')
 
 
 # ONS Weekly mortality data ####
@@ -65,8 +89,6 @@ set_week_start('Friday')
 
 week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>% 
   mutate(Week_number = row_number())
-
-
 
 # Download the data. I am hoping that this is a stable url that will be updated each week
 # download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtables.xlsx', paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
@@ -178,7 +200,7 @@ Covid_burden_of_all_mortality <- All_settings_occurrences %>%
 Covid_burden_latest <- Covid_burden_of_all_mortality %>% 
   filter(Week_ending == max(Week_ending)) %>% 
   left_join(Latest_all_cause_occurrences[c('Name', 'Cumulative_crude_rate_per_100000', 'Deaths_crude_rate_per_100000', 'Deaths in latest week')], by = 'Name') %>% 
-  select(Name, Week_number, Week_ending, `All causes`, Deaths_crude_rate_per_100000, Cumulative_deaths_all_cause, Cumulative_crude_rate_per_100000, , `Deaths in latest week`, `COVID 19`,Cumulative_covid_deaths, Proportion_covid_deaths_occuring_in_week, Proportion_covid_deaths_to_date) %>% 
+  select(Name, Week_number, Week_ending, `All causes`, Deaths_crude_rate_per_100000, Cumulative_deaths_all_cause, Cumulative_crude_rate_per_100000, `Deaths in latest week`, `COVID 19`,Cumulative_covid_deaths, Proportion_covid_deaths_occuring_in_week, Proportion_covid_deaths_to_date) %>% 
   rename('All cause deaths in week'= `All causes`,
          `All cause deaths in week per 100,000 population` = Deaths_crude_rate_per_100000,
          'Total number of all cause deaths to date in 2020' = Cumulative_deaths_all_cause,
@@ -226,6 +248,44 @@ all_deaths_cipfa_SE <- nn_area %>%
   mutate(`Rank of latest Covid-19 deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Covid-19 deaths in week per 100,000 population`))) %>%
   mutate(`Rank of cumulative Covid-19 deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of deaths attributed to Covid-19 to date per 100,000 population`))) %>%
   mutate(`Rank of proportion of deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of deaths to date in 2020 attributed to Covid-19`))) 
+
+# Exporting for figures ####
+
+Occurrences %>% 
+  select(Week_ending) %>% 
+  unique() %>% 
+  filter(Week_ending == max(Week_ending)) %>% 
+  rename(Occurring_week_ending = Week_ending) %>% 
+  mutate(Reported_week_ending = format(Occurring_week_ending + 7, '%B %d %Y')) %>% 
+  mutate(Occurring_week_ending = format(Occurring_week_ending, '%B %d %Y')) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ons_weekly_mortality_dates.json'))
+
+SE_deaths_by_cause_cat <- All_settings_occurrences %>% 
+  filter(Name %in%  c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East', 'England')) %>%
+  ungroup() %>% 
+  select(Name, Week_number, Week_ending, Cause, Deaths) %>% 
+  group_by(Name, Week_number, Week_ending) %>% 
+  spread(Cause, Deaths) %>% 
+  mutate(`Not attributed to Covid-19` = `All causes` - `COVID 19`) %>% 
+  rename(`Covid-19` = `COVID 19`) %>% 
+  mutate(Deaths_in_week_label = paste0('The total number of deaths occurring in the week ending ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' was ', format(`All causes`, big.mark = ',', trim = TRUE), '. Of these, <b>', format(`Covid-19`, big.mark = ',', trim = TRUE), ifelse(`Covid-19` == 1, 'death was', 'deaths were'), ' attributed to Covid-19. This is ',  round((`Covid-19`/`All causes`) * 100, 1), '% of deaths occuring in this week.')) %>% 
+  group_by(Name) %>% 
+  mutate(Cumulative_deaths_all_cause = cumsum(`All causes`)) %>% 
+  mutate(Cumulative_covid_deaths = cumsum(`Covid-19`)) %>% 
+  mutate(Cumulative_deaths_label = paste0('As at ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' the total cumulative number of deaths for 2020 was ', format(Cumulative_deaths_all_cause, big.mark = ',', trim = TRUE), '. The cumulative number of deaths where Covid-19 is recorded as a cause by this date was ', format(Cumulative_covid_deaths, big.mark = ',', trim = TRUE), '. This is ', round((Cumulative_covid_deaths/Cumulative_deaths_all_cause) * 100, 1), '% of deaths occuring by this week.'))
+  
+  
+SE_deaths_by_cause_cat %>%   
+  gather(key = Cause, value = Deaths, `All causes`:`Not attributed to Covid-19`) %>% 
+  group_by(Name, Cause) %>% 
+  mutate(Cumulative_deaths = cumsum(Deaths))
+
+all_deaths_cipfa_SE %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_deaths_all_settings_ranks_SE.json'))
+
+
 
 # Care home deaths ONS ####
 

@@ -1,6 +1,6 @@
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -143,7 +143,7 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
   mutate(Case_label = paste0('The total (cumulative) number of cases reported for people with specimins taken by this date (', Period, ') was ', format(Cumulative_cases, big.mark = ',', trim = TRUE), '. A total of ', format(New_cases, big.mark = ',', trim = TRUE), ' patients who had sample specimins taken on this day (representing new cases) were confirmed to have the virus',  ifelse(Data_completeness == 'Considered incomplete', paste0('.<font color = "#bf260a"> However, these figures should be considered incomplete until at least ', format(Date + 5, '%d %B'),'.</font>'),'.'))) %>% 
-  mutate(Rate_label = paste0('The total (cumulative) number of Covid-19 cases per 100,000 population reported to date (', Period, ') is <b>', format(round(Cumulative_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population. The new cases (swabbed n this date) represent <b>',format(round(New_cases_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')) %>% 
+  mutate(Rate_label = paste0('The total (cumulative) number of Covid-19 cases per 100,000 population reported to date (', Period, ') is <b>', format(round(Cumulative_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population. The new cases (swabbed on this date) represent <b>',format(round(New_cases_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')) %>% 
   mutate(Proportion_label = paste0('The new cases for patients swabbed on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of Covid-19 cases reported to date (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>).')) %>%  
   mutate(Three_day_ave_new_label = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average of new cases for this date (', Period, ') because one of the values in the last three days is missing or revised.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete.', paste0('As such, the rolling average number of new cases in the last three days (<b>', format(round(Three_day_average_new_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of new cases in the last three days is <b>', format(round(Three_day_average_new_cases, 0), big.mark = ',', trim = TRUE), '  cases</b>.')))) %>% 
   mutate(Three_day_ave_cumulative_label = ifelse(is.na(Three_day_average_cumulative_cases), paste0('It is not possible to calculate a three day rolling average of new cases for this date (', Period, ') because one of the values in the last three days is missing or revised.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete. ', paste0('As such, the rolling average number of cumulative cases in the last three days (<b>', format(round(Three_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of cumulative cases in the last three days is <b>', format(round(Three_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>.')))) %>%
@@ -299,7 +299,7 @@ case_summary <- case_summary_latest %>%
   left_join(doubling_time_df_summary, by = 'Name') %>% 
   arrange(-`Total confirmed cases so far`) %>% 
   mutate(Name = factor(Name, levels = unique(Name))) %>% 
-  mutate(summary_label_doubling = paste0('In the most recent ', double_time_period, ' day time period, cases were set to double in ', round(Latest_doubling_time, 1), ' days. Compared to the previous ', double_time_period, ' days, the doubling time has ', ifelse(Latest_doubling_time > Previous_doubling_time, paste0(' increased from ', round(Previous_doubling_time, 1), ' days (meaning a slowing down of new cases).'), paste0(' decreased from ', round(Previous_doubling_time, 1), ' days (meaning a speeding up of new cases.')), '<b> It should be noted that in some areas, particularly with relatively low numbers of cases, there can be a large amount of fluctuation which can have an impact on doubling time.</b>')) %>% 
+  mutate(summary_label_doubling = paste0('In the most recent ', double_time_period, ' day time period, cases were set to double in ', round(Latest_doubling_time, 1), ' days. Compared to the previous ', double_time_period, ' days, the doubling time has ', ifelse(Latest_doubling_time > Previous_doubling_time, paste0(' increased from ', round(Previous_doubling_time, 1), ' days (meaning a slowing down of new cases).'), paste0(' decreased from ', round(Previous_doubling_time, 1), ' days (meaning a speeding up of new cases).')))) %>% 
   mutate(Growth_rate_change = ifelse(Latest_doubling_time > Previous_doubling_time, 'Slowing', ifelse(Latest_doubling_time < Previous_doubling_time, 'Speeding up', NA)))
 
 rm(case_summary_complete, case_summary_latest)
@@ -338,7 +338,6 @@ predicted_double_time <- daily_cases %>%
 # 
 SE_cases_latest <- case_summary %>%
   filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) %>%
-  filter(Date == max(Date)) %>% 
   arrange(-`Total confirmed cases so far`) %>% 
   mutate(Name = factor(Name, levels = unique(Name)))
 
@@ -379,10 +378,6 @@ daily_cases %>%
 
 # CIPFA dataframes ####
 
-library(fingertipsR)
-
-
-
 SE_area_code_names <- area_code_names %>% 
   filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham'))
 
@@ -413,3 +408,4 @@ nn_area %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_cases_ranks_SE.json'))
 
+# fin

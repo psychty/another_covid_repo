@@ -17,8 +17,9 @@ request.send(null);
 var case_summary = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
 var sussex_summary = case_summary.filter(function(d, i) {
-  return local_areas_compare.indexOf(d.Name) >= 0
+  return d.Name === 'Sussex areas combined'
 })
+
 var se_summary = case_summary.filter(function(d, i) {
   return areas.indexOf(d.Name) >= 0
 })
@@ -104,5 +105,15 @@ var unconfirmed_latest = JSON.parse(request.responseText);
 d3.select("#unconfirmed_cases_count")
   .data(unconfirmed_latest)
   .html(function(d) {
-    return 'Details of the postcode of residence are matched to Office for National Statistics (ONS) administrative geography codes. As of ' + latest_date + ', ' + d3.format(',.0f')(d.Unconfirmed) + ' cases (' + d3.format('.0%')(d.Proportion_unconfirmed) + ') of the ' + d3.format(',.0f')(d.England) + ' cases in England were not attributed to a local area. It is possible that some of these unconfirmed cases are from the areas analysed here.'
+    return 'The first section explores the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE) for Upper Tier Local Authority and Unitary Authority (UTLA) areas. Details of the postcode of residence are matched to Office for National Statistics (ONS) administrative geography codes. As of ' + latest_date + ', ' + d3.format(',.0f')(d.Unconfirmed) + ' cases (' + d3.format('.0%')(d.Proportion_unconfirmed) + ') of the ' + d3.format(',.0f')(d.England) + ' cases in England were not attributed to a local area. It is possible that some of these unconfirmed cases are from the areas analysed here.'
   });
+
+d3.select("#sussex_latest_figures")
+  .data(sussex_summary)
+  .html(function(d) {
+    return 'The total number of confirmed Covid-19 cases so far across Sussex areas combined is <b>' + d3.format(',.0f')(d['Total confirmed cases so far'])  + '</b>. This is ' + d3.format(',.0f')(d['Total cases per 100,000 population']) + ' cases per 100,000 population. The current daily case count (using data from ' + complete_date + ') is ' + d3.format(',.0f')(d['Confirmed cases swabbed on most recent complete day']) + ' new confirmed cases swabbed (' + d3.format(',.1f')(d['Confirmed cases swabbed per 100,000 population on most recent complete day']) + ' per 100,000).' });
+
+d3.select("#doubling_time_sussex_narrative")
+  .data(sussex_summary)
+  .html(function(d) {
+    return 'The table also shows the length of time it takes the total (cumulative) number of confirmed cases to double over the specified time period (in this case <u>five days</u>). In the three Sussex areas combined, ' + d.summary_label_doubling.replace('In','in') });
