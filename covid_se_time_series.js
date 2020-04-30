@@ -1,6 +1,6 @@
 // Line graph one - actual cases - linear scale
 var height_line = 350;
-//
+
 var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
   .append("svg")
   .attr("width", width_hm)
@@ -1378,8 +1378,6 @@ var tooltip_c4_doubled = d3.select("#cumulative_log_double_time_added")
   .style("border-width", "1px")
   .style("border-radius", "5px")
   .style("padding", "10px")
-
-console
 
 var showTooltip_c4 = function(d, i) {
 

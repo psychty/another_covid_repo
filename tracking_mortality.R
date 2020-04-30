@@ -269,13 +269,17 @@ SE_deaths_by_cause_cat <- All_settings_occurrences %>%
   spread(Cause, Deaths) %>% 
   mutate(`Not attributed to Covid-19` = `All causes` - `COVID 19`) %>% 
   rename(`Covid-19` = `COVID 19`) %>% 
-  mutate(Deaths_in_week_label = paste0('The total number of deaths occurring in the week ending ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' was ', format(`All causes`, big.mark = ',', trim = TRUE), '. Of these, <b>', format(`Covid-19`, big.mark = ',', trim = TRUE), ifelse(`Covid-19` == 1, 'death was', 'deaths were'), ' attributed to Covid-19. This is ',  round((`Covid-19`/`All causes`) * 100, 1), '% of deaths occuring in this week.')) %>% 
+  mutate(Deaths_in_week_label = paste0('The total number of deaths occurring in the week ending ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' was<b> ', format(`All causes`, big.mark = ',', trim = TRUE), '</b>. Of these, <b>', format(`Covid-19`, big.mark = ',', trim = TRUE), ifelse(`Covid-19` == 1, ' death</b> was', ' deaths</b> were'), ' attributed to Covid-19. This is ',  round((`Covid-19`/`All causes`) * 100, 1), '% of deaths occuring in this week.')) %>% 
   group_by(Name) %>% 
   mutate(Cumulative_deaths_all_cause = cumsum(`All causes`)) %>% 
   mutate(Cumulative_covid_deaths = cumsum(`Covid-19`)) %>% 
-  mutate(Cumulative_deaths_label = paste0('As at ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' the total cumulative number of deaths for 2020 was ', format(Cumulative_deaths_all_cause, big.mark = ',', trim = TRUE), '. The cumulative number of deaths where Covid-19 is recorded as a cause by this date was ', format(Cumulative_covid_deaths, big.mark = ',', trim = TRUE), '. This is ', round((Cumulative_covid_deaths/Cumulative_deaths_all_cause) * 100, 1), '% of deaths occuring by this week.'))
-  
-  
+  mutate(Cumulative_deaths_label = paste0('As at ', format(Week_ending, '%d %B %Y'), ' in ', Name, ' the total cumulative number of deaths for 2020 was<b> ', format(Cumulative_deaths_all_cause, big.mark = ',', trim = TRUE), '</b>. The cumulative number of deaths where Covid-19 is recorded as a cause by this date was ', format(Cumulative_covid_deaths, big.mark = ',', trim = TRUE), '. This is ', round((Cumulative_covid_deaths/Cumulative_deaths_all_cause) * 100, 1), '% of deaths occuring by this week.'))
+
+SE_deaths_by_cause_cat %>% 
+  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/deaths_all_settings_SE.json'))
+
 SE_deaths_by_cause_cat %>%   
   gather(key = Cause, value = Deaths, `All causes`:`Not attributed to Covid-19`) %>% 
   group_by(Name, Cause) %>% 
@@ -285,14 +289,27 @@ all_deaths_cipfa_SE %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_deaths_all_settings_ranks_SE.json'))
 
-
-
-# Care home deaths ONS ####
+# Place of death ####
 
 Place_death <- Occurrences %>% 
   group_by(Code, Name, Week_number, Week_ending, Cause,Deaths, Place_of_death) %>% 
   spread(Place_of_death, Deaths)
 
+as.Date('2020-02-11') + 180
+
+
+# Care home deaths ONS ####
+
+# This is the number of beds in care homes (all; nursing and residential) in each area as reported by Care Quality Care (CQC) on the 31st of March 2019.
+
+care_home_beds <- fingertips_data(IndicatorID = 92489, AreaTypeID = 102) %>% 
+  filter(Timeperiod == max(Timeperiod)) %>% 
+  filter(Age == 'All ages') %>% 
+  select(AreaCode, AreaName, Count) %>% 
+  rename(Code = AreaCode,
+         Name = AreaName,
+         Care_home_beds = Count)
+  
 Care_home_deaths <- Occurrences %>% 
   filter(Place_of_death == 'Care home') %>% 
   group_by(Code, Name, Cause) %>% 
