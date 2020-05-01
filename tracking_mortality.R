@@ -58,12 +58,12 @@ if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
   lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
 }
 
+
 # I suspect this will break tomorrow because it has the number of 'hospital deaths' as the heading for the cumulative number
 read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-deaths_latest.csv') %>%
   filter(`Area name` == 'England') %>% 
   filter(`Reporting date` == max(`Reporting date`)) %>% 
-  rename(Cumulative_deaths = 'Cumulative hospital deaths',
-         New_deaths = 'Daily hospital deaths') %>% 
+  rename(New_deaths = 'Daily change in deaths') %>% 
   select(-c(`Area code`, `Area name`)) %>% 
   mutate(Date_label = format(`Reporting date`, '%a %d %B')) %>% 
   toJSON() %>% 
@@ -94,7 +94,7 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
 # download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtables.xlsx', paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
 
 # Boo! but we can get around it with some date hackery. This will probably not work on Tuesday morning next week
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-7)), 7,8), '.xlsx'), paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'), paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
 
 # Use occurances, be mindful that the most recent week of occurance data may not be complete if the death is not registered within 7 days (there is a week lag in reporting to allow up to seven days for registration to take place), this will be updated each week. Estimates suggest around 74% of deaths in England and Wales are registered within seven calendar days of occurance, with the proportion as low as 68% in the South East region. It is difficult to know what impact Covid-19 has on length of time taken to register a death. 
 
@@ -295,7 +295,7 @@ Place_death <- Occurrences %>%
   group_by(Code, Name, Week_number, Week_ending, Cause,Deaths, Place_of_death) %>% 
   spread(Place_of_death, Deaths)
 
-as.Date('2020-02-11') + 180
+
 
 
 # Care home deaths ONS ####
@@ -499,6 +499,26 @@ cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortal
   rename(Name = ...1) %>% 
   gather(key = "Date", value = "Deaths", 2:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) 
+
+# ASMR and MSOA by sex ####
+
+# ONS granular analysis of deaths since March 01 2020 and April 17 2020. It is important to note that only deaths that were registered by the 18th April are included. Note this is different again to other data sources and cannot be compared with the ONS weekly 2020 figures as they have a longer time period to capture occurrences (7 days rather than 1 day) and also this dataset includes only a few weeks rather than all weeks in 2020.
+
+# Age-standardised mortality rates are presented per 100,000 people and standardised to the 2013 European Standard Population. Age-standardised mortality rates allow for differences in the age structure of populations and therefore allow valid comparisons to be made between geographical areas, the sexes and over time. 														
+# Rates have been calculated using 2018 mid-year population estimates, the most up-to-date estimates when published. Causes of death was defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes U07.1 and U07.2. Figures include deaths where coronavirus (COVID-19) was the underlying cause or was mentioned on the death certificate as a contributory factor. Figures do not include neonatal deaths (deaths under 28 days).														
+
+# u = low reliability The age-standardised rate is of low quality.														
+# : = not available The age-standardised rate and its lower and upper confidence interval is unavailable.														
+# Figures are for deaths occurring between 1 March 2020 and 17 April 2020. Figures only include deaths that were registered by 18 April 2020. More information on registration delays can be found on the ONS website:														
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fdeathsinvolvingcovid19bylocalareaanddeprivation%2f1march2020to17april2020/referencetablesdraft.xlsx', paste0(github_repo_dir, '/granular_mortality_file.xlsx'), mode = 'wb')
+
+
+la_asmr <- read_excel(paste0(github_repo_dir, '/granular_mortality_file.xlsx'), sheet = "Table 2", skip = 5, col_names = c('Sex',	'Area_type',	'Code',	'Name',	'All_cause_deaths',	'All_cause_ASMR',	'All_cause_ASMR_data_quality',	'All_cause_ASMR_lci',	'All_cause_ASMR_uci',	'null',	'Covid_deaths',	'Covid_ASMR',	'Covid_ASMR_data_quality',	'Covid_ASMR_lci',	'Covid_ASMR_uci'), col_types = c("text", "text", "text", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric")) %>% 
+  select(-null) %>% 
+  filter(!is.na(Name))
+
+msoa_asmr <- read_excel("~/Documents/Repositories/another_covid_repo/granular_mortality_file.xlsx", sheet = "Table 5", col_types = c("text","text", "numeric", "numeric", "numeric"), skip = 11) %>% 
+  filter()
 
 
 
