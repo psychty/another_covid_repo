@@ -58,8 +58,7 @@ if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
   lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
 }
 
-
-# I suspect this will break tomorrow because it has the number of 'hospital deaths' as the heading for the cumulative number
+# DHSC running total - daily deaths - be cautious of the definition of these deaths
 read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-deaths_latest.csv') %>%
   filter(`Area name` == 'England') %>% 
   filter(`Reporting date` == max(`Reporting date`)) %>% 
@@ -74,7 +73,6 @@ read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-deaths_lates
 # es_nn <- c('Nottinghamshire','Kent','Lancashire','Norfolk','Worcestershire','Staffordshire','Somerset','East Sussex','Devon','Gloucestershire','North Yorkshire','Suffolk','Warwickshire','Essex', 'West Sussex','Hampshire')
 # 
 # ws_nn <- c('Kent','Northamptonshire','Worcestershire', 'Staffordshire','Somerset','East Sussex', 'Devon', 'Gloucestershire', 'Cambridgeshire','North Yorkshire','Suffolk','Warwickshire','Essex','West Sussex', 'Hampshire', 'Oxfordshire')
-
 
 # ONS Weekly mortality data ####
 
@@ -291,10 +289,22 @@ all_deaths_cipfa_SE %>%
 
 # Place of death ####
 
+
+# TODO
+# We need to combine some of the places - Elsewhere and Other communal establishment into the following "Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'
+
+
 Place_death <- Occurrences %>% 
   group_by(Code, Name, Week_number, Week_ending, Cause,Deaths, Place_of_death) %>% 
   spread(Place_of_death, Deaths)
 
+
+
+Place_death %>%
+  filter(Cause == 'All causes') %>% 
+  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/deaths_all_cause_by_place_SE.json'))
 
 
 

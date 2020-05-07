@@ -22,8 +22,12 @@ d3.select("#ons_dates_mortality")
   return 'The tables include deaths that occurred up to Friday ' + d.Occurring_week_ending + ' but were registered up to ' + d.Reported_week_ending + '. Figures by place of death may differ to previously published figures due to improvements in the way we code place of death.'
 });
 
+var death_places = ["Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)']
+
+
+
 var colour_place_of_death = d3.scaleOrdinal()
-  .domain(["Home", "Care home", "Hospital", "Hospice"])
+  .domain(death_places)
   .range(["#f6de6c", "#ed8a46", "#be3e2b","#34738f"])
 
 var covid_causes = ['Not attributed to Covid-19', 'Covid-19']
@@ -500,3 +504,90 @@ d3.select("#select_mortality_1_area_button").on("change", function(d) {
 var chosen_m1_area = d3.select('#select_mortality_1_area_button').property("value")
   update_m1()
 })
+
+///////////////////////////////
+// x = week = place of death //
+///////////////////////////////
+
+var request = new XMLHttpRequest();
+    request.open("GET", "./deaths_all_cause_by_place_SE.json", false);
+    request.send(null);
+var deaths_by_week_place = JSON.parse(request.responseText); // parse the fetched json data into a variable
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_mortality_2_area_button")
+  .selectAll('myOptions')
+  .data(['Sussex areas combined', 'England', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+// Retrieve the selected area name
+var chosen_m2_area = d3.select('#select_mortality_2_area_button').property("value")
+
+var chosen_m2_df = deaths_by_week_place.filter(function(d) {
+  return d.Name === chosen_m2_area
+});
+
+var chosen_latest_m2 = chosen_m2_df.filter(function(d) {
+  return d.Week_number === d3.max(chosen_m2_df, function(d) {return +d.Week_number;})
+})
+
+var stackedData_m2 = d3.stack()
+    .keys(death_places)
+    (chosen_m2_df)
+
+weeks_m2 = chosen_m2_df.map(function(d) {return (d.Date_label);});
+
+// append the svg object to the body of the page
+var svg_fg_mortality_2 = d3.select("#all_cause_mortality_by_place")
+ .append("svg")
+  .attr("width", width_hm)
+  .attr("height", height_line)
+  .append("g")
+  .attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+var x_m2 = d3.scaleBand()
+  .domain(weeks_m2)
+  .range([0, width_hm * .6]) // this is the 50 that was pushed over from the left plus another 10 so that the chart does not get cut off
+  .padding([0.2]);
+
+var xAxis_mortality_2 = svg_fg_mortality_2
+  .append("g")
+  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .call(d3.axisBottom(x_m1).tickSizeOuter(0));
+
+xAxis_mortality_2
+  .selectAll("text")
+  .attr("transform", 'translate(-10,10)rotate(-90)')
+  .style("text-anchor", "end")
+//
+// var y_m2_ts = d3.scaleLinear()
+//   .domain([0, d3.max(chosen_m2_df, function(d) {return +d['All causes'];})])
+//   .range([height_line - 90, 0])
+//
+// var y_m1_ts_axis = svg_fg_mortality_1
+//   .append("g")
+//   .attr("transform", 'translate(0,0)')
+//   .call(d3.axisLeft(y_m1_ts).tickFormat(d3.format(',.0f')));
+//
+// var bars_m1 = svg_fg_mortality_1
+//  .append("g")
+//  .selectAll("g")
+//  .data(stackedData_m1)
+//  .enter().append("g")
+//  .attr("fill", function(d) { return colour_covid_non_covid(d.key); })
+//  .selectAll("rect")
+//  .data(function(d) { return d; })
+//  .enter().append("rect")
+//  .attr("x", function(d) { return x_m1(d.data.Date_label); })
+//  .attr("y", function(d) { return y_m1_ts(d[1]); })
+//  .attr("height", function(d) { return y_m1_ts(d[0]) - y_m1_ts(d[1]); })
+//  .attr("width",x_m1.bandwidth())
+//  .on('mousemove', showTooltip_m1)
+//  .on('mouseout', mouseleave_m1)
