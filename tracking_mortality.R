@@ -289,7 +289,6 @@ all_deaths_cipfa_SE %>%
 
 # Place of death ####
 
-
 # TODO
 # We need to combine some of the places - Elsewhere and Other communal establishment into the following "Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'
 

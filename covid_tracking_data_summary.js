@@ -97,16 +97,16 @@ d3.select("#data_recency")
     return 'The latest available data in this analysis are for <b>' + latest_date + '</b>. However, as data for recent days are likely to change significantly, <b> only data up to <b>' + complete_date + ' should be treated as complete</b>.'
   });
 
-var request = new XMLHttpRequest();
-request.open("GET", "./unconfirmed_latest.json", false);
-request.send(null);
-var unconfirmed_latest = JSON.parse(request.responseText);
-
-d3.select("#unconfirmed_cases_count")
-  .data(unconfirmed_latest)
-  .html(function(d) {
-    return 'The first section explores the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE) for Upper Tier Local Authority and Unitary Authority (UTLA) areas. Details of the postcode of residence are matched to Office for National Statistics (ONS) administrative geography codes. As of ' + latest_date + ', ' + d3.format(',.0f')(d.Unconfirmed) + ' cases (' + d3.format('.0%')(d.Proportion_unconfirmed) + ') of the ' + d3.format(',.0f')(d.England) + ' cases in England were not attributed to a local area. It is possible that some of these unconfirmed cases are from the areas analysed here.'
-  });
+// var request = new XMLHttpRequest();
+// request.open("GET", "./unconfirmed_latest.json", false);
+// request.send(null);
+// var unconfirmed_latest = JSON.parse(request.responseText);
+//
+// d3.select("#unconfirmed_cases_count")
+//   .data(unconfirmed_latest)
+//   .html(function(d) {
+//     return 'The first section explores the number of diagnosed coronavirus (Covid-19) cases recorded daily by Public Health England (PHE) for Upper Tier Local Authority and Unitary Authority (UTLA) areas. Details of the postcode of residence are matched to Office for National Statistics (ONS) administrative geography codes. As of ' + latest_date + ', ' + d3.format(',.0f')(d.Unconfirmed) + ' cases (' + d3.format('.0%')(d.Proportion_unconfirmed) + ') of the ' + d3.format(',.0f')(d.England) + ' cases in England were not attributed to a local area. It is possible that some of these unconfirmed cases are from the areas analysed here.'
+//   });
 
 d3.select("#sussex_latest_figures")
   .data(sussex_summary)

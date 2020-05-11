@@ -36,10 +36,18 @@ ph_theme = function(){
 }
 
 # 2018 MYE
-mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_code,obs_value') %>% 
+mye_total <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1816133633...1816133848,1820327937...1820328318,2092957697...2092957703,2013265921...2013265932&date=latest&gender=0&c_age=200&measures=20100&select=date_name,geography_name,geography_type,geography_code,obs_value') %>% 
   rename(Population = OBS_VALUE,
          Code = GEOGRAPHY_CODE,
-         Name = GEOGRAPHY_NAME) 
+         Name = GEOGRAPHY_NAME,
+         Type = GEOGRAPHY_TYPE) %>% 
+  unique() %>% 
+  group_by(Name, Code) %>% 
+  mutate(Count = n()) %>% 
+  mutate(Type = ifelse(Count == 2, 'Unitary Authority', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>% 
+  ungroup() %>% 
+  select(-Count) %>% 
+  unique()
 
 # We are interested in the whole of Sussex (three LA combined)
 sussex_pop <- mye_total %>% 
@@ -57,7 +65,7 @@ mye_total <- mye_total %>%
 
 #download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
-# On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specemin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
+# On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specimin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
 
 # Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like the most recent days' cases (which are still being reported daily) are sloping off (getting smaller). This is not the case, it is just that the most recent testing results may take several days to be reported. PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.
 
@@ -69,18 +77,28 @@ daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coron
   rename(New_cases = `Daily lab-confirmed cases`) %>% 
   rename(Cumulative_cases = `Cumulative lab-confirmed cases`) %>% 
   arrange(Name, Date) %>% 
-  select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases)
+  select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases) %>% 
+  group_by(Name, Code, Date) %>% 
+  mutate(Count = n()) %>% 
+  filter(!(`Area type` == 'Lower tier local authority' & Count == 2)) %>% 
+  select(-c(`Area type`, Count)) %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  select(-DATE_NAME) %>% 
+  ungroup()
 
 # Create a subset for Sussex
 sussex_daily_cases <- daily_cases_raw %>% 
   filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>%
-  group_by(Date, `Area type`) %>% 
+  group_by(Date) %>% 
   summarise(New_cases = sum(New_cases, na.rm = TRUE)) %>%
   ungroup() %>% 
   mutate(Cumulative_cases = cumsum(New_cases)) %>% # We have to rebuild this because in some cases there are no rows for an individual area if no new cases. 
   mutate(Name = 'Sussex areas combined') %>% 
-  mutate(`Area type` = 'Sussex areas combined') %>% 
-  mutate(Code = '-')
+  mutate(Code = '-') %>% 
+  left_join(mye_total, by = 'Code') %>% 
+  select(-DATE_NAME) %>% 
+  mutate(Type = 'Sussex areas combined') %>% 
+  ungroup()
 
 # Combine raw data with Sussex data
 daily_cases <- daily_cases_raw %>% 
@@ -95,16 +113,16 @@ first_date <- min(daily_cases$Date)
 last_date <- max(daily_cases$Date)
 
 Areas = daily_cases %>% 
-  select(Name, Code, `Area type`) %>% 
+  select(Name, Code, Type) %>% 
   unique()
   
 Dates = seq.Date(first_date, last_date, by = '1 day')
 
-daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), `Area type` = rep(Areas$`Area type`, length(Dates)), check.names = FALSE) %>% 
+daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
   arrange(Name) %>% 
   group_by(Name) %>% 
   mutate(Date = seq.Date(first_date, last_date, by = '1 day')) %>% 
-  left_join(daily_cases, by = c('Name', 'Code', 'Area type', 'Date')) %>% 
+  left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
   mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
   mutate(New_cumulative = cumsum(New_cases)) %>% 
   filter(!is.na(Cumulative_cases)) %>% 
@@ -124,22 +142,22 @@ daily_cases_reworked %>%
 # PHE say the last five data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
 complete_date <- max(daily_cases_reworked$Date) - 5
 
-daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), `Area type` = rep(Areas$`Area type`, length(Dates)), check.names = FALSE) %>% 
+daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
   arrange(Name) %>% 
   group_by(Name) %>% 
   mutate(Date = seq.Date(first_date, last_date, by = '1 day')) %>% 
   mutate(Data_completeness = ifelse(Date >= max(Date) - 4, 'Considered incomplete', 'Complete')) %>% 
-  left_join(daily_cases, by = c('Name', 'Code', 'Area type', 'Date')) %>% 
+  left_join(daily_cases, by = c('Name', 'Code', 'Type', 'Date')) %>% 
   mutate(New_cases = ifelse(is.na(New_cases), 0, New_cases)) %>% 
   rename(Original_cumulative = Cumulative_cases) %>% # We should keep the original cumulative cases for reference
   mutate(Cumulative_cases = cumsum(New_cases)) %>% # These are based on the new cases data being accurate
   mutate(Log10Cumulative_cases = log10(Cumulative_cases)) %>% # We also add log scaled cumulative cases for reporting growth
   group_by(Name) %>% 
   mutate(Three_day_average_new_cases = rollapply(New_cases, 3, mean, align = 'right', fill = NA)) %>%
-  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill = NA)) %>%
-  left_join(mye_total, by = c('Code')) %>% 
-  select(-c(Code, DATE_NAME)) %>% 
+  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill = NA)) %>% 
   mutate(Period = format(Date, '%d %B')) %>%
+  select(-Population) %>% 
+  left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
   mutate(Case_label = paste0('The total (cumulative) number of cases reported for people with specimins taken by this date (', Period, ') was ', format(Cumulative_cases, big.mark = ',', trim = TRUE), '. A total of ', format(New_cases, big.mark = ',', trim = TRUE), ' patients who had sample specimins taken on this day (representing new cases) were confirmed to have the virus',  ifelse(Data_completeness == 'Considered incomplete', paste0('.<font color = "#bf260a"> However, these figures should be considered incomplete until at least ', format(Date + 5, '%d %B'),'.</font>'),'.'))) %>% 
@@ -156,21 +174,7 @@ rm(daily_cases, Areas, Dates, first_date)
 
 # We need to figure out the starting case report date and what to do with data revised down.
 # We could also concatenate the labels into one set for each tooltip and that way reduce the file size and repeating of text like (this is incomplete).
-    
-daily_cases_reworked %>% 
-  filter(Date == max(Date)) %>% 
-  group_by(`Area type`, Date) %>% 
-  summarise(Cumulative_cases = sum(Cumulative_cases)) %>% 
-  filter(`Area type` != 'Upper tier local authority') %>% 
-  rename(Area = `Area type`) %>% 
-  spread(value = Cumulative_cases, key = Area) %>%
-  mutate(Unconfirmed = Nation - Region) %>% 
-  rename(England = Nation) %>% 
-  select(-Region) %>% 
-  mutate(Proportion_unconfirmed = Unconfirmed / England) %>% 
-  toJSON() %>% 
-  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/unconfirmed_latest.json'))
-  
+
 levels(daily_cases_reworked$new_case_key) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/daily_cases_bands.json'))
@@ -376,6 +380,50 @@ daily_cases %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/range_dates.json'))
 
+# LTLA within Sussex ####
+
+ltla_areas <- c("Adur", "Arun", "Chichester", "Crawley", "Horsham", "Mid Sussex","Worthing","Brighton and Hove", "Eastbourne","Hastings","Lewes","Rother","Wealden", 'East Sussex', 'West Sussex', 'South East region', 'England')
+
+ltla_sussex_cases_latest <- case_summary %>%
+  filter(Name %in% ltla_areas) %>%
+  arrange(-`Total confirmed cases so far`) %>% 
+  mutate(Name = factor(Name, levels = unique(Name)))
+
+ltla_sussex_cases_latest %>%
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_sussex_case_summary.json'))
+
+daily_cases %>% 
+  filter(Name %in% ltla_areas) %>%
+  mutate(Date_label = format(Date, '%a %d %B')) %>% 
+  select(-Log10Cumulative_cases) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_sussex_daily_cases.json'))
+
+daily_cases %>% 
+  filter(Name %in% ltla_areas) %>%
+  filter(Data_completeness == 'Complete') %>% 
+  filter(Date == max(Date)) %>% 
+  mutate(Data_type = 'Recorded') %>% 
+  bind_rows(predicted_double_time) %>%
+  mutate(Period = format(Date, '%d %B')) %>%
+  select(Name, Date, Period, Data_type, Cumulative_cases) %>%
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_sussex_daily_cases_doubling_shown.json'))
+
+daily_cases %>% 
+  filter(Name %in% ltla_areas) %>%
+  filter(Date == min(Date) | Date == max(Date)) %>% 
+  select(Date) %>% 
+  unique() %>% 
+  add_row(Date = complete_date) %>% 
+  add_row(Date = complete_date +1) %>% 
+  mutate(Date_label = format(Date, '%a %d %B')) %>% 
+  arrange(Date) %>% 
+  add_column(Order = c('First', 'Complete', 'First_incomplete', 'Last')) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_sussex_range_dates.json'))
+
 # CIPFA dataframes ####
 
 SE_area_code_names <- area_code_names %>% 
@@ -408,4 +456,11 @@ nn_area %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_cases_ranks_SE.json'))
 
+# export csv dataframes for powerpoint ####
+
+daily_cases %>% 
+  filter(Name %in% ltla_areas) %>% 
+  write.csv(., paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv'), row.names = FALSE, na = '')
+
 # fin
+
