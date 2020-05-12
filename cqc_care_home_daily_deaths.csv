@@ -1,0 +1,3389 @@
+"Name","Date","All cause","Covid-19 Deaths"
+"England",2020-04-10,240,95
+"Barking and Dagenham",2020-04-10,0,0
+"Barnet",2020-04-10,0,0
+"Barnsley",2020-04-10,0,0
+"Bath and North East Somerset",2020-04-10,1,0
+"Bedford",2020-04-10,0,0
+"Bexley",2020-04-10,3,3
+"Birmingham",2020-04-10,10,2
+"Blackburn with Darwen",2020-04-10,0,0
+"Blackpool",2020-04-10,1,0
+"Bolton",2020-04-10,2,1
+"Bournemouth, Christchurch and Poole",2020-04-10,2,0
+"Bracknell Forest",2020-04-10,0,0
+"Bradford",2020-04-10,2,2
+"Brent",2020-04-10,1,0
+"Brighton and Hove",2020-04-10,0,0
+"Bristol, City of",2020-04-10,2,1
+"Bromley",2020-04-10,1,0
+"Buckinghamshire",2020-04-10,1,1
+"Bury",2020-04-10,1,1
+"Calderdale",2020-04-10,0,0
+"Cambridgeshire",2020-04-10,2,0
+"Camden",2020-04-10,1,0
+"Central Bedfordshire",2020-04-10,4,4
+"Cheshire East",2020-04-10,2,1
+"Cheshire West and Chester",2020-04-10,2,1
+"Cornwall",2020-04-10,1,0
+"County Durham",2020-04-10,2,0
+"Coventry",2020-04-10,3,1
+"Croydon",2020-04-10,1,0
+"Cumbria",2020-04-10,4,3
+"Darlington",2020-04-10,2,1
+"Derby",2020-04-10,0,0
+"Derbyshire",2020-04-10,1,0
+"Devon",2020-04-10,0,0
+"Doncaster",2020-04-10,0,0
+"Dorset",2020-04-10,4,1
+"Dudley",2020-04-10,0,0
+"Ealing",2020-04-10,2,2
+"East Riding of Yorkshire",2020-04-10,0,0
+"East Sussex",2020-04-10,1,1
+"Enfield",2020-04-10,3,2
+"Essex",2020-04-10,4,1
+"Gateshead",2020-04-10,1,1
+"Gloucestershire",2020-04-10,3,3
+"Greenwich",2020-04-10,0,0
+"Hackney",2020-04-10,0,0
+"Halton",2020-04-10,0,0
+"Hammersmith and Fulham",2020-04-10,3,2
+"Hampshire",2020-04-10,17,8
+"Haringey",2020-04-10,0,0
+"Harrow",2020-04-10,0,0
+"Hartlepool",2020-04-10,0,0
+"Havering",2020-04-10,0,0
+"Herefordshire, County of",2020-04-10,1,1
+"Hertfordshire",2020-04-10,14,3
+"Hillingdon",2020-04-10,1,0
+"Hounslow",2020-04-10,0,0
+"Isle of Wight",2020-04-10,1,0
+"Islington",2020-04-10,1,0
+"Kensington and Chelsea",2020-04-10,0,0
+"Kent",2020-04-10,6,3
+"Kingston upon Hull, City of",2020-04-10,0,0
+"Kingston upon Thames",2020-04-10,0,0
+"Kirklees",2020-04-10,0,0
+"Knowsley",2020-04-10,2,1
+"Lambeth",2020-04-10,0,0
+"Lancashire",2020-04-10,6,2
+"Leeds",2020-04-10,1,1
+"Leicester",2020-04-10,0,0
+"Leicestershire",2020-04-10,2,2
+"Lewisham",2020-04-10,1,0
+"Lincolnshire",2020-04-10,3,1
+"Liverpool",2020-04-10,2,1
+"Luton",2020-04-10,1,0
+"Manchester",2020-04-10,1,0
+"Medway",2020-04-10,0,0
+"Merton",2020-04-10,3,1
+"Middlesbrough",2020-04-10,0,0
+"Milton Keynes",2020-04-10,1,1
+"Newcastle upon Tyne",2020-04-10,2,0
+"Newham",2020-04-10,0,0
+"Norfolk",2020-04-10,5,0
+"North East Lincolnshire",2020-04-10,0,0
+"North Lincolnshire",2020-04-10,1,0
+"North Somerset",2020-04-10,1,0
+"North Tyneside",2020-04-10,1,1
+"North Yorkshire",2020-04-10,1,0
+"Northamptonshire",2020-04-10,2,1
+"Northumberland",2020-04-10,3,0
+"Nottingham",2020-04-10,1,1
+"Nottinghamshire",2020-04-10,0,0
+"Oldham",2020-04-10,0,0
+"Oxfordshire",2020-04-10,7,0
+"Peterborough",2020-04-10,0,0
+"Plymouth",2020-04-10,0,0
+"Portsmouth",2020-04-10,0,0
+"Reading",2020-04-10,0,0
+"Redbridge",2020-04-10,1,0
+"Redcar and Cleveland",2020-04-10,0,0
+"Richmond upon Thames",2020-04-10,2,0
+"Rochdale",2020-04-10,1,1
+"Rotherham",2020-04-10,1,0
+"Rutland",2020-04-10,0,0
+"Salford",2020-04-10,1,0
+"Sandwell",2020-04-10,2,1
+"Sefton",2020-04-10,3,3
+"Sheffield",2020-04-10,1,0
+"Shropshire",2020-04-10,1,0
+"Slough",2020-04-10,0,0
+"Solihull",2020-04-10,0,0
+"Somerset",2020-04-10,3,0
+"South Gloucestershire",2020-04-10,1,0
+"South Tyneside",2020-04-10,1,0
+"Southampton",2020-04-10,0,0
+"Southend-on-Sea",2020-04-10,1,0
+"Southwark",2020-04-10,1,0
+"St. Helens",2020-04-10,0,0
+"Staffordshire",2020-04-10,4,3
+"Stockport",2020-04-10,3,2
+"Stockton-on-Tees",2020-04-10,0,0
+"Stoke-on-Trent",2020-04-10,0,0
+"Suffolk",2020-04-10,6,3
+"Sunderland",2020-04-10,3,2
+"Surrey",2020-04-10,12,5
+"Sutton",2020-04-10,1,0
+"Swindon",2020-04-10,1,1
+"Tameside",2020-04-10,3,2
+"Telford and Wrekin",2020-04-10,0,0
+"Thurrock",2020-04-10,0,0
+"Torbay",2020-04-10,0,0
+"Tower Hamlets",2020-04-10,0,0
+"Trafford",2020-04-10,0,0
+"Wakefield",2020-04-10,2,1
+"Walsall",2020-04-10,2,1
+"Waltham Forest",2020-04-10,0,0
+"Wandsworth",2020-04-10,0,0
+"Warrington",2020-04-10,5,4
+"Warwickshire",2020-04-10,0,0
+"West Berkshire",2020-04-10,0,0
+"West Sussex",2020-04-10,4,1
+"Westminster",2020-04-10,0,0
+"Wigan",2020-04-10,1,0
+"Wiltshire",2020-04-10,2,0
+"Windsor and Maidenhead",2020-04-10,4,0
+"Wirral",2020-04-10,2,1
+"Wokingham",2020-04-10,0,0
+"Wolverhampton",2020-04-10,1,0
+"Worcestershire",2020-04-10,1,1
+"York",2020-04-10,2,0
+"Notes:",2020-04-10,,
+"1. Data provided by Care Quality Commission",2020-04-10,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-10,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-10,,
+"England",2020-04-11,143,46
+"Barking and Dagenham",2020-04-11,1,1
+"Barnet",2020-04-11,2,2
+"Barnsley",2020-04-11,1,0
+"Bath and North East Somerset",2020-04-11,0,0
+"Bedford",2020-04-11,0,0
+"Bexley",2020-04-11,0,0
+"Birmingham",2020-04-11,3,2
+"Blackburn with Darwen",2020-04-11,0,0
+"Blackpool",2020-04-11,1,0
+"Bolton",2020-04-11,0,0
+"Bournemouth, Christchurch and Poole",2020-04-11,0,0
+"Bracknell Forest",2020-04-11,0,0
+"Bradford",2020-04-11,1,0
+"Brent",2020-04-11,2,2
+"Brighton and Hove",2020-04-11,1,0
+"Bristol, City of",2020-04-11,3,0
+"Bromley",2020-04-11,1,0
+"Buckinghamshire",2020-04-11,3,0
+"Bury",2020-04-11,0,0
+"Calderdale",2020-04-11,0,0
+"Cambridgeshire",2020-04-11,0,0
+"Camden",2020-04-11,1,0
+"Central Bedfordshire",2020-04-11,1,0
+"Cheshire East",2020-04-11,1,0
+"Cheshire West and Chester",2020-04-11,0,0
+"Cornwall",2020-04-11,2,0
+"County Durham",2020-04-11,2,0
+"Coventry",2020-04-11,1,1
+"Croydon",2020-04-11,0,0
+"Cumbria",2020-04-11,2,2
+"Darlington",2020-04-11,0,0
+"Derby",2020-04-11,2,1
+"Derbyshire",2020-04-11,0,0
+"Devon",2020-04-11,1,1
+"Doncaster",2020-04-11,0,0
+"Dorset",2020-04-11,0,0
+"Dudley",2020-04-11,1,0
+"Ealing",2020-04-11,0,0
+"East Riding of Yorkshire",2020-04-11,3,1
+"East Sussex",2020-04-11,2,0
+"Enfield",2020-04-11,3,2
+"Essex",2020-04-11,5,2
+"Gateshead",2020-04-11,0,0
+"Gloucestershire",2020-04-11,1,0
+"Greenwich",2020-04-11,1,0
+"Hackney",2020-04-11,0,0
+"Halton",2020-04-11,0,0
+"Hammersmith and Fulham",2020-04-11,1,1
+"Hampshire",2020-04-11,5,1
+"Haringey",2020-04-11,0,0
+"Harrow",2020-04-11,1,0
+"Hartlepool",2020-04-11,0,0
+"Havering",2020-04-11,0,0
+"Herefordshire, County of",2020-04-11,0,0
+"Hertfordshire",2020-04-11,8,0
+"Hillingdon",2020-04-11,0,0
+"Hounslow",2020-04-11,1,0
+"Isle of Wight",2020-04-11,0,0
+"Islington",2020-04-11,0,0
+"Kensington and Chelsea",2020-04-11,0,0
+"Kent",2020-04-11,7,1
+"Kingston upon Hull, City of",2020-04-11,0,0
+"Kingston upon Thames",2020-04-11,0,0
+"Kirklees",2020-04-11,0,0
+"Knowsley",2020-04-11,0,0
+"Lambeth",2020-04-11,1,1
+"Lancashire",2020-04-11,3,1
+"Leeds",2020-04-11,1,0
+"Leicester",2020-04-11,1,0
+"Leicestershire",2020-04-11,0,0
+"Lewisham",2020-04-11,0,0
+"Lincolnshire",2020-04-11,1,1
+"Liverpool",2020-04-11,1,0
+"Luton",2020-04-11,0,0
+"Manchester",2020-04-11,2,1
+"Medway",2020-04-11,0,0
+"Merton",2020-04-11,0,0
+"Middlesbrough",2020-04-11,0,0
+"Milton Keynes",2020-04-11,0,0
+"Newcastle upon Tyne",2020-04-11,1,0
+"Newham",2020-04-11,0,0
+"Norfolk",2020-04-11,3,0
+"North East Lincolnshire",2020-04-11,1,0
+"North Lincolnshire",2020-04-11,1,0
+"North Somerset",2020-04-11,0,0
+"North Tyneside",2020-04-11,0,0
+"North Yorkshire",2020-04-11,4,2
+"Northamptonshire",2020-04-11,2,1
+"Northumberland",2020-04-11,0,0
+"Nottingham",2020-04-11,0,0
+"Nottinghamshire",2020-04-11,4,3
+"Oldham",2020-04-11,0,0
+"Oxfordshire",2020-04-11,0,0
+"Peterborough",2020-04-11,1,1
+"Plymouth",2020-04-11,0,0
+"Portsmouth",2020-04-11,0,0
+"Reading",2020-04-11,0,0
+"Redbridge",2020-04-11,0,0
+"Redcar and Cleveland",2020-04-11,1,0
+"Richmond upon Thames",2020-04-11,0,0
+"Rochdale",2020-04-11,0,0
+"Rotherham",2020-04-11,2,0
+"Rutland",2020-04-11,0,0
+"Salford",2020-04-11,0,0
+"Sandwell",2020-04-11,0,0
+"Sefton",2020-04-11,2,1
+"Sheffield",2020-04-11,6,3
+"Shropshire",2020-04-11,0,0
+"Slough",2020-04-11,0,0
+"Solihull",2020-04-11,0,0
+"Somerset",2020-04-11,0,0
+"South Gloucestershire",2020-04-11,0,0
+"South Tyneside",2020-04-11,0,0
+"Southampton",2020-04-11,0,0
+"Southend-on-Sea",2020-04-11,0,0
+"Southwark",2020-04-11,0,0
+"St. Helens",2020-04-11,0,0
+"Staffordshire",2020-04-11,0,0
+"Stockport",2020-04-11,1,0
+"Stockton-on-Tees",2020-04-11,0,0
+"Stoke-on-Trent",2020-04-11,0,0
+"Suffolk",2020-04-11,4,1
+"Sunderland",2020-04-11,0,0
+"Surrey",2020-04-11,7,0
+"Sutton",2020-04-11,0,0
+"Swindon",2020-04-11,1,1
+"Tameside",2020-04-11,2,1
+"Telford and Wrekin",2020-04-11,3,1
+"Thurrock",2020-04-11,0,0
+"Torbay",2020-04-11,0,0
+"Tower Hamlets",2020-04-11,3,2
+"Trafford",2020-04-11,2,1
+"Wakefield",2020-04-11,1,0
+"Walsall",2020-04-11,1,1
+"Waltham Forest",2020-04-11,0,0
+"Wandsworth",2020-04-11,0,0
+"Warrington",2020-04-11,3,0
+"Warwickshire",2020-04-11,2,0
+"West Berkshire",2020-04-11,0,0
+"West Sussex",2020-04-11,0,0
+"Westminster",2020-04-11,0,0
+"Wigan",2020-04-11,0,0
+"Wiltshire",2020-04-11,0,0
+"Windsor and Maidenhead",2020-04-11,0,0
+"Wirral",2020-04-11,1,1
+"Wokingham",2020-04-11,3,2
+"Wolverhampton",2020-04-11,0,0
+"Worcestershire",2020-04-11,0,0
+"York",2020-04-11,0,0
+"Notes:",2020-04-11,,
+"1. Data provided by Care Quality Commission",2020-04-11,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-11,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-11,,
+"England",2020-04-12,152,61
+"Barking and Dagenham",2020-04-12,0,0
+"Barnet",2020-04-12,0,0
+"Barnsley",2020-04-12,2,2
+"Bath and North East Somerset",2020-04-12,0,0
+"Bedford",2020-04-12,2,0
+"Bexley",2020-04-12,0,0
+"Birmingham",2020-04-12,3,1
+"Blackburn with Darwen",2020-04-12,0,0
+"Blackpool",2020-04-12,2,0
+"Bolton",2020-04-12,1,1
+"Bournemouth, Christchurch and Poole",2020-04-12,3,1
+"Bracknell Forest",2020-04-12,0,0
+"Bradford",2020-04-12,0,0
+"Brent",2020-04-12,1,1
+"Brighton and Hove",2020-04-12,1,0
+"Bristol, City of",2020-04-12,2,1
+"Bromley",2020-04-12,1,0
+"Buckinghamshire",2020-04-12,2,0
+"Bury",2020-04-12,0,0
+"Calderdale",2020-04-12,1,1
+"Cambridgeshire",2020-04-12,1,1
+"Camden",2020-04-12,0,0
+"Central Bedfordshire",2020-04-12,0,0
+"Cheshire East",2020-04-12,4,2
+"Cheshire West and Chester",2020-04-12,1,0
+"Cornwall",2020-04-12,1,0
+"County Durham",2020-04-12,1,0
+"Coventry",2020-04-12,2,0
+"Croydon",2020-04-12,0,0
+"Cumbria",2020-04-12,1,1
+"Darlington",2020-04-12,0,0
+"Derby",2020-04-12,5,1
+"Derbyshire",2020-04-12,0,0
+"Devon",2020-04-12,1,0
+"Doncaster",2020-04-12,0,0
+"Dorset",2020-04-12,1,0
+"Dudley",2020-04-12,0,0
+"Ealing",2020-04-12,2,1
+"East Riding of Yorkshire",2020-04-12,2,0
+"East Sussex",2020-04-12,1,1
+"Enfield",2020-04-12,1,1
+"Essex",2020-04-12,7,2
+"Gateshead",2020-04-12,2,1
+"Gloucestershire",2020-04-12,1,0
+"Greenwich",2020-04-12,3,0
+"Hackney",2020-04-12,0,0
+"Halton",2020-04-12,0,0
+"Hammersmith and Fulham",2020-04-12,0,0
+"Hampshire",2020-04-12,5,1
+"Haringey",2020-04-12,0,0
+"Harrow",2020-04-12,4,3
+"Hartlepool",2020-04-12,0,0
+"Havering",2020-04-12,0,0
+"Herefordshire, County of",2020-04-12,1,0
+"Hertfordshire",2020-04-12,2,0
+"Hillingdon",2020-04-12,1,0
+"Hounslow",2020-04-12,0,0
+"Isle of Wight",2020-04-12,0,0
+"Islington",2020-04-12,0,0
+"Kensington and Chelsea",2020-04-12,0,0
+"Kent",2020-04-12,1,1
+"Kingston upon Hull, City of",2020-04-12,0,0
+"Kingston upon Thames",2020-04-12,2,0
+"Kirklees",2020-04-12,0,0
+"Knowsley",2020-04-12,0,0
+"Lambeth",2020-04-12,0,0
+"Lancashire",2020-04-12,2,0
+"Leeds",2020-04-12,0,0
+"Leicester",2020-04-12,1,1
+"Leicestershire",2020-04-12,1,0
+"Lewisham",2020-04-12,0,0
+"Lincolnshire",2020-04-12,1,0
+"Liverpool",2020-04-12,0,0
+"Luton",2020-04-12,0,0
+"Manchester",2020-04-12,0,0
+"Medway",2020-04-12,0,0
+"Merton",2020-04-12,3,1
+"Middlesbrough",2020-04-12,0,0
+"Milton Keynes",2020-04-12,0,0
+"Newcastle upon Tyne",2020-04-12,2,2
+"Newham",2020-04-12,0,0
+"Norfolk",2020-04-12,0,0
+"North East Lincolnshire",2020-04-12,0,0
+"North Lincolnshire",2020-04-12,0,0
+"North Somerset",2020-04-12,0,0
+"North Tyneside",2020-04-12,1,0
+"North Yorkshire",2020-04-12,4,2
+"Northamptonshire",2020-04-12,0,0
+"Northumberland",2020-04-12,3,0
+"Nottingham",2020-04-12,2,0
+"Nottinghamshire",2020-04-12,7,5
+"Oldham",2020-04-12,2,2
+"Oxfordshire",2020-04-12,1,0
+"Peterborough",2020-04-12,1,1
+"Plymouth",2020-04-12,0,0
+"Portsmouth",2020-04-12,0,0
+"Reading",2020-04-12,0,0
+"Redbridge",2020-04-12,0,0
+"Redcar and Cleveland",2020-04-12,0,0
+"Richmond upon Thames",2020-04-12,0,0
+"Rochdale",2020-04-12,0,0
+"Rotherham",2020-04-12,1,1
+"Rutland",2020-04-12,0,0
+"Salford",2020-04-12,0,0
+"Sandwell",2020-04-12,2,1
+"Sefton",2020-04-12,1,0
+"Sheffield",2020-04-12,2,2
+"Shropshire",2020-04-12,0,0
+"Slough",2020-04-12,0,0
+"Solihull",2020-04-12,0,0
+"Somerset",2020-04-12,1,0
+"South Gloucestershire",2020-04-12,0,0
+"South Tyneside",2020-04-12,0,0
+"Southampton",2020-04-12,0,0
+"Southend-on-Sea",2020-04-12,0,0
+"Southwark",2020-04-12,0,0
+"St. Helens",2020-04-12,1,0
+"Staffordshire",2020-04-12,3,0
+"Stockport",2020-04-12,0,0
+"Stockton-on-Tees",2020-04-12,1,0
+"Stoke-on-Trent",2020-04-12,0,0
+"Suffolk",2020-04-12,3,1
+"Sunderland",2020-04-12,1,0
+"Surrey",2020-04-12,7,4
+"Sutton",2020-04-12,0,0
+"Swindon",2020-04-12,0,0
+"Tameside",2020-04-12,0,0
+"Telford and Wrekin",2020-04-12,0,0
+"Thurrock",2020-04-12,0,0
+"Torbay",2020-04-12,0,0
+"Tower Hamlets",2020-04-12,8,8
+"Trafford",2020-04-12,1,0
+"Wakefield",2020-04-12,1,1
+"Walsall",2020-04-12,0,0
+"Waltham Forest",2020-04-12,0,0
+"Wandsworth",2020-04-12,0,0
+"Warrington",2020-04-12,1,1
+"Warwickshire",2020-04-12,0,0
+"West Berkshire",2020-04-12,0,0
+"West Sussex",2020-04-12,3,1
+"Westminster",2020-04-12,3,1
+"Wigan",2020-04-12,0,0
+"Wiltshire",2020-04-12,1,1
+"Windsor and Maidenhead",2020-04-12,0,0
+"Wirral",2020-04-12,0,0
+"Wokingham",2020-04-12,0,0
+"Wolverhampton",2020-04-12,0,0
+"Worcestershire",2020-04-12,4,1
+"York",2020-04-12,2,0
+"Notes:",2020-04-12,,
+"1. Data provided by Care Quality Commission",2020-04-12,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-12,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-12,,
+"England",2020-04-13,590,217
+"Barking and Dagenham",2020-04-13,3,2
+"Barnet",2020-04-13,5,3
+"Barnsley",2020-04-13,8,0
+"Bath and North East Somerset",2020-04-13,0,0
+"Bedford",2020-04-13,0,0
+"Bexley",2020-04-13,1,0
+"Birmingham",2020-04-13,10,3
+"Blackburn with Darwen",2020-04-13,1,0
+"Blackpool",2020-04-13,1,0
+"Bolton",2020-04-13,4,3
+"Bournemouth, Christchurch and Poole",2020-04-13,4,0
+"Bracknell Forest",2020-04-13,0,0
+"Bradford",2020-04-13,2,1
+"Brent",2020-04-13,5,0
+"Brighton and Hove",2020-04-13,3,2
+"Bristol, City of",2020-04-13,10,8
+"Bromley",2020-04-13,2,2
+"Buckinghamshire",2020-04-13,2,1
+"Bury",2020-04-13,2,0
+"Calderdale",2020-04-13,3,1
+"Cambridgeshire",2020-04-13,6,0
+"Camden",2020-04-13,0,0
+"Central Bedfordshire",2020-04-13,2,1
+"Cheshire East",2020-04-13,8,7
+"Cheshire West and Chester",2020-04-13,3,1
+"Cornwall",2020-04-13,6,0
+"County Durham",2020-04-13,8,3
+"Coventry",2020-04-13,7,6
+"Croydon",2020-04-13,8,0
+"Cumbria",2020-04-13,9,2
+"Darlington",2020-04-13,1,1
+"Derby",2020-04-13,4,1
+"Derbyshire",2020-04-13,4,2
+"Devon",2020-04-13,9,3
+"Doncaster",2020-04-13,2,0
+"Dorset",2020-04-13,2,0
+"Dudley",2020-04-13,4,0
+"Ealing",2020-04-13,5,3
+"East Riding of Yorkshire",2020-04-13,4,1
+"East Sussex",2020-04-13,10,3
+"Enfield",2020-04-13,4,0
+"Essex",2020-04-13,8,2
+"Gateshead",2020-04-13,4,2
+"Gloucestershire",2020-04-13,16,8
+"Greenwich",2020-04-13,2,0
+"Hackney",2020-04-13,0,0
+"Halton",2020-04-13,1,1
+"Hammersmith and Fulham",2020-04-13,2,2
+"Hampshire",2020-04-13,22,11
+"Haringey",2020-04-13,0,0
+"Harrow",2020-04-13,1,1
+"Hartlepool",2020-04-13,1,0
+"Havering",2020-04-13,3,0
+"Herefordshire, County of",2020-04-13,0,0
+"Hertfordshire",2020-04-13,8,1
+"Hillingdon",2020-04-13,0,0
+"Hounslow",2020-04-13,1,0
+"Isle of Wight",2020-04-13,0,0
+"Islington",2020-04-13,2,2
+"Kensington and Chelsea",2020-04-13,0,0
+"Kent",2020-04-13,9,2
+"Kingston upon Hull, City of",2020-04-13,0,0
+"Kingston upon Thames",2020-04-13,1,0
+"Kirklees",2020-04-13,8,0
+"Knowsley",2020-04-13,1,1
+"Lambeth",2020-04-13,0,0
+"Lancashire",2020-04-13,17,2
+"Leeds",2020-04-13,5,0
+"Leicester",2020-04-13,2,1
+"Leicestershire",2020-04-13,7,3
+"Lewisham",2020-04-13,1,1
+"Lincolnshire",2020-04-13,6,1
+"Liverpool",2020-04-13,12,8
+"Luton",2020-04-13,2,1
+"Manchester",2020-04-13,14,7
+"Medway",2020-04-13,3,0
+"Merton",2020-04-13,2,1
+"Middlesbrough",2020-04-13,10,6
+"Milton Keynes",2020-04-13,4,0
+"Newcastle upon Tyne",2020-04-13,4,2
+"Newham",2020-04-13,0,0
+"Norfolk",2020-04-13,3,0
+"North East Lincolnshire",2020-04-13,0,0
+"North Lincolnshire",2020-04-13,1,0
+"North Somerset",2020-04-13,4,1
+"North Tyneside",2020-04-13,0,0
+"North Yorkshire",2020-04-13,10,5
+"Northamptonshire",2020-04-13,3,0
+"Northumberland",2020-04-13,3,2
+"Nottingham",2020-04-13,4,3
+"Nottinghamshire",2020-04-13,13,4
+"Oldham",2020-04-13,3,2
+"Oxfordshire",2020-04-13,8,2
+"Peterborough",2020-04-13,0,0
+"Plymouth",2020-04-13,7,0
+"Portsmouth",2020-04-13,0,0
+"Reading",2020-04-13,4,3
+"Redbridge",2020-04-13,2,0
+"Redcar and Cleveland",2020-04-13,1,0
+"Richmond upon Thames",2020-04-13,4,4
+"Rochdale",2020-04-13,0,0
+"Rotherham",2020-04-13,3,1
+"Rutland",2020-04-13,0,0
+"Salford",2020-04-13,1,1
+"Sandwell",2020-04-13,4,1
+"Sefton",2020-04-13,7,1
+"Sheffield",2020-04-13,11,4
+"Shropshire",2020-04-13,0,0
+"Slough",2020-04-13,0,0
+"Solihull",2020-04-13,2,2
+"Somerset",2020-04-13,7,1
+"South Gloucestershire",2020-04-13,3,0
+"South Tyneside",2020-04-13,4,1
+"Southampton",2020-04-13,0,0
+"Southend-on-Sea",2020-04-13,2,0
+"Southwark",2020-04-13,3,1
+"St. Helens",2020-04-13,0,0
+"Staffordshire",2020-04-13,9,3
+"Stockport",2020-04-13,3,3
+"Stockton-on-Tees",2020-04-13,2,1
+"Stoke-on-Trent",2020-04-13,5,1
+"Suffolk",2020-04-13,4,1
+"Sunderland",2020-04-13,4,1
+"Surrey",2020-04-13,25,13
+"Sutton",2020-04-13,3,0
+"Swindon",2020-04-13,0,0
+"Tameside",2020-04-13,2,1
+"Telford and Wrekin",2020-04-13,6,3
+"Thurrock",2020-04-13,0,0
+"Torbay",2020-04-13,1,0
+"Tower Hamlets",2020-04-13,5,5
+"Trafford",2020-04-13,0,0
+"Wakefield",2020-04-13,3,0
+"Walsall",2020-04-13,2,2
+"Waltham Forest",2020-04-13,0,0
+"Wandsworth",2020-04-13,0,0
+"Warrington",2020-04-13,3,2
+"Warwickshire",2020-04-13,10,6
+"West Berkshire",2020-04-13,0,0
+"West Sussex",2020-04-13,9,2
+"Westminster",2020-04-13,0,0
+"Wigan",2020-04-13,4,2
+"Wiltshire",2020-04-13,1,0
+"Windsor and Maidenhead",2020-04-13,3,1
+"Wirral",2020-04-13,6,2
+"Wokingham",2020-04-13,2,0
+"Wolverhampton",2020-04-13,2,0
+"Worcestershire",2020-04-13,6,3
+"York",2020-04-13,2,0
+"Notes:",2020-04-13,,
+"1. Data provided by Care Quality Commission",2020-04-13,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-13,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-13,,
+"England",2020-04-14,1279,412
+"Barking and Dagenham",2020-04-14,3,2
+"Barnet",2020-04-14,6,3
+"Barnsley",2020-04-14,1,1
+"Bath and North East Somerset",2020-04-14,13,7
+"Bedford",2020-04-14,5,0
+"Bexley",2020-04-14,12,2
+"Birmingham",2020-04-14,22,12
+"Blackburn with Darwen",2020-04-14,1,0
+"Blackpool",2020-04-14,3,1
+"Bolton",2020-04-14,2,1
+"Bournemouth, Christchurch and Poole",2020-04-14,7,0
+"Bracknell Forest",2020-04-14,2,1
+"Bradford",2020-04-14,6,0
+"Brent",2020-04-14,3,2
+"Brighton and Hove",2020-04-14,12,7
+"Bristol, City of",2020-04-14,13,11
+"Bromley",2020-04-14,12,3
+"Buckinghamshire",2020-04-14,17,9
+"Bury",2020-04-14,7,2
+"Calderdale",2020-04-14,0,0
+"Cambridgeshire",2020-04-14,10,0
+"Camden",2020-04-14,2,0
+"Central Bedfordshire",2020-04-14,11,3
+"Cheshire East",2020-04-14,21,7
+"Cheshire West and Chester",2020-04-14,12,2
+"Cornwall",2020-04-14,12,3
+"County Durham",2020-04-14,18,9
+"Coventry",2020-04-14,5,4
+"Croydon",2020-04-14,3,2
+"Cumbria",2020-04-14,8,2
+"Darlington",2020-04-14,8,1
+"Derby",2020-04-14,8,4
+"Derbyshire",2020-04-14,16,8
+"Devon",2020-04-14,8,1
+"Doncaster",2020-04-14,10,1
+"Dorset",2020-04-14,8,1
+"Dudley",2020-04-14,1,1
+"Ealing",2020-04-14,3,0
+"East Riding of Yorkshire",2020-04-14,3,1
+"East Sussex",2020-04-14,18,4
+"Enfield",2020-04-14,19,6
+"Essex",2020-04-14,28,3
+"Gateshead",2020-04-14,7,3
+"Gloucestershire",2020-04-14,20,11
+"Greenwich",2020-04-14,4,2
+"Hackney",2020-04-14,1,0
+"Halton",2020-04-14,6,1
+"Hammersmith and Fulham",2020-04-14,4,3
+"Hampshire",2020-04-14,32,9
+"Haringey",2020-04-14,1,1
+"Harrow",2020-04-14,6,1
+"Hartlepool",2020-04-14,2,1
+"Havering",2020-04-14,5,3
+"Herefordshire, County of",2020-04-14,2,0
+"Hertfordshire",2020-04-14,36,7
+"Hillingdon",2020-04-14,20,1
+"Hounslow",2020-04-14,5,0
+"Isle of Wight",2020-04-14,2,0
+"Islington",2020-04-14,1,1
+"Kensington and Chelsea",2020-04-14,3,3
+"Kent",2020-04-14,29,7
+"Kingston upon Hull, City of",2020-04-14,3,2
+"Kingston upon Thames",2020-04-14,10,7
+"Kirklees",2020-04-14,6,0
+"Knowsley",2020-04-14,2,1
+"Lambeth",2020-04-14,4,1
+"Lancashire",2020-04-14,19,5
+"Leeds",2020-04-14,17,5
+"Leicester",2020-04-14,8,1
+"Leicestershire",2020-04-14,13,3
+"Lewisham",2020-04-14,3,0
+"Lincolnshire",2020-04-14,28,6
+"Liverpool",2020-04-14,20,8
+"Luton",2020-04-14,3,2
+"Manchester",2020-04-14,7,2
+"Medway",2020-04-14,2,0
+"Merton",2020-04-14,8,1
+"Middlesbrough",2020-04-14,3,0
+"Milton Keynes",2020-04-14,6,3
+"Newcastle upon Tyne",2020-04-14,13,3
+"Newham",2020-04-14,1,0
+"Norfolk",2020-04-14,13,2
+"North East Lincolnshire",2020-04-14,2,0
+"North Lincolnshire",2020-04-14,4,1
+"North Somerset",2020-04-14,6,0
+"North Tyneside",2020-04-14,4,1
+"North Yorkshire",2020-04-14,21,6
+"Northamptonshire",2020-04-14,13,7
+"Northumberland",2020-04-14,8,2
+"Nottingham",2020-04-14,2,0
+"Nottinghamshire",2020-04-14,13,5
+"Oldham",2020-04-14,3,1
+"Oxfordshire",2020-04-14,21,10
+"Peterborough",2020-04-14,4,1
+"Plymouth",2020-04-14,5,0
+"Portsmouth",2020-04-14,2,1
+"Reading",2020-04-14,0,0
+"Redbridge",2020-04-14,4,2
+"Redcar and Cleveland",2020-04-14,3,1
+"Richmond upon Thames",2020-04-14,2,0
+"Rochdale",2020-04-14,1,1
+"Rotherham",2020-04-14,12,6
+"Rutland",2020-04-14,0,0
+"Salford",2020-04-14,4,3
+"Sandwell",2020-04-14,3,1
+"Sefton",2020-04-14,9,3
+"Sheffield",2020-04-14,13,7
+"Shropshire",2020-04-14,6,2
+"Slough",2020-04-14,0,0
+"Solihull",2020-04-14,4,2
+"Somerset",2020-04-14,7,2
+"South Gloucestershire",2020-04-14,5,2
+"South Tyneside",2020-04-14,5,0
+"Southampton",2020-04-14,2,0
+"Southend-on-Sea",2020-04-14,2,1
+"Southwark",2020-04-14,3,1
+"St. Helens",2020-04-14,7,1
+"Staffordshire",2020-04-14,21,10
+"Stockport",2020-04-14,15,7
+"Stockton-on-Tees",2020-04-14,4,0
+"Stoke-on-Trent",2020-04-14,4,2
+"Suffolk",2020-04-14,13,5
+"Sunderland",2020-04-14,15,4
+"Surrey",2020-04-14,50,10
+"Sutton",2020-04-14,5,1
+"Swindon",2020-04-14,5,3
+"Tameside",2020-04-14,7,4
+"Telford and Wrekin",2020-04-14,2,0
+"Thurrock",2020-04-14,3,1
+"Torbay",2020-04-14,7,2
+"Tower Hamlets",2020-04-14,0,0
+"Trafford",2020-04-14,7,2
+"Wakefield",2020-04-14,13,9
+"Walsall",2020-04-14,11,5
+"Waltham Forest",2020-04-14,0,0
+"Wandsworth",2020-04-14,6,1
+"Warrington",2020-04-14,5,1
+"Warwickshire",2020-04-14,15,2
+"West Berkshire",2020-04-14,3,1
+"West Sussex",2020-04-14,27,8
+"Westminster",2020-04-14,1,0
+"Wigan",2020-04-14,11,2
+"Wiltshire",2020-04-14,11,4
+"Windsor and Maidenhead",2020-04-14,15,8
+"Wirral",2020-04-14,5,1
+"Wokingham",2020-04-14,5,2
+"Wolverhampton",2020-04-14,10,5
+"Worcestershire",2020-04-14,24,8
+"York",2020-04-14,5,1
+"Notes:",2020-04-14,,
+"1. Data provided by Care Quality Commission",2020-04-14,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-14,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-14,,
+"England",2020-04-15,1253,407
+"Barking and Dagenham",2020-04-15,2,0
+"Barnet",2020-04-15,4,0
+"Barnsley",2020-04-15,4,0
+"Bath and North East Somerset",2020-04-15,4,4
+"Bedford",2020-04-15,3,3
+"Bexley",2020-04-15,10,6
+"Birmingham",2020-04-15,16,6
+"Blackburn with Darwen",2020-04-15,1,0
+"Blackpool",2020-04-15,1,0
+"Bolton",2020-04-15,16,4
+"Bournemouth, Christchurch and Poole",2020-04-15,16,0
+"Bracknell Forest",2020-04-15,0,0
+"Bradford",2020-04-15,8,2
+"Brent",2020-04-15,3,1
+"Brighton and Hove",2020-04-15,8,0
+"Bristol, City of",2020-04-15,3,1
+"Bromley",2020-04-15,5,2
+"Buckinghamshire",2020-04-15,15,10
+"Bury",2020-04-15,3,2
+"Calderdale",2020-04-15,3,0
+"Cambridgeshire",2020-04-15,10,0
+"Camden",2020-04-15,2,0
+"Central Bedfordshire",2020-04-15,2,1
+"Cheshire East",2020-04-15,8,2
+"Cheshire West and Chester",2020-04-15,12,2
+"Cornwall",2020-04-15,4,1
+"County Durham",2020-04-15,18,7
+"Coventry",2020-04-15,7,4
+"Croydon",2020-04-15,14,6
+"Cumbria",2020-04-15,15,7
+"Darlington",2020-04-15,4,0
+"Derby",2020-04-15,7,4
+"Derbyshire",2020-04-15,22,5
+"Devon",2020-04-15,13,3
+"Doncaster",2020-04-15,4,0
+"Dorset",2020-04-15,1,0
+"Dudley",2020-04-15,5,3
+"Ealing",2020-04-15,11,8
+"East Riding of Yorkshire",2020-04-15,6,1
+"East Sussex",2020-04-15,13,1
+"Enfield",2020-04-15,8,3
+"Essex",2020-04-15,31,8
+"Gateshead",2020-04-15,9,5
+"Gloucestershire",2020-04-15,17,10
+"Greenwich",2020-04-15,4,2
+"Hackney",2020-04-15,0,0
+"Halton",2020-04-15,0,0
+"Hammersmith and Fulham",2020-04-15,1,0
+"Hampshire",2020-04-15,31,11
+"Haringey",2020-04-15,1,1
+"Harrow",2020-04-15,2,2
+"Hartlepool",2020-04-15,3,0
+"Havering",2020-04-15,4,1
+"Herefordshire, County of",2020-04-15,2,0
+"Hertfordshire",2020-04-15,38,12
+"Hillingdon",2020-04-15,16,9
+"Hounslow",2020-04-15,6,2
+"Isle of Wight",2020-04-15,1,1
+"Islington",2020-04-15,2,1
+"Kensington and Chelsea",2020-04-15,0,0
+"Kent",2020-04-15,39,15
+"Kingston upon Hull, City of",2020-04-15,3,1
+"Kingston upon Thames",2020-04-15,10,5
+"Kirklees",2020-04-15,24,8
+"Knowsley",2020-04-15,7,3
+"Lambeth",2020-04-15,8,1
+"Lancashire",2020-04-15,12,4
+"Leeds",2020-04-15,35,6
+"Leicester",2020-04-15,4,2
+"Leicestershire",2020-04-15,4,1
+"Lewisham",2020-04-15,4,0
+"Lincolnshire",2020-04-15,14,1
+"Liverpool",2020-04-15,11,4
+"Luton",2020-04-15,4,0
+"Manchester",2020-04-15,3,2
+"Medway",2020-04-15,0,0
+"Merton",2020-04-15,6,3
+"Middlesbrough",2020-04-15,7,0
+"Milton Keynes",2020-04-15,11,2
+"Newcastle upon Tyne",2020-04-15,6,3
+"Newham",2020-04-15,1,0
+"Norfolk",2020-04-15,13,1
+"North East Lincolnshire",2020-04-15,1,0
+"North Lincolnshire",2020-04-15,5,0
+"North Somerset",2020-04-15,3,0
+"North Tyneside",2020-04-15,11,4
+"North Yorkshire",2020-04-15,18,8
+"Northamptonshire",2020-04-15,12,2
+"Northumberland",2020-04-15,11,1
+"Nottingham",2020-04-15,3,2
+"Nottinghamshire",2020-04-15,28,12
+"Oldham",2020-04-15,12,4
+"Oxfordshire",2020-04-15,25,13
+"Peterborough",2020-04-15,5,3
+"Plymouth",2020-04-15,4,2
+"Portsmouth",2020-04-15,3,1
+"Reading",2020-04-15,3,1
+"Redbridge",2020-04-15,2,2
+"Redcar and Cleveland",2020-04-15,7,2
+"Richmond upon Thames",2020-04-15,6,0
+"Rochdale",2020-04-15,2,0
+"Rotherham",2020-04-15,8,4
+"Rutland",2020-04-15,0,0
+"Salford",2020-04-15,6,4
+"Sandwell",2020-04-15,6,1
+"Sefton",2020-04-15,15,3
+"Sheffield",2020-04-15,17,10
+"Shropshire",2020-04-15,5,0
+"Slough",2020-04-15,5,0
+"Solihull",2020-04-15,4,0
+"Somerset",2020-04-15,7,2
+"South Gloucestershire",2020-04-15,7,0
+"South Tyneside",2020-04-15,2,1
+"Southampton",2020-04-15,3,1
+"Southend-on-Sea",2020-04-15,6,1
+"Southwark",2020-04-15,0,0
+"St. Helens",2020-04-15,4,3
+"Staffordshire",2020-04-15,17,6
+"Stockport",2020-04-15,10,5
+"Stockton-on-Tees",2020-04-15,7,2
+"Stoke-on-Trent",2020-04-15,5,3
+"Suffolk",2020-04-15,27,8
+"Sunderland",2020-04-15,11,1
+"Surrey",2020-04-15,36,11
+"Sutton",2020-04-15,2,1
+"Swindon",2020-04-15,7,2
+"Tameside",2020-04-15,5,4
+"Telford and Wrekin",2020-04-15,3,0
+"Thurrock",2020-04-15,1,0
+"Torbay",2020-04-15,5,3
+"Tower Hamlets",2020-04-15,2,1
+"Trafford",2020-04-15,3,0
+"Wakefield",2020-04-15,3,1
+"Walsall",2020-04-15,6,2
+"Waltham Forest",2020-04-15,0,0
+"Wandsworth",2020-04-15,8,5
+"Warrington",2020-04-15,6,2
+"Warwickshire",2020-04-15,25,5
+"West Berkshire",2020-04-15,5,2
+"West Sussex",2020-04-15,19,3
+"Westminster",2020-04-15,3,0
+"Wigan",2020-04-15,10,4
+"Wiltshire",2020-04-15,13,4
+"Windsor and Maidenhead",2020-04-15,5,3
+"Wirral",2020-04-15,12,6
+"Wokingham",2020-04-15,8,4
+"Wolverhampton",2020-04-15,8,3
+"Worcestershire",2020-04-15,15,2
+"York",2020-04-15,5,1
+"Notes:",2020-04-15,,
+"1. Data provided by Care Quality Commission",2020-04-15,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-15,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-15,,
+"England",2020-04-16,984,353
+"Barking and Dagenham",2020-04-16,1,1
+"Barnet",2020-04-16,12,2
+"Barnsley",2020-04-16,5,2
+"Bath and North East Somerset",2020-04-16,6,5
+"Bedford",2020-04-16,0,0
+"Bexley",2020-04-16,4,1
+"Birmingham",2020-04-16,14,3
+"Blackburn with Darwen",2020-04-16,1,0
+"Blackpool",2020-04-16,2,0
+"Bolton",2020-04-16,1,1
+"Bournemouth, Christchurch and Poole",2020-04-16,5,2
+"Bracknell Forest",2020-04-16,0,0
+"Bradford",2020-04-16,7,1
+"Brent",2020-04-16,9,7
+"Brighton and Hove",2020-04-16,2,2
+"Bristol, City of",2020-04-16,4,4
+"Bromley",2020-04-16,4,1
+"Buckinghamshire",2020-04-16,15,8
+"Bury",2020-04-16,0,0
+"Calderdale",2020-04-16,4,0
+"Cambridgeshire",2020-04-16,4,1
+"Camden",2020-04-16,1,0
+"Central Bedfordshire",2020-04-16,6,1
+"Cheshire East",2020-04-16,13,7
+"Cheshire West and Chester",2020-04-16,8,5
+"Cornwall",2020-04-16,7,1
+"County Durham",2020-04-16,25,8
+"Coventry",2020-04-16,7,3
+"Croydon",2020-04-16,7,0
+"Cumbria",2020-04-16,6,5
+"Darlington",2020-04-16,1,0
+"Derby",2020-04-16,4,1
+"Derbyshire",2020-04-16,20,3
+"Devon",2020-04-16,13,1
+"Doncaster",2020-04-16,4,0
+"Dorset",2020-04-16,7,4
+"Dudley",2020-04-16,1,1
+"Ealing",2020-04-16,8,7
+"East Riding of Yorkshire",2020-04-16,6,1
+"East Sussex",2020-04-16,12,0
+"Enfield",2020-04-16,13,7
+"Essex",2020-04-16,31,5
+"Gateshead",2020-04-16,9,3
+"Gloucestershire",2020-04-16,12,5
+"Greenwich",2020-04-16,2,0
+"Hackney",2020-04-16,0,0
+"Halton",2020-04-16,1,1
+"Hammersmith and Fulham",2020-04-16,1,1
+"Hampshire",2020-04-16,39,12
+"Haringey",2020-04-16,3,3
+"Harrow",2020-04-16,1,1
+"Hartlepool",2020-04-16,1,0
+"Havering",2020-04-16,4,2
+"Herefordshire, County of",2020-04-16,2,0
+"Hertfordshire",2020-04-16,37,19
+"Hillingdon",2020-04-16,2,0
+"Hounslow",2020-04-16,3,0
+"Isle of Wight",2020-04-16,0,0
+"Islington",2020-04-16,2,2
+"Kensington and Chelsea",2020-04-16,0,0
+"Kent",2020-04-16,28,14
+"Kingston upon Hull, City of",2020-04-16,3,1
+"Kingston upon Thames",2020-04-16,8,1
+"Kirklees",2020-04-16,10,2
+"Knowsley",2020-04-16,1,0
+"Lambeth",2020-04-16,3,0
+"Lancashire",2020-04-16,14,3
+"Leeds",2020-04-16,13,7
+"Leicester",2020-04-16,5,2
+"Leicestershire",2020-04-16,10,2
+"Lewisham",2020-04-16,6,1
+"Lincolnshire",2020-04-16,8,3
+"Liverpool",2020-04-16,7,3
+"Luton",2020-04-16,3,1
+"Manchester",2020-04-16,5,1
+"Medway",2020-04-16,1,0
+"Merton",2020-04-16,1,1
+"Middlesbrough",2020-04-16,7,3
+"Milton Keynes",2020-04-16,11,5
+"Newcastle upon Tyne",2020-04-16,7,3
+"Newham",2020-04-16,7,1
+"Norfolk",2020-04-16,19,9
+"North East Lincolnshire",2020-04-16,2,0
+"North Lincolnshire",2020-04-16,0,0
+"North Somerset",2020-04-16,5,2
+"North Tyneside",2020-04-16,3,0
+"North Yorkshire",2020-04-16,12,4
+"Northamptonshire",2020-04-16,12,4
+"Northumberland",2020-04-16,11,4
+"Nottingham",2020-04-16,6,3
+"Nottinghamshire",2020-04-16,15,4
+"Oldham",2020-04-16,4,1
+"Oxfordshire",2020-04-16,13,6
+"Peterborough",2020-04-16,4,0
+"Plymouth",2020-04-16,6,0
+"Portsmouth",2020-04-16,4,2
+"Reading",2020-04-16,0,0
+"Redbridge",2020-04-16,3,1
+"Redcar and Cleveland",2020-04-16,1,1
+"Richmond upon Thames",2020-04-16,2,1
+"Rochdale",2020-04-16,4,3
+"Rotherham",2020-04-16,4,0
+"Rutland",2020-04-16,1,0
+"Salford",2020-04-16,4,2
+"Sandwell",2020-04-16,1,1
+"Sefton",2020-04-16,8,3
+"Sheffield",2020-04-16,14,6
+"Shropshire",2020-04-16,6,2
+"Slough",2020-04-16,0,0
+"Solihull",2020-04-16,6,2
+"Somerset",2020-04-16,10,2
+"South Gloucestershire",2020-04-16,8,3
+"South Tyneside",2020-04-16,4,0
+"Southampton",2020-04-16,2,2
+"Southend-on-Sea",2020-04-16,3,0
+"Southwark",2020-04-16,0,0
+"St. Helens",2020-04-16,1,0
+"Staffordshire",2020-04-16,15,3
+"Stockport",2020-04-16,5,4
+"Stockton-on-Tees",2020-04-16,3,0
+"Stoke-on-Trent",2020-04-16,2,1
+"Suffolk",2020-04-16,10,5
+"Sunderland",2020-04-16,15,6
+"Surrey",2020-04-16,26,3
+"Sutton",2020-04-16,5,1
+"Swindon",2020-04-16,2,1
+"Tameside",2020-04-16,1,0
+"Telford and Wrekin",2020-04-16,8,0
+"Thurrock",2020-04-16,1,0
+"Torbay",2020-04-16,2,1
+"Tower Hamlets",2020-04-16,1,1
+"Trafford",2020-04-16,4,2
+"Wakefield",2020-04-16,7,5
+"Walsall",2020-04-16,6,5
+"Waltham Forest",2020-04-16,2,0
+"Wandsworth",2020-04-16,1,1
+"Warrington",2020-04-16,8,5
+"Warwickshire",2020-04-16,10,0
+"West Berkshire",2020-04-16,2,2
+"West Sussex",2020-04-16,22,7
+"Westminster",2020-04-16,0,0
+"Wigan",2020-04-16,4,2
+"Wiltshire",2020-04-16,8,5
+"Windsor and Maidenhead",2020-04-16,2,2
+"Wirral",2020-04-16,14,9
+"Wokingham",2020-04-16,3,1
+"Wolverhampton",2020-04-16,4,0
+"Worcestershire",2020-04-16,16,9
+"York",2020-04-16,0,0
+"Notes:",2020-04-16,,
+"1. Data provided by Care Quality Commission",2020-04-16,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-16,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-16,,
+"England",2020-04-17,1096,377
+"Barking and Dagenham",2020-04-17,1,0
+"Barnet",2020-04-17,7,0
+"Barnsley",2020-04-17,3,1
+"Bath and North East Somerset",2020-04-17,3,0
+"Bedford",2020-04-17,6,4
+"Bexley",2020-04-17,4,1
+"Birmingham",2020-04-17,21,13
+"Blackburn with Darwen",2020-04-17,0,0
+"Blackpool",2020-04-17,5,2
+"Bolton",2020-04-17,8,6
+"Bournemouth, Christchurch and Poole",2020-04-17,12,1
+"Bracknell Forest",2020-04-17,0,0
+"Bradford",2020-04-17,9,5
+"Brent",2020-04-17,3,0
+"Brighton and Hove",2020-04-17,6,1
+"Bristol, City of",2020-04-17,11,3
+"Bromley",2020-04-17,4,2
+"Buckinghamshire",2020-04-17,5,2
+"Bury",2020-04-17,10,4
+"Calderdale",2020-04-17,3,1
+"Cambridgeshire",2020-04-17,12,5
+"Camden",2020-04-17,0,0
+"Central Bedfordshire",2020-04-17,5,1
+"Cheshire East",2020-04-17,11,6
+"Cheshire West and Chester",2020-04-17,2,1
+"Cornwall",2020-04-17,7,2
+"County Durham",2020-04-17,17,4
+"Coventry",2020-04-17,7,2
+"Croydon",2020-04-17,4,1
+"Cumbria",2020-04-17,7,2
+"Darlington",2020-04-17,1,1
+"Derby",2020-04-17,9,2
+"Derbyshire",2020-04-17,15,2
+"Devon",2020-04-17,14,2
+"Doncaster",2020-04-17,2,1
+"Dorset",2020-04-17,9,1
+"Dudley",2020-04-17,6,4
+"Ealing",2020-04-17,8,2
+"East Riding of Yorkshire",2020-04-17,9,5
+"East Sussex",2020-04-17,11,4
+"Enfield",2020-04-17,4,2
+"Essex",2020-04-17,18,5
+"Gateshead",2020-04-17,1,0
+"Gloucestershire",2020-04-17,15,5
+"Greenwich",2020-04-17,7,2
+"Hackney",2020-04-17,0,0
+"Halton",2020-04-17,0,0
+"Hammersmith and Fulham",2020-04-17,3,1
+"Hampshire",2020-04-17,44,14
+"Haringey",2020-04-17,2,1
+"Harrow",2020-04-17,3,3
+"Hartlepool",2020-04-17,0,0
+"Havering",2020-04-17,3,0
+"Herefordshire, County of",2020-04-17,5,0
+"Hertfordshire",2020-04-17,36,8
+"Hillingdon",2020-04-17,8,3
+"Hounslow",2020-04-17,6,0
+"Isle of Wight",2020-04-17,2,0
+"Islington",2020-04-17,4,2
+"Kensington and Chelsea",2020-04-17,1,0
+"Kent",2020-04-17,26,8
+"Kingston upon Hull, City of",2020-04-17,5,1
+"Kingston upon Thames",2020-04-17,9,3
+"Kirklees",2020-04-17,14,7
+"Knowsley",2020-04-17,2,2
+"Lambeth",2020-04-17,3,1
+"Lancashire",2020-04-17,18,5
+"Leeds",2020-04-17,17,6
+"Leicester",2020-04-17,5,1
+"Leicestershire",2020-04-17,19,5
+"Lewisham",2020-04-17,4,1
+"Lincolnshire",2020-04-17,9,2
+"Liverpool",2020-04-17,21,7
+"Luton",2020-04-17,3,0
+"Manchester",2020-04-17,5,1
+"Medway",2020-04-17,2,0
+"Merton",2020-04-17,1,1
+"Middlesbrough",2020-04-17,3,1
+"Milton Keynes",2020-04-17,6,3
+"Newcastle upon Tyne",2020-04-17,7,2
+"Newham",2020-04-17,4,2
+"Norfolk",2020-04-17,20,7
+"North East Lincolnshire",2020-04-17,4,0
+"North Lincolnshire",2020-04-17,0,0
+"North Somerset",2020-04-17,2,0
+"North Tyneside",2020-04-17,6,4
+"North Yorkshire",2020-04-17,14,6
+"Northamptonshire",2020-04-17,11,2
+"Northumberland",2020-04-17,10,4
+"Nottingham",2020-04-17,2,0
+"Nottinghamshire",2020-04-17,16,6
+"Oldham",2020-04-17,0,0
+"Oxfordshire",2020-04-17,13,7
+"Peterborough",2020-04-17,6,1
+"Plymouth",2020-04-17,0,0
+"Portsmouth",2020-04-17,1,0
+"Reading",2020-04-17,8,8
+"Redbridge",2020-04-17,3,2
+"Redcar and Cleveland",2020-04-17,2,1
+"Richmond upon Thames",2020-04-17,3,2
+"Rochdale",2020-04-17,2,2
+"Rotherham",2020-04-17,6,3
+"Rutland",2020-04-17,0,0
+"Salford",2020-04-17,7,4
+"Sandwell",2020-04-17,8,1
+"Sefton",2020-04-17,4,0
+"Sheffield",2020-04-17,15,7
+"Shropshire",2020-04-17,6,0
+"Slough",2020-04-17,4,1
+"Solihull",2020-04-17,7,2
+"Somerset",2020-04-17,12,2
+"South Gloucestershire",2020-04-17,1,1
+"South Tyneside",2020-04-17,2,2
+"Southampton",2020-04-17,9,1
+"Southend-on-Sea",2020-04-17,1,1
+"Southwark",2020-04-17,0,0
+"St. Helens",2020-04-17,4,2
+"Staffordshire",2020-04-17,28,10
+"Stockport",2020-04-17,1,0
+"Stockton-on-Tees",2020-04-17,4,2
+"Stoke-on-Trent",2020-04-17,2,0
+"Suffolk",2020-04-17,17,3
+"Sunderland",2020-04-17,14,8
+"Surrey",2020-04-17,20,10
+"Sutton",2020-04-17,2,1
+"Swindon",2020-04-17,6,4
+"Tameside",2020-04-17,5,3
+"Telford and Wrekin",2020-04-17,8,3
+"Thurrock",2020-04-17,9,0
+"Torbay",2020-04-17,3,1
+"Tower Hamlets",2020-04-17,0,0
+"Trafford",2020-04-17,2,0
+"Wakefield",2020-04-17,18,10
+"Walsall",2020-04-17,4,0
+"Waltham Forest",2020-04-17,1,0
+"Wandsworth",2020-04-17,3,1
+"Warrington",2020-04-17,8,5
+"Warwickshire",2020-04-17,19,6
+"West Berkshire",2020-04-17,6,3
+"West Sussex",2020-04-17,21,3
+"Westminster",2020-04-17,1,0
+"Wigan",2020-04-17,6,1
+"Wiltshire",2020-04-17,10,4
+"Windsor and Maidenhead",2020-04-17,10,2
+"Wirral",2020-04-17,6,5
+"Wokingham",2020-04-17,2,2
+"Wolverhampton",2020-04-17,5,3
+"Worcestershire",2020-04-17,20,7
+"York",2020-04-17,4,2
+"Notes:",2020-04-17,,
+"1. Data provided by Care Quality Commission",2020-04-17,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-17,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-17,,
+"England",2020-04-18,259,102
+"Barking and Dagenham",2020-04-18,0,0
+"Barnet",2020-04-18,3,1
+"Barnsley",2020-04-18,2,1
+"Bath and North East Somerset",2020-04-18,0,0
+"Bedford",2020-04-18,1,0
+"Bexley",2020-04-18,2,2
+"Birmingham",2020-04-18,1,1
+"Blackburn with Darwen",2020-04-18,1,0
+"Blackpool",2020-04-18,0,0
+"Bolton",2020-04-18,4,2
+"Bournemouth, Christchurch and Poole",2020-04-18,1,0
+"Bracknell Forest",2020-04-18,0,0
+"Bradford",2020-04-18,0,0
+"Brent",2020-04-18,0,0
+"Brighton and Hove",2020-04-18,1,1
+"Bristol, City of",2020-04-18,5,5
+"Bromley",2020-04-18,0,0
+"Buckinghamshire",2020-04-18,4,0
+"Bury",2020-04-18,0,0
+"Calderdale",2020-04-18,0,0
+"Cambridgeshire",2020-04-18,4,2
+"Camden",2020-04-18,1,0
+"Central Bedfordshire",2020-04-18,0,0
+"Cheshire East",2020-04-18,3,2
+"Cheshire West and Chester",2020-04-18,0,0
+"Cornwall",2020-04-18,1,0
+"County Durham",2020-04-18,9,4
+"Coventry",2020-04-18,2,1
+"Croydon",2020-04-18,3,0
+"Cumbria",2020-04-18,15,10
+"Darlington",2020-04-18,1,1
+"Derby",2020-04-18,2,0
+"Derbyshire",2020-04-18,9,3
+"Devon",2020-04-18,1,0
+"Doncaster",2020-04-18,3,0
+"Dorset",2020-04-18,5,2
+"Dudley",2020-04-18,1,1
+"Ealing",2020-04-18,0,0
+"East Riding of Yorkshire",2020-04-18,0,0
+"East Sussex",2020-04-18,5,4
+"Enfield",2020-04-18,2,0
+"Essex",2020-04-18,9,1
+"Gateshead",2020-04-18,0,0
+"Gloucestershire",2020-04-18,7,4
+"Greenwich",2020-04-18,1,1
+"Hackney",2020-04-18,0,0
+"Halton",2020-04-18,4,3
+"Hammersmith and Fulham",2020-04-18,2,0
+"Hampshire",2020-04-18,13,1
+"Haringey",2020-04-18,1,1
+"Harrow",2020-04-18,1,1
+"Hartlepool",2020-04-18,0,0
+"Havering",2020-04-18,0,0
+"Herefordshire, County of",2020-04-18,0,0
+"Hertfordshire",2020-04-18,6,1
+"Hillingdon",2020-04-18,2,1
+"Hounslow",2020-04-18,0,0
+"Isle of Wight",2020-04-18,0,0
+"Islington",2020-04-18,0,0
+"Kensington and Chelsea",2020-04-18,0,0
+"Kent",2020-04-18,4,0
+"Kingston upon Hull, City of",2020-04-18,0,0
+"Kingston upon Thames",2020-04-18,2,2
+"Kirklees",2020-04-18,0,0
+"Knowsley",2020-04-18,1,0
+"Lambeth",2020-04-18,0,0
+"Lancashire",2020-04-18,3,3
+"Leeds",2020-04-18,1,1
+"Leicester",2020-04-18,3,0
+"Leicestershire",2020-04-18,2,1
+"Lewisham",2020-04-18,0,0
+"Lincolnshire",2020-04-18,2,0
+"Liverpool",2020-04-18,1,1
+"Luton",2020-04-18,2,0
+"Manchester",2020-04-18,0,0
+"Medway",2020-04-18,0,0
+"Merton",2020-04-18,1,0
+"Middlesbrough",2020-04-18,3,1
+"Milton Keynes",2020-04-18,2,0
+"Newcastle upon Tyne",2020-04-18,0,0
+"Newham",2020-04-18,0,0
+"Norfolk",2020-04-18,1,0
+"North East Lincolnshire",2020-04-18,0,0
+"North Lincolnshire",2020-04-18,0,0
+"North Somerset",2020-04-18,0,0
+"North Tyneside",2020-04-18,0,0
+"North Yorkshire",2020-04-18,3,1
+"Northamptonshire",2020-04-18,4,2
+"Northumberland",2020-04-18,2,0
+"Nottingham",2020-04-18,1,1
+"Nottinghamshire",2020-04-18,2,2
+"Oldham",2020-04-18,5,5
+"Oxfordshire",2020-04-18,3,1
+"Peterborough",2020-04-18,1,1
+"Plymouth",2020-04-18,0,0
+"Portsmouth",2020-04-18,0,0
+"Reading",2020-04-18,0,0
+"Redbridge",2020-04-18,0,0
+"Redcar and Cleveland",2020-04-18,0,0
+"Richmond upon Thames",2020-04-18,1,1
+"Rochdale",2020-04-18,0,0
+"Rotherham",2020-04-18,0,0
+"Rutland",2020-04-18,0,0
+"Salford",2020-04-18,2,2
+"Sandwell",2020-04-18,3,0
+"Sefton",2020-04-18,2,0
+"Sheffield",2020-04-18,2,1
+"Shropshire",2020-04-18,1,0
+"Slough",2020-04-18,1,0
+"Solihull",2020-04-18,0,0
+"Somerset",2020-04-18,8,3
+"South Gloucestershire",2020-04-18,1,0
+"South Tyneside",2020-04-18,0,0
+"Southampton",2020-04-18,0,0
+"Southend-on-Sea",2020-04-18,0,0
+"Southwark",2020-04-18,0,0
+"St. Helens",2020-04-18,1,0
+"Staffordshire",2020-04-18,8,1
+"Stockport",2020-04-18,1,1
+"Stockton-on-Tees",2020-04-18,0,0
+"Stoke-on-Trent",2020-04-18,1,0
+"Suffolk",2020-04-18,2,0
+"Sunderland",2020-04-18,0,0
+"Surrey",2020-04-18,7,1
+"Sutton",2020-04-18,0,0
+"Swindon",2020-04-18,0,0
+"Tameside",2020-04-18,2,1
+"Telford and Wrekin",2020-04-18,3,2
+"Thurrock",2020-04-18,0,0
+"Torbay",2020-04-18,0,0
+"Tower Hamlets",2020-04-18,0,0
+"Trafford",2020-04-18,1,1
+"Wakefield",2020-04-18,1,1
+"Walsall",2020-04-18,1,1
+"Waltham Forest",2020-04-18,0,0
+"Wandsworth",2020-04-18,1,1
+"Warrington",2020-04-18,4,3
+"Warwickshire",2020-04-18,3,0
+"West Berkshire",2020-04-18,0,0
+"West Sussex",2020-04-18,5,1
+"Westminster",2020-04-18,0,0
+"Wigan",2020-04-18,2,1
+"Wiltshire",2020-04-18,0,0
+"Windsor and Maidenhead",2020-04-18,1,0
+"Wirral",2020-04-18,1,0
+"Wokingham",2020-04-18,3,1
+"Wolverhampton",2020-04-18,0,0
+"Worcestershire",2020-04-18,2,0
+"York",2020-04-18,1,0
+"Notes:",2020-04-18,,
+"1. Data provided by Care Quality Commission",2020-04-18,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-18,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-18,,
+"England",2020-04-19,218,95
+"Barking and Dagenham",2020-04-19,0,0
+"Barnet",2020-04-19,1,1
+"Barnsley",2020-04-19,0,0
+"Bath and North East Somerset",2020-04-19,1,0
+"Bedford",2020-04-19,0,0
+"Bexley",2020-04-19,5,1
+"Birmingham",2020-04-19,5,2
+"Blackburn with Darwen",2020-04-19,1,0
+"Blackpool",2020-04-19,0,0
+"Bolton",2020-04-19,1,0
+"Bournemouth, Christchurch and Poole",2020-04-19,3,1
+"Bracknell Forest",2020-04-19,0,0
+"Bradford",2020-04-19,4,2
+"Brent",2020-04-19,0,0
+"Brighton and Hove",2020-04-19,2,1
+"Bristol, City of",2020-04-19,2,1
+"Bromley",2020-04-19,4,2
+"Buckinghamshire",2020-04-19,1,0
+"Bury",2020-04-19,1,1
+"Calderdale",2020-04-19,0,0
+"Cambridgeshire",2020-04-19,2,0
+"Camden",2020-04-19,0,0
+"Central Bedfordshire",2020-04-19,2,1
+"Cheshire East",2020-04-19,0,0
+"Cheshire West and Chester",2020-04-19,0,0
+"Cornwall",2020-04-19,3,0
+"County Durham",2020-04-19,1,1
+"Coventry",2020-04-19,1,1
+"Croydon",2020-04-19,1,0
+"Cumbria",2020-04-19,0,0
+"Darlington",2020-04-19,0,0
+"Derby",2020-04-19,4,2
+"Derbyshire",2020-04-19,1,0
+"Devon",2020-04-19,3,2
+"Doncaster",2020-04-19,1,0
+"Dorset",2020-04-19,5,3
+"Dudley",2020-04-19,0,0
+"Ealing",2020-04-19,1,1
+"East Riding of Yorkshire",2020-04-19,2,0
+"East Sussex",2020-04-19,2,0
+"Enfield",2020-04-19,3,1
+"Essex",2020-04-19,8,4
+"Gateshead",2020-04-19,0,0
+"Gloucestershire",2020-04-19,1,1
+"Greenwich",2020-04-19,0,0
+"Hackney",2020-04-19,0,0
+"Halton",2020-04-19,0,0
+"Hammersmith and Fulham",2020-04-19,0,0
+"Hampshire",2020-04-19,9,4
+"Haringey",2020-04-19,1,1
+"Harrow",2020-04-19,0,0
+"Hartlepool",2020-04-19,0,0
+"Havering",2020-04-19,0,0
+"Herefordshire, County of",2020-04-19,0,0
+"Hertfordshire",2020-04-19,3,1
+"Hillingdon",2020-04-19,4,2
+"Hounslow",2020-04-19,0,0
+"Isle of Wight",2020-04-19,1,0
+"Islington",2020-04-19,0,0
+"Kensington and Chelsea",2020-04-19,0,0
+"Kent",2020-04-19,7,3
+"Kingston upon Hull, City of",2020-04-19,0,0
+"Kingston upon Thames",2020-04-19,0,0
+"Kirklees",2020-04-19,1,0
+"Knowsley",2020-04-19,0,0
+"Lambeth",2020-04-19,0,0
+"Lancashire",2020-04-19,7,4
+"Leeds",2020-04-19,5,3
+"Leicester",2020-04-19,1,1
+"Leicestershire",2020-04-19,3,1
+"Lewisham",2020-04-19,0,0
+"Lincolnshire",2020-04-19,1,1
+"Liverpool",2020-04-19,1,0
+"Luton",2020-04-19,0,0
+"Manchester",2020-04-19,0,0
+"Medway",2020-04-19,0,0
+"Merton",2020-04-19,0,0
+"Middlesbrough",2020-04-19,0,0
+"Milton Keynes",2020-04-19,0,0
+"Newcastle upon Tyne",2020-04-19,2,1
+"Newham",2020-04-19,0,0
+"Norfolk",2020-04-19,0,0
+"North East Lincolnshire",2020-04-19,0,0
+"North Lincolnshire",2020-04-19,2,1
+"North Somerset",2020-04-19,2,0
+"North Tyneside",2020-04-19,1,0
+"North Yorkshire",2020-04-19,2,2
+"Northamptonshire",2020-04-19,10,5
+"Northumberland",2020-04-19,0,0
+"Nottingham",2020-04-19,0,0
+"Nottinghamshire",2020-04-19,4,2
+"Oldham",2020-04-19,0,0
+"Oxfordshire",2020-04-19,9,6
+"Peterborough",2020-04-19,0,0
+"Plymouth",2020-04-19,0,0
+"Portsmouth",2020-04-19,2,1
+"Reading",2020-04-19,1,1
+"Redbridge",2020-04-19,0,0
+"Redcar and Cleveland",2020-04-19,0,0
+"Richmond upon Thames",2020-04-19,1,1
+"Rochdale",2020-04-19,0,0
+"Rotherham",2020-04-19,2,0
+"Rutland",2020-04-19,0,0
+"Salford",2020-04-19,0,0
+"Sandwell",2020-04-19,0,0
+"Sefton",2020-04-19,1,1
+"Sheffield",2020-04-19,5,1
+"Shropshire",2020-04-19,0,0
+"Slough",2020-04-19,0,0
+"Solihull",2020-04-19,3,3
+"Somerset",2020-04-19,4,2
+"South Gloucestershire",2020-04-19,0,0
+"South Tyneside",2020-04-19,1,1
+"Southampton",2020-04-19,0,0
+"Southend-on-Sea",2020-04-19,2,0
+"Southwark",2020-04-19,0,0
+"St. Helens",2020-04-19,1,0
+"Staffordshire",2020-04-19,3,1
+"Stockport",2020-04-19,1,0
+"Stockton-on-Tees",2020-04-19,0,0
+"Stoke-on-Trent",2020-04-19,0,0
+"Suffolk",2020-04-19,7,2
+"Sunderland",2020-04-19,0,0
+"Surrey",2020-04-19,5,2
+"Sutton",2020-04-19,2,1
+"Swindon",2020-04-19,2,1
+"Tameside",2020-04-19,0,0
+"Telford and Wrekin",2020-04-19,2,0
+"Thurrock",2020-04-19,0,0
+"Torbay",2020-04-19,0,0
+"Tower Hamlets",2020-04-19,0,0
+"Trafford",2020-04-19,0,0
+"Wakefield",2020-04-19,2,1
+"Walsall",2020-04-19,1,1
+"Waltham Forest",2020-04-19,0,0
+"Wandsworth",2020-04-19,0,0
+"Warrington",2020-04-19,2,1
+"Warwickshire",2020-04-19,0,0
+"West Berkshire",2020-04-19,1,1
+"West Sussex",2020-04-19,7,1
+"Westminster",2020-04-19,0,0
+"Wigan",2020-04-19,2,2
+"Wiltshire",2020-04-19,1,0
+"Windsor and Maidenhead",2020-04-19,1,0
+"Wirral",2020-04-19,1,1
+"Wokingham",2020-04-19,0,0
+"Wolverhampton",2020-04-19,0,0
+"Worcestershire",2020-04-19,4,1
+"York",2020-04-19,3,1
+"Notes:",2020-04-19,,
+"1. Data provided by Care Quality Commission",2020-04-19,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-19,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-19,,
+"England",2020-04-20,1528,541
+"Barking and Dagenham",2020-04-20,0,0
+"Barnet",2020-04-20,10,4
+"Barnsley",2020-04-20,7,3
+"Bath and North East Somerset",2020-04-20,3,3
+"Bedford",2020-04-20,9,2
+"Bexley",2020-04-20,8,1
+"Birmingham",2020-04-20,28,11
+"Blackburn with Darwen",2020-04-20,4,1
+"Blackpool",2020-04-20,3,0
+"Bolton",2020-04-20,5,3
+"Bournemouth, Christchurch and Poole",2020-04-20,11,2
+"Bracknell Forest",2020-04-20,0,0
+"Bradford",2020-04-20,17,3
+"Brent",2020-04-20,5,2
+"Brighton and Hove",2020-04-20,8,4
+"Bristol, City of",2020-04-20,10,7
+"Bromley",2020-04-20,8,5
+"Buckinghamshire",2020-04-20,13,5
+"Bury",2020-04-20,3,1
+"Calderdale",2020-04-20,9,5
+"Cambridgeshire",2020-04-20,16,4
+"Camden",2020-04-20,2,1
+"Central Bedfordshire",2020-04-20,5,3
+"Cheshire East",2020-04-20,21,11
+"Cheshire West and Chester",2020-04-20,9,4
+"Cornwall",2020-04-20,10,1
+"County Durham",2020-04-20,24,9
+"Coventry",2020-04-20,6,2
+"Croydon",2020-04-20,9,3
+"Cumbria",2020-04-20,17,5
+"Darlington",2020-04-20,6,5
+"Derby",2020-04-20,6,2
+"Derbyshire",2020-04-20,31,14
+"Devon",2020-04-20,15,6
+"Doncaster",2020-04-20,6,0
+"Dorset",2020-04-20,11,4
+"Dudley",2020-04-20,10,2
+"Ealing",2020-04-20,4,2
+"East Riding of Yorkshire",2020-04-20,14,4
+"East Sussex",2020-04-20,26,6
+"Enfield",2020-04-20,11,2
+"Essex",2020-04-20,55,15
+"Gateshead",2020-04-20,14,6
+"Gloucestershire",2020-04-20,31,12
+"Greenwich",2020-04-20,2,0
+"Hackney",2020-04-20,1,0
+"Halton",2020-04-20,1,0
+"Hammersmith and Fulham",2020-04-20,0,0
+"Hampshire",2020-04-20,38,15
+"Haringey",2020-04-20,0,0
+"Harrow",2020-04-20,6,1
+"Hartlepool",2020-04-20,4,3
+"Havering",2020-04-20,7,1
+"Herefordshire, County of",2020-04-20,5,0
+"Hertfordshire",2020-04-20,37,20
+"Hillingdon",2020-04-20,9,4
+"Hounslow",2020-04-20,3,1
+"Isle of Wight",2020-04-20,0,0
+"Islington",2020-04-20,3,2
+"Kensington and Chelsea",2020-04-20,0,0
+"Kent",2020-04-20,27,10
+"Kingston upon Hull, City of",2020-04-20,6,3
+"Kingston upon Thames",2020-04-20,1,1
+"Kirklees",2020-04-20,17,2
+"Knowsley",2020-04-20,3,2
+"Lambeth",2020-04-20,2,1
+"Lancashire",2020-04-20,42,20
+"Leeds",2020-04-20,19,9
+"Leicester",2020-04-20,6,1
+"Leicestershire",2020-04-20,11,3
+"Lewisham",2020-04-20,1,0
+"Lincolnshire",2020-04-20,12,2
+"Liverpool",2020-04-20,21,7
+"Luton",2020-04-20,2,0
+"Manchester",2020-04-20,13,3
+"Medway",2020-04-20,4,1
+"Merton",2020-04-20,1,0
+"Middlesbrough",2020-04-20,6,1
+"Milton Keynes",2020-04-20,9,3
+"Newcastle upon Tyne",2020-04-20,6,2
+"Newham",2020-04-20,1,1
+"Norfolk",2020-04-20,13,2
+"North East Lincolnshire",2020-04-20,1,0
+"North Lincolnshire",2020-04-20,5,0
+"North Somerset",2020-04-20,11,1
+"North Tyneside",2020-04-20,4,1
+"North Yorkshire",2020-04-20,21,7
+"Northamptonshire",2020-04-20,18,3
+"Northumberland",2020-04-20,15,8
+"Nottingham",2020-04-20,3,2
+"Nottinghamshire",2020-04-20,24,12
+"Oldham",2020-04-20,6,3
+"Oxfordshire",2020-04-20,19,4
+"Peterborough",2020-04-20,5,0
+"Plymouth",2020-04-20,6,1
+"Portsmouth",2020-04-20,2,2
+"Reading",2020-04-20,1,1
+"Redbridge",2020-04-20,2,0
+"Redcar and Cleveland",2020-04-20,7,1
+"Richmond upon Thames",2020-04-20,3,1
+"Rochdale",2020-04-20,3,1
+"Rotherham",2020-04-20,7,3
+"Rutland",2020-04-20,0,0
+"Salford",2020-04-20,8,3
+"Sandwell",2020-04-20,8,2
+"Sefton",2020-04-20,10,0
+"Sheffield",2020-04-20,21,14
+"Shropshire",2020-04-20,16,5
+"Slough",2020-04-20,1,1
+"Solihull",2020-04-20,13,5
+"Somerset",2020-04-20,17,4
+"South Gloucestershire",2020-04-20,7,5
+"South Tyneside",2020-04-20,7,3
+"Southampton",2020-04-20,7,3
+"Southend-on-Sea",2020-04-20,6,1
+"Southwark",2020-04-20,0,0
+"St. Helens",2020-04-20,6,0
+"Staffordshire",2020-04-20,35,13
+"Stockport",2020-04-20,19,6
+"Stockton-on-Tees",2020-04-20,5,0
+"Stoke-on-Trent",2020-04-20,7,3
+"Suffolk",2020-04-20,24,10
+"Sunderland",2020-04-20,18,6
+"Surrey",2020-04-20,40,10
+"Sutton",2020-04-20,4,0
+"Swindon",2020-04-20,3,1
+"Tameside",2020-04-20,8,4
+"Telford and Wrekin",2020-04-20,5,1
+"Thurrock",2020-04-20,1,0
+"Torbay",2020-04-20,2,0
+"Tower Hamlets",2020-04-20,0,0
+"Trafford",2020-04-20,8,2
+"Wakefield",2020-04-20,10,1
+"Walsall",2020-04-20,9,4
+"Waltham Forest",2020-04-20,4,1
+"Wandsworth",2020-04-20,3,2
+"Warrington",2020-04-20,4,3
+"Warwickshire",2020-04-20,16,6
+"West Berkshire",2020-04-20,8,3
+"West Sussex",2020-04-20,47,19
+"Westminster",2020-04-20,2,0
+"Wigan",2020-04-20,4,1
+"Wiltshire",2020-04-20,29,11
+"Windsor and Maidenhead",2020-04-20,10,4
+"Wirral",2020-04-20,16,10
+"Wokingham",2020-04-20,3,2
+"Wolverhampton",2020-04-20,7,5
+"Worcestershire",2020-04-20,22,10
+"York",2020-04-20,6,0
+"Notes:",2020-04-20,,
+"1. Data provided by Care Quality Commission",2020-04-20,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-20,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-20,,
+"England",2020-04-21,1252,499
+"Barking and Dagenham",2020-04-21,1,1
+"Barnet",2020-04-21,9,5
+"Barnsley",2020-04-21,7,1
+"Bath and North East Somerset",2020-04-21,2,0
+"Bedford",2020-04-21,0,0
+"Bexley",2020-04-21,0,0
+"Birmingham",2020-04-21,9,4
+"Blackburn with Darwen",2020-04-21,3,1
+"Blackpool",2020-04-21,3,1
+"Bolton",2020-04-21,9,5
+"Bournemouth, Christchurch and Poole",2020-04-21,10,5
+"Bracknell Forest",2020-04-21,0,0
+"Bradford",2020-04-21,13,3
+"Brent",2020-04-21,2,1
+"Brighton and Hove",2020-04-21,5,2
+"Bristol, City of",2020-04-21,17,6
+"Bromley",2020-04-21,9,8
+"Buckinghamshire",2020-04-21,9,4
+"Bury",2020-04-21,5,1
+"Calderdale",2020-04-21,7,3
+"Cambridgeshire",2020-04-21,7,0
+"Camden",2020-04-21,9,5
+"Central Bedfordshire",2020-04-21,1,0
+"Cheshire East",2020-04-21,7,3
+"Cheshire West and Chester",2020-04-21,15,4
+"Cornwall",2020-04-21,10,4
+"County Durham",2020-04-21,25,13
+"Coventry",2020-04-21,10,9
+"Croydon",2020-04-21,6,3
+"Cumbria",2020-04-21,13,7
+"Darlington",2020-04-21,1,0
+"Derby",2020-04-21,8,3
+"Derbyshire",2020-04-21,18,7
+"Devon",2020-04-21,16,4
+"Doncaster",2020-04-21,8,2
+"Dorset",2020-04-21,11,4
+"Dudley",2020-04-21,6,3
+"Ealing",2020-04-21,5,3
+"East Riding of Yorkshire",2020-04-21,8,0
+"East Sussex",2020-04-21,9,1
+"Enfield",2020-04-21,18,13
+"Essex",2020-04-21,36,8
+"Gateshead",2020-04-21,7,4
+"Gloucestershire",2020-04-21,21,10
+"Greenwich",2020-04-21,2,0
+"Hackney",2020-04-21,2,1
+"Halton",2020-04-21,3,2
+"Hammersmith and Fulham",2020-04-21,0,0
+"Hampshire",2020-04-21,36,11
+"Haringey",2020-04-21,0,0
+"Harrow",2020-04-21,6,2
+"Hartlepool",2020-04-21,2,0
+"Havering",2020-04-21,4,1
+"Herefordshire, County of",2020-04-21,2,0
+"Hertfordshire",2020-04-21,36,21
+"Hillingdon",2020-04-21,2,1
+"Hounslow",2020-04-21,2,1
+"Isle of Wight",2020-04-21,6,1
+"Islington",2020-04-21,1,0
+"Kensington and Chelsea",2020-04-21,0,0
+"Kent",2020-04-21,40,13
+"Kingston upon Hull, City of",2020-04-21,2,2
+"Kingston upon Thames",2020-04-21,6,4
+"Kirklees",2020-04-21,13,7
+"Knowsley",2020-04-21,5,2
+"Lambeth",2020-04-21,2,2
+"Lancashire",2020-04-21,30,12
+"Leeds",2020-04-21,15,10
+"Leicester",2020-04-21,5,1
+"Leicestershire",2020-04-21,16,5
+"Lewisham",2020-04-21,3,1
+"Lincolnshire",2020-04-21,9,1
+"Liverpool",2020-04-21,18,8
+"Luton",2020-04-21,3,0
+"Manchester",2020-04-21,2,1
+"Medway",2020-04-21,3,0
+"Merton",2020-04-21,5,0
+"Middlesbrough",2020-04-21,5,2
+"Milton Keynes",2020-04-21,12,5
+"Newcastle upon Tyne",2020-04-21,7,2
+"Newham",2020-04-21,2,0
+"Norfolk",2020-04-21,3,0
+"North East Lincolnshire",2020-04-21,2,0
+"North Lincolnshire",2020-04-21,7,2
+"North Somerset",2020-04-21,6,0
+"North Tyneside",2020-04-21,1,0
+"North Yorkshire",2020-04-21,13,6
+"Northamptonshire",2020-04-21,13,5
+"Northumberland",2020-04-21,5,0
+"Nottingham",2020-04-21,4,3
+"Nottinghamshire",2020-04-21,16,7
+"Oldham",2020-04-21,15,13
+"Oxfordshire",2020-04-21,26,14
+"Peterborough",2020-04-21,2,1
+"Plymouth",2020-04-21,7,1
+"Portsmouth",2020-04-21,4,2
+"Reading",2020-04-21,10,8
+"Redbridge",2020-04-21,6,3
+"Redcar and Cleveland",2020-04-21,2,0
+"Richmond upon Thames",2020-04-21,5,5
+"Rochdale",2020-04-21,4,2
+"Rotherham",2020-04-21,14,7
+"Rutland",2020-04-21,1,0
+"Salford",2020-04-21,7,3
+"Sandwell",2020-04-21,7,2
+"Sefton",2020-04-21,4,0
+"Sheffield",2020-04-21,17,8
+"Shropshire",2020-04-21,4,2
+"Slough",2020-04-21,1,0
+"Solihull",2020-04-21,4,2
+"Somerset",2020-04-21,19,5
+"South Gloucestershire",2020-04-21,3,1
+"South Tyneside",2020-04-21,6,2
+"Southampton",2020-04-21,6,4
+"Southend-on-Sea",2020-04-21,10,2
+"Southwark",2020-04-21,5,4
+"St. Helens",2020-04-21,9,1
+"Staffordshire",2020-04-21,27,10
+"Stockport",2020-04-21,5,2
+"Stockton-on-Tees",2020-04-21,2,2
+"Stoke-on-Trent",2020-04-21,1,1
+"Suffolk",2020-04-21,10,1
+"Sunderland",2020-04-21,12,5
+"Surrey",2020-04-21,41,15
+"Sutton",2020-04-21,5,0
+"Swindon",2020-04-21,5,1
+"Tameside",2020-04-21,6,2
+"Telford and Wrekin",2020-04-21,4,2
+"Thurrock",2020-04-21,1,0
+"Torbay",2020-04-21,1,0
+"Tower Hamlets",2020-04-21,0,0
+"Trafford",2020-04-21,2,0
+"Wakefield",2020-04-21,4,0
+"Walsall",2020-04-21,6,2
+"Waltham Forest",2020-04-21,0,0
+"Wandsworth",2020-04-21,4,2
+"Warrington",2020-04-21,4,1
+"Warwickshire",2020-04-21,21,8
+"West Berkshire",2020-04-21,4,3
+"West Sussex",2020-04-21,29,13
+"Westminster",2020-04-21,1,1
+"Wigan",2020-04-21,6,1
+"Wiltshire",2020-04-21,20,11
+"Windsor and Maidenhead",2020-04-21,5,1
+"Wirral",2020-04-21,16,8
+"Wokingham",2020-04-21,6,2
+"Wolverhampton",2020-04-21,2,0
+"Worcestershire",2020-04-21,29,9
+"York",2020-04-21,3,1
+"Notes:",2020-04-21,,
+"1. Data provided by Care Quality Commission",2020-04-21,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-21,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-21,,
+"England",2020-04-22,878,351
+"Barking and Dagenham",2020-04-22,2,2
+"Barnet",2020-04-22,6,1
+"Barnsley",2020-04-22,5,3
+"Bath and North East Somerset",2020-04-22,1,0
+"Bedford",2020-04-22,2,0
+"Bexley",2020-04-22,0,0
+"Birmingham",2020-04-22,15,6
+"Blackburn with Darwen",2020-04-22,0,0
+"Blackpool",2020-04-22,2,0
+"Bolton",2020-04-22,7,4
+"Bournemouth, Christchurch and Poole",2020-04-22,6,2
+"Bracknell Forest",2020-04-22,0,0
+"Bradford",2020-04-22,12,4
+"Brent",2020-04-22,4,2
+"Brighton and Hove",2020-04-22,2,1
+"Bristol, City of",2020-04-22,3,0
+"Bromley",2020-04-22,3,0
+"Buckinghamshire",2020-04-22,8,1
+"Bury",2020-04-22,4,2
+"Calderdale",2020-04-22,4,1
+"Cambridgeshire",2020-04-22,6,0
+"Camden",2020-04-22,2,1
+"Central Bedfordshire",2020-04-22,4,0
+"Cheshire East",2020-04-22,13,6
+"Cheshire West and Chester",2020-04-22,10,6
+"Cornwall",2020-04-22,5,0
+"County Durham",2020-04-22,21,5
+"Coventry",2020-04-22,1,1
+"Croydon",2020-04-22,5,1
+"Cumbria",2020-04-22,12,6
+"Darlington",2020-04-22,1,1
+"Derby",2020-04-22,2,1
+"Derbyshire",2020-04-22,14,7
+"Devon",2020-04-22,14,10
+"Doncaster",2020-04-22,3,0
+"Dorset",2020-04-22,5,2
+"Dudley",2020-04-22,2,0
+"Ealing",2020-04-22,2,1
+"East Riding of Yorkshire",2020-04-22,5,1
+"East Sussex",2020-04-22,13,3
+"Enfield",2020-04-22,2,1
+"Essex",2020-04-22,27,9
+"Gateshead",2020-04-22,2,0
+"Gloucestershire",2020-04-22,16,13
+"Greenwich",2020-04-22,0,0
+"Hackney",2020-04-22,1,0
+"Halton",2020-04-22,1,0
+"Hammersmith and Fulham",2020-04-22,0,0
+"Hampshire",2020-04-22,34,15
+"Haringey",2020-04-22,3,2
+"Harrow",2020-04-22,1,0
+"Hartlepool",2020-04-22,4,3
+"Havering",2020-04-22,2,0
+"Herefordshire, County of",2020-04-22,1,1
+"Hertfordshire",2020-04-22,23,8
+"Hillingdon",2020-04-22,6,3
+"Hounslow",2020-04-22,4,2
+"Isle of Wight",2020-04-22,2,1
+"Islington",2020-04-22,0,0
+"Kensington and Chelsea",2020-04-22,1,0
+"Kent",2020-04-22,30,4
+"Kingston upon Hull, City of",2020-04-22,2,2
+"Kingston upon Thames",2020-04-22,2,0
+"Kirklees",2020-04-22,5,1
+"Knowsley",2020-04-22,4,3
+"Lambeth",2020-04-22,1,0
+"Lancashire",2020-04-22,19,8
+"Leeds",2020-04-22,11,9
+"Leicester",2020-04-22,1,1
+"Leicestershire",2020-04-22,9,2
+"Lewisham",2020-04-22,1,0
+"Lincolnshire",2020-04-22,9,0
+"Liverpool",2020-04-22,7,4
+"Luton",2020-04-22,4,2
+"Manchester",2020-04-22,3,2
+"Medway",2020-04-22,1,0
+"Merton",2020-04-22,2,1
+"Middlesbrough",2020-04-22,2,1
+"Milton Keynes",2020-04-22,4,1
+"Newcastle upon Tyne",2020-04-22,6,1
+"Newham",2020-04-22,0,0
+"Norfolk",2020-04-22,16,3
+"North East Lincolnshire",2020-04-22,2,0
+"North Lincolnshire",2020-04-22,1,0
+"North Somerset",2020-04-22,1,0
+"North Tyneside",2020-04-22,1,0
+"North Yorkshire",2020-04-22,13,8
+"Northamptonshire",2020-04-22,13,2
+"Northumberland",2020-04-22,7,2
+"Nottingham",2020-04-22,1,0
+"Nottinghamshire",2020-04-22,11,7
+"Oldham",2020-04-22,6,3
+"Oxfordshire",2020-04-22,13,8
+"Peterborough",2020-04-22,2,0
+"Plymouth",2020-04-22,3,0
+"Portsmouth",2020-04-22,4,4
+"Reading",2020-04-22,6,4
+"Redbridge",2020-04-22,4,0
+"Redcar and Cleveland",2020-04-22,4,2
+"Richmond upon Thames",2020-04-22,2,2
+"Rochdale",2020-04-22,6,2
+"Rotherham",2020-04-22,12,7
+"Rutland",2020-04-22,0,0
+"Salford",2020-04-22,3,2
+"Sandwell",2020-04-22,4,0
+"Sefton",2020-04-22,14,6
+"Sheffield",2020-04-22,4,4
+"Shropshire",2020-04-22,4,3
+"Slough",2020-04-22,2,1
+"Solihull",2020-04-22,3,1
+"Somerset",2020-04-22,10,0
+"South Gloucestershire",2020-04-22,1,0
+"South Tyneside",2020-04-22,6,4
+"Southampton",2020-04-22,8,4
+"Southend-on-Sea",2020-04-22,2,1
+"Southwark",2020-04-22,1,0
+"St. Helens",2020-04-22,6,3
+"Staffordshire",2020-04-22,13,6
+"Stockport",2020-04-22,5,2
+"Stockton-on-Tees",2020-04-22,3,1
+"Stoke-on-Trent",2020-04-22,2,1
+"Suffolk",2020-04-22,9,1
+"Sunderland",2020-04-22,5,3
+"Surrey",2020-04-22,23,11
+"Sutton",2020-04-22,4,1
+"Swindon",2020-04-22,0,0
+"Tameside",2020-04-22,4,1
+"Telford and Wrekin",2020-04-22,1,1
+"Thurrock",2020-04-22,3,1
+"Torbay",2020-04-22,1,0
+"Tower Hamlets",2020-04-22,0,0
+"Trafford",2020-04-22,8,4
+"Wakefield",2020-04-22,7,4
+"Walsall",2020-04-22,0,0
+"Waltham Forest",2020-04-22,4,1
+"Wandsworth",2020-04-22,3,1
+"Warrington",2020-04-22,5,3
+"Warwickshire",2020-04-22,18,6
+"West Berkshire",2020-04-22,8,4
+"West Sussex",2020-04-22,20,5
+"Westminster",2020-04-22,1,1
+"Wigan",2020-04-22,4,1
+"Wiltshire",2020-04-22,14,6
+"Windsor and Maidenhead",2020-04-22,0,0
+"Wirral",2020-04-22,13,9
+"Wokingham",2020-04-22,6,4
+"Wolverhampton",2020-04-22,5,3
+"Worcestershire",2020-04-22,14,6
+"York",2020-04-22,0,0
+"Notes:",2020-04-22,,
+"1. Data provided by Care Quality Commission",2020-04-22,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-22,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-22,,
+"England",2020-04-23,1001,409
+"Barking and Dagenham",2020-04-23,2,1
+"Barnet",2020-04-23,2,1
+"Barnsley",2020-04-23,0,0
+"Bath and North East Somerset",2020-04-23,7,5
+"Bedford",2020-04-23,2,0
+"Bexley",2020-04-23,1,0
+"Birmingham",2020-04-23,9,3
+"Blackburn with Darwen",2020-04-23,1,0
+"Blackpool",2020-04-23,1,0
+"Bolton",2020-04-23,4,2
+"Bournemouth, Christchurch and Poole",2020-04-23,11,6
+"Bracknell Forest",2020-04-23,0,0
+"Bradford",2020-04-23,12,7
+"Brent",2020-04-23,2,2
+"Brighton and Hove",2020-04-23,2,0
+"Bristol, City of",2020-04-23,10,7
+"Bromley",2020-04-23,2,0
+"Buckinghamshire",2020-04-23,11,0
+"Bury",2020-04-23,11,6
+"Calderdale",2020-04-23,2,1
+"Cambridgeshire",2020-04-23,11,4
+"Camden",2020-04-23,0,0
+"Central Bedfordshire",2020-04-23,3,2
+"Cheshire East",2020-04-23,9,4
+"Cheshire West and Chester",2020-04-23,7,2
+"Cornwall",2020-04-23,8,4
+"County Durham",2020-04-23,24,10
+"Coventry",2020-04-23,9,8
+"Croydon",2020-04-23,4,2
+"Cumbria",2020-04-23,8,3
+"Darlington",2020-04-23,10,8
+"Derby",2020-04-23,6,3
+"Derbyshire",2020-04-23,14,8
+"Devon",2020-04-23,16,6
+"Doncaster",2020-04-23,5,1
+"Dorset",2020-04-23,3,0
+"Dudley",2020-04-23,6,2
+"Ealing",2020-04-23,2,0
+"East Riding of Yorkshire",2020-04-23,5,1
+"East Sussex",2020-04-23,15,4
+"Enfield",2020-04-23,1,0
+"Essex",2020-04-23,29,8
+"Gateshead",2020-04-23,6,3
+"Gloucestershire",2020-04-23,18,7
+"Greenwich",2020-04-23,1,0
+"Hackney",2020-04-23,0,0
+"Halton",2020-04-23,3,0
+"Hammersmith and Fulham",2020-04-23,0,0
+"Hampshire",2020-04-23,38,14
+"Haringey",2020-04-23,0,0
+"Harrow",2020-04-23,5,4
+"Hartlepool",2020-04-23,2,2
+"Havering",2020-04-23,6,1
+"Herefordshire, County of",2020-04-23,3,0
+"Hertfordshire",2020-04-23,30,9
+"Hillingdon",2020-04-23,4,1
+"Hounslow",2020-04-23,2,2
+"Isle of Wight",2020-04-23,0,0
+"Islington",2020-04-23,2,0
+"Kensington and Chelsea",2020-04-23,0,0
+"Kent",2020-04-23,19,7
+"Kingston upon Hull, City of",2020-04-23,4,2
+"Kingston upon Thames",2020-04-23,2,0
+"Kirklees",2020-04-23,6,1
+"Knowsley",2020-04-23,4,3
+"Lambeth",2020-04-23,1,1
+"Lancashire",2020-04-23,18,7
+"Leeds",2020-04-23,15,8
+"Leicester",2020-04-23,3,1
+"Leicestershire",2020-04-23,12,4
+"Lewisham",2020-04-23,0,0
+"Lincolnshire",2020-04-23,10,0
+"Liverpool",2020-04-23,18,13
+"Luton",2020-04-23,0,0
+"Manchester",2020-04-23,12,7
+"Medway",2020-04-23,6,2
+"Merton",2020-04-23,1,1
+"Middlesbrough",2020-04-23,5,1
+"Milton Keynes",2020-04-23,3,2
+"Newcastle upon Tyne",2020-04-23,4,0
+"Newham",2020-04-23,1,0
+"Norfolk",2020-04-23,11,5
+"North East Lincolnshire",2020-04-23,0,0
+"North Lincolnshire",2020-04-23,2,0
+"North Somerset",2020-04-23,2,0
+"North Tyneside",2020-04-23,2,2
+"North Yorkshire",2020-04-23,18,7
+"Northamptonshire",2020-04-23,15,4
+"Northumberland",2020-04-23,6,1
+"Nottingham",2020-04-23,0,0
+"Nottinghamshire",2020-04-23,13,3
+"Oldham",2020-04-23,3,3
+"Oxfordshire",2020-04-23,17,13
+"Peterborough",2020-04-23,4,0
+"Plymouth",2020-04-23,2,0
+"Portsmouth",2020-04-23,4,4
+"Reading",2020-04-23,8,5
+"Redbridge",2020-04-23,3,1
+"Redcar and Cleveland",2020-04-23,2,1
+"Richmond upon Thames",2020-04-23,0,0
+"Rochdale",2020-04-23,3,1
+"Rotherham",2020-04-23,6,3
+"Rutland",2020-04-23,0,0
+"Salford",2020-04-23,8,5
+"Sandwell",2020-04-23,8,2
+"Sefton",2020-04-23,3,0
+"Sheffield",2020-04-23,16,11
+"Shropshire",2020-04-23,10,2
+"Slough",2020-04-23,1,1
+"Solihull",2020-04-23,0,0
+"Somerset",2020-04-23,6,2
+"South Gloucestershire",2020-04-23,4,2
+"South Tyneside",2020-04-23,7,5
+"Southampton",2020-04-23,0,0
+"Southend-on-Sea",2020-04-23,8,3
+"Southwark",2020-04-23,0,0
+"St. Helens",2020-04-23,7,4
+"Staffordshire",2020-04-23,21,5
+"Stockport",2020-04-23,5,4
+"Stockton-on-Tees",2020-04-23,2,0
+"Stoke-on-Trent",2020-04-23,10,5
+"Suffolk",2020-04-23,24,8
+"Sunderland",2020-04-23,7,4
+"Surrey",2020-04-23,24,12
+"Sutton",2020-04-23,5,1
+"Swindon",2020-04-23,6,3
+"Tameside",2020-04-23,5,2
+"Telford and Wrekin",2020-04-23,3,1
+"Thurrock",2020-04-23,4,2
+"Torbay",2020-04-23,0,0
+"Tower Hamlets",2020-04-23,0,0
+"Trafford",2020-04-23,2,0
+"Wakefield",2020-04-23,5,1
+"Walsall",2020-04-23,2,0
+"Waltham Forest",2020-04-23,6,2
+"Wandsworth",2020-04-23,2,0
+"Warrington",2020-04-23,3,1
+"Warwickshire",2020-04-23,14,6
+"West Berkshire",2020-04-23,4,2
+"West Sussex",2020-04-23,33,13
+"Westminster",2020-04-23,0,0
+"Wigan",2020-04-23,1,0
+"Wiltshire",2020-04-23,16,5
+"Windsor and Maidenhead",2020-04-23,5,2
+"Wirral",2020-04-23,16,7
+"Wokingham",2020-04-23,7,4
+"Wolverhampton",2020-04-23,2,0
+"Worcestershire",2020-04-23,15,4
+"York",2020-04-23,2,1
+"Notes:",2020-04-23,,
+"1. Data provided by Care Quality Commission",2020-04-23,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-23,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-23,,
+"England",2020-04-24,921,382
+"Barking and Dagenham",2020-04-24,0,0
+"Barnet",2020-04-24,2,1
+"Barnsley",2020-04-24,5,2
+"Bath and North East Somerset",2020-04-24,8,3
+"Bedford",2020-04-24,3,0
+"Bexley",2020-04-24,8,1
+"Birmingham",2020-04-24,8,2
+"Blackburn with Darwen",2020-04-24,1,1
+"Blackpool",2020-04-24,2,0
+"Bolton",2020-04-24,5,3
+"Bournemouth, Christchurch and Poole",2020-04-24,10,2
+"Bracknell Forest",2020-04-24,0,0
+"Bradford",2020-04-24,7,2
+"Brent",2020-04-24,5,2
+"Brighton and Hove",2020-04-24,2,1
+"Bristol, City of",2020-04-24,7,5
+"Bromley",2020-04-24,6,1
+"Buckinghamshire",2020-04-24,12,6
+"Bury",2020-04-24,2,2
+"Calderdale",2020-04-24,2,1
+"Cambridgeshire",2020-04-24,11,1
+"Camden",2020-04-24,1,1
+"Central Bedfordshire",2020-04-24,2,0
+"Cheshire East",2020-04-24,13,7
+"Cheshire West and Chester",2020-04-24,6,1
+"Cornwall",2020-04-24,3,0
+"County Durham",2020-04-24,14,4
+"Coventry",2020-04-24,4,1
+"Croydon",2020-04-24,5,1
+"Cumbria",2020-04-24,14,8
+"Darlington",2020-04-24,4,2
+"Derby",2020-04-24,3,1
+"Derbyshire",2020-04-24,15,3
+"Devon",2020-04-24,14,3
+"Doncaster",2020-04-24,1,0
+"Dorset",2020-04-24,6,2
+"Dudley",2020-04-24,3,1
+"Ealing",2020-04-24,2,1
+"East Riding of Yorkshire",2020-04-24,2,0
+"East Sussex",2020-04-24,8,4
+"Enfield",2020-04-24,1,0
+"Essex",2020-04-24,33,8
+"Gateshead",2020-04-24,5,2
+"Gloucestershire",2020-04-24,17,11
+"Greenwich",2020-04-24,4,1
+"Hackney",2020-04-24,1,0
+"Halton",2020-04-24,1,1
+"Hammersmith and Fulham",2020-04-24,1,1
+"Hampshire",2020-04-24,34,19
+"Haringey",2020-04-24,0,0
+"Harrow",2020-04-24,7,3
+"Hartlepool",2020-04-24,3,2
+"Havering",2020-04-24,2,0
+"Herefordshire, County of",2020-04-24,0,0
+"Hertfordshire",2020-04-24,25,11
+"Hillingdon",2020-04-24,4,3
+"Hounslow",2020-04-24,0,0
+"Isle of Wight",2020-04-24,1,0
+"Islington",2020-04-24,0,0
+"Kensington and Chelsea",2020-04-24,2,2
+"Kent",2020-04-24,31,7
+"Kingston upon Hull, City of",2020-04-24,5,2
+"Kingston upon Thames",2020-04-24,3,0
+"Kirklees",2020-04-24,10,5
+"Knowsley",2020-04-24,1,1
+"Lambeth",2020-04-24,2,2
+"Lancashire",2020-04-24,18,10
+"Leeds",2020-04-24,14,8
+"Leicester",2020-04-24,5,5
+"Leicestershire",2020-04-24,9,1
+"Lewisham",2020-04-24,1,0
+"Lincolnshire",2020-04-24,8,0
+"Liverpool",2020-04-24,15,9
+"Luton",2020-04-24,0,0
+"Manchester",2020-04-24,2,1
+"Medway",2020-04-24,4,0
+"Merton",2020-04-24,1,0
+"Middlesbrough",2020-04-24,2,1
+"Milton Keynes",2020-04-24,4,3
+"Newcastle upon Tyne",2020-04-24,5,3
+"Newham",2020-04-24,0,0
+"Norfolk",2020-04-24,8,2
+"North East Lincolnshire",2020-04-24,1,0
+"North Lincolnshire",2020-04-24,6,0
+"North Somerset",2020-04-24,3,0
+"North Tyneside",2020-04-24,4,2
+"North Yorkshire",2020-04-24,10,5
+"Northamptonshire",2020-04-24,13,4
+"Northumberland",2020-04-24,8,4
+"Nottingham",2020-04-24,1,0
+"Nottinghamshire",2020-04-24,22,14
+"Oldham",2020-04-24,2,0
+"Oxfordshire",2020-04-24,10,6
+"Peterborough",2020-04-24,5,1
+"Plymouth",2020-04-24,2,1
+"Portsmouth",2020-04-24,3,3
+"Reading",2020-04-24,6,3
+"Redbridge",2020-04-24,1,0
+"Redcar and Cleveland",2020-04-24,1,0
+"Richmond upon Thames",2020-04-24,3,1
+"Rochdale",2020-04-24,4,3
+"Rotherham",2020-04-24,7,6
+"Rutland",2020-04-24,0,0
+"Salford",2020-04-24,8,6
+"Sandwell",2020-04-24,3,1
+"Sefton",2020-04-24,7,0
+"Sheffield",2020-04-24,13,5
+"Shropshire",2020-04-24,9,5
+"Slough",2020-04-24,1,0
+"Solihull",2020-04-24,7,0
+"Somerset",2020-04-24,6,2
+"South Gloucestershire",2020-04-24,4,1
+"South Tyneside",2020-04-24,1,0
+"Southampton",2020-04-24,3,3
+"Southend-on-Sea",2020-04-24,3,0
+"Southwark",2020-04-24,1,1
+"St. Helens",2020-04-24,4,3
+"Staffordshire",2020-04-24,15,7
+"Stockport",2020-04-24,4,0
+"Stockton-on-Tees",2020-04-24,2,1
+"Stoke-on-Trent",2020-04-24,2,1
+"Suffolk",2020-04-24,23,10
+"Sunderland",2020-04-24,5,3
+"Surrey",2020-04-24,24,10
+"Sutton",2020-04-24,4,2
+"Swindon",2020-04-24,3,2
+"Tameside",2020-04-24,6,5
+"Telford and Wrekin",2020-04-24,1,1
+"Thurrock",2020-04-24,3,1
+"Torbay",2020-04-24,9,7
+"Tower Hamlets",2020-04-24,0,0
+"Trafford",2020-04-24,8,5
+"Wakefield",2020-04-24,11,2
+"Walsall",2020-04-24,7,1
+"Waltham Forest",2020-04-24,3,2
+"Wandsworth",2020-04-24,0,0
+"Warrington",2020-04-24,1,0
+"Warwickshire",2020-04-24,13,5
+"West Berkshire",2020-04-24,2,1
+"West Sussex",2020-04-24,13,5
+"Westminster",2020-04-24,0,0
+"Wigan",2020-04-24,6,3
+"Wiltshire",2020-04-24,26,14
+"Windsor and Maidenhead",2020-04-24,4,4
+"Wirral",2020-04-24,7,1
+"Wokingham",2020-04-24,3,2
+"Wolverhampton",2020-04-24,3,2
+"Worcestershire",2020-04-24,13,5
+"York",2020-04-24,3,0
+"Notes:",2020-04-24,,
+"1. Data provided by Care Quality Commission",2020-04-24,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-24,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-24,,
+"England",2020-04-25,175,67
+"Barking and Dagenham",2020-04-25,1,1
+"Barnet",2020-04-25,5,2
+"Barnsley",2020-04-25,0,0
+"Bath and North East Somerset",2020-04-25,2,0
+"Bedford",2020-04-25,2,0
+"Bexley",2020-04-25,0,0
+"Birmingham",2020-04-25,3,0
+"Blackburn with Darwen",2020-04-25,0,0
+"Blackpool",2020-04-25,1,0
+"Bolton",2020-04-25,1,1
+"Bournemouth, Christchurch and Poole",2020-04-25,2,0
+"Bracknell Forest",2020-04-25,0,0
+"Bradford",2020-04-25,3,1
+"Brent",2020-04-25,1,1
+"Brighton and Hove",2020-04-25,0,0
+"Bristol, City of",2020-04-25,2,1
+"Bromley",2020-04-25,4,3
+"Buckinghamshire",2020-04-25,1,1
+"Bury",2020-04-25,0,0
+"Calderdale",2020-04-25,2,0
+"Cambridgeshire",2020-04-25,0,0
+"Camden",2020-04-25,0,0
+"Central Bedfordshire",2020-04-25,1,1
+"Cheshire East",2020-04-25,0,0
+"Cheshire West and Chester",2020-04-25,0,0
+"Cornwall",2020-04-25,1,0
+"County Durham",2020-04-25,1,1
+"Coventry",2020-04-25,0,0
+"Croydon",2020-04-25,2,2
+"Cumbria",2020-04-25,0,0
+"Darlington",2020-04-25,0,0
+"Derby",2020-04-25,2,0
+"Derbyshire",2020-04-25,3,0
+"Devon",2020-04-25,5,1
+"Doncaster",2020-04-25,0,0
+"Dorset",2020-04-25,1,1
+"Dudley",2020-04-25,0,0
+"Ealing",2020-04-25,0,0
+"East Riding of Yorkshire",2020-04-25,0,0
+"East Sussex",2020-04-25,6,2
+"Enfield",2020-04-25,4,3
+"Essex",2020-04-25,2,0
+"Gateshead",2020-04-25,1,0
+"Gloucestershire",2020-04-25,4,2
+"Greenwich",2020-04-25,0,0
+"Hackney",2020-04-25,0,0
+"Halton",2020-04-25,0,0
+"Hammersmith and Fulham",2020-04-25,1,1
+"Hampshire",2020-04-25,13,4
+"Haringey",2020-04-25,0,0
+"Harrow",2020-04-25,0,0
+"Hartlepool",2020-04-25,0,0
+"Havering",2020-04-25,1,0
+"Herefordshire, County of",2020-04-25,0,0
+"Hertfordshire",2020-04-25,8,2
+"Hillingdon",2020-04-25,0,0
+"Hounslow",2020-04-25,0,0
+"Isle of Wight",2020-04-25,0,0
+"Islington",2020-04-25,0,0
+"Kensington and Chelsea",2020-04-25,0,0
+"Kent",2020-04-25,10,3
+"Kingston upon Hull, City of",2020-04-25,0,0
+"Kingston upon Thames",2020-04-25,2,2
+"Kirklees",2020-04-25,0,0
+"Knowsley",2020-04-25,0,0
+"Lambeth",2020-04-25,1,1
+"Lancashire",2020-04-25,7,1
+"Leeds",2020-04-25,2,2
+"Leicester",2020-04-25,0,0
+"Leicestershire",2020-04-25,2,0
+"Lewisham",2020-04-25,0,0
+"Lincolnshire",2020-04-25,1,0
+"Liverpool",2020-04-25,0,0
+"Luton",2020-04-25,1,0
+"Manchester",2020-04-25,0,0
+"Medway",2020-04-25,1,1
+"Merton",2020-04-25,0,0
+"Middlesbrough",2020-04-25,1,1
+"Milton Keynes",2020-04-25,0,0
+"Newcastle upon Tyne",2020-04-25,0,0
+"Newham",2020-04-25,0,0
+"Norfolk",2020-04-25,0,0
+"North East Lincolnshire",2020-04-25,0,0
+"North Lincolnshire",2020-04-25,0,0
+"North Somerset",2020-04-25,0,0
+"North Tyneside",2020-04-25,2,2
+"North Yorkshire",2020-04-25,2,1
+"Northamptonshire",2020-04-25,1,0
+"Northumberland",2020-04-25,2,1
+"Nottingham",2020-04-25,0,0
+"Nottinghamshire",2020-04-25,1,0
+"Oldham",2020-04-25,0,0
+"Oxfordshire",2020-04-25,4,3
+"Peterborough",2020-04-25,0,0
+"Plymouth",2020-04-25,0,0
+"Portsmouth",2020-04-25,0,0
+"Reading",2020-04-25,0,0
+"Redbridge",2020-04-25,0,0
+"Redcar and Cleveland",2020-04-25,0,0
+"Richmond upon Thames",2020-04-25,0,0
+"Rochdale",2020-04-25,3,2
+"Rotherham",2020-04-25,1,1
+"Rutland",2020-04-25,0,0
+"Salford",2020-04-25,1,1
+"Sandwell",2020-04-25,0,0
+"Sefton",2020-04-25,2,0
+"Sheffield",2020-04-25,0,0
+"Shropshire",2020-04-25,1,0
+"Slough",2020-04-25,0,0
+"Solihull",2020-04-25,0,0
+"Somerset",2020-04-25,1,0
+"South Gloucestershire",2020-04-25,2,1
+"South Tyneside",2020-04-25,1,0
+"Southampton",2020-04-25,2,0
+"Southend-on-Sea",2020-04-25,1,0
+"Southwark",2020-04-25,0,0
+"St. Helens",2020-04-25,1,1
+"Staffordshire",2020-04-25,3,2
+"Stockport",2020-04-25,2,1
+"Stockton-on-Tees",2020-04-25,0,0
+"Stoke-on-Trent",2020-04-25,0,0
+"Suffolk",2020-04-25,0,0
+"Sunderland",2020-04-25,1,0
+"Surrey",2020-04-25,2,1
+"Sutton",2020-04-25,1,0
+"Swindon",2020-04-25,0,0
+"Tameside",2020-04-25,0,0
+"Telford and Wrekin",2020-04-25,0,0
+"Thurrock",2020-04-25,0,0
+"Torbay",2020-04-25,0,0
+"Tower Hamlets",2020-04-25,0,0
+"Trafford",2020-04-25,1,0
+"Wakefield",2020-04-25,0,0
+"Walsall",2020-04-25,0,0
+"Waltham Forest",2020-04-25,1,0
+"Wandsworth",2020-04-25,0,0
+"Warrington",2020-04-25,4,2
+"Warwickshire",2020-04-25,1,1
+"West Berkshire",2020-04-25,0,0
+"West Sussex",2020-04-25,9,3
+"Westminster",2020-04-25,0,0
+"Wigan",2020-04-25,1,0
+"Wiltshire",2020-04-25,2,1
+"Windsor and Maidenhead",2020-04-25,0,0
+"Wirral",2020-04-25,0,0
+"Wokingham",2020-04-25,1,1
+"Wolverhampton",2020-04-25,1,0
+"Worcestershire",2020-04-25,2,0
+"York",2020-04-25,1,0
+"Notes:",2020-04-25,,
+"1. Data provided by Care Quality Commission",2020-04-25,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-25,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-25,,
+"England",2020-04-26,189,94
+"Barking and Dagenham",2020-04-26,2,1
+"Barnet",2020-04-26,0,0
+"Barnsley",2020-04-26,0,0
+"Bath and North East Somerset",2020-04-26,0,0
+"Bedford",2020-04-26,0,0
+"Bexley",2020-04-26,0,0
+"Birmingham",2020-04-26,4,1
+"Blackburn with Darwen",2020-04-26,3,1
+"Blackpool",2020-04-26,0,0
+"Bolton",2020-04-26,2,2
+"Bournemouth, Christchurch and Poole",2020-04-26,1,0
+"Bracknell Forest",2020-04-26,0,0
+"Bradford",2020-04-26,4,2
+"Brent",2020-04-26,1,1
+"Brighton and Hove",2020-04-26,1,1
+"Bristol, City of",2020-04-26,2,0
+"Bromley",2020-04-26,0,0
+"Buckinghamshire",2020-04-26,1,1
+"Bury",2020-04-26,2,1
+"Calderdale",2020-04-26,1,1
+"Cambridgeshire",2020-04-26,2,1
+"Camden",2020-04-26,0,0
+"Central Bedfordshire",2020-04-26,0,0
+"Cheshire East",2020-04-26,1,0
+"Cheshire West and Chester",2020-04-26,2,2
+"Cornwall",2020-04-26,2,0
+"County Durham",2020-04-26,4,1
+"Coventry",2020-04-26,0,0
+"Croydon",2020-04-26,0,0
+"Cumbria",2020-04-26,4,1
+"Darlington",2020-04-26,1,1
+"Derby",2020-04-26,2,2
+"Derbyshire",2020-04-26,3,2
+"Devon",2020-04-26,0,0
+"Doncaster",2020-04-26,1,0
+"Dorset",2020-04-26,8,5
+"Dudley",2020-04-26,1,0
+"Ealing",2020-04-26,1,1
+"East Riding of Yorkshire",2020-04-26,1,0
+"East Sussex",2020-04-26,6,3
+"Enfield",2020-04-26,2,2
+"Essex",2020-04-26,6,2
+"Gateshead",2020-04-26,0,0
+"Gloucestershire",2020-04-26,4,3
+"Greenwich",2020-04-26,0,0
+"Hackney",2020-04-26,1,1
+"Halton",2020-04-26,0,0
+"Hammersmith and Fulham",2020-04-26,0,0
+"Hampshire",2020-04-26,7,3
+"Haringey",2020-04-26,0,0
+"Harrow",2020-04-26,0,0
+"Hartlepool",2020-04-26,1,1
+"Havering",2020-04-26,0,0
+"Herefordshire, County of",2020-04-26,0,0
+"Hertfordshire",2020-04-26,7,4
+"Hillingdon",2020-04-26,3,1
+"Hounslow",2020-04-26,0,0
+"Isle of Wight",2020-04-26,0,0
+"Islington",2020-04-26,0,0
+"Kensington and Chelsea",2020-04-26,0,0
+"Kent",2020-04-26,6,3
+"Kingston upon Hull, City of",2020-04-26,0,0
+"Kingston upon Thames",2020-04-26,1,1
+"Kirklees",2020-04-26,4,1
+"Knowsley",2020-04-26,2,2
+"Lambeth",2020-04-26,1,0
+"Lancashire",2020-04-26,10,3
+"Leeds",2020-04-26,2,1
+"Leicester",2020-04-26,2,1
+"Leicestershire",2020-04-26,3,3
+"Lewisham",2020-04-26,0,0
+"Lincolnshire",2020-04-26,0,0
+"Liverpool",2020-04-26,2,2
+"Luton",2020-04-26,1,0
+"Manchester",2020-04-26,1,0
+"Medway",2020-04-26,1,1
+"Merton",2020-04-26,0,0
+"Middlesbrough",2020-04-26,0,0
+"Milton Keynes",2020-04-26,0,0
+"Newcastle upon Tyne",2020-04-26,3,3
+"Newham",2020-04-26,0,0
+"Norfolk",2020-04-26,1,0
+"North East Lincolnshire",2020-04-26,0,0
+"North Lincolnshire",2020-04-26,1,0
+"North Somerset",2020-04-26,0,0
+"North Tyneside",2020-04-26,0,0
+"North Yorkshire",2020-04-26,6,1
+"Northamptonshire",2020-04-26,1,0
+"Northumberland",2020-04-26,0,0
+"Nottingham",2020-04-26,0,0
+"Nottinghamshire",2020-04-26,3,0
+"Oldham",2020-04-26,1,0
+"Oxfordshire",2020-04-26,1,1
+"Peterborough",2020-04-26,0,0
+"Plymouth",2020-04-26,1,0
+"Portsmouth",2020-04-26,2,1
+"Reading",2020-04-26,2,2
+"Redbridge",2020-04-26,0,0
+"Redcar and Cleveland",2020-04-26,1,0
+"Richmond upon Thames",2020-04-26,0,0
+"Rochdale",2020-04-26,1,0
+"Rotherham",2020-04-26,0,0
+"Rutland",2020-04-26,0,0
+"Salford",2020-04-26,0,0
+"Sandwell",2020-04-26,0,0
+"Sefton",2020-04-26,2,0
+"Sheffield",2020-04-26,0,0
+"Shropshire",2020-04-26,0,0
+"Slough",2020-04-26,0,0
+"Solihull",2020-04-26,0,0
+"Somerset",2020-04-26,2,1
+"South Gloucestershire",2020-04-26,0,0
+"South Tyneside",2020-04-26,0,0
+"Southampton",2020-04-26,2,1
+"Southend-on-Sea",2020-04-26,1,0
+"Southwark",2020-04-26,0,0
+"St. Helens",2020-04-26,0,0
+"Staffordshire",2020-04-26,4,1
+"Stockport",2020-04-26,3,2
+"Stockton-on-Tees",2020-04-26,0,0
+"Stoke-on-Trent",2020-04-26,0,0
+"Suffolk",2020-04-26,2,1
+"Sunderland",2020-04-26,0,0
+"Surrey",2020-04-26,5,1
+"Sutton",2020-04-26,2,2
+"Swindon",2020-04-26,0,0
+"Tameside",2020-04-26,1,0
+"Telford and Wrekin",2020-04-26,0,0
+"Thurrock",2020-04-26,0,0
+"Torbay",2020-04-26,0,0
+"Tower Hamlets",2020-04-26,0,0
+"Trafford",2020-04-26,2,2
+"Wakefield",2020-04-26,0,0
+"Walsall",2020-04-26,1,1
+"Waltham Forest",2020-04-26,0,0
+"Wandsworth",2020-04-26,0,0
+"Warrington",2020-04-26,0,0
+"Warwickshire",2020-04-26,0,0
+"West Berkshire",2020-04-26,0,0
+"West Sussex",2020-04-26,0,0
+"Westminster",2020-04-26,0,0
+"Wigan",2020-04-26,1,1
+"Wiltshire",2020-04-26,1,1
+"Windsor and Maidenhead",2020-04-26,0,0
+"Wirral",2020-04-26,3,3
+"Wokingham",2020-04-26,0,0
+"Wolverhampton",2020-04-26,0,0
+"Worcestershire",2020-04-26,2,2
+"York",2020-04-26,1,1
+"Notes:",2020-04-26,,
+"1. Data provided by Care Quality Commission",2020-04-26,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-26,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-26,,
+"England",2020-04-27,1481,613
+"Barking and Dagenham",2020-04-27,0,0
+"Barnet",2020-04-27,5,2
+"Barnsley",2020-04-27,4,2
+"Bath and North East Somerset",2020-04-27,7,3
+"Bedford",2020-04-27,4,2
+"Bexley",2020-04-27,4,1
+"Birmingham",2020-04-27,26,12
+"Blackburn with Darwen",2020-04-27,3,0
+"Blackpool",2020-04-27,5,0
+"Bolton",2020-04-27,11,6
+"Bournemouth, Christchurch and Poole",2020-04-27,14,8
+"Bracknell Forest",2020-04-27,0,0
+"Bradford",2020-04-27,13,5
+"Brent",2020-04-27,3,1
+"Brighton and Hove",2020-04-27,7,1
+"Bristol, City of",2020-04-27,10,6
+"Bromley",2020-04-27,3,1
+"Buckinghamshire",2020-04-27,14,8
+"Bury",2020-04-27,11,6
+"Calderdale",2020-04-27,9,6
+"Cambridgeshire",2020-04-27,7,2
+"Camden",2020-04-27,0,0
+"Central Bedfordshire",2020-04-27,7,2
+"Cheshire East",2020-04-27,17,7
+"Cheshire West and Chester",2020-04-27,14,6
+"Cornwall",2020-04-27,16,1
+"County Durham",2020-04-27,23,11
+"Coventry",2020-04-27,8,3
+"Croydon",2020-04-27,6,2
+"Cumbria",2020-04-27,16,8
+"Darlington",2020-04-27,6,3
+"Derby",2020-04-27,5,2
+"Derbyshire",2020-04-27,18,8
+"Devon",2020-04-27,14,6
+"Doncaster",2020-04-27,5,0
+"Dorset",2020-04-27,10,3
+"Dudley",2020-04-27,7,2
+"Ealing",2020-04-27,9,6
+"East Riding of Yorkshire",2020-04-27,8,3
+"East Sussex",2020-04-27,21,9
+"Enfield",2020-04-27,10,5
+"Essex",2020-04-27,35,13
+"Gateshead",2020-04-27,12,7
+"Gloucestershire",2020-04-27,16,12
+"Greenwich",2020-04-27,2,0
+"Hackney",2020-04-27,0,0
+"Halton",2020-04-27,0,0
+"Hammersmith and Fulham",2020-04-27,8,6
+"Hampshire",2020-04-27,36,15
+"Haringey",2020-04-27,0,0
+"Harrow",2020-04-27,3,2
+"Hartlepool",2020-04-27,7,3
+"Havering",2020-04-27,5,0
+"Herefordshire, County of",2020-04-27,3,1
+"Hertfordshire",2020-04-27,32,9
+"Hillingdon",2020-04-27,8,3
+"Hounslow",2020-04-27,4,1
+"Isle of Wight",2020-04-27,2,1
+"Islington",2020-04-27,2,1
+"Kensington and Chelsea",2020-04-27,1,1
+"Kent",2020-04-27,56,17
+"Kingston upon Hull, City of",2020-04-27,9,2
+"Kingston upon Thames",2020-04-27,1,1
+"Kirklees",2020-04-27,15,6
+"Knowsley",2020-04-27,3,1
+"Lambeth",2020-04-27,0,0
+"Lancashire",2020-04-27,29,3
+"Leeds",2020-04-27,23,10
+"Leicester",2020-04-27,8,1
+"Leicestershire",2020-04-27,14,7
+"Lewisham",2020-04-27,3,2
+"Lincolnshire",2020-04-27,16,2
+"Liverpool",2020-04-27,14,10
+"Luton",2020-04-27,2,2
+"Manchester",2020-04-27,6,4
+"Medway",2020-04-27,4,2
+"Merton",2020-04-27,3,1
+"Middlesbrough",2020-04-27,6,4
+"Milton Keynes",2020-04-27,5,4
+"Newcastle upon Tyne",2020-04-27,9,7
+"Newham",2020-04-27,6,2
+"Norfolk",2020-04-27,22,4
+"North East Lincolnshire",2020-04-27,4,1
+"North Lincolnshire",2020-04-27,5,2
+"North Somerset",2020-04-27,7,2
+"North Tyneside",2020-04-27,7,4
+"North Yorkshire",2020-04-27,22,8
+"Northamptonshire",2020-04-27,11,6
+"Northumberland",2020-04-27,18,10
+"Nottingham",2020-04-27,4,3
+"Nottinghamshire",2020-04-27,28,6
+"Oldham",2020-04-27,4,3
+"Oxfordshire",2020-04-27,34,12
+"Peterborough",2020-04-27,0,0
+"Plymouth",2020-04-27,5,0
+"Portsmouth",2020-04-27,3,1
+"Reading",2020-04-27,4,2
+"Redbridge",2020-04-27,2,0
+"Redcar and Cleveland",2020-04-27,5,3
+"Richmond upon Thames",2020-04-27,6,3
+"Rochdale",2020-04-27,2,0
+"Rotherham",2020-04-27,4,2
+"Rutland",2020-04-27,0,0
+"Salford",2020-04-27,4,3
+"Sandwell",2020-04-27,7,4
+"Sefton",2020-04-27,7,2
+"Sheffield",2020-04-27,17,11
+"Shropshire",2020-04-27,6,1
+"Slough",2020-04-27,2,0
+"Solihull",2020-04-27,7,1
+"Somerset",2020-04-27,15,9
+"South Gloucestershire",2020-04-27,6,2
+"South Tyneside",2020-04-27,9,7
+"Southampton",2020-04-27,6,4
+"Southend-on-Sea",2020-04-27,15,0
+"Southwark",2020-04-27,0,0
+"St. Helens",2020-04-27,13,10
+"Staffordshire",2020-04-27,36,15
+"Stockport",2020-04-27,5,4
+"Stockton-on-Tees",2020-04-27,5,0
+"Stoke-on-Trent",2020-04-27,19,11
+"Suffolk",2020-04-27,21,14
+"Sunderland",2020-04-27,8,5
+"Surrey",2020-04-27,45,17
+"Sutton",2020-04-27,3,0
+"Swindon",2020-04-27,7,2
+"Tameside",2020-04-27,7,3
+"Telford and Wrekin",2020-04-27,6,2
+"Thurrock",2020-04-27,3,1
+"Torbay",2020-04-27,7,4
+"Tower Hamlets",2020-04-27,0,0
+"Trafford",2020-04-27,9,5
+"Wakefield",2020-04-27,7,2
+"Walsall",2020-04-27,4,2
+"Waltham Forest",2020-04-27,2,1
+"Wandsworth",2020-04-27,3,0
+"Warrington",2020-04-27,14,9
+"Warwickshire",2020-04-27,27,10
+"West Berkshire",2020-04-27,6,5
+"West Sussex",2020-04-27,39,9
+"Westminster",2020-04-27,0,0
+"Wigan",2020-04-27,5,2
+"Wiltshire",2020-04-27,22,10
+"Windsor and Maidenhead",2020-04-27,7,3
+"Wirral",2020-04-27,19,9
+"Wokingham",2020-04-27,7,5
+"Wolverhampton",2020-04-27,10,3
+"Worcestershire",2020-04-27,21,9
+"York",2020-04-27,8,3
+"Notes:",2020-04-27,,
+"1. Data provided by Care Quality Commission",2020-04-27,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-27,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-27,,
+"England",2020-04-28,984,405
+"Barking and Dagenham",2020-04-28,1,1
+"Barnet",2020-04-28,13,7
+"Barnsley",2020-04-28,4,3
+"Bath and North East Somerset",2020-04-28,2,2
+"Bedford",2020-04-28,3,0
+"Bexley",2020-04-28,0,0
+"Birmingham",2020-04-28,3,1
+"Blackburn with Darwen",2020-04-28,2,0
+"Blackpool",2020-04-28,2,0
+"Bolton",2020-04-28,4,3
+"Bournemouth, Christchurch and Poole",2020-04-28,7,3
+"Bracknell Forest",2020-04-28,0,0
+"Bradford",2020-04-28,10,3
+"Brent",2020-04-28,0,0
+"Brighton and Hove",2020-04-28,0,0
+"Bristol, City of",2020-04-28,13,8
+"Bromley",2020-04-28,1,0
+"Buckinghamshire",2020-04-28,15,7
+"Bury",2020-04-28,12,6
+"Calderdale",2020-04-28,5,1
+"Cambridgeshire",2020-04-28,22,9
+"Camden",2020-04-28,1,0
+"Central Bedfordshire",2020-04-28,4,1
+"Cheshire East",2020-04-28,9,4
+"Cheshire West and Chester",2020-04-28,9,7
+"Cornwall",2020-04-28,2,1
+"County Durham",2020-04-28,14,10
+"Coventry",2020-04-28,2,1
+"Croydon",2020-04-28,4,2
+"Cumbria",2020-04-28,9,7
+"Darlington",2020-04-28,7,4
+"Derby",2020-04-28,2,0
+"Derbyshire",2020-04-28,10,4
+"Devon",2020-04-28,13,3
+"Doncaster",2020-04-28,4,1
+"Dorset",2020-04-28,10,7
+"Dudley",2020-04-28,7,2
+"Ealing",2020-04-28,2,2
+"East Riding of Yorkshire",2020-04-28,11,3
+"East Sussex",2020-04-28,16,7
+"Enfield",2020-04-28,3,0
+"Essex",2020-04-28,29,9
+"Gateshead",2020-04-28,4,1
+"Gloucestershire",2020-04-28,21,11
+"Greenwich",2020-04-28,0,0
+"Hackney",2020-04-28,0,0
+"Halton",2020-04-28,2,1
+"Hammersmith and Fulham",2020-04-28,0,0
+"Hampshire",2020-04-28,37,12
+"Haringey",2020-04-28,0,0
+"Harrow",2020-04-28,0,0
+"Hartlepool",2020-04-28,5,2
+"Havering",2020-04-28,7,0
+"Herefordshire, County of",2020-04-28,6,3
+"Hertfordshire",2020-04-28,35,15
+"Hillingdon",2020-04-28,9,2
+"Hounslow",2020-04-28,1,0
+"Isle of Wight",2020-04-28,2,1
+"Islington",2020-04-28,0,0
+"Kensington and Chelsea",2020-04-28,0,0
+"Kent",2020-04-28,28,6
+"Kingston upon Hull, City of",2020-04-28,1,0
+"Kingston upon Thames",2020-04-28,1,0
+"Kirklees",2020-04-28,6,2
+"Knowsley",2020-04-28,2,1
+"Lambeth",2020-04-28,4,3
+"Lancashire",2020-04-28,21,8
+"Leeds",2020-04-28,19,11
+"Leicester",2020-04-28,2,0
+"Leicestershire",2020-04-28,11,6
+"Lewisham",2020-04-28,0,0
+"Lincolnshire",2020-04-28,11,3
+"Liverpool",2020-04-28,10,4
+"Luton",2020-04-28,3,0
+"Manchester",2020-04-28,3,2
+"Medway",2020-04-28,1,0
+"Merton",2020-04-28,1,0
+"Middlesbrough",2020-04-28,4,1
+"Milton Keynes",2020-04-28,5,2
+"Newcastle upon Tyne",2020-04-28,5,1
+"Newham",2020-04-28,5,1
+"Norfolk",2020-04-28,16,3
+"North East Lincolnshire",2020-04-28,2,0
+"North Lincolnshire",2020-04-28,4,0
+"North Somerset",2020-04-28,2,1
+"North Tyneside",2020-04-28,3,0
+"North Yorkshire",2020-04-28,21,7
+"Northamptonshire",2020-04-28,12,2
+"Northumberland",2020-04-28,4,1
+"Nottingham",2020-04-28,4,2
+"Nottinghamshire",2020-04-28,6,3
+"Oldham",2020-04-28,7,3
+"Oxfordshire",2020-04-28,19,10
+"Peterborough",2020-04-28,3,0
+"Plymouth",2020-04-28,4,0
+"Portsmouth",2020-04-28,4,3
+"Reading",2020-04-28,6,2
+"Redbridge",2020-04-28,0,0
+"Redcar and Cleveland",2020-04-28,1,0
+"Richmond upon Thames",2020-04-28,0,0
+"Rochdale",2020-04-28,3,1
+"Rotherham",2020-04-28,8,4
+"Rutland",2020-04-28,0,0
+"Salford",2020-04-28,2,1
+"Sandwell",2020-04-28,2,2
+"Sefton",2020-04-28,5,0
+"Sheffield",2020-04-28,14,9
+"Shropshire",2020-04-28,3,1
+"Slough",2020-04-28,2,0
+"Solihull",2020-04-28,5,4
+"Somerset",2020-04-28,5,2
+"South Gloucestershire",2020-04-28,6,2
+"South Tyneside",2020-04-28,9,5
+"Southampton",2020-04-28,6,4
+"Southend-on-Sea",2020-04-28,2,1
+"Southwark",2020-04-28,0,0
+"St. Helens",2020-04-28,10,5
+"Staffordshire",2020-04-28,23,12
+"Stockport",2020-04-28,2,1
+"Stockton-on-Tees",2020-04-28,5,1
+"Stoke-on-Trent",2020-04-28,2,1
+"Suffolk",2020-04-28,19,7
+"Sunderland",2020-04-28,6,2
+"Surrey",2020-04-28,23,8
+"Sutton",2020-04-28,4,3
+"Swindon",2020-04-28,13,6
+"Tameside",2020-04-28,1,0
+"Telford and Wrekin",2020-04-28,4,0
+"Thurrock",2020-04-28,2,0
+"Torbay",2020-04-28,2,1
+"Tower Hamlets",2020-04-28,0,0
+"Trafford",2020-04-28,4,4
+"Wakefield",2020-04-28,3,0
+"Walsall",2020-04-28,0,0
+"Waltham Forest",2020-04-28,3,1
+"Wandsworth",2020-04-28,0,0
+"Warrington",2020-04-28,4,2
+"Warwickshire",2020-04-28,15,8
+"West Berkshire",2020-04-28,4,3
+"West Sussex",2020-04-28,14,8
+"Westminster",2020-04-28,3,0
+"Wigan",2020-04-28,9,5
+"Wiltshire",2020-04-28,13,4
+"Windsor and Maidenhead",2020-04-28,9,6
+"Wirral",2020-04-28,5,3
+"Wokingham",2020-04-28,2,0
+"Wolverhampton",2020-04-28,8,6
+"Worcestershire",2020-04-28,16,6
+"York",2020-04-28,7,1
+"Notes:",2020-04-28,,
+"1. Data provided by Care Quality Commission",2020-04-28,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-28,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-28,,
+"England",2020-04-29,773,331
+"Barking and Dagenham",2020-04-29,1,1
+"Barnet",2020-04-29,8,3
+"Barnsley",2020-04-29,3,2
+"Bath and North East Somerset",2020-04-29,3,3
+"Bedford",2020-04-29,5,1
+"Bexley",2020-04-29,1,0
+"Birmingham",2020-04-29,5,3
+"Blackburn with Darwen",2020-04-29,1,1
+"Blackpool",2020-04-29,2,1
+"Bolton",2020-04-29,5,3
+"Bournemouth, Christchurch and Poole",2020-04-29,8,4
+"Bracknell Forest",2020-04-29,1,0
+"Bradford",2020-04-29,6,2
+"Brent",2020-04-29,0,0
+"Brighton and Hove",2020-04-29,5,3
+"Bristol, City of",2020-04-29,7,6
+"Bromley",2020-04-29,3,1
+"Buckinghamshire",2020-04-29,8,2
+"Bury",2020-04-29,1,1
+"Calderdale",2020-04-29,2,0
+"Cambridgeshire",2020-04-29,3,2
+"Camden",2020-04-29,0,0
+"Central Bedfordshire",2020-04-29,7,1
+"Cheshire East",2020-04-29,16,9
+"Cheshire West and Chester",2020-04-29,9,2
+"Cornwall",2020-04-29,6,2
+"County Durham",2020-04-29,14,7
+"Coventry",2020-04-29,1,0
+"Croydon",2020-04-29,11,4
+"Cumbria",2020-04-29,6,1
+"Darlington",2020-04-29,0,0
+"Derby",2020-04-29,5,0
+"Derbyshire",2020-04-29,11,7
+"Devon",2020-04-29,7,1
+"Doncaster",2020-04-29,4,3
+"Dorset",2020-04-29,5,1
+"Dudley",2020-04-29,1,1
+"Ealing",2020-04-29,1,1
+"East Riding of Yorkshire",2020-04-29,9,7
+"East Sussex",2020-04-29,8,3
+"Enfield",2020-04-29,6,3
+"Essex",2020-04-29,23,8
+"Gateshead",2020-04-29,2,0
+"Gloucestershire",2020-04-29,13,8
+"Greenwich",2020-04-29,1,0
+"Hackney",2020-04-29,0,0
+"Halton",2020-04-29,3,1
+"Hammersmith and Fulham",2020-04-29,0,0
+"Hampshire",2020-04-29,30,15
+"Haringey",2020-04-29,0,0
+"Harrow",2020-04-29,1,0
+"Hartlepool",2020-04-29,3,2
+"Havering",2020-04-29,2,0
+"Herefordshire, County of",2020-04-29,0,0
+"Hertfordshire",2020-04-29,15,5
+"Hillingdon",2020-04-29,7,3
+"Hounslow",2020-04-29,1,1
+"Isle of Wight",2020-04-29,4,0
+"Islington",2020-04-29,0,0
+"Kensington and Chelsea",2020-04-29,0,0
+"Kent",2020-04-29,18,8
+"Kingston upon Hull, City of",2020-04-29,3,2
+"Kingston upon Thames",2020-04-29,2,1
+"Kirklees",2020-04-29,4,1
+"Knowsley",2020-04-29,1,1
+"Lambeth",2020-04-29,1,0
+"Lancashire",2020-04-29,17,5
+"Leeds",2020-04-29,10,8
+"Leicester",2020-04-29,2,0
+"Leicestershire",2020-04-29,13,2
+"Lewisham",2020-04-29,1,0
+"Lincolnshire",2020-04-29,7,0
+"Liverpool",2020-04-29,13,7
+"Luton",2020-04-29,2,0
+"Manchester",2020-04-29,5,4
+"Medway",2020-04-29,6,0
+"Merton",2020-04-29,1,0
+"Middlesbrough",2020-04-29,3,2
+"Milton Keynes",2020-04-29,7,4
+"Newcastle upon Tyne",2020-04-29,0,0
+"Newham",2020-04-29,2,0
+"Norfolk",2020-04-29,13,2
+"North East Lincolnshire",2020-04-29,1,0
+"North Lincolnshire",2020-04-29,3,1
+"North Somerset",2020-04-29,5,1
+"North Tyneside",2020-04-29,5,1
+"North Yorkshire",2020-04-29,8,3
+"Northamptonshire",2020-04-29,8,5
+"Northumberland",2020-04-29,6,3
+"Nottingham",2020-04-29,4,4
+"Nottinghamshire",2020-04-29,12,5
+"Oldham",2020-04-29,5,2
+"Oxfordshire",2020-04-29,12,7
+"Peterborough",2020-04-29,4,2
+"Plymouth",2020-04-29,4,0
+"Portsmouth",2020-04-29,2,2
+"Reading",2020-04-29,1,1
+"Redbridge",2020-04-29,4,0
+"Redcar and Cleveland",2020-04-29,1,1
+"Richmond upon Thames",2020-04-29,1,0
+"Rochdale",2020-04-29,0,0
+"Rotherham",2020-04-29,10,4
+"Rutland",2020-04-29,0,0
+"Salford",2020-04-29,3,3
+"Sandwell",2020-04-29,3,3
+"Sefton",2020-04-29,7,1
+"Sheffield",2020-04-29,13,6
+"Shropshire",2020-04-29,6,2
+"Slough",2020-04-29,2,2
+"Solihull",2020-04-29,12,6
+"Somerset",2020-04-29,6,1
+"South Gloucestershire",2020-04-29,3,1
+"South Tyneside",2020-04-29,2,1
+"Southampton",2020-04-29,1,0
+"Southend-on-Sea",2020-04-29,1,1
+"Southwark",2020-04-29,0,0
+"St. Helens",2020-04-29,3,1
+"Staffordshire",2020-04-29,9,2
+"Stockport",2020-04-29,8,7
+"Stockton-on-Tees",2020-04-29,3,0
+"Stoke-on-Trent",2020-04-29,0,0
+"Suffolk",2020-04-29,7,2
+"Sunderland",2020-04-29,2,1
+"Surrey",2020-04-29,23,9
+"Sutton",2020-04-29,3,2
+"Swindon",2020-04-29,7,1
+"Tameside",2020-04-29,5,4
+"Telford and Wrekin",2020-04-29,4,3
+"Thurrock",2020-04-29,0,0
+"Torbay",2020-04-29,2,0
+"Tower Hamlets",2020-04-29,0,0
+"Trafford",2020-04-29,1,1
+"Wakefield",2020-04-29,6,0
+"Walsall",2020-04-29,8,8
+"Waltham Forest",2020-04-29,8,1
+"Wandsworth",2020-04-29,5,0
+"Warrington",2020-04-29,5,4
+"Warwickshire",2020-04-29,10,4
+"West Berkshire",2020-04-29,2,2
+"West Sussex",2020-04-29,21,8
+"Westminster",2020-04-29,0,0
+"Wigan",2020-04-29,6,5
+"Wiltshire",2020-04-29,10,3
+"Windsor and Maidenhead",2020-04-29,1,1
+"Wirral",2020-04-29,4,4
+"Wokingham",2020-04-29,1,1
+"Wolverhampton",2020-04-29,3,1
+"Worcestershire",2020-04-29,6,4
+"York",2020-04-29,4,1
+"Notes:",2020-04-29,,
+"1. Data provided by Care Quality Commission",2020-04-29,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-29,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-29,,
+"England",2020-04-30,706,304
+"Barking and Dagenham",2020-04-30,1,0
+"Barnet",2020-04-30,4,2
+"Barnsley",2020-04-30,7,4
+"Bath and North East Somerset",2020-04-30,0,0
+"Bedford",2020-04-30,3,2
+"Bexley",2020-04-30,2,2
+"Birmingham",2020-04-30,23,18
+"Blackburn with Darwen",2020-04-30,4,1
+"Blackpool",2020-04-30,4,2
+"Bolton",2020-04-30,3,3
+"Bournemouth, Christchurch and Poole",2020-04-30,10,9
+"Bracknell Forest",2020-04-30,2,0
+"Bradford",2020-04-30,6,2
+"Brent",2020-04-30,3,2
+"Brighton and Hove",2020-04-30,2,1
+"Bristol, City of",2020-04-30,7,1
+"Bromley",2020-04-30,1,0
+"Buckinghamshire",2020-04-30,9,3
+"Bury",2020-04-30,0,0
+"Calderdale",2020-04-30,3,2
+"Cambridgeshire",2020-04-30,4,4
+"Camden",2020-04-30,0,0
+"Central Bedfordshire",2020-04-30,1,1
+"Cheshire East",2020-04-30,5,2
+"Cheshire West and Chester",2020-04-30,5,3
+"Cornwall",2020-04-30,7,2
+"County Durham",2020-04-30,10,6
+"Coventry",2020-04-30,2,0
+"Croydon",2020-04-30,1,0
+"Cumbria",2020-04-30,8,1
+"Darlington",2020-04-30,6,3
+"Derby",2020-04-30,2,2
+"Derbyshire",2020-04-30,13,8
+"Devon",2020-04-30,8,0
+"Doncaster",2020-04-30,6,1
+"Dorset",2020-04-30,5,0
+"Dudley",2020-04-30,8,2
+"Ealing",2020-04-30,0,0
+"East Riding of Yorkshire",2020-04-30,6,3
+"East Sussex",2020-04-30,12,2
+"Enfield",2020-04-30,4,3
+"Essex",2020-04-30,16,5
+"Gateshead",2020-04-30,8,5
+"Gloucestershire",2020-04-30,10,4
+"Greenwich",2020-04-30,0,0
+"Hackney",2020-04-30,0,0
+"Halton",2020-04-30,1,0
+"Hammersmith and Fulham",2020-04-30,1,1
+"Hampshire",2020-04-30,18,5
+"Haringey",2020-04-30,0,0
+"Harrow",2020-04-30,1,0
+"Hartlepool",2020-04-30,1,1
+"Havering",2020-04-30,3,1
+"Herefordshire, County of",2020-04-30,3,1
+"Hertfordshire",2020-04-30,12,3
+"Hillingdon",2020-04-30,3,1
+"Hounslow",2020-04-30,1,0
+"Isle of Wight",2020-04-30,1,0
+"Islington",2020-04-30,0,0
+"Kensington and Chelsea",2020-04-30,1,0
+"Kent",2020-04-30,25,8
+"Kingston upon Hull, City of",2020-04-30,4,2
+"Kingston upon Thames",2020-04-30,4,3
+"Kirklees",2020-04-30,8,3
+"Knowsley",2020-04-30,2,1
+"Lambeth",2020-04-30,0,0
+"Lancashire",2020-04-30,14,7
+"Leeds",2020-04-30,10,5
+"Leicester",2020-04-30,8,4
+"Leicestershire",2020-04-30,11,4
+"Lewisham",2020-04-30,3,2
+"Lincolnshire",2020-04-30,10,3
+"Liverpool",2020-04-30,3,1
+"Luton",2020-04-30,4,1
+"Manchester",2020-04-30,1,0
+"Medway",2020-04-30,2,0
+"Merton",2020-04-30,2,0
+"Middlesbrough",2020-04-30,1,0
+"Milton Keynes",2020-04-30,3,1
+"Newcastle upon Tyne",2020-04-30,2,2
+"Newham",2020-04-30,6,3
+"Norfolk",2020-04-30,9,7
+"North East Lincolnshire",2020-04-30,0,0
+"North Lincolnshire",2020-04-30,5,0
+"North Somerset",2020-04-30,5,1
+"North Tyneside",2020-04-30,3,2
+"North Yorkshire",2020-04-30,5,2
+"Northamptonshire",2020-04-30,8,1
+"Northumberland",2020-04-30,3,1
+"Nottingham",2020-04-30,13,10
+"Nottinghamshire",2020-04-30,10,3
+"Oldham",2020-04-30,4,4
+"Oxfordshire",2020-04-30,8,0
+"Peterborough",2020-04-30,1,0
+"Plymouth",2020-04-30,1,0
+"Portsmouth",2020-04-30,3,0
+"Reading",2020-04-30,4,3
+"Redbridge",2020-04-30,2,2
+"Redcar and Cleveland",2020-04-30,2,1
+"Richmond upon Thames",2020-04-30,5,2
+"Rochdale",2020-04-30,6,1
+"Rotherham",2020-04-30,4,2
+"Rutland",2020-04-30,0,0
+"Salford",2020-04-30,1,1
+"Sandwell",2020-04-30,5,1
+"Sefton",2020-04-30,4,1
+"Sheffield",2020-04-30,8,5
+"Shropshire",2020-04-30,4,2
+"Slough",2020-04-30,0,0
+"Solihull",2020-04-30,3,2
+"Somerset",2020-04-30,8,3
+"South Gloucestershire",2020-04-30,5,3
+"South Tyneside",2020-04-30,1,0
+"Southampton",2020-04-30,1,0
+"Southend-on-Sea",2020-04-30,3,2
+"Southwark",2020-04-30,0,0
+"St. Helens",2020-04-30,4,1
+"Staffordshire",2020-04-30,13,3
+"Stockport",2020-04-30,11,7
+"Stockton-on-Tees",2020-04-30,0,0
+"Stoke-on-Trent",2020-04-30,2,1
+"Suffolk",2020-04-30,9,4
+"Sunderland",2020-04-30,5,2
+"Surrey",2020-04-30,13,5
+"Sutton",2020-04-30,5,1
+"Swindon",2020-04-30,8,5
+"Tameside",2020-04-30,0,0
+"Telford and Wrekin",2020-04-30,2,2
+"Thurrock",2020-04-30,5,2
+"Torbay",2020-04-30,0,0
+"Tower Hamlets",2020-04-30,2,2
+"Trafford",2020-04-30,1,0
+"Wakefield",2020-04-30,0,0
+"Walsall",2020-04-30,5,2
+"Waltham Forest",2020-04-30,0,0
+"Wandsworth",2020-04-30,1,0
+"Warrington",2020-04-30,2,1
+"Warwickshire",2020-04-30,10,5
+"West Berkshire",2020-04-30,1,1
+"West Sussex",2020-04-30,10,5
+"Westminster",2020-04-30,0,0
+"Wigan",2020-04-30,7,3
+"Wiltshire",2020-04-30,6,4
+"Windsor and Maidenhead",2020-04-30,4,2
+"Wirral",2020-04-30,5,0
+"Wokingham",2020-04-30,3,2
+"Wolverhampton",2020-04-30,2,2
+"Worcestershire",2020-04-30,12,4
+"York",2020-04-30,4,2
+"Notes:",2020-04-30,,
+"1. Data provided by Care Quality Commission",2020-04-30,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-04-30,,
+"3. Figures are for persons who were resident in and died in a care home",2020-04-30,,
+"England",2020-05-01,560,230
+"Barking and Dagenham",2020-05-01,0,0
+"Barnet",2020-05-01,1,0
+"Barnsley",2020-05-01,2,1
+"Bath and North East Somerset",2020-05-01,0,0
+"Bedford",2020-05-01,2,0
+"Bexley",2020-05-01,0,0
+"Birmingham",2020-05-01,5,5
+"Blackburn with Darwen",2020-05-01,2,0
+"Blackpool",2020-05-01,4,0
+"Bolton",2020-05-01,3,2
+"Bournemouth, Christchurch and Poole",2020-05-01,2,1
+"Bracknell Forest",2020-05-01,0,0
+"Bradford",2020-05-01,2,0
+"Brent",2020-05-01,0,0
+"Brighton and Hove",2020-05-01,1,0
+"Bristol, City of",2020-05-01,3,0
+"Bromley",2020-05-01,4,2
+"Buckinghamshire",2020-05-01,5,3
+"Bury",2020-05-01,0,0
+"Calderdale",2020-05-01,2,1
+"Cambridgeshire",2020-05-01,8,2
+"Camden",2020-05-01,0,0
+"Central Bedfordshire",2020-05-01,1,0
+"Cheshire East",2020-05-01,4,2
+"Cheshire West and Chester",2020-05-01,8,4
+"Cornwall",2020-05-01,4,2
+"County Durham",2020-05-01,13,7
+"Coventry",2020-05-01,2,2
+"Croydon",2020-05-01,1,1
+"Cumbria",2020-05-01,1,0
+"Darlington",2020-05-01,0,0
+"Derby",2020-05-01,1,0
+"Derbyshire",2020-05-01,12,7
+"Devon",2020-05-01,9,2
+"Doncaster",2020-05-01,3,1
+"Dorset",2020-05-01,3,0
+"Dudley",2020-05-01,2,2
+"Ealing",2020-05-01,1,0
+"East Riding of Yorkshire",2020-05-01,7,3
+"East Sussex",2020-05-01,9,3
+"Enfield",2020-05-01,2,1
+"Essex",2020-05-01,19,5
+"Gateshead",2020-05-01,4,4
+"Gloucestershire",2020-05-01,6,5
+"Greenwich",2020-05-01,0,0
+"Hackney",2020-05-01,0,0
+"Halton",2020-05-01,0,0
+"Hammersmith and Fulham",2020-05-01,1,1
+"Hampshire",2020-05-01,9,5
+"Haringey",2020-05-01,0,0
+"Harrow",2020-05-01,0,0
+"Hartlepool",2020-05-01,1,0
+"Havering",2020-05-01,1,1
+"Herefordshire, County of",2020-05-01,0,0
+"Hertfordshire",2020-05-01,18,7
+"Hillingdon",2020-05-01,1,0
+"Hounslow",2020-05-01,1,1
+"Isle of Wight",2020-05-01,2,0
+"Islington",2020-05-01,0,0
+"Kensington and Chelsea",2020-05-01,1,1
+"Kent",2020-05-01,14,6
+"Kingston upon Hull, City of",2020-05-01,4,3
+"Kingston upon Thames",2020-05-01,0,0
+"Kirklees",2020-05-01,2,1
+"Knowsley",2020-05-01,0,0
+"Lambeth",2020-05-01,1,0
+"Lancashire",2020-05-01,19,5
+"Leeds",2020-05-01,4,0
+"Leicester",2020-05-01,2,1
+"Leicestershire",2020-05-01,3,2
+"Lewisham",2020-05-01,2,0
+"Lincolnshire",2020-05-01,6,1
+"Liverpool",2020-05-01,6,1
+"Luton",2020-05-01,1,1
+"Manchester",2020-05-01,4,1
+"Medway",2020-05-01,1,0
+"Merton",2020-05-01,5,2
+"Middlesbrough",2020-05-01,7,5
+"Milton Keynes",2020-05-01,3,1
+"Newcastle upon Tyne",2020-05-01,2,1
+"Newham",2020-05-01,2,0
+"Norfolk",2020-05-01,7,2
+"North East Lincolnshire",2020-05-01,2,0
+"North Lincolnshire",2020-05-01,2,0
+"North Somerset",2020-05-01,4,1
+"North Tyneside",2020-05-01,2,0
+"North Yorkshire",2020-05-01,9,1
+"Northamptonshire",2020-05-01,9,4
+"Northumberland",2020-05-01,5,2
+"Nottingham",2020-05-01,1,0
+"Nottinghamshire",2020-05-01,11,5
+"Oldham",2020-05-01,0,0
+"Oxfordshire",2020-05-01,21,6
+"Peterborough",2020-05-01,0,0
+"Plymouth",2020-05-01,5,1
+"Portsmouth",2020-05-01,2,0
+"Reading",2020-05-01,0,0
+"Redbridge",2020-05-01,2,0
+"Redcar and Cleveland",2020-05-01,1,0
+"Richmond upon Thames",2020-05-01,0,0
+"Rochdale",2020-05-01,3,2
+"Rotherham",2020-05-01,0,0
+"Rutland",2020-05-01,0,0
+"Salford",2020-05-01,4,3
+"Sandwell",2020-05-01,1,0
+"Sefton",2020-05-01,5,2
+"Sheffield",2020-05-01,15,9
+"Shropshire",2020-05-01,5,3
+"Slough",2020-05-01,0,0
+"Solihull",2020-05-01,4,3
+"Somerset",2020-05-01,7,3
+"South Gloucestershire",2020-05-01,3,3
+"South Tyneside",2020-05-01,6,3
+"Southampton",2020-05-01,1,1
+"Southend-on-Sea",2020-05-01,0,0
+"Southwark",2020-05-01,0,0
+"St. Helens",2020-05-01,8,5
+"Staffordshire",2020-05-01,12,2
+"Stockport",2020-05-01,4,1
+"Stockton-on-Tees",2020-05-01,3,0
+"Stoke-on-Trent",2020-05-01,2,0
+"Suffolk",2020-05-01,8,4
+"Sunderland",2020-05-01,2,1
+"Surrey",2020-05-01,14,4
+"Sutton",2020-05-01,2,1
+"Swindon",2020-05-01,1,1
+"Tameside",2020-05-01,2,0
+"Telford and Wrekin",2020-05-01,6,3
+"Thurrock",2020-05-01,0,0
+"Torbay",2020-05-01,1,1
+"Tower Hamlets",2020-05-01,0,0
+"Trafford",2020-05-01,1,1
+"Wakefield",2020-05-01,3,1
+"Walsall",2020-05-01,8,5
+"Waltham Forest",2020-05-01,0,0
+"Wandsworth",2020-05-01,1,1
+"Warrington",2020-05-01,4,2
+"Warwickshire",2020-05-01,4,0
+"West Berkshire",2020-05-01,0,0
+"West Sussex",2020-05-01,18,7
+"Westminster",2020-05-01,0,0
+"Wigan",2020-05-01,4,0
+"Wiltshire",2020-05-01,8,6
+"Windsor and Maidenhead",2020-05-01,1,0
+"Wirral",2020-05-01,5,1
+"Wokingham",2020-05-01,4,3
+"Wolverhampton",2020-05-01,8,3
+"Worcestershire",2020-05-01,1,1
+"York",2020-05-01,7,7
+"Notes:",2020-05-01,,
+"1. Data provided by Care Quality Commission",2020-05-01,,
+"2. Figures are for deaths CQC are notified of on the days specified. Figures only include deaths that were notified by 01 May 2020, and may be an underestimate due to notification delays.",2020-05-01,,
+"3. Figures are for persons who were resident in and died in a care home",2020-05-01,,

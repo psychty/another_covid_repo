@@ -13,14 +13,57 @@ capwords = function(s, strict = FALSE) {
 
 options(scipen = 999)
 
-
 # 2018 MYE
-mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=2092957699,2013265921...2013265932,1816133633...1816133848&date=latest&gender=0&c_age=200,209&measures=20100&select=date_name,geography_name,geography_code,c_age_name,obs_value') %>% 
+mye_total_raw <- read_csv('http://www.nomisweb.co.uk/api/v01/dataset/NM_2002_1.data.csv?geography=1816133633...1816133848,1820327937...1820328318,2092957697...2092957703,2013265921...2013265932&date=latest&gender=0&c_age=200,209&measures=20100&select=date_name,geography_name,geography_code,geography_type,c_age_name,obs_value') %>% 
   rename(Population = OBS_VALUE,
          Area_code = GEOGRAPHY_CODE,
          Name = GEOGRAPHY_NAME,
          Year = DATE_NAME,
-         Age = C_AGE_NAME) 
+         Age = C_AGE_NAME,
+         Type = GEOGRAPHY_TYPE) %>% 
+  unique() %>%
+  group_by(Name, Area_code) %>% 
+  mutate(Count = n()) %>% 
+  mutate(Type = ifelse(Count == 4, 'Unitary Authority', ifelse(Type == 'local authorities: county / unitary (as of April 2019)', 'Upper Tier Local Authority', ifelse(Type == 'local authorities: district / unitary (as of April 2019)', 'Lower Tier Local Authority', ifelse(Type == 'regions', 'Region', ifelse(Type == 'countries', 'Country', Type)))))) %>% 
+  ungroup() %>% 
+  select(-Count) %>% 
+  unique()
+
+areas_care_home_beds <- mye_total_raw %>% 
+  select(Name, Area_code, Type) %>% 
+  unique()
+
+# This is the number of beds in care homes (all; nursing and residential) in each area as reported by Care Quality Care (CQC) on the 31st of March 2019.
+
+care_home_beds_utla <- fingertips_data(IndicatorID = 92489, AreaTypeID = 102) %>% 
+  filter(Timeperiod == max(Timeperiod)) %>% 
+  filter(Age == 'All ages') %>% 
+  select(AreaCode, AreaName, Count) %>%
+  rename(Area_code = AreaCode,
+         Name = AreaName,
+         Care_home_beds = Count) 
+
+care_home_beds_ltla <- fingertips_data(IndicatorID = 92489, AreaTypeID = 101) %>% 
+  filter(Timeperiod == max(Timeperiod)) %>% 
+  filter(Age == 'All ages') %>% 
+  select(AreaCode, AreaName, Count) %>% 
+  rename(Area_code = AreaCode,
+         Name = AreaName,
+         Care_home_beds = Count)
+
+care_home_beds_raw <- care_home_beds_ltla %>% 
+  bind_rows(care_home_beds_utla) %>% 
+  unique() 
+
+sussex_ch_beds <- care_home_beds_raw %>% 
+  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
+  summarise(Care_home_beds = sum(Care_home_beds, na.rm = TRUE)) %>% 
+  mutate(Name = 'Sussex areas combined') %>% 
+  mutate(Area_code = '-') 
+
+care_home_beds <- care_home_beds_raw %>% 
+  bind_rows(sussex_ch_beds) %>% 
+  select(-Name)
 
 area_code_names <- mye_total_raw %>% 
   select(Area_code, Name) %>% 
@@ -40,10 +83,11 @@ mye_total <- mye_total_raw %>%
   select(-Name) %>% 
   spread(Age, Population) %>% 
   rename(All_ages = `All Ages`,
-         Age_65_plus = `Aged 65+`)
+         Age_65_plus = `Aged 65+`) %>% 
+  left_join(care_home_beds, by = 'Area_code')
 
-rm(mye_total_raw, sussex_pop)
-
+rm(mye_total_raw, sussex_pop, areas_care_home_beds, care_home_beds_ltla, care_home_beds_raw, care_home_beds_utla, care_home_beds, sussex_ch_beds)
+   
 # Something freaky is happening with downloading of data from Open Geography Portal. The stable urls are broken using the direct reading in R. The quickest workaround (and most frustrating) is to manually download both the ltla to utla and ltla to region look up files and combine them.
 if(!file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
 # Lookups from ltla to utla and region
@@ -97,6 +141,21 @@ download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcomm
 # Use occurances, be mindful that the most recent week of occurance data may not be complete if the death is not registered within 7 days (there is a week lag in reporting to allow up to seven days for registration to take place), this will be updated each week. Estimates suggest around 74% of deaths in England and Wales are registered within seven calendar days of occurance, with the proportion as low as 68% in the South East region. It is difficult to know what impact Covid-19 has on length of time taken to register a death. 
 
 # Occurrences data is produced at ltla level and we would probably find it useful to aggregate to utla and region for our analysis
+Occurrences_ltla <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+  filter(`Geography type` == 'Local Authority') %>% 
+  filter(substr(`Area code`, 1,1) == 'E') %>% 
+  rename(Area_name = `Area name`,
+         Area_code = `Area code`,
+         Cause = `Cause of death`,
+         Week_number = `Week number`,
+         Place_of_death = `Place of death`,
+         Deaths = `Number of deaths`) %>% 
+  mutate(Area_type = 'LTLA') %>% 
+  select(Area_code, Area_name, Area_type, Week_number, Cause, Place_of_death, Deaths) %>% 
+  left_join(week_ending, by = 'Week_number') %>% 
+  ungroup()
+
+# Occurrences data is produced at ltla level and we would probably find it useful to aggregate to utla and region for our analysis
 Occurrences_utla <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
   filter(substr(`Area code`, 1,1) == 'E') %>% 
@@ -113,6 +172,17 @@ Occurrences_utla <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sh
   left_join(week_ending, by = 'Week_number') %>% 
   ungroup()
 
+Occurrences_la <- Occurrences_ltla %>% 
+  bind_rows(Occurrences_utla) %>% 
+  group_by(Area_name, Area_code, Cause, Week_ending, Week_number, Place_of_death) %>% 
+  mutate(Count = n()) %>% 
+  filter(!(Area_type == 'UTLA' & Count == 2)) %>% 
+  select(-c(Area_type, Count)) %>% 
+  left_join(mye_total[c('Area_code', 'Type')], by = 'Area_code') %>% 
+  ungroup()
+
+rm(Occurrences_ltla, Occurrences_utla)
+
 Occurrences_region <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
   filter(substr(`Area code`, 1,1) == 'E') %>% 
@@ -124,38 +194,47 @@ Occurrences_region <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), 
          Cause = `Cause of death`,
          Week_number = `Week number`,
          Place_of_death = `Place of death`) %>% 
-  mutate(Area_type = 'Region') %>% 
-  select(Area_code, Area_name, Area_type, Week_number, Cause, Place_of_death, Deaths) %>% 
+  mutate(Type = 'Region') %>% 
+  select(Area_code, Area_name, Type, Week_number, Cause, Place_of_death, Deaths) %>% 
   left_join(week_ending, by = 'Week_number') %>% 
   ungroup()
 
-Sussex_combined_occurrence <- Occurrences_utla %>% 
+Sussex_combined_occurrence <- Occurrences_la %>% 
   filter(Area_name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
   group_by(Week_number, Week_ending, Cause, Place_of_death) %>% 
   summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
   mutate(Area_code = '-',
          Area_name = 'Sussex areas combined') %>% 
-  mutate(Area_type = 'Sussex areas combined') %>% 
-  select(Area_code, Area_name, Area_type, Week_number, Week_ending, Cause, Place_of_death, Deaths) %>% 
+  mutate(Type = 'Sussex areas combined') %>% 
+  select(Area_code, Area_name, Type, Week_number, Week_ending, Cause, Place_of_death, Deaths) %>% 
   ungroup()
 
-England_occurrence <- Occurrences_utla %>% 
-  group_by(Week_number, Week_ending, Cause, Place_of_death) %>% 
+England_occurrence <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+  filter(`Geography type` == 'Local Authority') %>% 
+  filter(substr(`Area code`, 1,1) == 'E') %>% 
+  rename(Area_name = `Area name`,
+         Area_code = `Area code`,
+         Cause = `Cause of death`,
+         Week_number = `Week number`,
+         Place_of_death = `Place of death`,
+         Deaths = `Number of deaths`) %>%  
+  group_by(Week_number, Cause, Place_of_death) %>% 
   summarise(Deaths = sum(Deaths, na.rm = TRUE)) %>% 
   mutate(Area_code = 'E92000001',
          Area_name = 'England') %>% 
-  mutate(Area_type = 'England') %>% 
-  select(Area_code, Area_name, Area_type, Week_number, Week_ending, Cause, Place_of_death, Deaths) %>% 
+  mutate(Type = 'England') %>% 
+  left_join(week_ending, by = 'Week_number') %>% 
+  select(Area_code, Area_name, Type, Week_number, Week_ending, Cause, Place_of_death, Deaths) %>% 
   ungroup()
 
-Occurrences <- Occurrences_utla %>% 
+Occurrences <- Occurrences_la %>% 
   bind_rows(Occurrences_region) %>% 
   bind_rows(Sussex_combined_occurrence) %>% 
   bind_rows(England_occurrence) %>% 
   rename(Code = Area_code,
          Name = Area_name)
 
-rm(Occurrences_utla, Occurrences_region ,England_occurrence, lookup, Sussex_combined_occurrence, week_ending)
+rm(Occurrences_la, Occurrences_region ,England_occurrence, lookup, Sussex_combined_occurrence, week_ending)
 
 All_settings_occurrences <- Occurrences %>% 
   group_by(Code, Name, Week_number, Week_ending, Cause) %>% 
@@ -167,8 +246,12 @@ All_settings_occurrences <- Occurrences %>%
   mutate(Cumulative_crude_rate_per_100000 = (Cumulative_deaths / All_ages) * 100000) %>% 
   mutate(Deaths_crude_rate_per_100000 =  pois.exact(Deaths, All_ages)[[3]]*100000) %>% 
   mutate(Deaths_crude_rate_lci = pois.exact(Deaths, All_ages)[[4]]*100000) %>% 
-  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, All_ages)[[5]]*100000) 
+  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, All_ages)[[5]]*100000) %>% 
+  ungroup()
 
+All_settings_occurrences %>% 
+  write.csv(., paste0(github_repo_dir, '/All_settings_deaths_occurrences.csv'), na = '', row.names = FALSE)
+  
 # Exact Poisin confidence intervals are calculated using the pois.exact function from the epitools package (see https://www.rdocumentation.org/packages/epitools/versions/0.09/topics/pois.exact for details)
 
 Latest_occurrences <- All_settings_occurrences %>% 
@@ -287,53 +370,66 @@ all_deaths_cipfa_SE %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_deaths_all_settings_ranks_SE.json'))
 
+# ASMR and MSOA by sex ####
+
+# ONS granular analysis of deaths since March 01 2020 and April 17 2020. It is important to note that only deaths that were registered by the 18th April are included. Note this is different again to other data sources and cannot be compared with the ONS weekly 2020 figures as they have a longer time period to capture occurrences (7 days rather than 1 day) and also this dataset includes only a few weeks rather than all weeks in 2020.
+
+# Age-standardised mortality rates are presented per 100,000 people and standardised to the 2013 European Standard Population. Age-standardised mortality rates allow for differences in the age structure of populations and therefore allow valid comparisons to be made between geographical areas, the sexes and over time. 														
+# Rates have been calculated using 2018 mid-year population estimates, the most up-to-date estimates when published. Causes of death was defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes U07.1 and U07.2. Figures include deaths where coronavirus (COVID-19) was the underlying cause or was mentioned on the death certificate as a contributory factor. Figures do not include neonatal deaths (deaths under 28 days).														
+# u = low reliability The age-standardised rate is of low quality.														
+# : = not available The age-standardised rate and its lower and upper confidence interval is unavailable.														
+# Figures are for deaths occurring between 1 March 2020 and 17 April 2020. Figures only include deaths that were registered by 18 April 2020. More information on registration delays can be found on the ONS website:														
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fdeathsinvolvingcovid19bylocalareaanddeprivation%2f1march2020to17april2020/referencetablesdraft.xlsx', paste0(github_repo_dir, '/granular_mortality_file.xlsx'), mode = 'wb')
+
+la_asmr <- read_excel(paste0(github_repo_dir, '/granular_mortality_file.xlsx'), sheet = "Table 2", skip = 5, col_names = c('Sex',	'Area_type',	'Code',	'Name',	'All_cause_deaths',	'All_cause_ASMR',	'All_cause_ASMR_data_quality',	'All_cause_ASMR_lci',	'All_cause_ASMR_uci',	'null',	'Covid_deaths',	'Covid_ASMR',	'Covid_ASMR_data_quality',	'Covid_ASMR_lci',	'Covid_ASMR_uci'), col_types = c("text", "text", "text", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric")) %>% 
+  select(-null) %>% 
+  filter(!is.na(Name))
+
+la_asmr %>% 
+  write.csv(., paste0(github_repo_dir, '/mortality_01_march_to_date_la.csv'), row.names = FALSE, na = '')
+
+msoa_deaths <- read_excel("~/Documents/Repositories/another_covid_repo/granular_mortality_file.xlsx", sheet = "Table 5", col_types = c("text","text", "numeric", "numeric", "numeric"), skip = 11) 
+
+msoa_deaths %>% 
+  write.csv(., paste0(github_repo_dir, '/mortality_01_march_to_date_msoa.csv'), row.names = FALSE, na = '')
+
+dates_granular <- read_excel("~/Documents/Repositories/another_covid_repo/granular_mortality_file.xlsx", sheet = "Contents") %>% 
+  filter(`Worksheet name` %in% c('Table 2', 'Table 5'))
+
 # Place of death ####
 
-# TODO
-# We need to combine some of the places - Elsewhere and Other communal establishment into the following "Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'
-
-
 Place_death <- Occurrences %>% 
-  group_by(Code, Name, Week_number, Week_ending, Cause,Deaths, Place_of_death) %>% 
-  spread(Place_of_death, Deaths)
+  mutate(Place_of_death = ifelse(Place_of_death %in% c('Other communal establishment', 'Elsewhere'), 'Elsewhere (including other communal establishments)', Place_of_death)) %>% 
+  group_by(Code, Name, Week_number, Week_ending, Cause, Place_of_death) %>% 
+  summarise(Deaths = sum(Deaths, na.rm = TRUE))
 
-
+Place_death %>% 
+  write.csv(., paste0(github_repo_dir, '/Mortality_place_of_death_weekly.csv'), na = '', row.names = FALSE)
 
 Place_death %>%
   filter(Cause == 'All causes') %>% 
+  spread(Place_of_death, Deaths) %>% 
   mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/deaths_all_cause_by_place_SE.json'))
 
-
-
 # Care home deaths ONS ####
 
-# This is the number of beds in care homes (all; nursing and residential) in each area as reported by Care Quality Care (CQC) on the 31st of March 2019.
-
-care_home_beds <- fingertips_data(IndicatorID = 92489, AreaTypeID = 102) %>% 
-  filter(Timeperiod == max(Timeperiod)) %>% 
-  filter(Age == 'All ages') %>% 
-  select(AreaCode, AreaName, Count) %>% 
-  rename(Code = AreaCode,
-         Name = AreaName,
-         Care_home_beds = Count)
-  
 Care_home_deaths <- Occurrences %>% 
   filter(Place_of_death == 'Care home') %>% 
   group_by(Code, Name, Cause) %>% 
   arrange(Name, Cause, Week_ending) %>% 
   mutate(Cumulative_deaths = cumsum(Deaths)) %>% 
   ungroup() %>% 
-  left_join(mye_total[c('Area_code', 'Age_65_plus')], by = c('Code' = 'Area_code')) %>% 
-  mutate(Deaths_crude_rate_per_100000_65_plus =  pois.exact(Deaths, Age_65_plus)[[3]]*100000) %>% 
-  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, Age_65_plus)[[4]]*100000) %>% 
-  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, Age_65_plus)[[5]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_per_100000_65_plus =  pois.exact(Cumulative_deaths, Age_65_plus)[[3]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Age_65_plus)[[4]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Age_65_plus)[[5]]*100000) %>% 
-  mutate(Deaths_label = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_100000_65_plus, 0), big.mark = ',', trim = TRUE), ' per 100,000 population 65+, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) %>% 
-  mutate(Cumulative_deaths_label = paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Cumulative_deaths_crude_rate_per_100000_65_plus, 0), big.mark = ',', trim = TRUE), ' per 100,000 population 65+, 95% CI: ', format(round(Cumulative_deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Cumulative_deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
+  left_join(mye_total[c('Area_code', 'Care_home_beds')], by = c('Code' = 'Area_code')) %>% 
+  mutate(Deaths_crude_rate_per_100_care_home_beds =  pois.exact(Deaths, Care_home_beds)[[3]]*100000) %>% 
+  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, Care_home_beds)[[4]]*100000) %>% 
+  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, Care_home_beds)[[5]]*100000) %>% 
+  mutate(Cumulative_deaths_crude_rate_per_100_care_home_beds =  pois.exact(Cumulative_deaths, Care_home_beds)[[3]]*100000) %>% 
+  mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Care_home_beds)[[4]]*100000) %>% 
+  mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Care_home_beds)[[5]]*100000) %>% 
+  mutate(Deaths_label = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_100_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 100,000 population 65+, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) %>% 
+  mutate(Cumulative_deaths_label = paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Cumulative_deaths_crude_rate_per_100_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 100,000 population 65+, 95% CI: ', format(round(Cumulative_deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Cumulative_deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
 
 Care_home_latest_all_cause <- Care_home_deaths %>% 
   filter(Week_ending == max(Week_ending)) %>% 
@@ -355,23 +451,23 @@ Covid_burden_of_all_mortality_care_homes <- Care_home_deaths %>%
 
 Covid_burden_latest_care_homes <- Covid_burden_of_all_mortality_care_homes %>% 
   filter(Week_ending == max(Week_ending)) %>% 
-  left_join(Care_home_latest_all_cause[c('Name', 'Cumulative_deaths_crude_rate_per_100000_65_plus', 'Deaths_crude_rate_per_100000_65_plus', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
+  left_join(Care_home_latest_all_cause[c('Name', 'Cumulative_deaths_crude_rate_per_100_care_home_beds', 'Deaths_crude_rate_per_100_care_home_beds', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
   rename('All cause care home deaths in week'= `All causes`,
-         `All cause care home deaths in week per 100,000 population aged 65+` = Deaths_crude_rate_per_100000_65_plus,
+         `All cause care home deaths in week per 100 care home beds` = Deaths_crude_rate_per_100_care_home_beds,
          'Total number of all cause care home deaths to date in 2020' = Cumulative_deaths_all_cause,
-         `Total number of all cause care home deaths to date per 100,000 population aged 65+` = Cumulative_deaths_crude_rate_per_100000_65_plus,
+         `Total number of all cause care home deaths to date per 100 care home beds` = Cumulative_deaths_crude_rate_per_100_care_home_beds,
          `All cause latest week care home summary` = Deaths_label,
          `All cause cumulative care home summary` = Cumulative_deaths_label,
          `Care home deaths attributed to Covid-19 in week` = `COVID 19`,
          `Total number of care home deaths attributed to Covid-19 to date in 2020` = Cumulative_covid_deaths,
          `Proportion of care home deaths occuring in week that are attributed to Covid-19` = Proportion_covid_deaths_occuring_in_week,
          `Proportion of care home deaths to date in 2020 attributed to Covid-19` = Proportion_covid_deaths_to_date) %>% 
-  left_join(Care_home_latest_covid[c('Name', 'Cumulative_deaths_crude_rate_per_100000_65_plus', 'Deaths_crude_rate_per_100000_65_plus', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
-  rename(`Covid-19 care home deaths in week per 100,000 population aged 65+` = Deaths_crude_rate_per_100000_65_plus,
-         `Total number of care home deaths attributed to Covid-19 to date per 100,000 population aged 65+` = Cumulative_deaths_crude_rate_per_100000_65_plus,
+  left_join(Care_home_latest_covid[c('Name', 'Cumulative_deaths_crude_rate_per_100_care_home_beds', 'Deaths_crude_rate_per_100_care_home_beds', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
+  rename(`Covid-19 care home deaths in week per 100 care home beds` = Deaths_crude_rate_per_100_care_home_beds,
+         `Total number of care home deaths attributed to Covid-19 to date per 100 care home beds` = Cumulative_deaths_crude_rate_per_100_care_home_beds,
          `Covid-19 latest week care home summary` = Deaths_label,
          `Covid-19 cumulative care home summary` = Cumulative_deaths_label) %>% 
-  select(Name,Week_number,Week_ending, `All cause care home deaths in week`, `All cause care home deaths in week per 100,000 population aged 65+`, `All cause latest week care home summary`, `Total number of all cause care home deaths to date in 2020`, `Total number of all cause care home deaths to date per 100,000 population aged 65+`, `All cause cumulative care home summary`, `Care home deaths attributed to Covid-19 in week`, `Covid-19 care home deaths in week per 100,000 population aged 65+`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date per 100,000 population aged 65+`, `Covid-19 latest week care home summary`, `Covid-19 cumulative care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`)
+  select(Name,Week_number,Week_ending, `All cause care home deaths in week`, `All cause care home deaths in week per 100 care home beds`, `All cause latest week care home summary`, `Total number of all cause care home deaths to date in 2020`, `Total number of all cause care home deaths to date per 100 care home beds`, `All cause cumulative care home summary`, `Care home deaths attributed to Covid-19 in week`, `Covid-19 care home deaths in week per 100 care home beds`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date per 100 care home beds`, `Covid-19 latest week care home summary`, `Covid-19 cumulative care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`)
 
 Covid_care_home_burden_all_age_latest_SE <- Covid_burden_latest_care_homes %>% 
   filter(Name %in%  c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East', 'England')) %>% 
@@ -399,12 +495,39 @@ for(i in 1:nrow(SE_area_code_names)){
 }
 
 care_home_ons_cipfa <- nn_area %>% 
-  left_join(case_summary, by = c('Nearest_neighbour_name' = 'Name')) %>% 
+  left_join(Covid_burden_latest_care_homes, by = c('Nearest_neighbour_name' = 'Name')) %>% 
   group_by(Area_code, Area_name) %>% 
-  mutate(`Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of all cause care home deaths to date per 100,000 population aged 65+`))) %>%
-  mutate(`Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours aged 65+` = ordinal(rank(-`Covid-19 care home deaths in week per 100,000 population aged 65+`))) %>%
-  mutate(`Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of care home deaths attributed to Covid-19 to date per 100,000 population aged 65+`))) %>%
+  mutate(`Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of all cause care home deaths to date per 100 care home beds`))) %>%
+  mutate(`Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 100 care home beds` = ordinal(rank(-`Covid-19 care home deaths in week per 100 care home beds`))) %>%
+  mutate(`Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 100 care home beds` = ordinal(rank(-`Total number of care home deaths attributed to Covid-19 to date per 100 care home beds`))) %>%
   mutate(`Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of care home deaths to date in 2020 attributed to Covid-19`))) 
+
+# exporting ONS ch data
+
+Care_home_deaths %>% 
+  write.csv(., paste0(github_repo_dir, '/Care_home_death_occurrences_ONS_weekly.csv'), row.names = FALSE, na = '') 
+
+# CQC mortality in care homes ####
+
+# Note: The notifications only include those received by 5pm on 1st May.
+
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/cqcwk17.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
+
+cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
+  rename(Name = ...1) %>% 
+  gather(key = "Date", value = "All cause", 2:ncol(.)) %>% 
+  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) 
+
+cqc_care_home_daily_covid <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 2', skip = 2) %>% 
+  rename(Name = ...1) %>% 
+  gather(key = "Date", value = "Covid-19 Deaths", 2:ncol(.)) %>% 
+  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) 
+
+cqc_care_home_daily_deaths <- cqc_care_home_daily_all_cause %>% 
+  left_join(cqc_care_home_daily_covid, by = c('Name', 'Date'))
+
+cqc_care_home_daily_deaths %>% 
+  write.csv(., paste0(github_repo_dir, '/cqc_care_home_daily_deaths.csv'), row.names = FALSE, na = '')
 
 # Trust level mortality ####
 
@@ -499,35 +622,6 @@ meta_trust_deaths %>%
   filter(Item == 'Period:') %>% 
   select(Description)
 
-
-# CQC mortality in care homes ####
-
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/cqcreferencetables3.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
-
-cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
-  rename(Name = ...1) %>% 
-  gather(key = "Date", value = "Deaths", 2:ncol(.)) %>% 
-  mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) 
-
-# ASMR and MSOA by sex ####
-
-# ONS granular analysis of deaths since March 01 2020 and April 17 2020. It is important to note that only deaths that were registered by the 18th April are included. Note this is different again to other data sources and cannot be compared with the ONS weekly 2020 figures as they have a longer time period to capture occurrences (7 days rather than 1 day) and also this dataset includes only a few weeks rather than all weeks in 2020.
-
-# Age-standardised mortality rates are presented per 100,000 people and standardised to the 2013 European Standard Population. Age-standardised mortality rates allow for differences in the age structure of populations and therefore allow valid comparisons to be made between geographical areas, the sexes and over time. 														
-# Rates have been calculated using 2018 mid-year population estimates, the most up-to-date estimates when published. Causes of death was defined using the International Classification of Diseases, Tenth Revision (ICD-10) codes U07.1 and U07.2. Figures include deaths where coronavirus (COVID-19) was the underlying cause or was mentioned on the death certificate as a contributory factor. Figures do not include neonatal deaths (deaths under 28 days).														
-
-# u = low reliability The age-standardised rate is of low quality.														
-# : = not available The age-standardised rate and its lower and upper confidence interval is unavailable.														
-# Figures are for deaths occurring between 1 March 2020 and 17 April 2020. Figures only include deaths that were registered by 18 April 2020. More information on registration delays can be found on the ONS website:														
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fdeathsinvolvingcovid19bylocalareaanddeprivation%2f1march2020to17april2020/referencetablesdraft.xlsx', paste0(github_repo_dir, '/granular_mortality_file.xlsx'), mode = 'wb')
-
-
-la_asmr <- read_excel(paste0(github_repo_dir, '/granular_mortality_file.xlsx'), sheet = "Table 2", skip = 5, col_names = c('Sex',	'Area_type',	'Code',	'Name',	'All_cause_deaths',	'All_cause_ASMR',	'All_cause_ASMR_data_quality',	'All_cause_ASMR_lci',	'All_cause_ASMR_uci',	'null',	'Covid_deaths',	'Covid_ASMR',	'Covid_ASMR_data_quality',	'Covid_ASMR_lci',	'Covid_ASMR_uci'), col_types = c("text", "text", "text", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric")) %>% 
-  select(-null) %>% 
-  filter(!is.na(Name))
-
-msoa_asmr <- read_excel("~/Documents/Repositories/another_covid_repo/granular_mortality_file.xlsx", sheet = "Table 5", col_types = c("text","text", "numeric", "numeric", "numeric"), skip = 11) %>% 
-  filter()
 
 
 
