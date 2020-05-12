@@ -114,8 +114,6 @@ wsx_wk_all_deaths_plot <- ggplot(wsx_all_cause,
 library(png)
 library(gridExtra)
 
-ggsave(paste0(github_repo_dir, "/wsx_wk_all_deaths_plot.png"), plot = wsx_wk_all_deaths_plot, width = 8, height = 4, dpi = 300, type = 'cairo')
-
 png(paste0(github_repo_dir, "/wsx_wk_all_deaths_plot.png"), width = 480, height = 250)
 wsx_wk_all_deaths_plot
 dev.off()
@@ -216,9 +214,9 @@ wsx_place_death_all_cause_plot <- ggplot(wsx_place,
                      limits = c(0,round_any(max(wsx_all_cause$Deaths, na.rm = TRUE), 50, ceiling))) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
-        legend.position = c(.4,.8),
-        legend.key.size = unit(0.65, "lines")) +
-  guides(fill = guide_legend(nrow = 3, byrow = TRUE))
+        legend.position = c(.39,.85),
+        legend.key.size = unit(0.5, "lines")) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE))
 
 png(paste0(github_repo_dir, "/wsx_place_death_all_cause_plot.png"), width = 480, height = 250)
 wsx_place_death_all_cause_plot
