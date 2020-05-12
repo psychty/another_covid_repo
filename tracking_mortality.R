@@ -509,9 +509,10 @@ Care_home_deaths %>%
 
 # CQC mortality in care homes ####
 
-# Note: The notifications only include those received by 5pm on 1st May.
+# Note: The notifications only include those received by 5pm on 8th May.
 
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/cqcwk17.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200510officialsensitivecoviddeathnotificationschdata20200508.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
+
 
 cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
   rename(Name = ...1) %>% 
