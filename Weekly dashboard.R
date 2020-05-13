@@ -2,7 +2,7 @@
 
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'officer', 'lemon'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'officer', 'lemon', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'png'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -51,7 +51,6 @@ dates_granular <- read_excel("~/Documents/Repositories/another_covid_repo/granul
   filter(`Worksheet name` %in% c('Table 2', 'Table 5'))
 
 la_asmr <- read_csv(paste0(github_repo_dir, '/mortality_01_march_to_date_la.csv'))
-msoa_deaths <- read_csv(paste0(github_repo_dir, '/mortality_01_march_to_date_msoa.csv'))
 
 place_of_death <- read_csv(paste0(github_repo_dir, '/Mortality_place_of_death_weekly.csv'))
 care_home_ons <- read_csv(paste0(github_repo_dir, '/Care_home_death_occurrences_ONS_weekly.csv'))
@@ -109,9 +108,6 @@ wsx_wk_all_deaths_plot <- ggplot(wsx_all_cause,
            fontface = "bold",
            vjust = -1) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5)) 
-
-library(png)
-library(gridExtra)
 
 png(paste0(github_repo_dir, "/wsx_wk_all_deaths_plot.png"), width = 480, height = 250)
 wsx_wk_all_deaths_plot
@@ -325,7 +321,6 @@ wsx_asmr %>%
 
 second_asmr_title <- gsub('districts and boroughs', 'compared to South East region and England', asmr_title)
 
-
 utla_asmr_plot <- ggplot(subset(wsx_asmr, Name %in% c('West Sussex', 'South East', 'England')),
        aes(x = Sex,
            y = All_cause_ASMR,
@@ -408,25 +403,66 @@ dev.off()
 
 # slide 4 - msoa for sussex between 01 March and two weeks prior
 
-msoa_deaths %>% 
-  View()
-
-lookup_msoa_la
+msoa_deaths <- read_csv(paste0(github_repo_dir, '/mortality_01_march_to_date_msoa.csv')) %>% 
+  rename(All_cause_deaths = 'All causes',
+         Covid_19_mentioned = 'COVID-19',
+         Proportion_covid_19 = 'COVID-19 deaths as a percentage of all causes (%)',
+         msoa11cd = 'MSOA code',
+         msoa11nm = 'MSOA name')
 
 # msoa_boundaries ####
+lookup_msoa_la <- read_csv('https://opendata.arcgis.com/datasets/fe6c55f0924b4734adf1cf7104a0173e_0.csv') %>% 
+  select(MSOA11CD, MSOA11NM, LAD17CD, LAD17NM, LACNM) %>% 
+  filter(LAD17NM %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden')) %>% 
+  unique()
 
-# We need to do a bit of hacking this about to keep the integrity of the coastline around Chichester harbour but also making sure that we dont include clips of all the rivers in Wsx!
+# Grab all full extent MSOAs for areas with MSOAs that have names starting with Adur, Arun, Chichester, Crawley, Horsham, Mid Sussex, Worthing and Lewes (as we know there are a couple of LSOAs outside of the boundary)
 
-#Grab all full extent MSOAs for areas with MSOAs that have names starting with Adur, Arun, Chichester, Crawley, Horsham, Mid Sussex, Worthing and Lewes (as we know there are a couple of LSOAs outside of the boundary)
-MSOA_boundary_fe <- as(st_read(paste0("https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Middle_Super_Output_Areas_December_2011_Boundaries/MapServer/1/query?where=msoa11nm%20%3D%20'ADUR'%20OR%20msoa11nm%20%3D%20'ARUN'%20OR%20msoa11nm%20%3D%20'CHICHESTER'%20OR%20msoa11nm%20%3D%20'CRAWLEY'%20OR%20msoa11nm%20%3D%20'HORSHAM'%20OR%20msoa11nm%20%3D%20'MID%20SUSSEX'%20OR%20msoa11nm%20%3D%20'WORTHING'&outFields=msoa11cd,msoa11nm,shape,st_area(shape),st_length(shape)&outSR=4326&f=geojson")), 'Spatial')
+msoa_spdf <- geojson_read("https://opendata.arcgis.com/datasets/c661a8377e2647b0bae68c4911df868b_3.geojson",  what = "sp") %>% 
+  filter(msoa11cd %in% lookup_msoa_la$MSOA11CD) %>% 
+  left_join(msoa_deaths, by = 'msoa11cd')
 
+# We have to reproject LSOA11_bounday to match the projection coordinate reference system (CRS) for ggplot like the other two boundary files
+# CRS("+init=epsg:4326") is WGS84
+msoa_spdf_2 <- spTransform(msoa_spdf, CRS("+init=epsg:4326"))
 
-# We can grab a subset of LSOAs for just Chichester
-MSOA_boundary_clipped <- as(st_read(paste0("https://ons-inspire.esriuk.com/arcgis/rest/services/Census_Boundaries/Middle_Super_Output_Areas_December_2011_Boundaries/MapServer/2/query?where=msoa11nm%20%3D%20'CHICHESTER'&outFields=msoa11cd,msoa11nm,shape,st_area(shape),st_length(shape)&outSR=4326&f=geojson")), 'Spatial')
+library(broom)
+spdf_fortified <- tidy(msoa_spdf, region = "msoa11cd")
 
-# Extract the LSOAs we know need to be clipped from the Chichester object
-LSOA_boundary_clipped <- LSOA_boundary_clipped %>% 
-  filter(LSOA11CD %in% c('E01031532', 'E01031475','E01031476','E01031496','E01031542','E01031540','E01031524','E01031529','E01031513'))
+map_theme = function(){
+  theme( 
+    legend.position = "none", 
+    plot.background = element_blank(), 
+    panel.background = element_blank(),  
+    panel.border = element_blank(),
+    axis.text = element_blank(), 
+    plot.title = element_text(colour = "#000000", face = "bold", size = 12), 
+    axis.title = element_blank(),     
+    panel.grid.major.x = element_blank(), 
+    panel.grid.minor.x = element_blank(), 
+    panel.grid.major.y = element_blank(), 
+    panel.grid.minor.y = element_blank(), 
+    strip.text = element_text(colour = "white"), 
+    strip.background = element_rect(fill = "#327d9c"), 
+    axis.ticks = element_blank() 
+  ) 
+} 
+
+ggplot() +
+  geom_polygon(data = spdf_fortified, aes( x = long, y = lat, group = group), fill="white", color="grey") +
+  coord_fixed(1.5) + 
+  map_theme() +
+  # scale_y_continuous(limits = c(my_bbox[2] - 0.000100, my_bbox[4] + 0.000100)) + 
+  # scale_x_continuous(limits = c(my_bbox[1] - 0.00500, my_bbox[3] + 0.00500)) +
+  # geom_polygon(data = WSx_PCN_3, aes(x=long, y=lat, group = group, fill = group), color="#000000", size = .5, alpha = .7, show.legend = FALSE) +
+  # scale_fill_manual(values = Overview$Colours) +
+  # geom_point(data = PCN_data, aes(x = long, y = lat, fill = PCN), shape = 21, colour = '#000000', size = 3, alpha = 1) +
+  # geom_polygon(data = LAD, aes(x=long, y=lat, group = group), color="#3D2EFF", fill = NA, size = 1, show.legend = FALSE) +
+  # scale_colour_manual(values = PCN_data$Colours) +
+  theme(legend.position = "none",
+        legend.title = element_text(size = 9, face = "bold"),
+        legend.key.width = unit(0.2,"cm"),
+        legend.key.height = unit(0.2,"cm")) 
 
 # We want to select all the LSOAs that were not clipped in the above object
 LSOA_boundary_fe <- LSOA_boundary_fe %>% 
