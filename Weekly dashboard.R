@@ -401,42 +401,53 @@ png(paste0(github_repo_dir, "/covid_utla_asmr_plot.png"), width = 1080, height =
 utla_asmr_covid_plot
 dev.off()
 
-# slide 4 - msoa for sussex between 01 March and two weeks prior
+# slide 4 - msoa for sussex between 01 March and two weeks prior ####
+
+# msoa_boundaries
+lookup_msoa_la <- read_csv('https://opendata.arcgis.com/datasets/fe6c55f0924b4734adf1cf7104a0173e_0.csv') %>% 
+  select(MSOA11CD, LAD17CD, LAD17NM, LACNM) %>% 
+  filter(LAD17NM %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden')) %>% 
+  unique()
+
 
 msoa_deaths <- read_csv(paste0(github_repo_dir, '/mortality_01_march_to_date_msoa.csv')) %>% 
   rename(All_cause_deaths = 'All causes',
          Covid_19_mentioned = 'COVID-19',
          Proportion_covid_19 = 'COVID-19 deaths as a percentage of all causes (%)',
          msoa11cd = 'MSOA code',
-         msoa11nm = 'MSOA name')
+         msoa11nm = 'MSOA name') %>% 
+  filter(msoa11cd %in% lookup_msoa_la$MSOA11CD) %>% 
+  mutate(all_cause_bins = factor(ifelse(All_cause_deaths == 0, 'None', ifelse(All_cause_deaths <= 5, '1-5 deaths', ifelse(All_cause_deaths <= 15, '6-15', ifelse(All_cause_deaths <= 25, '16-25', ifelse(All_cause_deaths <= 35, '26-35', ifelse(All_cause_deaths <= 45, '36-45', NA)))))), levels = c('None', '1-5 deaths', '6-15', '16-25','26-35','36-45'))) %>% 
+  mutate(covid_mentioned_bins = factor(ifelse(Covid_19_mentioned == 0, 'None', ifelse(Covid_19_mentioned <= 5, '1-5 deaths', ifelse(Covid_19_mentioned <= 10, '6-10', ifelse(Covid_19_mentioned <= 15, '11-15', NA)))), levels = c('None', '1-5 deaths', '6-10', '11-15'))) %>% 
+  mutate(Proportion_covid_bins = factor(ifelse(is.na(Proportion_covid_19), 'None', ifelse(Proportion_covid_19 == 0, 'None', ifelse(Proportion_covid_19 <= 20, '1-20% of deaths', ifelse(Proportion_covid_19 <= 40, '21-40%', ifelse(Proportion_covid_19 <= 60, '41-60%', ifelse(Proportion_covid_19 <= 80, '61-80%', ifelse(Proportion_covid_19 <= 100, '81-100%', NA))))))), levels = c('None', '1-20% of deaths', '21-40%','41-60%','61-80%','81-100%')))
 
-# msoa_boundaries ####
-lookup_msoa_la <- read_csv('https://opendata.arcgis.com/datasets/fe6c55f0924b4734adf1cf7104a0173e_0.csv') %>% 
-  select(MSOA11CD, MSOA11NM, LAD17CD, LAD17NM, LACNM) %>% 
-  filter(LAD17NM %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden')) %>% 
-  unique()
+summary(msoa_deaths$All_cause_deaths)
+summary(msoa_deaths$Covid_19_mentioned)
+summary(msoa_deaths$Proportion_covid_19)
 
-# Grab all full extent MSOAs for areas with MSOAs that have names starting with Adur, Arun, Chichester, Crawley, Horsham, Mid Sussex, Worthing and Lewes (as we know there are a couple of LSOAs outside of the boundary)
+County_boundary <- geojson_read("https://opendata.arcgis.com/datasets/b216b4c8a4e74f6fb692a1785255d777_0.geojson",  what = "sp") %>% 
+  filter(ctyua19nm %in% c('West Sussex', 'East Sussex','Brighton and Hove')) %>% 
+  fortify(region = "ctyua19nm") %>% 
+  rename(ctyua19nm = id) 
 
 msoa_spdf <- geojson_read("https://opendata.arcgis.com/datasets/c661a8377e2647b0bae68c4911df868b_3.geojson",  what = "sp") %>% 
-  filter(msoa11cd %in% lookup_msoa_la$MSOA11CD) %>% 
+  filter(msoa11cd %in% lookup_msoa_la$MSOA11CD)
+
+# Two - Plotting polygons in ggplot
+# a shapefile is one of several files used to visualise and analyse spatial information.
+# ggplot needs the data to be in a single dataframe. The fortify command does this
+
+msoa_fortified <- fortify(msoa_spdf, region = "msoa11cd") %>% 
+  rename(msoa11cd = id) %>% # The LSOA code is there by a different name (id), so we renamed it back again
   left_join(msoa_deaths, by = 'msoa11cd')
-
-# We have to reproject LSOA11_bounday to match the projection coordinate reference system (CRS) for ggplot like the other two boundary files
-# CRS("+init=epsg:4326") is WGS84
-msoa_spdf_2 <- spTransform(msoa_spdf, CRS("+init=epsg:4326"))
-
-library(broom)
-spdf_fortified <- tidy(msoa_spdf, region = "msoa11cd")
 
 map_theme = function(){
   theme( 
-    legend.position = "none", 
     plot.background = element_blank(), 
     panel.background = element_blank(),  
     panel.border = element_blank(),
     axis.text = element_blank(), 
-    plot.title = element_text(colour = "#000000", face = "bold", size = 12), 
+    plot.title = element_text(colour = "#000000", face = "bold", size = 8), 
     axis.title = element_blank(),     
     panel.grid.major.x = element_blank(), 
     panel.grid.minor.x = element_blank(), 
@@ -448,34 +459,102 @@ map_theme = function(){
   ) 
 } 
 
-ggplot() +
-  geom_polygon(data = spdf_fortified, aes( x = long, y = lat, group = group), fill="white", color="grey") +
+msoa_total_title <- as.character(dates_granular %>% 
+                             filter(`Worksheet name` == 'Table 5') %>% 
+                             select(Content)) %>% 
+  gsub('England and Wales, ', 'Sussex, all ', .)
+
+total_msoa_deaths_plot <- ggplot() +
+  geom_polygon(data = msoa_fortified, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group,
+                   fill= all_cause_bins),
+               color= '#ffffff',
+               size = .1) +
   coord_fixed(1.5) + 
   map_theme() +
-  # scale_y_continuous(limits = c(my_bbox[2] - 0.000100, my_bbox[4] + 0.000100)) + 
-  # scale_x_continuous(limits = c(my_bbox[1] - 0.00500, my_bbox[3] + 0.00500)) +
-  # geom_polygon(data = WSx_PCN_3, aes(x=long, y=lat, group = group, fill = group), color="#000000", size = .5, alpha = .7, show.legend = FALSE) +
-  # scale_fill_manual(values = Overview$Colours) +
-  # geom_point(data = PCN_data, aes(x = long, y = lat, fill = PCN), shape = 21, colour = '#000000', size = 3, alpha = 1) +
-  # geom_polygon(data = LAD, aes(x=long, y=lat, group = group), color="#3D2EFF", fill = NA, size = 1, show.legend = FALSE) +
-  # scale_colour_manual(values = PCN_data$Colours) +
-  theme(legend.position = "none",
+  labs(title = msoa_total_title) +
+  scale_fill_manual(values = c('#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'),
+                    name = 'Total deaths') +
+  geom_polygon(data = County_boundary, aes(x=long, y=lat, group = group), 
+               color="#000000", 
+               fill = NA, 
+               size = .8, 
+               show.legend = FALSE) +
+  theme(legend.position = 'bottom',
         legend.title = element_text(size = 9, face = "bold"),
         legend.key.width = unit(0.2,"cm"),
         legend.key.height = unit(0.2,"cm")) 
 
-# We want to select all the LSOAs that were not clipped in the above object
-LSOA_boundary_fe <- LSOA_boundary_fe %>% 
-  filter(!LSOA11CD %in% LSOA_boundary_clipped$LSOA11CD)
+png(paste0(github_repo_dir, "/total_msoa_deaths_plot.png"), width = 2600, height = 1450, res = 350)
+total_msoa_deaths_plot
+dev.off()
 
-# Join the two objects. This will now contain all of Chichester LSOAs (some clipped and some full extent) as well as all LSOAs for the rest of WSx and Lewes. 
-LSOA_boundary <- rbind(LSOA_boundary_fe, LSOA_boundary_clipped)
+msoa_covid_title <- as.character(dates_granular %>% 
+                                   filter(`Worksheet name` == 'Table 5') %>% 
+                                   select(Content)) %>% 
+  gsub('England and Wales, ', 'Sussex, Covid-19 ', .)
 
-# We can remove the old objects
-rm(LSOA_boundary_fe, LSOA_boundary_clipped)
+covid_msoa_deaths_plot <- ggplot() +
+  geom_polygon(data = msoa_fortified, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group,
+                   fill= covid_mentioned_bins),
+               color= '#ffffff',
+               size = .1) +
+  coord_fixed(1.5) + 
+  map_theme() +
+  labs(title = msoa_covid_title) +
+  scale_fill_manual(values = c('#ffffb2','#fecc5c','#fd8d3c','#e31a1c'),
+                    name = 'Deaths where Covid-19\nmentioned') +
+  geom_polygon(data = County_boundary, aes(x=long, y=lat, group = group), 
+               color="#000000", 
+               fill = NA, 
+               size = .8, 
+               show.legend = FALSE) +
+  theme(legend.position = 'bottom',
+        legend.title = element_text(size = 9, face = "bold"),
+        legend.key.width = unit(0.2,"cm"),
+        legend.key.height = unit(0.2,"cm")) 
 
+png(paste0(github_repo_dir, "/covid_msoa_deaths_plot.png"), width = 2600, height = 1450, res = 350)
+covid_msoa_deaths_plot
+dev.off()
 
+msoa_prop_covid_title <- as.character(dates_granular %>% 
+                                   filter(`Worksheet name` == 'Table 5') %>% 
+                                   select(Content)) %>% 
+  gsub('Number of deaths by Middle Layer Super Output Area', 'Proportion of deaths where Covid-19 mentioned by MSOA', .) %>% 
+  gsub('England and Wales, ', 'Sussex, ', .)
 
+covid_msoa_prop_deaths_plot <- ggplot() +
+  geom_polygon(data = msoa_fortified, 
+               aes(x = long, 
+                   y = lat, 
+                   group = group,
+                   fill= Proportion_covid_bins),
+               color= '#ffffff',
+               size = .1) +
+  coord_fixed(1.5) + 
+  map_theme() +
+  labs(title = msoa_prop_covid_title) +
+  scale_fill_manual(values = c('#ffffcc','#d9f0a3','#addd8e','#78c679','#31a354','#006837'),
+                    name = 'Deaths where Covid-19\nmentioned') +
+  geom_polygon(data = County_boundary, aes(x=long, y=lat, group = group), 
+               color="#000000", 
+               fill = NA, 
+               size = .8, 
+               show.legend = FALSE) +
+  theme(legend.position = 'bottom',
+        legend.title = element_text(size = 9, face = "bold"),
+        legend.key.width = unit(0.2,"cm"),
+        legend.key.height = unit(0.2,"cm")) 
+
+png(paste0(github_repo_dir, "/covid_msoa_prop_deaths_plot.png"), width = 2600, height = 1450, res = 350)
+covid_msoa_prop_deaths_plot
+dev.off()
 
 # slide 5 - deaths in care homes
 
