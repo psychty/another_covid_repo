@@ -13,6 +13,26 @@ capwords = function(s, strict = FALSE) {
 
 options(scipen = 999)
 
+hm_theme = function(){
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 0, vjust = 0),
+    legend.position = "bottom",
+    legend.text = element_text(colour = "#323232", size = 8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(colour = "#000000", face = "bold", size = 9, vjust = 1),  
+    legend.title = element_text(colour = "#323232", face = "bold", size = 9),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.key.size = unit(0.65, "lines"),
+    legend.background = element_rect(fill = "#ffffff"),
+    legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"),
+    strip.text = element_text(colour = "#000000", face = "bold"),
+    strip.background = element_rect(fill = "#ffffff"),
+    axis.ticks.x = element_blank())
+}
+
 ph_theme = function(){
   theme( 
     plot.title = element_text(colour = "#000000", face = "bold", size = 10),    
@@ -42,8 +62,6 @@ ph_theme = function(){
 # Run daily tracker if you want to
 # source(paste0(github_repo_dir, '/tracking_new_cases.R'))
 
-daily_cases <- read_csv(paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv'))
-
 weekly_all_place_deaths <- read_csv(paste0(github_repo_dir, '/All_settings_deaths_occurrences.csv'))
 
 # 01 March 2020 to 
@@ -61,6 +79,112 @@ daily_trust_deaths_table <- read_csv(paste0(github_repo_dir, '/daily_trust_death
 meta_trust_deaths <- read_csv(paste0(github_repo_dir, '/meta_trust_deaths.csv'))
 
 read_pptx(path = paste0(github_repo_dir, '/Death Slides - West Sussex V1.pptx'))
+
+# Confirmed cases - context ####
+
+daily_cases <- read_csv(paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv')) %>% 
+  mutate(Name = factor(Name, levels = rev(c('Brighton and Hove','East Sussex','Eastbourne', 'Hastings', 'Lewes','Rother','Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex', 'Worthing', 'South East region', 'England')))) %>% 
+  mutate(new_case_key = factor(ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases >= 76 & New_cases <= 100, '76-100 cases', ifelse(New_cases >100, 'More than 100 cases', NA))))))), levels =  c('No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', '76-100 cases', 'More than 100 cases'))) %>%
+  mutate(new_case_per_100000_key = factor(ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 2, '1-2 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 4, '3-4 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 6, '5-6 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 8, '7-8 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 10, '9-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 10, 'More than 10 new cases per 100,000', NA)))))))), levels =  c('No new cases', '1-2 new cases per 100,000', '3-4 new cases per 100,000', '5-6 new cases per 100,000', '7-8 new cases per 100,000', '9-10 new cases per 100,000', 'More than 10 new cases per 100,000'))) 
+
+daily_cases %>% 
+  group_by(new_case_per_100000_key) %>% 
+  summarise(n())
+
+# PHE say the last five data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
+complete_date <- max(daily_cases$Date) - 5
+complete_period <- format(complete_date, '%d %B')
+
+# Latest
+case_summary_latest <- daily_cases %>% 
+  filter(Date == max(Date)) %>% 
+  select(Name, Cumulative_cases, Cumulative_per_100000, Three_day_average_cumulative_cases) %>% 
+  rename(`Total confirmed cases so far` = Cumulative_cases,
+         `Total cases per 100,000 population` = Cumulative_per_100000,
+         `Three day average cumulative cases` = Three_day_average_cumulative_cases)
+
+case_summary_complete <- daily_cases %>% 
+  filter(Date == complete_date) %>% 
+  select(Name, New_cases, New_cases_per_100000, Three_day_average_new_cases) %>% 
+  rename(`Confirmed cases swabbed on most recent complete day` = New_cases,
+         `Confirmed cases swabbed per 100,000 population on most recent complete day` = New_cases_per_100000,
+         `Average number of confirmed cases tested in past three complete days` = Three_day_average_new_cases) 
+
+doubling_time_df_summary <- daily_cases %>% 
+  filter(period_in_reverse %in% c(1,2)) %>% 
+  arrange(-period_in_reverse) %>% 
+  select(Name, date_range_label, Double_time) %>% 
+  unique() %>% 
+  spread(date_range_label, Double_time)
+
+case_summary <- case_summary_latest %>% 
+  left_join(case_summary_complete, by = 'Name') %>% 
+  left_join(doubling_time_df_summary, by = 'Name') %>% 
+  arrange(Name) %>% 
+  mutate(Name = factor(Name, levels = unique(Name))) %>% 
+  mutate(`Rate of growth in cases` = ifelse(.[[8]] > .[[9]], 'Slowing', ifelse(.[[8]] < .[[9]], 'Speeding up', NA))) %>% 
+  mutate_at(vars(2,5), funs(format(., big.mark = ',', trim = TRUE))) %>% 
+  mutate_at(vars(3,4,6,7), funs(format(round(.,0), big.mark = ',', trim = TRUE))) %>% 
+  mutate_at(vars(8,9), funs(paste0(format(round(.,1), big.mark = ',', trim = TRUE),' days'))) %>% 
+  mutate(highlight = ifelse(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex'), 'bold', 'plain'))
+
+new_case_rate_plot <- ggplot(daily_cases, aes(x = Date,
+                           y = Name,
+                           fill = new_case_per_100000_key)) +
+  scale_fill_manual(values = c('#ffffb2','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#b10026'),
+                    name = 'Tile colour\nkey',
+                    drop = FALSE) +
+  geom_tile(colour = "#ffffff") +
+  labs(x = NULL,
+       y = NULL) +
+  scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(daily_cases$Date) -(52*7), max(daily_cases$Date), by = 7),
+               limits = c(min(daily_cases$Date), max(daily_cases$Date)),
+               expand = c(0,0.0)) +
+  scale_y_discrete(position = 'right') +
+  hm_theme() +
+  theme(axis.text.y = element_text(colour = "#323232", face = case_summary$highlight, size = 8)) +
+  # theme(axis.text.y = element_blank()) +
+  theme(legend.position = 'none')
+
+case_title = paste0('Summary of new confirmed Covid-19 cases per 100,000 population (all ages); ', format(min(daily_cases$Date), '%d %B'), ' to ',format(max(daily_cases$Date), '%d %B'))
+
+png(paste0(github_repo_dir, "/new_case_rate_plot.png"), width = 680, height = 500, res = 120)
+new_case_rate_plot
+dev.off()
+
+case_summary %>%
+  arrange(rev(Name)) %>%
+  select(-c(`Total cases per 100,000 population`,highlight)) %>%
+  write.csv(., paste0(github_repo_dir, '/case_summary.csv'), row.names = FALSE, na = '')
+
+utla_daily_cases <- daily_cases %>% 
+  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
+  filter(Days_since_case_x >= 0)
+
+ggplot(utla_daily_cases,
+       aes(x = Days_since_case_x,
+           y = Cumulative_cases,
+           group = Name,
+           colour = Name)) +
+    geom_point(aes(x = Days_since_case_x,
+                   y = Cumulative_cases,
+                   group = Name),
+             size = 3,
+             colour = '#ffffff',
+             shape = 21) +
+  labs(title = paste0('Cumulative confirmed Covid-19 cases over timel days since case 10; linear scale'),
+       x = 'Days since case 10',
+       y = 'Number of deaths') +
+  scale_fill_manual(values = c("#92D050", "#FFC000","#C00000"),
+                    name = '') +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling),100),
+                     limits = c(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling))) +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
+        legend.key.size = unit(0.5, "lines")) 
+
+# Deaths slides ####
 
 # slide 1 - table
 

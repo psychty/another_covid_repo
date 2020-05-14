@@ -303,7 +303,6 @@ case_summary <- case_summary_latest %>%
   left_join(doubling_time_df_summary, by = 'Name') %>% 
   arrange(-`Total confirmed cases so far`) %>% 
   mutate(Name = factor(Name, levels = unique(Name))) %>% 
-  mutate(summary_label_doubling = paste0('In the most recent ', double_time_period, ' day time period, cases were set to double in ', round(Latest_doubling_time, 1), ' days. Compared to the previous ', double_time_period, ' days, the doubling time has ', ifelse(Latest_doubling_time > Previous_doubling_time, paste0(' increased from ', round(Previous_doubling_time, 1), ' days (meaning a slowing down of new cases).'), paste0(' decreased from ', round(Previous_doubling_time, 1), ' days (meaning a speeding up of new cases).')))) %>% 
   mutate(Growth_rate_change = ifelse(Latest_doubling_time > Previous_doubling_time, 'Slowing', ifelse(Latest_doubling_time < Previous_doubling_time, 'Speeding up', NA)))
 
 rm(case_summary_complete, case_summary_latest)
@@ -311,7 +310,7 @@ rm(case_summary_complete, case_summary_latest)
 complete_period <- format(complete_date, '%d %B')
 
 daily_cases <- daily_cases_reworked %>% 
-  select(Name, Date, Period, Data_completeness, Cumulative_cases, Three_day_average_cumulative_cases, Cumulative_per_100000, Log10Cumulative_cases, New_cases, New_cases_per_100000, Case_label, Rate_label, Proportion_label, Three_day_ave_cumulative_label, Three_day_ave_new_label, new_case_key, new_case_per_100000_key, Days_since_case_x, Days_since_first_case) %>% 
+  select(Name, Date, Period, Data_completeness, Cumulative_cases,Three_day_average_new_cases, Three_day_average_cumulative_cases, Cumulative_per_100000, Log10Cumulative_cases, New_cases, New_cases_per_100000, Case_label, Rate_label, Proportion_label, Three_day_ave_cumulative_label, Three_day_ave_new_label, new_case_key, new_case_per_100000_key, Days_since_case_x, Days_since_first_case) %>% 
   left_join(doubling_time_df[c('Name', 'Date', 'period_in_reverse', 'Double_time', 'date_range_label')], by = c('Name', 'Date')) %>% 
   mutate(double_time_label_1 = paste0(ifelse(Days_since_case_x < 0, '', ifelse(Days_since_case_x == 0, paste0('This is the day that the total (cumulative) cases was ', case_x_number, ' or more.'), paste0('This is day ', Days_since_case_x, ' since the number of diagnosed cases reached ', case_x_number, ' or more.'))), paste0(' The total (cumulative) number of cases on this day was ', format(Cumulative_cases, big.mark = ',', trim = TRUE)))) %>% 
   # mutate(double_time_label_1 = ifelse(Days_since_case_x < 0, NA, double_time_label_1)) %>% 
@@ -460,6 +459,7 @@ nn_area %>%
 
 daily_cases %>% 
   filter(Name %in% ltla_areas) %>% 
+  mutate(Log10Cumulative_cases = log10(Cumulative_cases)) %>% # We also add log scaled cumulative cases for reporting growth
   write.csv(., paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv'), row.names = FALSE, na = '')
 
 # fin
