@@ -36,7 +36,7 @@ areas_care_home_beds <- mye_total_raw %>%
 # This is the number of beds in care homes (all; nursing and residential) in each area as reported by Care Quality Care (CQC) on the 31st of March 2019.
 
 care_home_beds_utla <- fingertips_data(IndicatorID = 92489, AreaTypeID = 102) %>% 
-  filter(Timeperiod == max(Timeperiod)) %>% 
+  filter(Timeperiod == max(Timeperiod)) #%>% 
   filter(Age == 'All ages') %>% 
   select(AreaCode, AreaName, Count) %>%
   rename(Area_code = AreaCode,
@@ -141,7 +141,9 @@ download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcomm
 # Use occurances, be mindful that the most recent week of occurance data may not be complete if the death is not registered within 7 days (there is a week lag in reporting to allow up to seven days for registration to take place), this will be updated each week. Estimates suggest around 74% of deaths in England and Wales are registered within seven calendar days of occurance, with the proportion as low as 68% in the South East region. It is difficult to know what impact Covid-19 has on length of time taken to register a death. 
 
 # Occurrences data is produced at ltla level and we would probably find it useful to aggregate to utla and region for our analysis
-Occurrences_ltla <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+
+
+Occurrences_ltla <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
   filter(substr(`Area code`, 1,1) == 'E') %>% 
   rename(Area_name = `Area name`,
@@ -156,7 +158,7 @@ Occurrences_ltla <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sh
   ungroup()
 
 # Occurrences data is produced at ltla level and we would probably find it useful to aggregate to utla and region for our analysis
-Occurrences_utla <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+Occurrences_utla <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
   filter(substr(`Area code`, 1,1) == 'E') %>% 
   left_join(lookup, by = c('Area code' = 'LTLA19CD')) %>% 
@@ -183,7 +185,7 @@ Occurrences_la <- Occurrences_ltla %>%
 
 rm(Occurrences_ltla, Occurrences_utla)
 
-Occurrences_region <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+Occurrences_region <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
   filter(substr(`Area code`, 1,1) == 'E') %>% 
   left_join(lookup, by = c('Area code' = 'LTLA19CD')) %>% 
@@ -209,7 +211,7 @@ Sussex_combined_occurrence <- Occurrences_la %>%
   select(Area_code, Area_name, Type, Week_number, Week_ending, Cause, Place_of_death, Deaths) %>% 
   ungroup()
 
-England_occurrence <- read_xlsx(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
+England_occurrence <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
   filter(substr(`Area code`, 1,1) == 'E') %>% 
   rename(Area_name = `Area name`,
@@ -422,14 +424,14 @@ Care_home_deaths <- Occurrences %>%
   mutate(Cumulative_deaths = cumsum(Deaths)) %>% 
   ungroup() %>% 
   left_join(mye_total[c('Area_code', 'Care_home_beds')], by = c('Code' = 'Area_code')) %>% 
-  mutate(Deaths_crude_rate_per_100_care_home_beds =  pois.exact(Deaths, Care_home_beds)[[3]]*100000) %>% 
-  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, Care_home_beds)[[4]]*100000) %>% 
-  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, Care_home_beds)[[5]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_per_100_care_home_beds =  pois.exact(Cumulative_deaths, Care_home_beds)[[3]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Care_home_beds)[[4]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Care_home_beds)[[5]]*100000) %>% 
-  mutate(Deaths_label = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_100_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 100,000 population 65+, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) %>% 
-  mutate(Cumulative_deaths_label = paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Cumulative_deaths_crude_rate_per_100_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 100,000 population 65+, 95% CI: ', format(round(Cumulative_deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Cumulative_deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
+  mutate(Deaths_crude_rate_per_1000_care_home_beds =  pois.exact(Deaths, Care_home_beds)[[3]]*1000) %>% 
+  mutate(Deaths_crude_rate_lci = pois.exact(Deaths, Care_home_beds)[[4]]*1000) %>% 
+  mutate(Deaths_crude_rate_uci = pois.exact(Deaths, Care_home_beds)[[5]]*1000) %>% 
+  mutate(Cumulative_deaths_crude_rate_per_1000_care_home_beds =  pois.exact(Cumulative_deaths, Care_home_beds)[[3]]*1000) %>% 
+  mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Care_home_beds)[[4]]*1000) %>% 
+  mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Care_home_beds)[[5]]*1000) %>% 
+  mutate(Deaths_label = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_1000_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 1,000 care home beds, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) %>% 
+  mutate(Cumulative_deaths_label = paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Cumulative_deaths_crude_rate_per_1000_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 1,000 care home beds, 95% CI: ', format(round(Cumulative_deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Cumulative_deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
 
 Care_home_latest_all_cause <- Care_home_deaths %>% 
   filter(Week_ending == max(Week_ending)) %>% 
@@ -451,23 +453,23 @@ Covid_burden_of_all_mortality_care_homes <- Care_home_deaths %>%
 
 Covid_burden_latest_care_homes <- Covid_burden_of_all_mortality_care_homes %>% 
   filter(Week_ending == max(Week_ending)) %>% 
-  left_join(Care_home_latest_all_cause[c('Name', 'Cumulative_deaths_crude_rate_per_100_care_home_beds', 'Deaths_crude_rate_per_100_care_home_beds', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
+  left_join(Care_home_latest_all_cause[c('Name', 'Cumulative_deaths_crude_rate_per_1000_care_home_beds', 'Deaths_crude_rate_per_1000_care_home_beds', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
   rename('All cause care home deaths in week'= `All causes`,
-         `All cause care home deaths in week per 100 care home beds` = Deaths_crude_rate_per_100_care_home_beds,
+         `All cause care home deaths in week per 1,000 care home beds` = Deaths_crude_rate_per_1000_care_home_beds,
          'Total number of all cause care home deaths to date in 2020' = Cumulative_deaths_all_cause,
-         `Total number of all cause care home deaths to date per 100 care home beds` = Cumulative_deaths_crude_rate_per_100_care_home_beds,
+         `Total number of all cause care home deaths to date per 1,000 care home beds` = Cumulative_deaths_crude_rate_per_1000_care_home_beds,
          `All cause latest week care home summary` = Deaths_label,
          `All cause cumulative care home summary` = Cumulative_deaths_label,
          `Care home deaths attributed to Covid-19 in week` = `COVID 19`,
          `Total number of care home deaths attributed to Covid-19 to date in 2020` = Cumulative_covid_deaths,
          `Proportion of care home deaths occuring in week that are attributed to Covid-19` = Proportion_covid_deaths_occuring_in_week,
          `Proportion of care home deaths to date in 2020 attributed to Covid-19` = Proportion_covid_deaths_to_date) %>% 
-  left_join(Care_home_latest_covid[c('Name', 'Cumulative_deaths_crude_rate_per_100_care_home_beds', 'Deaths_crude_rate_per_100_care_home_beds', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
-  rename(`Covid-19 care home deaths in week per 100 care home beds` = Deaths_crude_rate_per_100_care_home_beds,
-         `Total number of care home deaths attributed to Covid-19 to date per 100 care home beds` = Cumulative_deaths_crude_rate_per_100_care_home_beds,
+  left_join(Care_home_latest_covid[c('Name', 'Cumulative_deaths_crude_rate_per_1000_care_home_beds', 'Deaths_crude_rate_per_1000_care_home_beds', 'Deaths_label', 'Cumulative_deaths_label')], by = 'Name') %>% 
+  rename(`Covid-19 care home deaths in week per 1,000 care home beds` = Deaths_crude_rate_per_1000_care_home_beds,
+         `Total number of care home deaths attributed to Covid-19 to date per 1,000 care home beds` = Cumulative_deaths_crude_rate_per_1000_care_home_beds,
          `Covid-19 latest week care home summary` = Deaths_label,
          `Covid-19 cumulative care home summary` = Cumulative_deaths_label) %>% 
-  select(Name,Week_number,Week_ending, `All cause care home deaths in week`, `All cause care home deaths in week per 100 care home beds`, `All cause latest week care home summary`, `Total number of all cause care home deaths to date in 2020`, `Total number of all cause care home deaths to date per 100 care home beds`, `All cause cumulative care home summary`, `Care home deaths attributed to Covid-19 in week`, `Covid-19 care home deaths in week per 100 care home beds`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date per 100 care home beds`, `Covid-19 latest week care home summary`, `Covid-19 cumulative care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`)
+  select(Name,Week_number,Week_ending, `All cause care home deaths in week`, `All cause care home deaths in week per 1,000 care home beds`, `All cause latest week care home summary`, `Total number of all cause care home deaths to date in 2020`, `Total number of all cause care home deaths to date per 1,000 care home beds`, `All cause cumulative care home summary`, `Care home deaths attributed to Covid-19 in week`, `Covid-19 care home deaths in week per 1,000 care home beds`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date per 1,000 care home beds`, `Covid-19 latest week care home summary`, `Covid-19 cumulative care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`)
 
 Covid_care_home_burden_all_age_latest_SE <- Covid_burden_latest_care_homes %>% 
   filter(Name %in%  c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East', 'England')) %>% 
@@ -497,9 +499,9 @@ for(i in 1:nrow(SE_area_code_names)){
 care_home_ons_cipfa <- nn_area %>% 
   left_join(Covid_burden_latest_care_homes, by = c('Nearest_neighbour_name' = 'Name')) %>% 
   group_by(Area_code, Area_name) %>% 
-  mutate(`Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of all cause care home deaths to date per 100 care home beds`))) %>%
-  mutate(`Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 100 care home beds` = ordinal(rank(-`Covid-19 care home deaths in week per 100 care home beds`))) %>%
-  mutate(`Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 100 care home beds` = ordinal(rank(-`Total number of care home deaths attributed to Covid-19 to date per 100 care home beds`))) %>%
+  mutate(`Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of all cause care home deaths to date per 1,000 care home beds`))) %>%
+  mutate(`Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds` = ordinal(rank(-`Covid-19 care home deaths in week per 1,000 care home beds`))) %>%
+  mutate(`Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds` = ordinal(rank(-`Total number of care home deaths attributed to Covid-19 to date per 1,000 care home beds`))) %>%
   mutate(`Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of care home deaths to date in 2020 attributed to Covid-19`))) 
 
 # exporting ONS ch data
@@ -535,7 +537,6 @@ cqc_care_home_daily_deaths %>%
 # Deaths of patients who have died in hospitals in England and had tested positive for Covid-19 at time of death. All deaths are recorded against the date of death rather than the day the deaths were announced. Likely to be some revision.
 
 # Note: interpretation of the figures should take into account the fact that totals by date of death, particularly for recent prior days, are likely to be updated in future releases. For example as deaths are confirmed as testing positive for Covid-19, as more post-mortem tests are processed and data from them are validated. Any changes are made clear in the daily files.					
-
 if(!file.exists(paste0(github_repo_dir, '/etr.csv'))){
   download.file('https://files.digital.nhs.uk/assets/ods/current/etr.zip', paste0(github_repo_dir, '/etr.zip'), mode = 'wb')
   unzip(paste0(github_repo_dir, '/etr.zip'), exdir = github_repo_dir)
@@ -611,7 +612,7 @@ latest_complete_deaths_trust_date <- max(daily_deaths_trust$Date)-5
 daily_trust_deaths_table <- daily_deaths_trust %>% 
   filter(Date == latest_complete_deaths_trust_date) %>% 
   rename(`Deaths reported on most recent complete day` = Deaths) %>% 
-  select(Code, Trust, `Deaths reported on most recent complete day`) %>% 
+  select(Code, Trust, Date, `Deaths reported on most recent complete day`) %>% 
   left_join(latest_reported_daily_trust_deaths, by = 'Trust')
 
 meta_trust_deaths <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'COVID19 total deaths by trust', skip = 2, col_names = FALSE, n_max = 5) %>% 
@@ -623,7 +624,14 @@ meta_trust_deaths %>%
   filter(Item == 'Period:') %>% 
   select(Description)
 
+daily_deaths_trust %>% 
+  write.csv(., paste0(github_repo_dir, '/daily_trust_deaths.csv'), row.names = FALSE, na = '')
 
+daily_trust_deaths_table %>% 
+  write.csv(., paste0(github_repo_dir, '/daily_trust_deaths_table.csv'), row.names = FALSE, na = '')
+
+meta_trust_deaths %>% 
+  write.csv(., paste0(github_repo_dir, '/meta_trust_deaths.csv'), row.names = FALSE, na = '')
 
 
 # Summarise the data over different sources.
