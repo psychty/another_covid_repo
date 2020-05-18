@@ -36,7 +36,7 @@ areas_care_home_beds <- mye_total_raw %>%
 # This is the number of beds in care homes (all; nursing and residential) in each area as reported by Care Quality Care (CQC) on the 31st of March 2019.
 
 care_home_beds_utla <- fingertips_data(IndicatorID = 92489, AreaTypeID = 102) %>% 
-  filter(Timeperiod == max(Timeperiod)) #%>% 
+  filter(Timeperiod == max(Timeperiod)) %>% 
   filter(Age == 'All ages') %>% 
   select(AreaCode, AreaName, Count) %>%
   rename(Area_code = AreaCode,
@@ -275,10 +275,11 @@ Covid_burden_of_all_mortality <- All_settings_occurrences %>%
   group_by(Code, Name, Week_number, Week_ending) %>% 
   spread(Cause, Deaths) %>% 
   mutate(Proportion_covid_deaths_occuring_in_week = `COVID 19` / `All causes`) %>% 
-  ungroup() %>% 
+  group_by(Code, Name) %>% 
   mutate(Cumulative_deaths_all_cause = cumsum(`All causes`)) %>% 
   mutate(Cumulative_covid_deaths = cumsum(`COVID 19`)) %>% 
-  mutate(Proportion_covid_deaths_to_date = Cumulative_covid_deaths / Cumulative_deaths_all_cause) 
+  mutate(Proportion_covid_deaths_to_date = Cumulative_covid_deaths / Cumulative_deaths_all_cause) %>% 
+  ungroup()
 
 Covid_burden_latest <- Covid_burden_of_all_mortality %>% 
   filter(Week_ending == max(Week_ending)) %>% 
@@ -304,33 +305,26 @@ Covid_burden_all_age_latest_SE <- Covid_burden_latest %>%
   mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
 
 SE_area_code_names <- area_code_names %>% 
-  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham'))
+  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'))
 
-nn_area <- data.frame(Area_code = character(), Area_name = character(), Nearest_neighbour_code = character(), Nearest_neighbour_name = character())
+bh_nn <- data.frame(Name = rep('Brighton and Hove',16), Nearest_neighbour = c('Nottingham', 'Medway', 'Newcastle upon Tyne', 'Liverpool','Portsmouth','Southampton','Leeds','Sheffield','York','Plymouth','Salford','Coventry','Bristol, City of','Southend-on-Sea','Brighton and Hove', 'Reading'))
 
-for(i in 1:nrow(SE_area_code_names)){
-  nn_area_x <- data.frame(Nearest_neighbour_code = nearest_neighbours(AreaCode = SE_area_code_names$Code[i], AreaTypeID = 102, measure = 'CIPFA')) %>% 
-    left_join(area_code_names, by = c('Nearest_neighbour_code' = 'Code')) %>% 
-    add_row(Nearest_neighbour_code = SE_area_code_names$Code[i]) %>% 
-    mutate(Area_code = SE_area_code_names$Code[i]) %>% 
-    left_join(area_code_names, by = c('Area_code' = 'Code')) %>% 
-    rename(Area_name = Name.y,
-           Nearest_neighbour_name = Name.x) %>% 
-    mutate(Nearest_neighbour_name = ifelse(is.na(Nearest_neighbour_name), Area_name, Nearest_neighbour_name)) %>% 
-    select(Area_code, Area_name, Nearest_neighbour_code, Nearest_neighbour_name)
-  
-  nn_area <- nn_area %>% 
-    bind_rows(nn_area_x)
-  
-}
+es_nn <- data.frame(Name = rep('East Sussex',16), Nearest_neighbour =  c('Nottinghamshire','Kent','Lancashire','Norfolk','Worcestershire','Staffordshire','Somerset','East Sussex','Devon','Gloucestershire','North Yorkshire','Suffolk','Warwickshire','Essex', 'West Sussex','Hampshire'))
+
+ws_nn <- data.frame(Name = rep('West Sussex',16), Nearest_neighbour = c('Kent','Northamptonshire','Worcestershire', 'Staffordshire','Somerset','East Sussex', 'Devon', 'Gloucestershire', 'Cambridgeshire','North Yorkshire','Suffolk','Warwickshire','Essex','West Sussex', 'Hampshire', 'Oxfordshire'))
+
+nn_area <- bh_nn %>% 
+  bind_rows(es_nn) %>% 
+  bind_rows(ws_nn)
 
 all_deaths_cipfa_SE <- nn_area %>% 
-  left_join(Covid_burden_latest, by = c('Nearest_neighbour_name' = 'Name')) %>% 
-  group_by(Area_code, Area_name) %>% 
+  left_join(Covid_burden_latest, by = c('Nearest_neighbour' = 'Name')) %>% 
+  group_by(Name) %>% 
   mutate(`Rank of cumulative all cause deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of all cause deaths to date per 100,000 population`))) %>%
   mutate(`Rank of latest Covid-19 deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Covid-19 deaths in week per 100,000 population`))) %>%
   mutate(`Rank of cumulative Covid-19 deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of deaths attributed to Covid-19 to date per 100,000 population`))) %>%
-  mutate(`Rank of proportion of deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of deaths to date in 2020 attributed to Covid-19`))) 
+  mutate(`Rank of proportion of deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of deaths to date in 2020 attributed to Covid-19`))) %>% 
+  filter(Name == Nearest_neighbour)
 
 # Exporting for figures ####
 
@@ -371,6 +365,9 @@ SE_deaths_by_cause_cat %>%
 all_deaths_cipfa_SE %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_deaths_all_settings_ranks_SE.json'))
+
+all_deaths_cipfa_SE %>% 
+  write.csv(., paste0(github_repo_dir, '/all_deaths_cipfa_ons.csv'), row.names = FALSE, na = '')
 
 # ASMR and MSOA by sex ####
 
@@ -446,10 +443,11 @@ Covid_burden_of_all_mortality_care_homes <- Care_home_deaths %>%
   group_by(Code, Name, Week_number, Week_ending) %>% 
   spread(Cause, Deaths) %>% 
   mutate(Proportion_covid_deaths_occuring_in_week = `COVID 19` / `All causes`) %>% 
-  ungroup() %>% 
+  group_by(Code, Name) %>% 
   mutate(Cumulative_deaths_all_cause = cumsum(`All causes`)) %>% 
   mutate(Cumulative_covid_deaths = cumsum(`COVID 19`)) %>% 
-  mutate(Proportion_covid_deaths_to_date = Cumulative_covid_deaths / Cumulative_deaths_all_cause) 
+  mutate(Proportion_covid_deaths_to_date = Cumulative_covid_deaths / Cumulative_deaths_all_cause) %>% 
+  ungroup()
 
 Covid_burden_latest_care_homes <- Covid_burden_of_all_mortality_care_homes %>% 
   filter(Week_ending == max(Week_ending)) %>% 
@@ -478,31 +476,17 @@ Covid_care_home_burden_all_age_latest_SE <- Covid_burden_latest_care_homes %>%
 SE_area_code_names <- area_code_names %>% 
   filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham'))
 
-nn_area <- data.frame(Area_code = character(), Area_name = character(), Nearest_neighbour_code = character(), Nearest_neighbour_name = character())
-
-for(i in 1:nrow(SE_area_code_names)){
-  nn_area_x <- data.frame(Nearest_neighbour_code = nearest_neighbours(AreaCode = SE_area_code_names$Code[i], AreaTypeID = 102, measure = 'CIPFA')) %>% 
-    left_join(area_code_names, by = c('Nearest_neighbour_code' = 'Code')) %>% 
-    add_row(Nearest_neighbour_code = SE_area_code_names$Code[i]) %>% 
-    mutate(Area_code = SE_area_code_names$Code[i]) %>% 
-    left_join(area_code_names, by = c('Area_code' = 'Code')) %>% 
-    rename(Area_name = Name.y,
-           Nearest_neighbour_name = Name.x) %>% 
-    mutate(Nearest_neighbour_name = ifelse(is.na(Nearest_neighbour_name), Area_name, Nearest_neighbour_name)) %>% 
-    select(Area_code, Area_name, Nearest_neighbour_code, Nearest_neighbour_name)
-  
-  nn_area <- nn_area %>% 
-    bind_rows(nn_area_x)
-  
-}
-
 care_home_ons_cipfa <- nn_area %>% 
-  left_join(Covid_burden_latest_care_homes, by = c('Nearest_neighbour_name' = 'Name')) %>% 
-  group_by(Area_code, Area_name) %>% 
+  left_join(Covid_burden_latest_care_homes, by = c('Nearest_neighbour' = 'Name')) %>% 
+  group_by(Name) %>% 
   mutate(`Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours` = ordinal(rank(-`Total number of all cause care home deaths to date per 1,000 care home beds`))) %>%
   mutate(`Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds` = ordinal(rank(-`Covid-19 care home deaths in week per 1,000 care home beds`))) %>%
   mutate(`Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds` = ordinal(rank(-`Total number of care home deaths attributed to Covid-19 to date per 1,000 care home beds`))) %>%
-  mutate(`Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of care home deaths to date in 2020 attributed to Covid-19`))) 
+  mutate(`Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours` = ordinal(rank(-`Proportion of care home deaths to date in 2020 attributed to Covid-19`))) %>% 
+  filter(Name == Nearest_neighbour)
+
+care_home_ons_cipfa %>% 
+  write.csv(., paste0(github_repo_dir, '/care_home_ons_cipfa.csv'), row.names = FALSE, na = '')
 
 # exporting ONS ch data
 
@@ -514,7 +498,6 @@ Care_home_deaths %>%
 # Note: The notifications only include those received by 5pm on 8th May.
 
 download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200510officialsensitivecoviddeathnotificationschdata20200508.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
-
 
 cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
   rename(Name = ...1) %>% 
@@ -574,10 +557,13 @@ catchment_pop <- read_csv(paste0(github_repo_dir, '/trust_catchment_population_e
 
 # This should download the data for today (it will only work after the new file is published at 5pm though), shame on those who release new filenames each day and do not allow for a static url
 
-# This is a bit of a hack, it says download the previous day. If you run the script before a new file is uploaded it will obviously fail. So at the very least, you'll get the updated file from yesterday 
-download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+# This is a bit of a hack, it says download today. If you run the script before a new file is uploaded it will obviously fail. So at the very least, you'll get the updated file from yesterday 
+download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-daily-announced-deaths-',format(Sys.Date(), '%d-%B-%Y'),'-2.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
 
-download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date(), '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+# if the downlaod does fail, it wipes out the old one, which we can use to our advantage
+if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
+download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'-2.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+}
 
 local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
 

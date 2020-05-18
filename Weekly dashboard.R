@@ -78,8 +78,6 @@ daily_deaths_trust <- read_csv(paste0(github_repo_dir, '/daily_trust_deaths.csv'
 daily_trust_deaths_table <- read_csv(paste0(github_repo_dir, '/daily_trust_deaths_table.csv'))
 meta_trust_deaths <- read_csv(paste0(github_repo_dir, '/meta_trust_deaths.csv'))
 
-read_pptx(path = paste0(github_repo_dir, '/Death Slides - West Sussex V1.pptx'))
-
 # Confirmed cases - context ####
 
 daily_cases <- read_csv(paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv')) %>% 
@@ -160,29 +158,72 @@ case_summary %>%
 
 utla_daily_cases <- daily_cases %>% 
   filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
-  filter(Days_since_case_x >= 0)
+  filter(Days_since_case_x >= 0) %>% 
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex')))
 
-ggplot(utla_daily_cases,
+cases_linear_plot <- ggplot(utla_daily_cases,
        aes(x = Days_since_case_x,
            y = Cumulative_cases,
            group = Name,
            colour = Name)) +
+    geom_line() +
     geom_point(aes(x = Days_since_case_x,
                    y = Cumulative_cases,
-                   group = Name),
-             size = 3,
+                   fill = Name),
+             size = 2,
              colour = '#ffffff',
              shape = 21) +
-  labs(title = paste0('Cumulative confirmed Covid-19 cases over timel days since case 10; linear scale'),
+  labs(title = paste0('Cumulative confirmed Covid-19 cases over time; days since case 10; linear scale'),
        x = 'Days since case 10',
        y = 'Number of deaths') +
-  scale_fill_manual(values = c("#92D050", "#FFC000","#C00000"),
+  scale_colour_manual(values = c("#549037", "#003366",'#710a60'),
                     name = '') +
+  scale_fill_manual(values = c("#549037", "#003366",'#710a60'),
+                      name = '') +
+  scale_x_continuous(limits = c(0,max(utla_daily_cases$Days_since_case_x)+2),
+                     breaks = seq(0,max(utla_daily_cases$Days_since_case_x), 2),
+                     expand = c(0,0.01)) +
   scale_y_continuous(breaks = seq(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling),100),
-                     limits = c(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling))) +
+                     limits = c(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling)),
+                     labels = comma) +
   ph_theme() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
-        legend.key.size = unit(0.5, "lines")) 
+  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) 
+
+png(paste0(github_repo_dir, "/cases_linear_plot.png"), width = 480, height = 250)
+cases_linear_plot
+dev.off()  
+
+cases_loglinear_plot <-  ggplot(utla_daily_cases,
+         aes(x = Days_since_case_x,
+             y = Cumulative_cases,
+             group = Name,
+             colour = Name)) +
+  geom_line() +
+  geom_point(aes(x = Days_since_case_x,
+                 y = Cumulative_cases,
+                 fill = Name),
+             size = 2,
+             colour = '#ffffff',
+             shape = 21) +
+  labs(title = paste0('Cumulative confirmed Covid-19 cases over time; days since case 10; loglinear scale'),
+       x = 'Days since case 10',
+       y = 'Number of deaths') +
+  scale_colour_manual(values = c("#549037", "#003366",'#710a60'),
+                      name = '') +
+  scale_fill_manual(values = c("#549037", "#003366",'#710a60'),
+                    name = '') +
+  scale_x_continuous(limits = c(0,max(utla_daily_cases$Days_since_case_x)+2),
+                     breaks = seq(0,max(utla_daily_cases$Days_since_case_x), 2),
+                     expand = c(0,0.01)) +
+  scale_y_continuous(trans = 'log10',
+                     breaks= c(10, 50, 100, 250, 500, 1000, 2000),
+                     labels = comma) +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) 
+
+png(paste0(github_repo_dir, "/cases_loglinear_plot.png"), width = 480, height = 250)
+cases_loglinear_plot
+dev.off()  
 
 # Deaths slides ####
 
@@ -323,8 +364,7 @@ wsx_place <- place_of_death %>%
   mutate(Deaths_proportion = Deaths / sum(Deaths)) %>% 
   ungroup()
 
- 
-wsx_place_death_all_cause_plot <- ggplot(wsx_place,
+ wsx_place_death_all_cause_plot <- ggplot(wsx_place,
        aes(x = Week_ending, 
            y = Deaths,
            fill = Place_of_death)) +
@@ -439,8 +479,15 @@ wsx_place_table_p <- wsx_place %>%
   arrange(rev(Place_of_death)) %>% 
   write.csv(., paste0(github_repo_dir, '/wsx_place_table_p.csv'), row.names = FALSE, na = '')
 
-# png("./Alcohol/DBIU_referral_1617_Plot.png", height = 1420, width = 2591, res = 100, pointsize = 12)
+# cipfa tables ####
+read_csv(paste0(github_repo_dir, '/all_deaths_cipfa_ons.csv')) %>% 
+  select(Name, `All cause latest week summary`, `Covid-19 latest week summary`,`Proportion of deaths occuring in week that are attributed to Covid-19`, `Rank of latest Covid-19 deaths crude rate among CIPFA neighbours`, `Total number of all cause deaths to date in 2020`, `Rank of cumulative all cause deaths crude rate among CIPFA neighbours`,  `Total number of deaths attributed to Covid-19 to date in 2020`, `Rank of cumulative Covid-19 deaths crude rate among CIPFA neighbours`, `Proportion of deaths to date in 2020 attributed to Covid-19`, `Rank of proportion of deaths to date attributed to Covid-19 among CIPFA neighbours`) %>% 
+  write.csv(., paste0(github_repo_dir, '/cipfa_weekly_deaths_all_table.csv'), row.names = FALSE, na = '')
 
+ read_csv(paste0(github_repo_dir, '/care_home_ons_cipfa.csv')) %>% 
+   select(Name, `All cause latest week care home summary`, `Covid-19 latest week care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds`, `Total number of all cause care home deaths to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`, `Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours`, `Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds`, `Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours`) %>% 
+   write.csv(., paste0(github_repo_dir, '/cipfa_weekly_deaths_care_home_table.csv'), row.names = FALSE, na = '')
+  
 # Extra - rate all causes
 
 all_cause_rate <- weekly_all_place_deaths %>% 
@@ -490,7 +537,6 @@ crude_rate_plot <- ggplot(all_cause_rate_df) +
   facet_rep_grid(Name ~ .) +
   theme(strip.text = element_blank()) +
   annotate(geom = "text", label = levels(all_cause_rate_df$Name), x = 1, y = round_any(max(all_cause_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-5, size = 3, fontface = "bold", hjust = 0)
-
 
 png(paste0(github_repo_dir, "/crude_rate_plot.png"), width = 1600, height = 1450, res = 250)
 crude_rate_plot
@@ -710,6 +756,164 @@ png(paste0(github_repo_dir, "/covid_utla_asmr_plot.png"), width = 1080, height =
 utla_asmr_covid_plot
 dev.off()
 
+third_asmr_title <- gsub('by sex, West Sussex compared to South East region and England', 'persons, Lower Tier Local Authorities', second_asmr_title)
+
+# Bars of la_asmr showing rank of areas
+ltla_codes <- read_csv('https://opendata.arcgis.com/datasets/35de30c6778b463a8305939216656132_0.csv')
+
+ltla_asmr_all_cause <- la_asmr %>% 
+  filter(Code %in% ltla_codes$LAD19CD) %>% 
+  filter(substr(Code, 1,1) == 'E') %>% 
+  filter(Sex == 'Persons') %>% 
+  arrange(-All_cause_ASMR) %>% 
+  mutate(Rank_all_cause = rank(-All_cause_ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', All_cause_deaths, ' deaths)')) %>% 
+  mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
+  mutate(Area_highlight = ifelse(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden'), 'Highlight', 'No highlight'))
+
+
+eng_asmr <- la_asmr %>% 
+  filter(Name %in% c('England')) %>% 
+  filter(Sex == 'Persons')
+
+se_asmr <- la_asmr %>% 
+  filter(Name %in% c('South East')) %>% 
+  filter(Sex == 'Persons')
+
+library(ggrepel)
+
+
+ltla_asmr_all_cause_plot <-
+ggplot(ltla_asmr_all_cause,
+       aes(x = Name_label,
+           y = All_cause_ASMR,
+           fill = Area_highlight,
+           colour = Area_highlight)) +
+  geom_bar(stat = 'identity') +
+  geom_hline(yintercept = eng_asmr$All_cause_ASMR,
+             colour = '#ff6632',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'England',
+           x = 5, 
+           y = eng_asmr$All_cause_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_hline(yintercept = se_asmr$All_cause_ASMR,
+             colour = '#5d1048',
+             lty = 'longdash') +
+    annotate('text',
+             label = 'South East region',
+             x = 5, 
+             y = se_asmr$All_cause_ASMR,
+             colour = '#000000',
+             size = 3,
+             hjust = 0,
+             vjust = -1) +
+  geom_text(data = subset(ltla_asmr_all_cause, Area_highlight == 'Highlight'),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            aes(label = Name_label)) + 
+  labs(title = third_asmr_title,
+       subtitle = 'All causes',
+       caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
+       x = 'Area',
+       y = 'Age-standardised rate\ndeaths per 100,000') +
+  scale_fill_manual(values = c('#212c3d', '#e8c387')) +
+  scale_colour_manual(values = c('#212c3d', '#e8c387')) +
+  scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling),25),
+                     limits = c(0,round_any(max(ltla_asmr_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling)),
+                     expand = c(0,0.1)) +
+  ph_theme() +
+  theme(axis.text.x = element_blank(),
+        legend.position = 'none') 
+
+png(paste0(github_repo_dir, "/ltla_asmr_all_cause_plot.png"), width = 1200, height = 650, res = 110)
+ltla_asmr_all_cause_plot
+dev.off()
+
+ltla_asmr_covid <- la_asmr %>% 
+  filter(Code %in% ltla_codes$LAD19CD) %>% 
+  filter(substr(Code, 1,1) == 'E') %>% 
+  filter(Sex == 'Persons') %>% 
+  arrange(-Covid_ASMR) %>% 
+  mutate(Rank_covid = rank(-Covid_ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_covid), ', ', Covid_deaths, ' deaths)')) %>% 
+  mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
+  mutate(Area_highlight = ifelse(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden'), 'Highlight', 'No highlight'))
+
+third_asmr_title
+
+ltla_asmr_covid_plot <-
+  ggplot(ltla_asmr_covid,
+         aes(x = Name_label,
+             y = Covid_ASMR,
+             fill = Area_highlight,
+             colour = Area_highlight)) +
+  geom_bar(stat = 'identity') +
+  geom_hline(yintercept = eng_asmr$Covid_ASMR,
+             colour = '#ff6632',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'England',
+           x = 5, 
+           y = eng_asmr$Covid_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_hline(yintercept = se_asmr$Covid_ASMR,
+             colour = '#5d1048',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'South East region',
+           x = 5, 
+           y = se_asmr$Covid_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_text(data = subset(ltla_asmr_covid, Area_highlight == 'Highlight' & !(Name %in% c('Chichester','Adur','Arun','Eastbourne'))),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            aes(label = Name_label)) + 
+  geom_text(data = subset(ltla_asmr_covid, Name %in% c('Chichester', 'Adur', 'Arun')),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            nudge_x = -2.5,
+            aes(label = Name_label)) + 
+    geom_text(data = subset(ltla_asmr_covid, Name %in% c('Eastbourne')),
+              size = 3.5,
+              angle = 90,
+              hjust = -.05,
+              nudge_x = 2,
+              aes(label = Name_label)) + 
+  labs(title = third_asmr_title,
+       subtitle = 'Covid-19 mentioned as underlying or contributing cause',
+       caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
+       x = 'Area',
+       y = 'Age-standardised rate\ndeaths per 100,000') +
+  scale_fill_manual(values = c('#212c3d', '#f2cdd7')) +
+  scale_colour_manual(values = c('#212c3d', '#f2cdd7')) +
+  scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling),20),
+                     limits = c(0,round_any(max(ltla_asmr_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling)),
+                     expand = c(0,0.1)) +
+  ph_theme() +
+  theme(axis.text.x = element_blank(),
+        legend.position = 'none') 
+
+png(paste0(github_repo_dir, "/ltla_asmr_covid_plot.png"), width = 1200, height = 650, res = 110)
+ltla_asmr_covid_plot
+dev.off()
+
+# utla_codes <- read_csv('https://opendata.arcgis.com/datasets/b3d60eecd2e5483384fcd5cf03a82d27_0.csv')
+
+
 # slide 4 - msoa for sussex between 01 March and two weeks prior ####
 
 # msoa_boundaries
@@ -921,8 +1125,6 @@ dev.off()
 
 # change last two weeks tables care homes ####
 
-names(latest_cumulative_covid_deaths_ch)
-
 latest_cumulative_covid_deaths_ch <- care_home_ons %>% 
   filter(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex', 'Sussex areas combined', 'England')) %>% 
   filter(Cause == 'COVID 19') %>% 
@@ -1129,11 +1331,68 @@ wsx_cqc_deaths %>%
   mutate(Prop_cumulative = Cumulative_covid / Cumulative_all_cause) %>% 
   select(Prop_cumulative, Cumulative_all_cause)
 
+unique(daily_deaths_trust_14_days$Trust)
+
 # daily hospital view
-daily_deaths_trust 
-daily_trust_deaths_table 
-meta_trust_deaths
+daily_deaths_trust_14_days <- daily_deaths_trust %>% 
+  mutate(Trust = factor(Trust, levels = c('Brighton and Sussex University Hospitals NHS Trust', 'East Sussex Healthcare NHS Trust','Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Western Sussex Hospitals NHS Foundation Trust', 'England'))) %>% 
+  filter(Date > max(Date) - 14) %>% 
+  select(Trust, Date, Deaths) %>% 
+  mutate(Date = paste0(ordinal(as.numeric(format(Date, '%d'))), ' ', format(Date, '%b %Y'))) %>% 
+  mutate(Date = factor(Date, levels = unique(Date))) %>% 
+  spread(Date, Deaths)
+
+latest_deaths_trust <- daily_deaths_trust %>% 
+  filter(Date == max(Date)) %>% 
+  mutate(Trust = factor(Trust, levels = c('Brighton and Sussex University Hospitals NHS Trust', 'East Sussex Healthcare NHS Trust','Surrey and Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Western Sussex Hospitals NHS Foundation Trust', 'England'))) %>% 
+  mutate(`Crude rate deaths per 100,000 emergency catchment population` = ifelse(is.na(`Crude rate deaths per 100,000 emergency catchment population`), '-', paste0(round(`Crude rate deaths per 100,000 emergency catchment population`, 1), ' per 100,000 (', round(Cumulative_deaths_crude_rate_lci, 1), '-', round(Cumulative_deaths_crude_rate_uci, 1), ')'))) %>%
+  select(Trust, Cumulative_deaths, `Crude rate deaths per 100,000 emergency catchment population`) %>% 
+  rename(`Total deaths reported in Trust so far` = Cumulative_deaths)
+
+trust_deaths_table <- daily_deaths_trust_14_days %>% 
+  left_join(latest_deaths_trust, by = 'Trust') %>% 
+  write.csv(., paste0(github_repo_dir, '/trust_deaths_table.csv'), row.names = FALSE, na = '')
 
 # Deaths of patients who have died in hospitals in England and had tested positive for Covid-19 at time of death. All deaths are recorded against the date of death rather than the day the deaths were announced. Likely to be some revision.
 
 # Note: interpretation of the figures should take into account the fact that totals by date of death, particularly for recent prior days, are likely to be updated in future releases. For example as deaths are confirmed as testing positive for Covid-19, as more post-mortem tests are processed and data from them are validated. Any changes are made clear in the daily files.
+
+daily_deaths_trust <- daily_deaths_trust %>% 
+  filter(Trust != 'England')
+
+deaths_trust_plot <- ggplot(data = daily_deaths_trust,
+       aes(x = Date,
+           y = Cumulative_deaths,
+           colour = Trust,
+           fill = Trust,
+           group = Trust)) +
+  geom_line() +
+  geom_point(aes(x = Date,
+                 y = Cumulative_deaths,
+                 fill = Name),
+             size = 2,
+             colour = '#ffffff',
+             shape = 21) +
+  labs(title = paste0('Cumulative confirmed Covid-19 deaths over time; to ', format(max(daily_deaths_trust$Date), '%d %b')),
+       x = 'Date',
+       y = 'Number of deaths') +
+  scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(daily_deaths_trust$Date) -(52*7), max(daily_deaths_trust$Date), by = 7),
+               limits = c(min(daily_deaths_trust$Date), max(daily_deaths_trust$Date) + 1),
+               expand = c(0,0.1)) +
+  scale_y_continuous(breaks = seq(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 250, ceiling),25),
+                     limits = c(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 250, ceiling)),
+                     labels = comma,
+                     expand = c(0, 0.1)) +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 90, hjust = .5, vjust = .5),
+        legend.key.size = unit(0.5, "lines"),
+        legend.text = element_text(size = 6),
+        legend.position = c(.25,.8)) +
+  guides(colour = guide_legend(nrow = 5, byrow = TRUE))
+
+png(paste0(github_repo_dir, "/deaths_trust_plot.png"), width = 480, height = 250)
+deaths_trust_plot
+dev.off()  
+
+read_pptx(path = paste0(github_repo_dir, '/Death Slides - West Sussex V1.pptx'))
