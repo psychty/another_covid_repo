@@ -669,8 +669,7 @@ se_asmr <- la_asmr %>%
   filter(Name %in% c('South East')) %>% 
   filter(Sex == 'Persons')
 
-ltla_asmr_all_cause_plot <-
-  ggplot(ltla_asmr_all_cause,
+ltla_asmr_all_cause_plot <- ggplot(ltla_asmr_all_cause,
          aes(x = Name_label,
              y = All_cause_ASMR,
              fill = Area_highlight,
@@ -703,6 +702,9 @@ ltla_asmr_all_cause_plot <-
             angle = 90,
             hjust = -.05,
             aes(label = Name_label)) + 
+  # annotate(geom = "text", x = 19, y = 150, label = "Helpful annotation", color = "red",
+  #          fill = '#ffffff',
+  #            angle = 90) +
   labs(title = third_asmr_title,
        subtitle = 'All causes',
        caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
@@ -717,9 +719,97 @@ ltla_asmr_all_cause_plot <-
   theme(axis.text.x = element_blank(),
         legend.position = 'none') 
 
-png(paste0(github_repo_dir, "/Outputs/012_ltla_asmr_all_cause_plot.png"), width = 1200, height = 650, res = 110)
+png(paste0(github_repo_dir, "/Outputs/012_ltla_asmr_all_cause_plot.png"), width = 1300, height = 750, res = 110)
 ltla_asmr_all_cause_plot
 dev.off()
+
+# Something freaky is happening with downloading of data from Open Geography Portal. The stable urls are broken using the direct reading in R. The quickest workaround (and most frustrating) is to manually download both the ltla to utla and ltla to region look up files and combine them.
+if(!file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
+  # Lookups from ltla to utla and region
+  lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) #%>% 
+  select(-c(FID, LTLA19NM)) %>% 
+    left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>% 
+    select(-c(FID, LAD19NM))
+  
+}
+
+if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
+  lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv')) %>% 
+    select(UTLA19CD, UTLA19NM) %>% 
+    unique()
+}
+
+utla_asmr_bars_all_cause <- la_asmr %>% 
+  filter(Code %in% lookup$UTLA19CD) %>% 
+  filter(Sex == 'Persons') %>% 
+  arrange(-All_cause_ASMR) %>% 
+  mutate(Rank_all_cause = rank(-All_cause_ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', All_cause_deaths, ' deaths)')) %>% 
+  mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
+  mutate(Area_highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex','West Sussex'), 'Highlight', 'No highlight'))
+
+eng_asmr <- la_asmr %>% 
+  filter(Name %in% c('England')) %>% 
+  filter(Sex == 'Persons')
+
+se_asmr <- la_asmr %>% 
+  filter(Name %in% c('South East')) %>% 
+  filter(Sex == 'Persons')
+
+third_asmr_title_utla <- gsub('Lower', 'Upper', third_asmr_title)
+
+
+utla_asmr_all_cause_plot <- ggplot(utla_asmr_bars_all_cause,
+       aes(x = Name_label,
+           y = All_cause_ASMR,
+           fill = Area_highlight,
+           colour = Area_highlight)) +
+  geom_bar(stat = 'identity') +
+  geom_hline(yintercept = eng_asmr$All_cause_ASMR,
+             colour = '#ff6632',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'England',
+           x = 5, 
+           y = eng_asmr$All_cause_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_hline(yintercept = se_asmr$All_cause_ASMR,
+             colour = '#5d1048',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'South East region',
+           x = 5, 
+           y = se_asmr$All_cause_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_text(data = subset(utla_asmr_bars_all_cause, Area_highlight == 'Highlight'),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            aes(label = Name_label)) + 
+  labs(title = third_asmr_title_utla,
+       subtitle = 'All causes',
+       caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
+       x = 'Area',
+       y = 'Age-standardised rate\ndeaths per 100,000') +
+  scale_fill_manual(values = c('#212c3d', '#e8c387')) +
+  scale_colour_manual(values = c('#212c3d', '#e8c387')) +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling),25),
+                     limits = c(0,round_any(max(utla_asmr_bars_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling)),
+                     expand = c(0,0.1)) +
+  ph_theme() +
+  theme(axis.text.x = element_blank(),
+        legend.position = 'none') 
+
+png(paste0(github_repo_dir, "/Outputs/012_utla_asmr_all_cause_plot.png"), width = 1300, height = 750, res = 110)
+utla_asmr_all_cause_plot
+dev.off()
+
 
 # msoa_boundaries
 lookup_msoa_la <- read_csv('https://opendata.arcgis.com/datasets/fe6c55f0924b4734adf1cf7104a0173e_0.csv') %>% 
@@ -933,11 +1023,70 @@ ltla_asmr_covid_plot <-
   theme(axis.text.x = element_blank(),
         legend.position = 'none') 
 
-png(paste0(github_repo_dir, "/Outputs/016_ltla_asmr_covid_plot.png"), width = 1200, height = 650, res = 110)
+png(paste0(github_repo_dir, "/Outputs/016_ltla_asmr_covid_plot.png"), width = 1300, height = 750, res = 110)
 ltla_asmr_covid_plot
 dev.off()
 
-# utla_codes <- read_csv('https://opendata.arcgis.com/datasets/b3d60eecd2e5483384fcd5cf03a82d27_0.csv')
+utla_asmr_bars_covid <- la_asmr %>% 
+  filter(Code %in% lookup$UTLA19CD) %>% 
+  filter(Sex == 'Persons') %>% 
+  arrange(-Covid_ASMR) %>% 
+  mutate(Rank_covid = rank(-Covid_ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_covid), ', ', Covid_deaths, ' deaths)')) %>% 
+  mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
+  mutate(Area_highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex','West Sussex'), 'Highlight', 'No highlight'))
+
+utla_asmr_covid_plot <-
+  ggplot(utla_asmr_bars_covid,
+         aes(x = Name_label,
+             y = Covid_ASMR,
+             fill = Area_highlight,
+             colour = Area_highlight)) +
+  geom_bar(stat = 'identity') +
+  geom_hline(yintercept = eng_asmr$Covid_ASMR,
+             colour = '#ff6632',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'England',
+           x = 5, 
+           y = eng_asmr$Covid_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_hline(yintercept = se_asmr$Covid_ASMR,
+             colour = '#5d1048',
+             lty = 'longdash') +
+  annotate('text',
+           label = 'South East region',
+           x = 5, 
+           y = se_asmr$Covid_ASMR,
+           colour = '#000000',
+           size = 3,
+           hjust = 0,
+           vjust = -1) +
+  geom_text(data = subset(utla_asmr_bars_covid, Area_highlight == 'Highlight'),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            aes(label = Name_label)) + 
+  labs(title = third_asmr_title_utla,
+       subtitle = 'Covid-19 mentioned as underlying or contributing cause',
+       caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
+       x = 'Area',
+       y = 'Age-standardised rate\ndeaths per 100,000') +
+  scale_fill_manual(values = c('#212c3d', '#f2cdd7')) +
+  scale_colour_manual(values = c('#212c3d', '#f2cdd7')) +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling),20),
+                     limits = c(0,round_any(max(utla_asmr_bars_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling)),
+                     expand = c(0,0.1)) +
+  ph_theme() +
+  theme(axis.text.x = element_blank(),
+        legend.position = 'none') 
+
+png(paste0(github_repo_dir, "/Outputs/016_utla_asmr_covid_plot.png"), width = 1300, height = 750, res = 110)
+utla_asmr_covid_plot
+dev.off()
 
 msoa_covid_title <- as.character(dates_granular %>% 
                                    filter(`Worksheet name` == 'Table 5') %>% 

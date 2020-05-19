@@ -131,6 +131,7 @@ xAxis_mortality_1
 var y_m1_ts = d3.scaleLinear()
   .domain([0, d3.max(chosen_m1_df, function(d) {return +d['All causes'];})])
   .range([height_line - 90, 0])
+  .nice()
 
 var y_m1_ts_axis = svg_fg_mortality_1
   .append("g")
@@ -300,7 +301,8 @@ var stackedData_m1 = d3.stack()
 
 y_m1_ts
   .domain([0, d3.max(chosen_m1_df, function(d) {return +d['All causes'];})])
-  .range([height_line - 90, 0]);
+  .range([height_line - 90, 0])
+  .nice();
 
 y_m1_ts_axis
 .transition()
@@ -514,6 +516,8 @@ var request = new XMLHttpRequest();
     request.send(null);
 var deaths_by_week_place = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
+console.log(deaths_by_week_place)
+
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_mortality_2_area_button")
   .selectAll('myOptions')
@@ -566,6 +570,8 @@ xAxis_mortality_2
   .selectAll("text")
   .attr("transform", 'translate(-10,10)rotate(-90)')
   .style("text-anchor", "end")
+
+
 //
 // var y_m2_ts = d3.scaleLinear()
 //   .domain([0, d3.max(chosen_m2_df, function(d) {return +d['All causes'];})])

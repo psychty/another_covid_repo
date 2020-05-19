@@ -48,13 +48,12 @@
 <p id = 'data_recency'></p>
 
 <p>The first table and visualisation shows the most recently recorded confirmed cases and the number of new confirmed cases by day. It is ordered by total number (cumulative) of confirmed cases to date with the highest number of confirmed cases at the top. You can toggle between viewing the coloured tiles as actual confirmed cases or as confirmed cases per 100,000 population (crude, all age population as at 2018). </p>
-<p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date).</font></p>
+<p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date). Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</font></p>
 </div>
 
 <div class = 'right-sidebar'>
   <p class = 'side'>The areas across the South East have vast differences in population sizes.</p>
   <p class = 'side'>The smallest area in terms of population,  Bracknell Forest, is estimated to be home for around 121,600 residents whilst Kent, with the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there.</p>
-  <p class = 'side'>Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</p>
 </div>
 
 <div class = 'content'>
@@ -151,7 +150,6 @@
 </div>
 </div>
 
-
 <div class="main" id = 'loglinear_timeseries'>
 <h3 style = 'padding-left:25px;'>Cumulative cases over time from a different perspective</h3>
 <div class = 'content'>
@@ -182,7 +180,7 @@
 <p class = 'side'><b>The data remains the same.</b> However, the logarithmic scale is more sensitive to changes in the rate of confirmed cases. This would make it easier to highlight significant changes in trends.</p>
 </div>
 </div>
-<div class="main" id = 'loglinear_timeseries_plus_doubling'>
+<!-- <div class="main" id = 'loglinear_timeseries_plus_doubling'>
 <div class = 'content'>
 <p>The last figure for confirmed cases shows when we might expect the confirmed cases for a single area to double; given the most recent doubling time estimate (e.g. based on the most recent five days of complete data).</p>
 <p>In this figure you can select an area to show the current trajectory, highlighting what the current trajectory means in terms of confirmed cases in the near future. You can also toggle between viewing the figure on a logarithmic scale (by default) or linear scale. Aggregated confirmed cases for Sussex areas combined, as well as South East region, and England can also be selected.</p>
@@ -207,6 +205,17 @@
   <p class = 'side_important'>It should be noted that the effects of measures such as social distancing will hopefully continue to alter the trajectory and will impact the doubling time.</p>
  <p class ='side'>The last five datapoints are not included in the doubling time calculation because they are considered incomplete. The dashed line gives some indication of what the confirmed cases might be and the potential cases awaiting results.</p>
 </div>
+</div> -->
+
+<div class = 'main' id = 'cases_come_down'>
+<div class = 'content'>
+<h4>Daily case changes</h4>
+<p>So far we have looked mostly at cumulative cases to understand the scale of the growing pandemic as more and more people catch the virus. As the initial peak passes, we will see smaller and smaller rises in the cumulative totals and the figures above will have flatter lines. There will also be a time where we begin to exchange the doubling time value with a value of how long it takes cases to halve.</p>
+<p>It is useful to consider changes in daily cases with caution, much like the other measures, as these are only confirmed cases based on testing strategies and changes in capacity. More people are now able to be tested than in the first few weeks of the pandemic, so new cases will inevitably be higher. As such, the benefit of exploring daily cases will be realised once a consistent number of tests are conducted each day.</p>
+<p>At the moment, details on local testing numbers are unavailable.</p>
+<h3>Daily cases will be added soon</h3>
+<!-- https://cmmid.github.io/topics/covid19/nhs-pathways.html -->
+</div>
 </div>
 
 <div class="main" id = 'other_cases_and_metrics'>
@@ -214,7 +223,7 @@
 <h4>Other measures of Covid-19 spread</h4>
 <p>The data presented so far has been based on confirmed cases of Covid-19. The confirmed cases are only a representation of the testing strategy and currently only show test results for patients in hospital as well as 'frontline' healthcare workers. <b>There will be many undiagnosed cases in the community (outside of hospital), in carehomes, and in other settings (such as prisons).</b></p>
 <p>Until a robust community testing capability is realised, it is impossible to define the true spread of Covid-19. However, there are some other data sources and measures that can help to fill in the gaps.</p>
-<p>Symptom tracker applications such as the 'COVID Symptom Tracker' by researchers at King's College London, Guys and St Thomas' Hospitals, and ZOE Global ltd. This allows users to enter how they are physically feeling daily along with information on their sex, age, ethnicity, and first part of their postcode. Users can say if they are feeling well and have no symptoms or to indicate that they are symptomatic. Whilst much of this detailed data is not publicly available, it is possible to see at lower tier local authority level, the proportion of users who report at least some symptoms of the Covid-19 virus. In the UK (as at 18th April), there were 462,672 people aged 20-69 who reported currently having symptoms of the virus. Of course, not all those with symptoms will use the application, and the local figures do not include those under the age of 20 or over the age of 69.</p>
+<p>Symptom tracker applications such as the 'COVID Symptom Tracker' by researchers at King's College London, Guys and St Thomas' Hospitals, and ZOE Global ltd. This allows users to enter how they are physically feeling daily along with information on their sex, age, ethnicity, and first part of their postcode. Users can say if they are feeling well and have no symptoms or to indicate that they are symptomatic. Whilst much of this detailed data is not publicly available, it is possible to see at lower tier local authority level, the proportion of users who report at least some symptoms of the Covid-19 virus. In the UK (as at 19th May), there were 252,629 people aged 20-69 who reported currently having symptoms of the virus, this is down by more than 200,000 people compared to the month before (462,672 people as at 18th April). Of course, more people are able to have swab testing now to confirm symptoms and may cease reporting symptoms following a negative test result. More generally, not all those with symptoms will use the application, and the local figures do not include those under the age of 20 or over the age of 69.</p>
 <p>Another source of information comes from the the NHS 111 symptom reporting pathways and 111 online. This shows, at the level of Clinical Commissioning Groups (which are largely coterminous with local authority boundaries through aggregation), the number of pathway triages and online assessments in which a user reports Covid-19 symptoms. Data include assessments by sex and broad age group (0-18, 19-69, and 70-120 years) of the user. There are many caveats around this, including that the data are not counts of people but rather assessments, people with symptoms might not use this or might use it multiple times over the course of their symptoms (and maybe not at the start of their symptoms). People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment. However, this data may give some indication of the symptom reporting locally.</p>
 <p><font color = 'red'>Both the COVID Symptom Tracker, and NHS triage data, are for reporting of symptoms and they are not in anyway representative of confirmed cases of Covid-19.</font></p>
 </div>
