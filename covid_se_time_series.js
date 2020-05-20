@@ -13,7 +13,7 @@ var areas_line = ['Sussex areas combined', 'Brighton and Hove', 'East Sussex', '
 
 var Area_colours = d3.scaleOrdinal()
   .domain(areas_line)
-  .range(d3.schemeCategory10);
+  .range(["#d34a2a","#56b851","#bc4bb8","#9bb835","#7b62d0","#c0aa40","#5e74bf","#e27d3c","#5ea3d9","#d2404e","#4fb89c","#d73f7c","#42793c","#e270b7","#90a658","#975088","#d69a45","#c490d4","#846f2e","#a84b5e","#a55730","#e28882"]);
 
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_line_1_area_button")
@@ -73,7 +73,7 @@ xAxis_line
   .attr("transform", 'translate(-10,10)rotate(-90)')
   .style("text-anchor", "end")
   .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
-    if (i%2 != 0) d3.select(this).remove();
+    if (i%2 == 0) d3.select(this).remove();
     });
 
 var y_c1_ts = d3.scaleLinear()
@@ -551,7 +551,7 @@ xAxis_line_2
   .attr("transform", 'translate(-10,10)rotate(-90)')
   .style("text-anchor", "end")
   .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
-    if (i%2 != 0) d3.select(this).remove();
+    if (i%2 == 0) d3.select(this).remove();
     });
 
 var y_c2_ts = d3.scaleLinear()
@@ -1934,3 +1934,297 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 //   update_summary_c4()
 //   update_c4_lines()
 // })
+
+// Daily cases bar chart
+
+var svg_daily_new_case_bars = d3.select("#daily_new_case_bars")
+.append("svg")
+.attr("width", width_hm)
+.attr("height", height_line)
+.append("g")
+.attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_bars_daily_cases_1_area_button")
+  .selectAll('myOptions')
+  .data(areas_line)
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+// Retrieve the selected area name
+var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_button').property("value")
+
+// Update text based on selected area
+d3.select("#selected_daily_cases_bars_1_compare_title")
+  .html(function(d) {
+    return 'Covid-19 new daily confirmed cases over time; ' + selected_line_5_area_option
+  });
+
+var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {
+  return d.Name === selected_line_5_area_option
+});
+
+var total_cases_daily_chosen = bars_daily_cases_1_chosen.filter(function(d){
+  return d.Period === most_recent_period})[0]['Cumulative_cases']
+
+var x_daily_cases = d3.scaleBand()
+    .domain(bars_daily_cases_1_chosen.map(function(d) {
+      return d.Period}))
+    .range([0, width_hm - 60])
+
+var xAxis_daily_cases = svg_daily_new_case_bars
+  .append("g")
+  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .call(d3.axisBottom(x_daily_cases));
+
+xAxis_daily_cases
+  .selectAll("text")
+  .attr("transform", 'translate(-' + x_daily_cases.bandwidth() + ',10)rotate(-90)')
+  .style("text-anchor", "end")
+  .each(function(d,i) { // find the text in that tick and remove it: Thanks Gerardo Furtado on stackoverflow
+    if (i%2 == 0) d3.select(this).remove();
+    });
+
+var y_daily_cases = d3.scaleLinear()
+  .domain([0, d3.max(bars_daily_cases_1_chosen, function(d) {
+    return +d.New_cases;
+  })])
+  .range([height_line - 90, 0])
+.nice();
+
+var yAxis_daily_cases = svg_daily_new_case_bars
+.append("g")
+.call(d3.axisLeft(y_daily_cases));
+
+// testing policy timelines
+var request = new XMLHttpRequest();
+request.open("GET", "./uk_testing_key_dates.json", false);
+request.send(null);
+var uk_testing_key_dates = JSON.parse(request.responseText);
+
+var tooltip_testing_key_dates = d3.select("#daily_new_case_bars")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+var showTooltip_testing_key_dates = function(d) {
+  tooltip_testing_key_dates
+    .html("<h5>" + d.Period + '</h5><p>On this date it was announced that ' + d.Change + ' would now be included in the UK Covid-19 swab testing eligible population.</p>')
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style('opacity', 1)
+    .style("visibility", "visible")
+}
+
+var mouseleave_testing_key_dates = function(d) {
+  tooltip_testing_key_dates
+    .style('opacity', 0)
+    .style("visibility", "hidden")
+}
+
+// We can treat this as a set of thin bars. With tooltips (maybe adding a dot or symbol at the top of each line as a easier thing to mouseover)
+svg_daily_new_case_bars
+.selectAll("testing_timeline")
+.data(uk_testing_key_dates)
+.enter()
+.append("rect")
+.attr("x", function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth()/2)})
+.attr("y", 0)
+.attr("width", 2)
+.attr("height", function(d) { return (height_line - 90)})
+.style("fill", incomplete_colour)
+.on("mousemove", showTooltip_testing_key_dates)
+.on('mouseout', mouseleave_testing_key_dates);
+
+// We can treat this like a set of thin bars. With tooltips (maybe adding a dot or symbol at the top of each line as a easier thing to mouseover)
+svg_daily_new_case_bars
+.selectAll("testing_timeline")
+.data(uk_testing_key_dates)
+.enter()
+.append("circle")
+.attr("cx", function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth()/2)})
+.attr("y", 0)
+.attr("r", 6)
+.style("fill", incomplete_colour)
+.on("mousemove", showTooltip_testing_key_dates)
+.on('mouseout', mouseleave_testing_key_dates);
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr('id', 'test_milestones')
+  .attr("x", function(d) { return x_daily_cases('26 March') + (x_daily_cases.bandwidth()/2)})
+  .attr("y", 2)
+  .text('Testing eligibility changes -')
+  .attr("text-anchor", "end")
+
+var tooltip_daily_case_1 = d3.select("#daily_new_case_bars")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+
+var showTooltip_daily_case_1 = function(d) {
+  tooltip_daily_case_1
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">In ' + d.Name + ' there were <b>' + d3.format(',.0f')(d.New_cases) + ' </b>specimens taken on this date which resulted in a positive result for Covid-19.</p><p class = "side">The new cases swabbed on this day represent ' + d3.format('0.1%')(d.New_cases / total_cases_daily_chosen) + ' of the total number of cases confirmed so far (' + d3.format(',.0f')(total_cases_daily_chosen) + ') </p><p class = "side">' + d.Three_day_ave_new_label + '</p>')
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style('opacity', 1)
+    .style("visibility", "visible")
+}
+
+var mouseleave_daily_case_1 = function(d) {
+  tooltip_daily_case_1
+    .style('opacity', 0)
+    .style("visibility", "hidden")
+}
+
+svg_daily_new_case_bars
+  .append('line')
+  .attr('x1', x_daily_cases(first_incomplete_period))
+  .attr('y1', 0)
+  .attr('x2', x_daily_cases(first_incomplete_period))
+  .attr('y2', height_line - 90)
+  .attr('stroke', incomplete_colour)
+  .attr("stroke-dasharray", ("3, 3"))
+
+svg_daily_new_case_bars
+  .append('rect')
+  .attr('x', x_daily_cases(first_incomplete_period))
+  .attr('y1', 0)
+  .attr('width', (x_daily_cases(most_recent_period) + x_daily_cases.bandwidth()) - x_daily_cases(first_incomplete_period))
+  .attr('height', height_line - 90)
+  .style('fill', incomplete_colour)
+  .style('stroke', 'none')
+  .style('opacity', 0.2)
+
+// daily case bars
+var daily_new_case_bars = svg_daily_new_case_bars
+.selectAll("mybar")
+.data(bars_daily_cases_1_chosen)
+.enter()
+.append("rect")
+.attr("x", function(d) { return x_daily_cases(d.Period)})
+.attr("y", function(d) { return y_daily_cases(d.New_cases); })
+.attr("width", x_daily_cases.bandwidth())
+.attr("height", function(d) { return (height_line - 90) - y_daily_cases(d.New_cases); })
+  .style("fill", function(d) {
+    return Area_colours(d.Name)
+  })
+  .on("mousemove", showTooltip_daily_case_1)
+  .on('mouseout', mouseleave_daily_case_1);
+
+var svg_daily_average_case_bars = svg_daily_new_case_bars
+.append("path")
+.datum(bars_daily_cases_1_chosen)
+.attr("fill", "none")
+.attr("stroke", "#000000")
+.attr("stroke-width", 2)
+.attr("d", d3.line()
+.defined(d => !isNaN(d.Three_day_average_new_cases))
+.x(function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth() /2)})
+.y(function(d) { return y_daily_cases(d.Three_day_average_new_cases) }))
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr('id', 'test_milestones')
+  .attr("x", function(d) { return x_daily_cases('31 January') + (x_daily_cases.bandwidth()/2)})
+  .attr("y", function(d) { return height_line - 120 })
+  .text('The black line represents three day average new cases')
+  .attr("text-anchor", "start")
+
+function update_daily_bars() {
+var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_button').property("value")
+
+d3.select("#selected_daily_cases_bars_1_compare_title")
+  .html(function(d) {
+    return 'Covid-19 new daily confirmed cases over time; ' + selected_line_5_area_option
+  });
+
+var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {
+  return d.Name === selected_line_5_area_option
+});
+
+var total_cases_daily_chosen = bars_daily_cases_1_chosen.filter(function(d){
+  return d.Period === most_recent_period})[0]['Cumulative_cases']
+
+var showTooltip_daily_case_1 = function(d) {
+  tooltip_daily_case_1
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">In ' + d.Name + ' there were <b>' + d3.format(',.0f')(d.New_cases) + ' </b>specimens taken on this date which resulted in a positive result for Covid-19.</p><p class = "side">The new cases swabbed on this day represent ' + d3.format('0.1%')(d.New_cases / total_cases_daily_chosen) + ' of the total number of cases confirmed so far (' + d3.format(',.0f')(total_cases_daily_chosen) + ') </p><p class = "side">' + d.Three_day_ave_new_label + '</p>')
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style('opacity', 1)
+    .style("visibility", "visible")
+}
+
+y_daily_cases
+  .domain([0, d3.max(bars_daily_cases_1_chosen, function(d) {
+    return +d.New_cases;
+  })])
+
+// Redraw axis
+yAxis_daily_cases
+  .transition()
+  .duration(1000)
+  .call(d3.axisLeft(y_daily_cases));
+
+svg_daily_average_case_bars
+  .datum(bars_daily_cases_1_chosen)
+  .transition()
+  .duration(1000)
+  .attr("d", d3.line()
+.defined(d => !isNaN(d.Three_day_average_new_cases))
+.x(function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth() /2)})
+.y(function(d) { return y_daily_cases(d.Three_day_average_new_cases) }))
+
+
+daily_new_case_bars
+.data(bars_daily_cases_1_chosen)
+.transition()
+.duration(1000)
+.attr("x", function(d) { return x_daily_cases(d.Period)})
+.attr("y", function(d) { return y_daily_cases(d.New_cases); })
+// .attr("width", x_daily_cases.bandwidth())
+.attr("height", function(d) { return (height_line - 90) - y_daily_cases(d.New_cases); })
+  .style("fill", function(d) {
+    return Area_colours(d.Name)
+  })
+
+daily_new_case_bars
+  .on("mousemove", showTooltip_daily_case_1)
+  .on('mouseout', mouseleave_daily_case_1);
+
+
+
+
+
+
+
+}
+
+d3.select("#select_bars_daily_cases_1_area_button").on("change", function(d) {
+  var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_button').property("value")
+  update_daily_bars()
+})

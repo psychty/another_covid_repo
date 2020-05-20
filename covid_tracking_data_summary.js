@@ -80,6 +80,10 @@ var first_incomplete_date = JSON.parse(request.responseText).filter(function(d) 
   return d.Order == 'First_incomplete'
 })[0]['Date_label']
 
+var first_incomplete_period = JSON.parse(request.responseText).filter(function(d) {
+  return d.Order == 'First_incomplete'
+})[0]['Period']
+
 var first_incomplete_date_actual = JSON.parse(request.responseText).filter(function(d) {
   return d.Order == 'First_incomplete'
 })[0]['Date']
@@ -91,6 +95,10 @@ var latest_date = JSON.parse(request.responseText).filter(function(d) {
 var most_recent = JSON.parse(request.responseText).filter(function(d) {
   return d.Order == 'Last'
 })[0]['Date']
+
+var most_recent_period = JSON.parse(request.responseText).filter(function(d) {
+  return d.Order == 'Last'
+})[0]['Period']
 
 d3.select("#data_recency")
   .html(function(d) {

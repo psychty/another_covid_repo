@@ -65,11 +65,11 @@ mye_total <- mye_total %>%
 
 #download.file('https://fingertips.phe.org.uk/documents/Historic%20COVID-19%20Dashboard%20Data.xlsx', paste0(github_repo_dir, '/refreshed_daily_cases.xlsx'), mode = 'wb')
 
-# On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specimin for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
+# On 14th April, the way in which PHE share data on cases changed. Data were presented daily on the number of confirmed cases reported to PHE on a particular day. As testing takes time, and as capacity is being increased, there can be some delay in returning results. An example is a patient having a swab taken on 1st April, with results returned on 5th April and reported to PHE. In such a case, the confirmed case will be attributed to 5th April even though the patient was infected at least four days earlier. The new method of reporting shows confirmed cases by the date at which the specimen for testing was taken. Duplicate tests for the same person are removed. The first positive specimen date is used as the specimen date for that person.
 
 # Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like the most recent days' cases (which are still being reported daily) are sloping off (getting smaller). This is not the case, it is just that the most recent testing results may take several days to be reported. PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.
 
-# Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specemin was taken, which means the time series starts at different dates for different areas. The first specimins for a confirmed Covid-19 infection were taken on Janurary 30th 2020.
+# Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specemin was taken, which means the time series starts at different dates for different areas. The first specimens for a confirmed Covid-19 infection were taken on Janurary 30th 2020.
 
 daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%   rename(Name = `Area name`) %>% 
   rename(Code = `Area code`) %>% 
@@ -106,7 +106,7 @@ daily_cases <- daily_cases_raw %>%
 
 rm(daily_cases_raw, sussex_daily_cases, sussex_pop)
 
-# Now have a date of specimin for each area. If no specimins are taken on a day, there is no row for it, and it would be missing data. Indeed, the only zeros are on the latest day. We need to therefore backfill and say if no date exists where it should, then add it, with the cumulative total and zero for new cases.
+# Now have a date of specimen for each area. If no specimens are taken on a day, there is no row for it, and it would be missing data. Indeed, the only zeros are on the latest day. We need to therefore backfill and say if no date exists where it should, then add it, with the cumulative total and zero for new cases.
 
 # One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
 first_date <- min(daily_cases$Date)
@@ -160,9 +160,9 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
   left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
   mutate(Cumulative_per_100000 = (Cumulative_cases / Population) * 100000) %>% 
   mutate(New_cases_per_100000 = (New_cases / Population) * 100000) %>% 
-  mutate(Case_label = paste0('The total (cumulative) number of cases reported for people with specimins taken by this date (', Period, ') was ', format(Cumulative_cases, big.mark = ',', trim = TRUE), '. A total of ', format(New_cases, big.mark = ',', trim = TRUE), ' patients who had sample specimins taken on this day (representing new cases) were confirmed to have the virus',  ifelse(Data_completeness == 'Considered incomplete', paste0('.<font color = "#bf260a"> However, these figures should be considered incomplete until at least ', format(Date + 5, '%d %B'),'.</font>'),'.'))) %>% 
+  mutate(Case_label = paste0('The total (cumulative) number of cases reported for people with specimens taken by this date (', Period, ') was ', format(Cumulative_cases, big.mark = ',', trim = TRUE), '. A total of ', format(New_cases, big.mark = ',', trim = TRUE), ' patients who had sample specimens taken on this day (representing new cases) were confirmed to have the virus',  ifelse(Data_completeness == 'Considered incomplete', paste0('.<font color = "#bf260a"> However, these figures should be considered incomplete until at least ', format(Date + 5, '%d %B'),'.</font>'),'.'))) %>% 
   mutate(Rate_label = paste0('The total (cumulative) number of Covid-19 cases per 100,000 population reported to date (', Period, ') is <b>', format(round(Cumulative_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population. The new cases (swabbed on this date) represent <b>',format(round(New_cases_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')) %>% 
-  mutate(Proportion_label = paste0('The new cases for patients swabbed on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of Covid-19 cases reported to date (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>).')) %>%  
+  mutate(Proportion_label = paste0('The new cases for patients swabbed on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of Covid-19 cases reported up to ', Period, ' (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>).')) %>%  
   mutate(Three_day_ave_new_label = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average of new cases for this date (', Period, ') because one of the values in the last three days is missing or revised.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete.', paste0('As such, the rolling average number of new cases in the last three days (<b>', format(round(Three_day_average_new_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of new cases in the last three days is <b>', format(round(Three_day_average_new_cases, 0), big.mark = ',', trim = TRUE), '  cases</b>.')))) %>% 
   mutate(Three_day_ave_cumulative_label = ifelse(is.na(Three_day_average_cumulative_cases), paste0('It is not possible to calculate a three day rolling average of new cases for this date (', Period, ') because one of the values in the last three days is missing or revised.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete. ', paste0('As such, the rolling average number of cumulative cases in the last three days (<b>', format(round(Three_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of cumulative cases in the last three days is <b>', format(round(Three_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>.')))) %>%
   mutate(new_case_key = factor(ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases >= 76 & New_cases <= 100, '76-100 cases', ifelse(New_cases >100, 'More than 100 cases', NA))))))), levels =  c('No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', '76-100 cases', 'More than 100 cases'))) %>%
@@ -233,7 +233,7 @@ double_time_period <- 5 # this could be 5 or 7
 
 # I've made an ifelse function that identifies 5 day periods for 100 days or 140 days of data if 7 day doubling time is used and this may have to change in the future.
 
-# Importantly, given that the data has changed from reported date to specimin date, and that the last five days have been concluded as incomplete, it would not be useful to report a doubling time for this time period.
+# Importantly, given that the data has changed from reported date to specimen date, and that the last five days have been concluded as incomplete, it would not be useful to report a doubling time for this time period.
 
 doubling_time_df <- daily_cases_reworked %>% 
   filter(Days_since_case_x >= 0) %>%
@@ -372,7 +372,8 @@ daily_cases %>%
   select(Date) %>% 
   unique() %>% 
   add_row(Date = complete_date) %>% 
-  add_row(Date = complete_date +1) %>% 
+  add_row(Date = complete_date + 1) %>% 
+  mutate(Period = format(Date, '%d %B')) %>% 
   mutate(Date_label = format(Date, '%a %d %B')) %>% 
   arrange(Date) %>% 
   add_column(Order = c('First', 'Complete', 'First_incomplete', 'Last')) %>% 
@@ -461,6 +462,13 @@ daily_cases %>%
   filter(Name %in% ltla_areas) %>% 
   mutate(Log10Cumulative_cases = log10(Cumulative_cases)) %>% # We also add log scaled cumulative cases for reporting growth
   write.csv(., paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv'), row.names = FALSE, na = '')
+
+
+# timelines of testing in UK adapted from The Health Foundation - https://www.health.org.uk/news-and-comment/charts-and-infographics/covid-19-policy-tracker
+
+test_timeline <- data.frame(Period = c('27 March', '15 April','17 April','23 April','28 April', '18 May'), Change = c('front-line NHS Staff', 'those in social care settings','additional front-line workers', 'all symptomatic essential worker and members of their households','anyone aged 65+ who must leave their home for work plus asymptomatic NHS and Social Care staff and care home residents', 'anyone aged 5+ who is showing signs of Covid-19')) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/uk_testing_key_dates.json'))
 
 # fin
 
