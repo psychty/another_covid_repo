@@ -86,25 +86,46 @@
 <div class = 'main'>
 <div class = 'content'>
 <p id = 'sussex_latest_figures'></p>
-
 <p id = 'doubling_time_sussex_narrative'></p>
-
+<p>As the initial peak passes, and testing is maintained at a consistent level, we should see smaller numbers of new cases and we may exchange the doubling time value with a value of how long it takes cases to halve.</p>
 </div>
 <div class = 'right-sidebar'>
-<!-- <p class = 'side'>Given that the data are reported by specimen date, the last five days of counts have been concluded as incomplete and it would not be useful to report the number of new cases or a doubling time for this incomplete time period.</p> -->
 <p class = 'side' id = 'doubling_time_narrative_1'></p>
 <p class = 'side'><b>A longer doubling time indicates slower growth and a shorter doubling time indicates growth rate is increasing.</b></p>
+</div>
+</div>
+
+<div class = 'main' id = 'cases_come_down'>
+<div class = 'content'>
+<h4>Daily case changes and initial peaks</h4>
+<p>The figure below shows the daily confirmed cases of Covid-19 over time by area (showing Sussex areas combined by default). The line represents the rolling average number of new cases confirmed in the previous seven days. You can change the area using the drop down menu. As with other figures in this analyses, the last five days of data are greyed out and should be treated as incomplete.</p>
+<p>The figure includes key dates when changes to testing capacity and eligibility were announced. These are adapted from The Health Foundation <a href = 'https://www.health.org.uk/news-and-comment/charts-and-infographics/covid-19-policy-tracker'>Covid-19 Policy Tracker</a>.</p>
+</div>
+<h4 style = 'padding-left: 25px; padding-top: 10px;' id = 'selected_daily_cases_bars_1_compare_title'></h4>
+<div class = 'content'>
+<span class = 'give_me_space'>Area: </span>
+<select id='select_bars_daily_cases_1_area_button'></select>
+<div id = 'daily_new_case_bars'></div>
+
+<p>The figures for most areas in the region generally show a pattern of a single peak in new cases, illustrated by the rolling average line, although for some areas such as Southampton and Windsor and Maidenhead there is much more fluctuation and less of a pronounced single spike in confirmed cases.</p>
+<p id = 'sussex_peaks'></p>
+<p>It is useful to reiterate caution when considering changes in daily cases over time, as these are confirmed cases based on testing strategies and changes in capacity. More people are now able to be tested than in the first few weeks of the pandemic, when only hospital inpatients were tested, so new cases may be higher as a result of more people being tested. This ultimately means that the benefit of exploring daily cases will be realised only once a consistent number of tests are conducted each day. At the moment, details on local testing numbers are unavailable but this information will also strengthen our understanding of the true spread of Covid-19 and any local outbreaks.</p>
+<!-- https://cmmid.github.io/topics/covid19/nhs-pathways.html -->
+</div>
+<div class = 'right-sidebar'>
+  <p class = 'side'>The grey lines with circles at the top show dates on which the Covid-19 testing eligibility criteria was amended to include a wider population. Hover over each point to see which population groups were added to the test eligibility criteria.</p>
 </div>
 </div>
 
 <h3 style = 'padding-left: 25px;'>A note on testing and data</h3>
 <div class = 'content'>
 <ul class = 'summary'>
-<li class = 'list_summary'>The current (April) strategy has largely been to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>).</li>
-<li class = 'list_summary'>As capacity increases, more and more healthcare workers as well as other keyworkers are being prioritised for testing in what has been termed 'Pillar 2' testing, which includes testing from commercial partners. From 29th April 2020, anyone aged over 65 as well as anyone who must leave their home to go to work will be able to have a swab test.</li>
+<li class = 'list_summary'>The initial testing strategy was to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>).</li>
+<li class = 'list_summary'>As capacity increased, more and more healthcare workers as well as other keyworkers were prioritised for testing in what has been termed 'Pillar 2' testing, which includes testing from commercial partners. From 23rd April, all symptomatic essential workers and members of thier households were included in the eligibility criteria and from the 28th April anyone aged 65 and over who must leave their home to go to work could access a test.</li>
+<li class = 'list_summary'><b>From 18th May 2020, anyone aged 5 and over with symptoms will be able to have a Covid-19 test.</b></li>
 <li class = 'list_summary'>Beyond this, the government is planning to expand diagnostics to antibody testing to confirm that a person has had the virus and is therefore likely to be immune from catching it again. See <a href = 'https://www.gov.uk/government/publications/coronavirus-covid-19-scaling-up-testing-programmes/coronavirus-covid-19-scaling-up-our-testing-programmes'>Government testing plans April 6th 2020</a> for more details.</li>
 <br>
-<li class = 'list_summary'>From the 14th April, PHE changed the method of reporting to show confirmed cases by the date at which the specimen for testing was taken. The first positive specimen date is used and duplicate tests for the same patient are removed. Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like cases on the most recent days (which are still being reported daily) are sloping off (getting smaller). <b>This is not the case, it is simply that the most recent testing results may take several days to be reported.</b> PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.</li>
+<li class = 'list_summary'>From the 14th April, PHE changed the method of reporting to show confirmed cases by the date at which the specimen for testing was taken. The first positive specimen date is used and duplicate tests for the same patient are removed. Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like cases on the most recent days (which are still being reported daily) are sloping off (getting smaller). <b>This is not necessarily the case, it is simply that the most recent testing results may take several days to be reported.</b> PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.</li>
 </ul>
 </div>
 
@@ -112,7 +133,7 @@
 <h3 style="padding-left:25px;">Cumulative confirmed cases over time</h3>
 <div class = "content">
 <p>The first line chart below shows the actual number of confirmed Covid-19 cases over time. You can choose which area to display using the drop down menu. Remember, the last five dots on this figure should be considered incomplete whilst specimens taken on these dates take time to be tested.</p>
-<p>The dashed line represents the average number of cases reported over the last three days. This goes some way in smoothing out fluctuation occurring daily as a result of delays or validation. The average line will usually trail a little lower than the actual line whilst cases continue to increase each day.</p>
+<p>The dashed line represents the average number of cases reported over the last seven days. This goes some way in smoothing out fluctuation occurring daily as a result of delays or validation. The average line will usually trail a little lower than the actual line whilst cases continue to increase each day.</p>
 <div class = 'drop'>
 <span>Area: </span>
 <select id='select_line_1_area_button'></select>
@@ -206,31 +227,6 @@
  <p class ='side'>The last five datapoints are not included in the doubling time calculation because they are considered incomplete. The dashed line gives some indication of what the confirmed cases might be and the potential cases awaiting results.</p>
 </div>
 </div> -->
-
-<div class = 'main' id = 'cases_come_down'>
-<div class = 'content'>
-<h4>Daily case changes</h4>
-<p>So far we have looked mostly at cumulative cases to understand the scale of the growing pandemic as more and more people catch the virus. As the initial peak passes, we will see smaller and smaller rises in the cumulative totals and the figures above will have flatter lines. There will also be a time where we begin to exchange the doubling time value with a value of how long it takes cases to halve.</p>
-<p>It is useful to consider changes in daily cases with caution, much like the other measures, as these are only confirmed cases based on testing strategies and changes in capacity. More people are now able to be tested than in the first few weeks of the pandemic, when only hospital inpatients were tested, so new cases may be higher as a result of more people being tested. This ultimately means that the benefit of exploring daily cases will be realised only once a consistent number of tests are conducted each day. At the moment, details on local testing numbers are unavailable but this information will also strengthen our understanding of the true spread of Covid-19 and any local outbreaks.</p>
-<!-- https://cmmid.github.io/topics/covid19/nhs-pathways.html -->
-
-<p>The figure below shows the daily confirmed cases of Covid-19 by area over time. The line represents the rolling average number of new cases confirmed in the previous three days. You can change the area using the drop down menu.</p>
-</div>
-<h4 style = 'padding-left: 25px; padding-top: 10px;' id = 'selected_daily_cases_bars_1_compare_title'></h4>
-<div class = 'content'>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_bars_daily_cases_1_area_button'></select>
-<div id = 'daily_new_case_bars'></div>
-
-<p>The figure includes key dates when changes to testing capacity and eligibility were announced. These are adapted from The Health Foundation <a href = 'https://www.health.org.uk/news-and-comment/charts-and-infographics/covid-19-policy-tracker'>Covid-19 Policy Tracker</a>.</p>
-<p>As with other figures, the last five days of data are greyed out and should be treated as incomplete.</p>
-<p>The figures for most areas in the South East region generally show a pattern of a single peak in new cases, although for some areas there is much more fluctuation.</p>
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>The grey lines with circles at the top show dates on which the Covid-19 testing eligibility criteria was amended to include a wider population. Hover over each point to see which population groups were added to the test eligibility criteria.</p>
-</div>
-
-</div>
 
 <div class="main" id = 'other_cases_and_metrics'>
 <div class ='content'>

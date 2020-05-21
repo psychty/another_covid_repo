@@ -124,4 +124,4 @@ d3.select("#sussex_latest_figures")
 d3.select("#doubling_time_sussex_narrative")
   .data(sussex_summary)
   .html(function(d) {
-    return 'The table also shows the length of time it takes the total (cumulative) number of confirmed cases to double over the specified time period (in this case <u>five days</u>). In the three Sussex areas combined, the latest doubling time is ' + d3.format(',.0f')(d.Latest_doubling_time) + ' days. This represents a ' + d.Growth_rate_change.toLowerCase() + ' of confirmed cases compared to the previous five days ' + d3.format(',.0f')(d.Previous_doubling_time) + ' days.'});
+    return 'The table also shows the length of time it takes the total (cumulative) number of confirmed cases to double over the specified time period (in this case <u>seven days</u>). In the three Sussex areas combined, the latest doubling time is ' + d3.format(',.0f')(d.Latest_doubling_time) + ' days. This represents a ' + d.Growth_rate_change.toLowerCase() + ' of confirmed cases compared to the previous seven days (' + d3.format(',.0f')(d.Previous_doubling_time) + ' days).'});

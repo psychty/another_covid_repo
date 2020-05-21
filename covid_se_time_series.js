@@ -45,7 +45,7 @@ var average_line_1_chosen = daily_cases.filter(function(d) {
     return d.Name === selected_line_1_area_option
   })
   .filter(function(d) {
-    if (isNaN(d.Three_day_average_cumulative_cases)) {
+    if (isNaN(d.Seven_day_average_cumulative_cases)) {
       return false;
     }
     return true;
@@ -102,7 +102,7 @@ var tooltip_c1 = d3.select("#cumulative_ts_actual_linear")
 var showTooltip_c1 = function(d) {
 
   tooltip_c1
-    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">' + d.Three_day_ave_cumulative_label + '. </p><p><i>Note: the rolling average has been rounded to the nearest whole number</i>.</p><p class = "side">' + d.double_time_label_2 + '</p>')
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">' + d.Seven_day_ave_cumulative_label + '. </p><p><i>Note: the rolling average has been rounded to the nearest whole number</i>.</p><p class = "side">' + d.double_time_label_2 + '</p>')
     .style("opacity", 1)
     .style("top", (event.pageY - 10) + "px")
     .style("left", (event.pageX + 10) + "px")
@@ -171,7 +171,7 @@ var dots_c1 = svg_cumulative_actual_linear
   .on("mousemove", showTooltip_c1)
   .on('mouseout', mouseleave_c1);
 
-var lines_c1_three_day_smooth = svg_cumulative_actual_linear
+var lines_c1_seven_day_smooth = svg_cumulative_actual_linear
   .append("path")
   .datum(average_line_1_chosen)
   .attr("stroke", '#000000')
@@ -183,11 +183,11 @@ var lines_c1_three_day_smooth = svg_cumulative_actual_linear
       return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))
     })
     .y(function(d) {
-      return y_c1_ts(d.Three_day_average_cumulative_cases)
+      return y_c1_ts(d.Seven_day_average_cumulative_cases)
     })
   );
 
-var dots_c1_three_day_smooth = svg_cumulative_actual_linear
+var dots_c1_seven_day_smooth = svg_cumulative_actual_linear
   .selectAll('myCircles')
   .data(average_line_1_chosen)
   .enter()
@@ -196,7 +196,7 @@ var dots_c1_three_day_smooth = svg_cumulative_actual_linear
     return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))
   })
   .attr("cy", function(d) {
-    return y_c1_ts(d.Three_day_average_cumulative_cases)
+    return y_c1_ts(d.Seven_day_average_cumulative_cases)
   })
   .attr("r", 3)
   .style("fill", function(d) {
@@ -274,7 +274,7 @@ function update_cumulative_actual_linear() {
 
   var showTooltip_c1 = function(d) {
     tooltip_c1
-      .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">The cumulative total averaged over the last three days (rounded) is ' + d3.format(',.0f')(d.Three_day_average_cumulative_cases) + ' cases.<p class = "side">' + d.double_time_label_2 + '</p>')
+      .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">' + d.double_time_label_1 + '.</p><p class = "side">The cumulative total averaged over the last seven days (rounded) is ' + d3.format(',.0f')(d.Seven_day_average_cumulative_cases) + ' cases.<p class = "side">' + d.double_time_label_2 + '</p>')
       .style("opacity", 1)
       .style("top", (event.pageY - 10) + "px")
       .style("left", (event.pageX + 10) + "px")
@@ -307,7 +307,7 @@ function update_cumulative_actual_linear() {
       return d.Name === selected_line_1_area_option
     })
     .filter(function(d) {
-      if (isNaN(d.Three_day_average_cumulative_cases)) {
+      if (isNaN(d.Seven_day_average_cumulative_cases)) {
         return false;
       }
       return true;
@@ -360,7 +360,7 @@ function update_cumulative_actual_linear() {
       return Area_colours(d.Name)
     })
 
-  lines_c1_three_day_smooth
+  lines_c1_seven_day_smooth
     .datum(average_line_1_chosen)
     .transition()
     .delay(1000)
@@ -370,10 +370,10 @@ function update_cumulative_actual_linear() {
         return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))
       })
       .y(function(d) {
-        return y_c1_ts(d.Three_day_average_cumulative_cases)
+        return y_c1_ts(d.Seven_day_average_cumulative_cases)
       }));
 
-  dots_c1_three_day_smooth
+  dots_c1_seven_day_smooth
     .data(average_line_1_chosen)
     .transition()
     .delay(1000)
@@ -382,7 +382,7 @@ function update_cumulative_actual_linear() {
       return x_c1(d3.timeParse("%Y-%m-%d")(d.Date))
     })
     .attr("cy", function(d) {
-      return y_c1_ts(d.Three_day_average_cumulative_cases)
+      return y_c1_ts(d.Seven_day_average_cumulative_cases)
     })
 
   var i_change = d3.interpolate(current_n, new_n);
@@ -1937,6 +1937,28 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 
 // Daily cases bar chart
 
+// peaks
+var request = new XMLHttpRequest();
+request.open("GET", "./peak_average_SE.json", false);
+request.send(null);
+var peak_average = JSON.parse(request.responseText);
+
+bh_peak_average = peak_average.filter(function(d){
+  return d.Name == 'Brighton and Hove'
+})
+
+esx_peak_average = peak_average.filter(function(d){
+  return d.Name == 'East Sussex'
+})
+
+wsx_peak_average = peak_average.filter(function(d){
+  return d.Name == 'West Sussex'
+})
+
+d3.select("#sussex_peaks")
+  .html(function(d) {
+    return "A key feature of this figure is the ability to see roughly the dates at which different areas appear to have 'peaks' in new cases. For example, in Brighton and Hove, the first peak of average daily cases occured on " + bh_peak_average[0]['Period'] + ' with ' + d3.format(',.0f')(bh_peak_average[0]['Seven_day_average_new_cases']) + ' cases diagnosed each day on average in the last seven days. East Sussex had its highest rolling average number of cases (' + d3.format(',.0f')(esx_peak_average[0]['Seven_day_average_new_cases']) + ') on ' + esx_peak_average[0]['Period'] + ' and West Sussex peaked on ' + wsx_peak_average[0]['Period'] + ' with ' + d3.format(',.0f')(wsx_peak_average[0]['Seven_day_average_new_cases']) + ' cases on average each day in the previous seven days.'});
+
 var svg_daily_new_case_bars = d3.select("#daily_new_case_bars")
 .append("svg")
 .attr("width", width_hm)
@@ -1972,6 +1994,10 @@ var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {
 
 var total_cases_daily_chosen = bars_daily_cases_1_chosen.filter(function(d){
   return d.Period === most_recent_period})[0]['Cumulative_cases']
+
+var peak_daily_cases_1_chosen = peak_average.filter(function(d) {
+  return d.Name === selected_line_5_area_option
+});
 
 var x_daily_cases = d3.scaleBand()
     .domain(bars_daily_cases_1_chosen.map(function(d) {
@@ -2071,6 +2097,11 @@ svg_daily_new_case_bars
   .text('Testing eligibility changes -')
   .attr("text-anchor", "end")
 
+
+
+
+
+
 var tooltip_daily_case_1 = d3.select("#daily_new_case_bars")
   .append("div")
   .style("opacity", 0)
@@ -2086,7 +2117,7 @@ var tooltip_daily_case_1 = d3.select("#daily_new_case_bars")
 
 var showTooltip_daily_case_1 = function(d) {
   tooltip_daily_case_1
-    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">In ' + d.Name + ' there were <b>' + d3.format(',.0f')(d.New_cases) + ' </b>specimens taken on this date which resulted in a positive result for Covid-19.</p><p class = "side">The new cases swabbed on this day represent ' + d3.format('0.1%')(d.New_cases / total_cases_daily_chosen) + ' of the total number of cases confirmed so far (' + d3.format(',.0f')(total_cases_daily_chosen) + ') </p><p class = "side">' + d.Three_day_ave_new_label + '</p>')
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">In ' + d.Name + ' there were <b>' + d3.format(',.0f')(d.New_cases) + ' </b>specimens taken on this date which resulted in a positive result for Covid-19.</p><p class = "side">The new cases swabbed on this day represent ' + d3.format('0.1%')(d.New_cases / total_cases_daily_chosen) + ' of the total number of cases confirmed so far (' + d3.format(',.0f')(total_cases_daily_chosen) + ') </p><p class = "side">' + d.Seven_day_ave_new_label + '</p>')
     .style("opacity", 1)
     .style("top", (event.pageY - 10) + "px")
     .style("left", (event.pageX + 10) + "px")
@@ -2142,19 +2173,43 @@ var svg_daily_average_case_bars = svg_daily_new_case_bars
 .attr("stroke", "#000000")
 .attr("stroke-width", 2)
 .attr("d", d3.line()
-.defined(d => !isNaN(d.Three_day_average_new_cases))
+.defined(d => !isNaN(d.Seven_day_average_new_cases))
 .x(function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth() /2)})
-.y(function(d) { return y_daily_cases(d.Three_day_average_new_cases) }))
+.y(function(d) { return y_daily_cases(d.Seven_day_average_new_cases) }))
 
 svg_daily_new_case_bars
   .append("text")
   .attr('id', 'test_milestones')
   .attr("x", function(d) { return x_daily_cases('31 January') + (x_daily_cases.bandwidth()/2)})
   .attr("y", function(d) { return height_line - 120 })
-  .text('The black line represents three day average new cases')
+  .text('The black line represents seven day average new cases')
+  .attr("text-anchor", "start")
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr("x", width_hm * .03 + 10)
+  .attr("y", 40)
+  .text('The peak new case rolling average')
+  .attr("text-anchor", "start")
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr('id', 'area_peak_average_1')
+  .attr("x", width_hm * .03 + 10)
+  .attr("y", 53)
+  .text('in ' + selected_line_5_area_option + ' was')
+  .attr("text-anchor", "start")
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr('id', 'area_peak_average_2')
+  .attr("x", width_hm * .03 + 10)
+  .attr("y", 66)
+  .text(d3.format(',.0f')(peak_daily_cases_1_chosen[0]['Seven_day_average_new_cases']) + ' cases on ' + peak_daily_cases_1_chosen[0]['Period'])
   .attr("text-anchor", "start")
 
 function update_daily_bars() {
+
 var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_button').property("value")
 
 d3.select("#selected_daily_cases_bars_1_compare_title")
@@ -2169,9 +2224,13 @@ var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {
 var total_cases_daily_chosen = bars_daily_cases_1_chosen.filter(function(d){
   return d.Period === most_recent_period})[0]['Cumulative_cases']
 
+var peak_daily_cases_1_chosen = peak_average.filter(function(d) {
+  return d.Name === selected_line_5_area_option
+});
+
 var showTooltip_daily_case_1 = function(d) {
   tooltip_daily_case_1
-    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">In ' + d.Name + ' there were <b>' + d3.format(',.0f')(d.New_cases) + ' </b>specimens taken on this date which resulted in a positive result for Covid-19.</p><p class = "side">The new cases swabbed on this day represent ' + d3.format('0.1%')(d.New_cases / total_cases_daily_chosen) + ' of the total number of cases confirmed so far (' + d3.format(',.0f')(total_cases_daily_chosen) + ') </p><p class = "side">' + d.Three_day_ave_new_label + '</p>')
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Date_label + '</b></p><p class = "side">In ' + d.Name + ' there were <b>' + d3.format(',.0f')(d.New_cases) + ' </b>specimens taken on this date which resulted in a positive result for Covid-19.</p><p class = "side">The new cases swabbed on this day represent ' + d3.format('0.1%')(d.New_cases / total_cases_daily_chosen) + ' of the total number of cases confirmed so far (' + d3.format(',.0f')(total_cases_daily_chosen) + ') </p><p class = "side">' + d.Seven_day_ave_new_label + '</p>')
     .style("opacity", 1)
     .style("top", (event.pageY - 10) + "px")
     .style("left", (event.pageX + 10) + "px")
@@ -2195,9 +2254,9 @@ svg_daily_average_case_bars
   .transition()
   .duration(1000)
   .attr("d", d3.line()
-.defined(d => !isNaN(d.Three_day_average_new_cases))
+.defined(d => !isNaN(d.Seven_day_average_new_cases))
 .x(function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth() /2)})
-.y(function(d) { return y_daily_cases(d.Three_day_average_new_cases) }))
+.y(function(d) { return y_daily_cases(d.Seven_day_average_new_cases) }))
 
 
 daily_new_case_bars
@@ -2216,11 +2275,29 @@ daily_new_case_bars
   .on("mousemove", showTooltip_daily_case_1)
   .on('mouseout', mouseleave_daily_case_1);
 
+svg_daily_new_case_bars
+  .selectAll("#area_peak_average_1")
+  .remove();
 
+svg_daily_new_case_bars
+  .selectAll("#area_peak_average_2")
+  .remove();
 
+svg_daily_new_case_bars
+  .append("text")
+  .attr('id', 'area_peak_average_1')
+  .attr("x", width_hm * .03 + 10)
+  .attr("y", 53)
+  .text('in ' + selected_line_5_area_option + ' was')
+  .attr("text-anchor", "start")
 
-
-
+svg_daily_new_case_bars
+  .append("text")
+  .attr('id', 'area_peak_average_2')
+  .attr("x", width_hm * .03 + 10)
+  .attr("y", 66)
+  .text(d3.format(',.0f')(peak_daily_cases_1_chosen[0]['Seven_day_average_new_cases']) + ' cases on ' + peak_daily_cases_1_chosen[0]['Period'])
+  .attr("text-anchor", "start")
 
 }
 

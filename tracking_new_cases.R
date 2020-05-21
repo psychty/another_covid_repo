@@ -153,8 +153,8 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
   mutate(Cumulative_cases = cumsum(New_cases)) %>% # These are based on the new cases data being accurate
   mutate(Log10Cumulative_cases = log10(Cumulative_cases)) %>% # We also add log scaled cumulative cases for reporting growth
   group_by(Name) %>% 
-  mutate(Three_day_average_new_cases = rollapply(New_cases, 3, mean, align = 'right', fill = NA)) %>%
-  mutate(Three_day_average_cumulative_cases = rollapply(Cumulative_cases, 3, mean, align = 'right', fill = NA)) %>% 
+  mutate(Seven_day_average_new_cases = rollapply(New_cases, 7, mean, align = 'right', fill = NA)) %>%
+  mutate(Seven_day_average_cumulative_cases = rollapply(Cumulative_cases, 7, mean, align = 'right', fill = NA)) %>% 
   mutate(Period = format(Date, '%d %B')) %>%
   select(-Population) %>% 
   left_join(mye_total[c('Code', 'Population')], by = 'Code') %>% 
@@ -163,8 +163,8 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
   mutate(Case_label = paste0('The total (cumulative) number of cases reported for people with specimens taken by this date (', Period, ') was ', format(Cumulative_cases, big.mark = ',', trim = TRUE), '. A total of ', format(New_cases, big.mark = ',', trim = TRUE), ' patients who had sample specimens taken on this day (representing new cases) were confirmed to have the virus',  ifelse(Data_completeness == 'Considered incomplete', paste0('.<font color = "#bf260a"> However, these figures should be considered incomplete until at least ', format(Date + 5, '%d %B'),'.</font>'),'.'))) %>% 
   mutate(Rate_label = paste0('The total (cumulative) number of Covid-19 cases per 100,000 population reported to date (', Period, ') is <b>', format(round(Cumulative_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population. The new cases (swabbed on this date) represent <b>',format(round(New_cases_per_100000,0), big.mark = ',', trim = TRUE), '</b> cases per 100,000 population</p><p><i>Note: the rate per 100,000 is rounded to the nearest whole number, and sometimes this can appear as zero even when there were some cases reported.</i>')) %>% 
   mutate(Proportion_label = paste0('The new cases for patients swabbed on this day represent <b>', round((New_cases / Cumulative_cases) * 100, 1), '%</b> of the total cumulative number of Covid-19 cases reported up to ', Period, ' (<b>', format(Cumulative_cases, big.mark = ',', trim = TRUE), '</b>).')) %>%  
-  mutate(Three_day_ave_new_label = ifelse(is.na(Three_day_average_new_cases), paste0('It is not possible to calculate a three day rolling average of new cases for this date (', Period, ') because one of the values in the last three days is missing or revised.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete.', paste0('As such, the rolling average number of new cases in the last three days (<b>', format(round(Three_day_average_new_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of new cases in the last three days is <b>', format(round(Three_day_average_new_cases, 0), big.mark = ',', trim = TRUE), '  cases</b>.')))) %>% 
-  mutate(Three_day_ave_cumulative_label = ifelse(is.na(Three_day_average_cumulative_cases), paste0('It is not possible to calculate a three day rolling average of new cases for this date (', Period, ') because one of the values in the last three days is missing or revised.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete. ', paste0('As such, the rolling average number of cumulative cases in the last three days (<b>', format(round(Three_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of cumulative cases in the last three days is <b>', format(round(Three_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>.')))) %>%
+  mutate(Seven_day_ave_new_label = ifelse(is.na(Seven_day_average_new_cases), paste0('It is not possible to calculate a seven day rolling average of new cases for this date (', Period, ') because one of the values in the last seven days is missing.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete.', paste0('As such, the rolling average number of new cases in the last seven days (<b>', format(round(Seven_day_average_new_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of new cases in the last seven days is <b>', format(round(Seven_day_average_new_cases, 0), big.mark = ',', trim = TRUE), '  cases</b>.')))) %>% 
+  mutate(Seven_day_ave_cumulative_label = ifelse(is.na(Seven_day_average_cumulative_cases), paste0('It is not possible to calculate a seven day rolling average of new cases for this date (', Period, ') because one of the values in the last seven days is missing.'), ifelse(Data_completeness == 'Considered incomplete', paste0('It can take around five days for results to be fully reported and data for this date (', Period, ') should be considered incomplete. ', paste0('As such, the rolling average number of cumulative cases in the last seven days (<b>', format(round(Seven_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>) should be treated with caution.')), paste0('The rolling average number of cumulative cases in the last seven days is <b>', format(round(Seven_day_average_cumulative_cases, 0), big.mark = ',', trim = TRUE), ' cases</b>.')))) %>%
   mutate(new_case_key = factor(ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases >= 76 & New_cases <= 100, '76-100 cases', ifelse(New_cases >100, 'More than 100 cases', NA))))))), levels =  c('No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', '76-100 cases', 'More than 100 cases'))) %>%
   mutate(new_case_per_100000_key = factor(ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 5, '1-5 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 6 & round(New_cases_per_100000,0) <= 10, '6-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 11 & round(New_cases_per_100000, 0) <= 15, '11-15 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 16 & round(New_cases_per_100000,0) <= 20, '16-20 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 20, 'More than 20 new cases per 100,000', NA))))))), levels =  c('No new cases', '1-5 new cases per 100,000', '6-10 new cases per 100,000', '11-15 new cases per 100,000', '16-20 new cases per 100,000', 'More than 20 new cases per 100,000'))) %>% 
   ungroup() %>% 
@@ -229,9 +229,9 @@ daily_cases_reworked <- daily_cases_reworked %>%
 # https://blogs.sas.com/content/iml/2020/04/01/estimate-doubling-time-exponential-growth.html
 
 # We create a doubling time using the most recent 5 day period (and doubling time is recalculated every day once new data is available) 
-double_time_period <- 5 # this could be 5 or 7 
+double_time_period <- 7 # this could be 5 or 7 
 
-# I've made an ifelse function that identifies 5 day periods for 100 days or 140 days of data if 7 day doubling time is used and this may have to change in the future.
+# I've made an ifelse function that identifies 7 day periods for 100 days or 140 days of data if 7 day doubling time is used and this may have to change in the future.
 
 # Importantly, given that the data has changed from reported date to specimen date, and that the last five days have been concluded as incomplete, it would not be useful to report a doubling time for this time period.
 
@@ -286,17 +286,17 @@ doubling_time_df_summary <- doubling_time_df %>%
 # Latest
 case_summary_latest <- daily_cases_reworked %>% 
   filter(Date == max(Date)) %>% 
-  select(Name, Cumulative_cases, Cumulative_per_100000, Three_day_average_cumulative_cases) %>% 
+  select(Name, Cumulative_cases, Cumulative_per_100000, Seven_day_average_cumulative_cases) %>% 
   rename(`Total confirmed cases so far` = Cumulative_cases,
          `Total cases per 100,000 population` = Cumulative_per_100000,
-         `Three day average cumulative cases` = Three_day_average_cumulative_cases)
+         `Seven day average cumulative cases` = Seven_day_average_cumulative_cases)
 
 case_summary_complete <- daily_cases_reworked %>% 
   filter(Date == complete_date) %>% 
-  select(Name, New_cases, New_cases_per_100000, Three_day_average_new_cases) %>% 
+  select(Name, New_cases, New_cases_per_100000, Seven_day_average_new_cases) %>% 
   rename(`Confirmed cases swabbed on most recent complete day` = New_cases,
          `Confirmed cases swabbed per 100,000 population on most recent complete day` = New_cases_per_100000,
-         `Average number of confirmed cases tested in past three complete days` = Three_day_average_new_cases) 
+         `Average number of confirmed cases tested in past seven complete days` = Seven_day_average_new_cases) 
 
 case_summary <- case_summary_latest %>% 
   left_join(case_summary_complete, by = 'Name') %>% 
@@ -310,7 +310,7 @@ rm(case_summary_complete, case_summary_latest)
 complete_period <- format(complete_date, '%d %B')
 
 daily_cases <- daily_cases_reworked %>% 
-  select(Name, Date, Period, Data_completeness, Cumulative_cases,Three_day_average_new_cases, Three_day_average_cumulative_cases, Cumulative_per_100000, Log10Cumulative_cases, New_cases, New_cases_per_100000, Case_label, Rate_label, Proportion_label, Three_day_ave_cumulative_label, Three_day_ave_new_label, new_case_key, new_case_per_100000_key, Days_since_case_x, Days_since_first_case) %>% 
+  select(Name, Date, Period, Data_completeness, Cumulative_cases, Seven_day_average_new_cases, Seven_day_average_cumulative_cases, Cumulative_per_100000, Log10Cumulative_cases, New_cases, New_cases_per_100000, Case_label, Rate_label, Proportion_label, Seven_day_ave_cumulative_label, Seven_day_ave_new_label, new_case_key, new_case_per_100000_key, Days_since_case_x, Days_since_first_case) %>% 
   left_join(doubling_time_df[c('Name', 'Date', 'period_in_reverse', 'Double_time', 'date_range_label')], by = c('Name', 'Date')) %>% 
   mutate(double_time_label_1 = paste0(ifelse(Days_since_case_x < 0, '', ifelse(Days_since_case_x == 0, paste0('This is the day that the total (cumulative) cases was ', case_x_number, ' or more.'), paste0('This is day ', Days_since_case_x, ' since the number of diagnosed cases reached ', case_x_number, ' or more.'))), paste0(' The total (cumulative) number of cases on this day was ', format(Cumulative_cases, big.mark = ',', trim = TRUE)))) %>% 
   # mutate(double_time_label_1 = ifelse(Days_since_case_x < 0, NA, double_time_label_1)) %>% 
