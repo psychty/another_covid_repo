@@ -24,13 +24,23 @@ d3.select("#ons_dates_mortality")
 
 var death_places = ["Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)']
 
+var death_place_label = d3.scaleOrdinal()
+  .domain(death_places)
+  .range(['at home', 'in a care home', 'in hospital', 'in a hospice', 'elsewhere (which includes other communal establishments)'])
 
+var death_place_tag = d3.scaleOrdinal()
+  .domain(death_places)
+  .range(['home', 'carehome','hospital','hospice','elsewhere'])
 
 var colour_place_of_death = d3.scaleOrdinal()
   .domain(death_places)
-  .range(["#f6de6c", "#ed8a46", "#be3e2b","#34738f"])
+  .range(["#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc'])
 
 var covid_causes = ['Not attributed to Covid-19', 'Covid-19']
+
+var attribute_label = d3.scaleOrdinal()
+  .domain(['Not attributed to Covid-19', 'Covid-19'])
+  .range(['not attributed to Covid-19', 'where Covid-19 was mentioned as an underlying or contributing factor'])
 
 var colour_covid_non_covid = d3.scaleOrdinal()
   .domain(covid_causes)
@@ -83,9 +93,11 @@ var tooltip_m1 = d3.select("#covid_non_covid_mortality_all_settings")
   .style("padding", "10px")
 
 var showTooltip_m1 = function(d, i) {
+    var causeName = d3.select(this.parentNode).datum().key;
+    var causeValue = d.data[causeName];
 
 tooltip_m1
-  .html("<h5>" + d.data.Name + '</h5><p class = "side">Week number ' + d.data.Week_number + ' - ' + d.data.Date_label + '</p><p class = "side">' + d.data.Deaths_in_week_label + '</p><p class = "side">' + d.data.Cumulative_deaths_label + '</p>' )
+  .html("<h5>" + d.data.Name + '</h5><p class = "side">Week number ' + d.data.Week_number + ' - ' + d.data.Date_label + '</p><p> <b>' + d3.format(',.0f')(causeValue) + ' deaths </b>' + attribute_label(causeName) + '</p><p class = "side">' + d.data.Deaths_in_week_label + '</p><p class = "side">' + d.data.Cumulative_deaths_label + '</p>' )
   .style("opacity", 1)
   .attr('visibility', 'visible')
   .style("top", (event.pageY - 10) + "px")
@@ -331,7 +343,6 @@ bars_m1
  .on('mousemove', showTooltip_m1)
  .on('mouseout', mouseleave_m1)
 
-
 svg_fg_mortality_1
     .selectAll("#m1_chosen_area")
     .remove();
@@ -516,7 +527,10 @@ var request = new XMLHttpRequest();
     request.send(null);
 var deaths_by_week_place = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
-console.log(deaths_by_week_place)
+var request = new XMLHttpRequest();
+    request.open("GET", "./cumulative_deaths_all_cause_by_place_SE.json", false);
+    request.send(null);
+var cumulative_deaths_by_week_place = JSON.parse(request.responseText); // parse the fetched json data into a variable
 
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_mortality_2_area_button")
@@ -542,11 +556,62 @@ var chosen_latest_m2 = chosen_m2_df.filter(function(d) {
   return d.Week_number === d3.max(chosen_m2_df, function(d) {return +d.Week_number;})
 })
 
+var chosen_latest_m2_cumulative = cumulative_deaths_by_week_place.filter(function(d) {
+  return d.Week_number === d3.max(chosen_m2_df, function(d) {return +d.Week_number;}) &
+         d.Name === chosen_m2_area
+})
+
 var stackedData_m2 = d3.stack()
     .keys(death_places)
     (chosen_m2_df)
 
 weeks_m2 = chosen_m2_df.map(function(d) {return (d.Date_label);});
+
+d3.select("#selected_m2_title")
+  .html(function(d) {
+    return 'Deaths (all ages) by week of occurrence and place of death; 2020 up to ' + ons_mortality_figures_dates[0].Occurring_week_ending + '; ' + chosen_m2_area
+    });
+
+// Create a tooltip for the lines and functions for displaying the tooltips as well as highlighting certain lines.
+var tooltip_m2 = d3.select("#all_cause_mortality_by_place")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+var showTooltip_m2 = function(d, i) {
+    var placeName = d3.select(this.parentNode).datum().key;
+    var placeValue = d.data[placeName];
+
+// Reduce opacity of all rect to 0.2
+    d3.selectAll(".myRect")
+      .style("opacity", 0.5)
+    // Highlight all rects of this subgroup with opacity 0.8. It is possible to select them since they have a specific class = their name.
+    d3.selectAll("." + death_place_tag(placeName))
+      .style("opacity", 1)
+
+tooltip_m2
+  .html("<h5>" + d.data.Name + '</h5><p class = "side">Week number ' + d.data.Week_number + ' - ' + d.data.Date_label + '</p><p class = "side">There were <b>' + d3.format(',.0f')(placeValue) + ' deaths</b> occurring ' + death_place_label(placeName) + ' in ' + d.data.Date_label + ' that have been registered so far.</p><p>The deaths ' + death_place_label(placeName) + ' represent <b>' + d3.format('.1%')(placeValue / d.data['All places']) + ' </b>of deaths occurring in this week.</p>')
+  .style("opacity", 1)
+  .attr('visibility', 'visible')
+  .style("top", (event.pageY - 10) + "px")
+  .style("left", (event.pageX + 10) + "px")
+  .style("visibility", "visible");
+}
+
+var mouseleave_m2 = function(d) {
+tooltip_m2
+  .style("visibility", "hidden")
+
+ d3.selectAll(".myRect")
+      .style("opacity",1)
+}
 
 // append the svg object to the body of the page
 var svg_fg_mortality_2 = d3.select("#all_cause_mortality_by_place")
@@ -571,29 +636,654 @@ xAxis_mortality_2
   .attr("transform", 'translate(-10,10)rotate(-90)')
   .style("text-anchor", "end")
 
+var y_m2_ts = d3.scaleLinear()
+  .domain([0, d3.max(chosen_m2_df, function(d) {return +d['All places'];})])
+  .range([height_line - 90, 0])
+  .nice()
 
-//
-// var y_m2_ts = d3.scaleLinear()
-//   .domain([0, d3.max(chosen_m2_df, function(d) {return +d['All causes'];})])
-//   .range([height_line - 90, 0])
-//
-// var y_m1_ts_axis = svg_fg_mortality_1
-//   .append("g")
-//   .attr("transform", 'translate(0,0)')
-//   .call(d3.axisLeft(y_m1_ts).tickFormat(d3.format(',.0f')));
-//
-// var bars_m1 = svg_fg_mortality_1
-//  .append("g")
-//  .selectAll("g")
-//  .data(stackedData_m1)
-//  .enter().append("g")
-//  .attr("fill", function(d) { return colour_covid_non_covid(d.key); })
-//  .selectAll("rect")
-//  .data(function(d) { return d; })
-//  .enter().append("rect")
-//  .attr("x", function(d) { return x_m1(d.data.Date_label); })
-//  .attr("y", function(d) { return y_m1_ts(d[1]); })
-//  .attr("height", function(d) { return y_m1_ts(d[0]) - y_m1_ts(d[1]); })
-//  .attr("width",x_m1.bandwidth())
-//  .on('mousemove', showTooltip_m1)
-//  .on('mouseout', mouseleave_m1)
+var y_m2_ts_axis = svg_fg_mortality_2
+  .append("g")
+  .attr("transform", 'translate(0,0)')
+  .call(d3.axisLeft(y_m2_ts).tickFormat(d3.format(',.0f')));
+
+var bars_m2 = svg_fg_mortality_2
+ .append("g")
+ .selectAll("g")
+ .data(stackedData_m2)
+ .enter().append("g")
+ .attr("fill", function(d) { return colour_place_of_death(d.key); })
+ .attr("class", function(d){ return "myRect " + death_place_tag(d.key) }) // Add a class to each subgroup: their name
+ .selectAll("rect")
+ .data(function(d) { return d; })
+ .enter().append("rect")
+ .attr("x", function(d) { return x_m2(d.data.Date_label); })
+ .attr("y", function(d) { return y_m2_ts(d[1]); })
+ .attr("height", function(d) { return y_m2_ts(d[0]) - y_m2_ts(d[1]); })
+ .attr("width",x_m2.bandwidth())
+ .on('mousemove', showTooltip_m2)
+ .on('mouseout', mouseleave_m2)
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .65)
+  .attr("y", 10)
+  .attr("text-anchor", "start")
+  .text('All cause deaths')
+  .style('font-weight', 'bold')
+  .style("font-size", "18px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .65)
+  .attr("y", 35)
+  .attr('id', 'm2_chosen_area')
+  .attr("text-anchor", "start")
+  .text(chosen_m2_area)
+  .style('font-weight', 'bold')
+  .style("font-size", "18px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .65)
+  .attr("y", 50)
+  .attr("text-anchor", "start")
+  .text('so far in 2020 up to ' + ons_mortality_figures_dates[0].Occurring_week_ending)
+
+svg_fg_mortality_2
+    .append("circle")
+    .attr("cx", width_hm * .66)
+    .attr("cy", 72)
+    .attr("r", 10)
+    .attr("fill", function(d) { return colour_place_of_death('Home'); })
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 80)
+  .attr('id', 'm2_home_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Home']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_home_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 70)
+  .attr("text-anchor", "start")
+  .text('deaths occurring at home')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_home_latest_all_3')
+  .attr("x", function(d) {
+    if (chosen_latest_m2_cumulative[0]['Home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 80)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Home']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+    .append("circle")
+    .attr("cx", width_hm * .66)
+    .attr("cy", 102)
+    .attr("r", 10)
+    .attr("fill", function(d) { return colour_place_of_death('Care home'); })
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 110)
+  .attr('id', 'm2_carehome_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Care home']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_carehome_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Care home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Care home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Care home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 100)
+  .attr("text-anchor", "start")
+  .text('deaths occurring in a care home')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_carehome_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Care home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Care home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Care home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 110)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Care home']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+    .append("circle")
+    .attr("cx", width_hm * .66)
+    .attr("cy", 132)
+    .attr("r", 10)
+    .attr("fill", function(d) { return colour_place_of_death('Hospital'); })
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 140)
+  .attr('id', 'm2_hospital_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Hospital']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospital_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 130)
+  .attr("text-anchor", "start")
+  .text('deaths occurring in hospital')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospital_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Hospital'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Hospital'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 140)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Hospital']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+    .append("circle")
+    .attr("cx", width_hm * .66)
+    .attr("cy", 162)
+    .attr("r", 10)
+    .attr("fill", function(d) { return colour_place_of_death('Hospice'); })
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 170)
+  .attr('id', 'm2_hospice_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Hospice']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospice_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 160)
+  .attr("text-anchor", "start")
+  .text('deaths occurring in a hospice')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospice_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Hospice'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Hospice'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 170)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Hospice']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+    .append("circle")
+    .attr("cx", width_hm * .66)
+    .attr("cy", 192)
+    .attr("r", 10)
+    .attr("fill", function(d) { return colour_place_of_death('Elsewhere (including other communal establishments)'); })
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 200)
+  .attr('id', 'm2_elsewhere_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_elsewhere_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 190)
+  .attr("text-anchor", "start")
+  .text('deaths occurring somewhere else')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_elsewhere_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 200)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+function update_m2_all_cause_place(){
+var chosen_m2_area = d3.select('#select_mortality_2_area_button').property("value")
+
+var chosen_m2_df = deaths_by_week_place.filter(function(d) {
+  return d.Name === chosen_m2_area
+});
+
+var chosen_latest_m2 = chosen_m2_df.filter(function(d) {
+  return d.Week_number === d3.max(chosen_m2_df, function(d) {return +d.Week_number;})
+})
+
+var chosen_latest_m2_cumulative = cumulative_deaths_by_week_place.filter(function(d) {
+  return d.Week_number === d3.max(chosen_m2_df, function(d) {return +d.Week_number;}) &
+         d.Name === chosen_m2_area
+})
+
+var stackedData_m2 = d3.stack()
+    .keys(death_places)
+    (chosen_m2_df)
+
+weeks_m2 = chosen_m2_df.map(function(d) {return (d.Date_label);});
+
+d3.select("#selected_m2_title")
+  .html(function(d) {
+    return 'Deaths (all ages) by week of occurrence and place of death; 2020 up to ' + ons_mortality_figures_dates[0].Occurring_week_ending + '; ' + chosen_m2_area
+    });
+
+y_m2_ts
+  .domain([0, d3.max(chosen_m2_df, function(d) {return +d['All places'];})])
+  .nice()
+
+y_m2_ts_axis
+  .transition()
+  .duration(1000)
+  .call(d3.axisLeft(y_m2_ts).tickFormat(d3.format(',.0f')));
+
+svg_fg_mortality_2
+.selectAll("rect")
+.remove();
+
+var bars_m2 = svg_fg_mortality_2
+ .append("g")
+ .selectAll("g")
+ .data(stackedData_m2)
+ .enter().append("g")
+ .attr("fill", function(d) { return colour_place_of_death(d.key); })
+ .attr("class", function(d){ return "myRect " + death_place_tag(d.key) }) // Add a class to each subgroup: their name
+ .selectAll("rect")
+ .data(function(d) { return d; })
+ .enter().append("rect")
+ .attr("x", function(d) { return x_m2(d.data.Date_label); })
+ .attr("y", function(d) { return y_m2_ts(d[1]); })
+ .attr("height", function(d) { return y_m2_ts(d[0]) - y_m2_ts(d[1]); })
+ .attr("width",x_m2.bandwidth())
+ .on('mousemove', showTooltip_m2)
+ .on('mouseout', mouseleave_m2)
+
+svg_fg_mortality_2
+    .selectAll("#m2_chosen_area")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_home_latest_all_1")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_home_latest_all_2")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_home_latest_all_3")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_carehome_latest_all_1")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_carehome_latest_all_2")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_carehome_latest_all_3")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_hospital_latest_all_1")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_hospital_latest_all_2")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_hospital_latest_all_3")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_hospice_latest_all_1")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_hospice_latest_all_2")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_hospice_latest_all_3")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_elsewhere_latest_all_1")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_elsewhere_latest_all_2")
+    .remove();
+svg_fg_mortality_2
+    .selectAll("#m2_elsewhere_latest_all_3")
+    .remove();
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .65)
+  .attr("y", 35)
+  .attr('id', 'm2_chosen_area')
+  .attr("text-anchor", "start")
+  .text(chosen_m2_area)
+  .style('font-weight', 'bold')
+  .style("font-size", "18px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 80)
+  .attr('id', 'm2_home_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Home']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_home_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 70)
+  .attr("text-anchor", "start")
+  .text('deaths occurring at home')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_home_latest_all_3')
+  .attr("x", function(d) {
+    if (chosen_latest_m2_cumulative[0]['Home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 80)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Home']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 110)
+  .attr('id', 'm2_carehome_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Care home']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_carehome_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Care home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Care home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Care home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 100)
+  .attr("text-anchor", "start")
+  .text('deaths occurring in a care home')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_carehome_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Care home'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Care home'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Care home'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 110)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Care home']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 140)
+  .attr('id', 'm2_hospital_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Hospital']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospital_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 130)
+  .attr("text-anchor", "start")
+  .text('deaths occurring in hospital')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospital_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospital'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Hospital'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Hospital'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 140)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Hospital']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 170)
+  .attr('id', 'm2_hospice_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Hospice']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospice_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 160)
+  .attr("text-anchor", "start")
+  .text('deaths occurring in a hospice')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_hospice_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Hospice'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Hospice'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Hospice'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 170)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Hospice']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr("x", width_hm * .66 + 15)
+  .attr("y", 200)
+  .attr('id', 'm2_elsewhere_latest_all_1')
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)']))
+  .style('font-weight', 'bold')
+  .style("font-size", "22px")
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_elsewhere_latest_all_2')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 190)
+  .attr("text-anchor", "start")
+  .text('deaths occurring somewhere else')
+
+svg_fg_mortality_2
+  .append("text")
+  .attr('id', 'm2_elsewhere_latest_all_3')
+  .attr("x", function(d) {
+    if ( chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 10000){
+      return width_hm * .66 + 90 }
+      else if (chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 1000) {
+      return width_hm * .66 + 80 }
+      else if (chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)'] >= 100) {
+      return width_hm * .66 + 60 }
+      else {
+      return width_hm * .66 + 50
+    }})
+  .attr("y", 200)
+  .attr("text-anchor", "start")
+  .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
+
+}
+
+
+d3.select("#select_mortality_2_area_button").on("change", function(d) {
+var chosen_m2_area = d3.select('#select_mortality_2_area_button').property("value")
+  update_m2_all_cause_place()
+})

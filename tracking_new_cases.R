@@ -456,13 +456,21 @@ nn_area %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_cipfa_cases_ranks_SE.json'))
 
+daily_cases %>% 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham', 'Sussex areas combined', 'South East region', 'England')) %>% 
+  group_by(Name) %>% 
+  filter(Seven_day_average_new_cases == max(Seven_day_average_new_cases, na.rm = TRUE)) %>% 
+  filter(Date == min(Date, na.rm = TRUE)) %>% 
+  select(Name, Date, Period, Seven_day_average_new_cases) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/peak_average_SE.json'))
+
 # export csv dataframes for powerpoint ####
 
 daily_cases %>% 
   filter(Name %in% ltla_areas) %>% 
   mutate(Log10Cumulative_cases = log10(Cumulative_cases)) %>% # We also add log scaled cumulative cases for reporting growth
   write.csv(., paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv'), row.names = FALSE, na = '')
-
 
 # timelines of testing in UK adapted from The Health Foundation - https://www.health.org.uk/news-and-comment/charts-and-infographics/covid-19-policy-tracker
 

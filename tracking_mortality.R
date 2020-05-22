@@ -408,9 +408,43 @@ Place_death %>%
 Place_death %>%
   filter(Cause == 'All causes') %>% 
   spread(Place_of_death, Deaths) %>% 
-  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>% 
+  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>%
+  mutate(`All places` = `Care home` + `Elsewhere (including other communal establishments)` + Home + Hospice + Hospital) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/deaths_all_cause_by_place_SE.json'))
+
+Place_death %>%
+  filter(Cause == 'All causes') %>% 
+  group_by(Name, Place_of_death) %>% 
+  arrange(Week_ending) %>% 
+  mutate(Cumulative_deaths = cumsum(Deaths)) %>% 
+  select(-Deaths) %>% 
+  spread(Place_of_death, Cumulative_deaths) %>%
+  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>%
+  mutate(`All places` = `Care home` + `Elsewhere (including other communal establishments)` + Home + Hospice + Hospital) %>%
+  toJSON() %>%
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/cumulative_deaths_all_cause_by_place_SE.json'))
+
+
+Place_death %>%
+  filter(Cause == 'COVID 19') %>% 
+  spread(Place_of_death, Deaths) %>% 
+  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>%
+  mutate(`All places` = `Care home` + `Elsewhere (including other communal establishments)` + Home + Hospice + Hospital) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/deaths_covid_by_place_SE.json'))
+
+Place_death %>%
+  filter(Cause == 'COVID 19') %>% 
+  group_by(Name, Place_of_death) %>% 
+  arrange(Week_ending) %>% 
+  mutate(Cumulative_deaths = cumsum(Deaths)) %>% 
+  select(-Deaths) %>% 
+  spread(Place_of_death, Cumulative_deaths) %>%
+  mutate(Date_label = paste('w/e ', ordinal(as.numeric(format(Week_ending, '%d'))), format(Week_ending, '%b'))) %>%
+  mutate(`All places` = `Care home` + `Elsewhere (including other communal establishments)` + Home + Hospice + Hospital) %>%
+  toJSON() %>%
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/cumulative_deaths_covid_by_place_SE.json'))
 
 # Care home deaths ONS ####
 
@@ -567,9 +601,9 @@ if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
 download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
 }
 
-local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
+ local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
 
-daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'COVID19 total deaths by trust', skip = 15) %>% 
+daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'Tab4 Deaths by trust', skip = 15) %>% 
   select(-c(...2, Total)) %>% 
   filter(!is.na(Code)) %>% 
   mutate(Name = capwords(Name, strict = TRUE)) %>% 
@@ -603,7 +637,7 @@ daily_trust_deaths_table <- daily_deaths_trust %>%
   select(Code, Trust, Date, `Deaths reported on most recent complete day`) %>% 
   left_join(latest_reported_daily_trust_deaths, by = 'Trust')
 
-meta_trust_deaths <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'COVID19 total deaths by trust', skip = 2, col_names = FALSE, n_max = 5) %>% 
+meta_trust_deaths <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'Tab4 Deaths by trust', skip = 2, col_names = FALSE, n_max = 5) %>% 
   rename(Item = ...1,
          Description = ...2) %>%
   mutate(Description = ifelse(Item == 'Published:', as.character(format(as.Date(as.numeric(Description), origin = "1899-12-30"), '%d-%b-%Y')), Description))
@@ -620,15 +654,3 @@ daily_trust_deaths_table %>%
 
 meta_trust_deaths %>% 
   write.csv(., paste0(github_repo_dir, '/meta_trust_deaths.csv'), row.names = FALSE, na = '')
-
-
-# Summarise the data over different sources.
-
-# ONS local deaths
-
-# The ONS figures, including deaths outside of hospital and those where COVID-19 was reported on the death certificate but there was no positive test.
-
-# Hospital deaths
-
-# Care home deaths
-
