@@ -19,6 +19,10 @@
   font-size: .85rem;
   }
 
+ body{
+    -webkit-text-size-adjust: none;
+  }
+
 
 .summary {
   padding-top: 15px;
