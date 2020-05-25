@@ -259,7 +259,7 @@
   </tr>
   <tr>
     <td class = 'highlighter_tab'>What is counted?</td>
-    <td>Deaths in hospitals, care homes, and in the wider community where the deceased had a positive Covid-19 test result confirmed by a Public Health or NHS laboratory. Daily figures are based on the date of reporting and not on the date of occurrence.</td>
+    <td>Deaths in hospitals where the deceased had a positive Covid-19 test result confirmed by a Public Health or NHS laboratory. Daily figures are based on the date of reporting and not on the date of occurrence.</td>
     <td>All deaths registered in England and Wales, by place of death (Hospital, Care home, Hospice, Home) by the week in which the death occurred.</td>
     <td>Care home deaths where the care home provider has stated COVID-19 as a suspected or confirmed cause of death on the death notification.</td>
   </tr>
@@ -284,7 +284,7 @@
   <tr>
     <td class = 'highlighter_tab'>Are the data complete?</td>
     <td>Whilst data can be provided rapidly, it is not always possible and data providers suggest that data in the most recent five days should be considered incomplete. The data do not include deaths of people who had Covid-19 but had not been tested, people who were tested positive only via a non-NHS or Public Health laboratory, or people who subsequently caught the virus and died following a negative test result.</td>
-    <td>Estimates prior to 2020 suggest around 26% of deaths in England and Wales are registered later than seven calendar days after occurance, with the proportion as high as 32% in the South East region. Deaths occuring in the last week but not registered within 7 days are not included in the latest weeks figures but may be added in future releases. </td>
+    <td>Estimates prior to 2020 suggest around 26% of deaths in England and Wales are registered later than seven calendar days after occurrence, with the proportion as high as 32% in the South East region. Deaths occurring in the last week but not registered within 7 days are not included in the latest weeks figures but may be added in future releases. </td>
     <td>Death notifications take on average 4 days to receive and process. These are not officially registered deaths and can be subject to revision and verification. Data are for April 10th onwards.</td>
   </tr>
 <tr><td style = 'font-style:italic;'colspan="4">Adapted from the Office for National Statistics and Public Health England</td></tr>
@@ -297,7 +297,7 @@
 <h3 style = 'padding-left: 25px; padding-top: 10px;'>Overall number of deaths attributed to Covid-19</h3>
 <div class = 'content'>
 <p id = 'latest_national_deaths_confirmed'></p>
-<p>The national figures covering all settings are reported daily. However, to understand mortality at a local level using publicly available data we have to look at the individual settings and for deaths occuring outside of hospital, there is some time delay in reporting. There are more timely figures for hospital deaths, which are explored further down in the analysis, but these are reported at Acute Hospital Trust and this is not always coterminous with residential populations of local authorities.</p>
+<p>The national figures covering all settings are reported daily. However, to understand mortality at a local level using publicly available data we have to look at the individual settings and for deaths occurring outside of hospital, there is some time delay in reporting. There are more timely figures for hospital deaths, which are explored further down in the analysis, but these are reported at Acute Hospital Trust and this is not always coterminous with residential populations of local authorities.</p>
 
 <!-- daily trust deaths sussex -->
 
@@ -321,6 +321,35 @@
   <p class = 'side'>The ONS weekly release of mortality at local authority level can be found <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard'>here</a>. Figures for previous weeks can be revised when new data are published to reflect more complete registrations.</p>
 </div>
 
+
+<!-- <div class="main" id = 'behaviours'>
+<div class ='content'>
+
+<h4></h4>
+<p>Google publish local reports on relative changes to movement trends over time across different categories of places (retail and recreation, groceries and pharmacies, parks, transit stations, workplaces, and residential locations).</p>
+<p>The reports highlight the percentage change in visits to each place type (see right hand side for more detail) although the residential category shows a change in duration of time spent there rather than a change in total visitors (which is not likely to change).</p>
+<p>Food shopping is separated from other retail locations as most non-food retailers have been closed for at least part of the lock down period. Visits to parks are likely to be partly dependent on the weather.</p>
+<p>The baseline is the median value of visits/duration, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020. The datasets show trends from mid February to the last few days (there is some lag as it takes a few days to compile the data).</p>
+<p>The figure below shows these changes in mobility in the local authority areas of the region. Data is not currently aggregated to region or national level (although it is available for the United Kingdom). Choose a different area to change the figure.</p>
+
+<div id = 'mobility_trends_google'></div>
+<p id = 'attribution_mobility_google'></p>
+</div>
+<div class = 'right-sidebar'>
+<p class = 'side'>Data are available at upper tier local authority level and there are wide ranging communities within these geographies that will behave differently.</p>
+<p class = 'side'>Source data on travel are from <b>users who have turned on location history</b> which is off by default. There may be different characteristics of people who turn their location history on or off and this may vary from place to place, and as such this sample may not be representative of the whole population.</p>
+<p class = 'side_important'>There can be days in which the number of visitors is too low to ensure privacy and anonymity of users and these are represented as gaps. These gaps should be treated as true unknowns and do not necessarily mean that places weren’t busy.</p>
+<p class = 'side'><b>Place categories shown:</b></p>
+<ul>
+<li><b>Grocery & pharmacy</b> includes markets, food warehouses, farmers markets, specialty food shops, and pharmacies</li>
+<li><b>Parks</b> include local and national parks, public beaches, marinas and public gardens.</li>
+<li><b>Public transport (transit)</b> includes public transport hubs such as subway, bus, and train stations.</li>
+<li><b>Retail & recreation</b> includes restaurants, cafes, shopping centers, theme parks, museums, libraries, theatres and cinemas.</li>
+<li><b>Residential</b></li>
+<li><b>Workplaces</b></li>
+</ul>
+</div>
+</div> -->
 </div>
 
 <div class="main">
@@ -337,7 +366,8 @@
 <script src = "covid_heatmap.js"></script>
 <script src = "covid_se_time_series.js"></script>
 <script src = 'covid_mortality.js'></script>
-<script src = 'test.js'></script>
+<script src = 'google_mobility_trends.js'></script>
+<!-- <script src = 'test.js'></script> -->
 
 </body>
 </html>

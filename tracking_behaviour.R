@@ -78,8 +78,40 @@ rename(Area = sub_region_1) %>%
 select(-c(sub_region_2, country_region_code, country_region)) %>% 
   filter(Area %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham')) %>% 
   gather(key = "Place", value = "Comparison_to_baseline", `retail_and_recreation_percent_change_from_baseline`:ncol(.)) %>% 
+  mutate(Place = factor(ifelse(Place == 'retail_and_recreation_percent_change_from_baseline', 'Retail and recreation', ifelse(Place == 'grocery_and_pharmacy_percent_change_from_baseline', 'Grocery and pharmacy', ifelse(Place == 'parks_percent_change_from_baseline', 'Parks', ifelse(Place == 'transit_stations_percent_change_from_baseline', 'Public transport', ifelse(Place == 'workplaces_percent_change_from_baseline', 'Workplaces', ifelse(Place == 'residential_percent_change_from_baseline', 'Residential', NA)))))), levels = c('Grocery and pharmacy', 'Public transport', 'Parks', 'Retail and recreation', 'Residential', 'Workplaces'))) %>% 
+  rename(Date = date)
+
+mobility %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/google_mobility_data.json'))
+
+format(Sys.Date(), '%d %B %Y') %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/google_mobility_data_accessed.json'))
+
+wsx_mobility <- mobility %>% 
+  filter(Area == 'West Sussex')
+
+ggplot(wsx_mobility,
+       aes(x = Date,
+           y = Comparison_to_baseline,
+           group = Place,
+           fill = Place,
+           colour = Place)) +
+  scale_colour_manual(values = c('#D7457A', '#26589D', '#DDA241', '#612762', '#7D9B5A', '#DBB2E2')) +
+  scale_y_continuous(limits = c(-100, 100),
+                     breaks = seq(-100,100,20)) +
+  geom_line() + 
+  scale_x_date(date_labels = "%b %d (%A)",
+               date_breaks = '2 day',
+               expand = c(0,.1)) +
+  geom_hline(yintercept =  0,
+             colour = '#000000') +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 90))
+
+# start ####
+# add 23rd March as lock down start
 
 # setdiff(local_cases_summary$Name, unique(mobility$sub_region_1))
 
