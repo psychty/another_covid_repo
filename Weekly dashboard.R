@@ -98,17 +98,17 @@ complete_period <- format(complete_date, '%d %B')
 # Latest
 case_summary_latest <- daily_cases %>% 
   filter(Date == max(Date)) %>% 
-  select(Name, Cumulative_cases, Cumulative_per_100000, Three_day_average_cumulative_cases) %>% 
+  select(Name, Cumulative_cases, Cumulative_per_100000, Seven_day_average_cumulative_cases) %>% 
   rename(`Total confirmed cases so far` = Cumulative_cases,
          `Total cases per 100,000 population` = Cumulative_per_100000,
-         `Three day average cumulative cases` = Three_day_average_cumulative_cases)
+         `Seven day average cumulative cases` = Seven_day_average_cumulative_cases)
 
 case_summary_complete <- daily_cases %>% 
   filter(Date == complete_date) %>% 
-  select(Name, New_cases, New_cases_per_100000, Three_day_average_new_cases) %>% 
+  select(Name, New_cases, New_cases_per_100000, Seven_day_average_new_cases) %>% 
   rename(`Confirmed cases swabbed on most recent complete day` = New_cases,
          `Confirmed cases swabbed per 100,000 population on most recent complete day` = New_cases_per_100000,
-         `Average number of confirmed cases tested in past three complete days` = Three_day_average_new_cases) 
+         `Average number of confirmed cases tested in past seven complete days` = Seven_day_average_new_cases) 
 
 doubling_time_df_summary <- daily_cases %>% 
   filter(period_in_reverse %in% c(1,2)) %>% 
@@ -157,11 +157,11 @@ dev.off()
 
 case_summary %>%
   arrange(rev(Name)) %>%
-  select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past three complete days`, highlight, `Three day average cumulative cases`)) %>%
+  select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past seven complete days`, highlight, `Seven day average cumulative cases`)) %>%
   write.csv(., paste0(github_repo_dir, '/Outputs/Table_1_case_summary.csv'), row.names = FALSE, na = '')
 
 case_summary %>%
-  select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past three complete days`, highlight, `Three day average cumulative cases`)) %>%
+  select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past seven complete days`, highlight, `Seven day average cumulative cases`)) %>%
   names()
 
 utla_daily_cases <- daily_cases %>% 

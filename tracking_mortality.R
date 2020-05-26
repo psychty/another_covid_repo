@@ -136,12 +136,13 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
 # download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtables.xlsx', paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
 
 # Boo! but we can get around it with some date hackery. This will probably not work on Tuesday morning next week
-download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), '.xlsx'), paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
+download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), 'finalcodes.xlsx'), paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
+
+# https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek20finalcodes.xlsx
 
 # Use occurances, be mindful that the most recent week of occurance data may not be complete if the death is not registered within 7 days (there is a week lag in reporting to allow up to seven days for registration to take place), this will be updated each week. Estimates suggest around 74% of deaths in England and Wales are registered within seven calendar days of occurance, with the proportion as low as 68% in the South East region. It is difficult to know what impact Covid-19 has on length of time taken to register a death. 
 
 # Occurrences data is produced at ltla level and we would probably find it useful to aggregate to utla and region for our analysis
-
 
 Occurrences_ltla <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) %>% 
   filter(`Geography type` == 'Local Authority') %>% 
@@ -425,7 +426,6 @@ Place_death %>%
   toJSON() %>%
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/cumulative_deaths_all_cause_by_place_SE.json'))
 
-
 Place_death %>%
   filter(Cause == 'COVID 19') %>% 
   spread(Place_of_death, Deaths) %>% 
@@ -531,9 +531,7 @@ Care_home_deaths %>%
 
 # Note: The notifications only include those received by 5pm on 8th May.
 
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200517officialsensitivecoviddeathnotificationsdata20200515v1.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
-
-# https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200517officialsensitivecoviddeathnotificationsdata20200515v1.xlsx
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200524officialsensitivecoviddeathnotificationsdata20200522.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
 
 cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
   rename(Name = ...1) %>% 
