@@ -589,15 +589,15 @@ var showTooltip_m2 = function(d, i) {
     var placeName = d3.select(this.parentNode).datum().key;
     var placeValue = d.data[placeName];
 
-// Reduce opacity of all rect to 0.2
-    d3.selectAll(".myRect")
-      .style("opacity", 0.5)
-    // Highlight all rects of this subgroup with opacity 0.8. It is possible to select them since they have a specific class = their name.
-    d3.selectAll("." + death_place_tag(placeName))
-      .style("opacity", 1)
+// // Reduce opacity of all rect to 0.2
+//     d3.selectAll(".myRect")
+//       .style("opacity", 0.5)
+//     // Highlight all rects of this subgroup with opacity 0.8. It is possible to select them since they have a specific class = their name.
+//     d3.selectAll("." + death_place_tag(placeName))
+//       .style("opacity", 1)
 
 tooltip_m2
-  .html("<h5>" + d.data.Name + '</h5><p class = "side">Week number ' + d.data.Week_number + ' - ' + d.data.Date_label + '</p><p class = "side">There were <b>' + d3.format(',.0f')(placeValue) + ' deaths</b> occurring ' + death_place_label(placeName) + ' in ' + d.data.Date_label + ' that have been registered so far.</p><p>The deaths ' + death_place_label(placeName) + ' represent <b>' + d3.format('.1%')(placeValue / d.data['All places']) + ' </b>of deaths occurring in this week.</p>')
+  .html("<h5>" + d.data.Name + '</h5><p class = "side">Week number ' + d.data.Week_number + ' - ' + d.data.Date_label + '</p><p><b>' + placeName + '</b></p><p class = "side">There were <b>' + d3.format(',.0f')(placeValue) + ' deaths</b> occurring ' + death_place_label(placeName) + ' in ' + d.data.Date_label + ' that have been registered so far.</p><p>The deaths ' + death_place_label(placeName) + ' represent <b>' + d3.format('.1%')(placeValue / d.data['All places']) + ' </b>of deaths occurring in this week.</p>')
   .style("opacity", 1)
   .attr('visibility', 'visible')
   .style("top", (event.pageY - 10) + "px")

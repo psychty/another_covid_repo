@@ -1153,6 +1153,8 @@ png(paste0(github_repo_dir, "/Outputs/018_covid_msoa_prop_deaths_plot.png"), wid
 covid_msoa_prop_deaths_plot
 dev.off()
 
+# Place of death ####
+
 for(i in 1:length(Areas_to_loop)){
   Area_x <- Areas_to_loop[i]
   

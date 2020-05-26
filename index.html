@@ -320,29 +320,33 @@
 <div class = 'right-sidebar'>
   <p class = 'side'>The ONS weekly release of mortality at local authority level can be found <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard'>here</a>. Figures for previous weeks can be revised when new data are published to reflect more complete registrations.</p>
 </div>
-
+</div>
 
 <div class="main" id = 'behaviours'>
 <div class ='content'>
-
-<h4></h4>
+<h4>Population mobility trends</h4>
 <p>Google publish local reports on relative changes to movement trends over time across different categories of places (retail and recreation, groceries and pharmacies, parks, transit stations, workplaces, and residential locations).</p>
 <p>The reports highlight the percentage change in visits to each place type (see right hand side for more detail) although the residential category shows a change in duration of time spent there rather than a change in total visitors (which is not likely to change).</p>
 <p>Food shopping is separated from other retail locations as most non-food retailers have been closed for at least part of the lock down period. Visits to parks are likely to be partly dependent on the weather.</p>
-<p>The baseline is the median value of visits/duration, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020. The datasets show trends from mid February to the last few days (there is some lag as it takes a few days to compile the data).</p>
+<p>The baseline is the median value of visits/duration, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020. This means that a Saturday is compared with the median value for Saturdays during January and the beginning of February. The datasets show trends from mid February to the last few days (there is some lag as it takes a few days to compile the data).</p>
 <p>The figure below shows these changes in mobility in the local authority areas of the region. Data is not currently aggregated to region or national level (although it is available for the United Kingdom). Choose a different area to change the figure.</p>
+</div>
 
+<div class = 'right-sidebar'>
+<p class = 'side'>Data are available at upper tier local authority level and there are wide ranging communities within these geographies that will behave differently.</p>
+<p class = 'side'>Source data on travel are from <b>users who have turned on location history</b> which is off by default. There may be different characteristics of people who turn their location history on or off and this may vary from place to place, and as such this sample may not be representative of the whole population.</p>
+<p class = 'side_important'>There can be days in which the number of visitors is too low to ensure privacy and anonymity of users and these are represented as gaps. These gaps should be treated as true unknowns and do not necessarily mean that places weren’t busy.</p>
+</div>
 
+<div class = 'content'>
 <h4 id = 'selected_mobility_title' style = 'padding-top: 10px;'></h4>
 <span class = 'give_me_space'>Area: </span>
 <select id='select_mobility_area_button'></select>
 <div id = 'mobility_trends_google'></div>
 <p id = 'attribution_mobility_google'></p>
 </div>
+
 <div class = 'right-sidebar'>
-<p class = 'side'>Data are available at upper tier local authority level and there are wide ranging communities within these geographies that will behave differently.</p>
-<p class = 'side'>Source data on travel are from <b>users who have turned on location history</b> which is off by default. There may be different characteristics of people who turn their location history on or off and this may vary from place to place, and as such this sample may not be representative of the whole population.</p>
-<p class = 'side_important'>There can be days in which the number of visitors is too low to ensure privacy and anonymity of users and these are represented as gaps. These gaps should be treated as true unknowns and do not necessarily mean that places weren’t busy.</p>
 <p class = 'side'><b>Place categories shown:</b></p>
 <ul>
 <li><b>Grocery & pharmacy</b> includes markets, food warehouses, farmers markets, specialty food shops, and pharmacies</li>
@@ -354,6 +358,7 @@
 </ul>
 </div>
 </div>
+
 </div>
 
 <div class="main">

@@ -560,7 +560,8 @@ var y_c2_ts = d3.scaleLinear()
   }), d3.max(line_2_comp_chosen, function(d) {
     return +d.Cumulative_per_100000;
   })])])
-  .range([height_line - 90, 0]);
+  .range([height_line - 90, 0])
+  .nice();
 
 var y_c2_ts_axis = svg_cumulative_rate_linear
   .append("g")
@@ -879,7 +880,8 @@ var xAxis_line_3 = svg_cumulative_actual_log
 var y_c3_ts = d3.scaleLog()
   .domain([1, d3.max(df_3, function(d) {return +d.Cumulative_cases;})])
   .range([height_line - 50, 0])
-  .base(10);
+  .base(10)
+  .nice();
 
 // Append the y axis
 var y_c3_ts_axis = svg_cumulative_actual_log
