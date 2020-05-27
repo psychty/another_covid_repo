@@ -55,6 +55,35 @@ var chosen_mobility_df = mobility_data.filter(function(d) {
   return d.Area === chosen_mobility_area
 });
 
+var latest_chosen_mobility = chosen_mobility_df.filter(function(d) {
+  return d.Date === mobility_data_latest_date[0]
+})
+
+latest_grocery = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Grocery and pharmacy'
+})[0]['Comparison_to_baseline']
+
+latest_parks = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Parks'
+})[0]['Comparison_to_baseline']
+
+latest_public_transport = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Public transport'
+})[0]['Comparison_to_baseline']
+
+latest_retail = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Retail and recreation'
+})[0]['Comparison_to_baseline']
+
+latest_residential = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Residential'
+})[0]['Comparison_to_baseline']
+
+latest_workplace = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Workplaces'
+})[0]['Comparison_to_baseline']
+
+
 var grouped_mobility = d3.nest() // nest function allows to group the calculation per level of a factor
   .key(function(d) { return d.Place;})
   .entries(chosen_mobility_df);
@@ -107,13 +136,21 @@ svg_mobility_trends
 svg_mobility_trends
   .append("text")
   .attr("x", width_hm * .65)
-  .attr("y", 35)
+  .attr("y", 20)
   .attr('id', 'mobility_chosen_area_label')
   .attr("text-anchor", "start")
   .text(chosen_mobility_area)
   .style('font-weight', 'bold')
   .style("font-size", "18px")
 
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .65)
+  .attr("y", 40)
+  .attr("text-anchor", "start")
+  .text(mobility_data_latest_date[0])
+  // .style('font-weight', 'bold')
+  .style("font-size", "14px")
 
 svg_mobility_trends
     .append("circle")
@@ -131,6 +168,16 @@ svg_mobility_trends
   .text('Grocery & Pharmacy')
   .style('font-weight', 'bold')
   .style("font-size", "12px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 145)
+  .attr("y", 70)
+  .attr('id', 'mobility_latest_grocery')
+  .attr("text-anchor", "start")
+  .text(latest_grocery + '%')
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
 
 svg_mobility_trends
     .append("circle")
@@ -225,6 +272,34 @@ var chosen_mobility_df = mobility_data.filter(function(d) {
   return d.Area === chosen_mobility_area
 });
 
+var latest_chosen_mobility = chosen_mobility_df.filter(function(d) {
+  return d.Date === mobility_data_latest_date[0]
+})
+
+latest_grocery = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Grocery and pharmacy'
+})[0]['Comparison_to_baseline']
+
+latest_parks = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Parks'
+})[0]['Comparison_to_baseline']
+
+latest_public_transport = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Public transport'
+})[0]['Comparison_to_baseline']
+
+latest_retail = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Retail and recreation'
+})[0]['Comparison_to_baseline']
+
+latest_residential = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Residential'
+})[0]['Comparison_to_baseline']
+
+latest_workplace = latest_chosen_mobility.filter(function(d) {
+  return d.Place === 'Workplaces'
+})[0]['Comparison_to_baseline']
+
 days_mobility = chosen_mobility_df.map(function(d) {return (d.Date);});
 
 d3.select("#selected_mobility_title")
@@ -267,12 +342,13 @@ svg_mobility_trends
 svg_mobility_trends
   .append("text")
   .attr("x", width_hm * .65)
-  .attr("y", 35)
+  .attr("y", 20)
   .attr('id', 'mobility_chosen_area_label')
   .attr("text-anchor", "start")
   .text(chosen_mobility_area)
   .style('font-weight', 'bold')
   .style("font-size", "18px")
+
 
 }
 
