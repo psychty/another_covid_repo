@@ -169,15 +169,7 @@ svg_mobility_trends
   .style('font-weight', 'bold')
   .style("font-size", "12px")
 
-svg_mobility_trends
-  .append("text")
-  .attr("x", width_hm * .66 + 145)
-  .attr("y", 70)
-  .attr('id', 'mobility_latest_grocery')
-  .attr("text-anchor", "start")
-  .text(latest_grocery + '%')
-  .style('font-weight', 'bold')
-  .style("font-size", "16px")
+
 
 svg_mobility_trends
     .append("circle")
@@ -265,6 +257,102 @@ svg_mobility_trends
   .style("font-size", "12px")
 
 
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 145)
+  .attr("y", 70)
+  .attr('id', 'mobility_latest_grocery')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_grocery != 'number'){
+    return 'no data'}
+    else if ( latest_grocery >= 0){
+      return '+' + latest_grocery + '%' }
+      return latest_grocery + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 50)
+  .attr("y", 100)
+  .attr('id', 'mobility_latest_parks')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_parks != 'number'){
+    return 'no data'}
+    else if ( latest_parks >= 0){
+      return '+' + latest_parks + '%' }
+      return latest_parks + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 115)
+  .attr("y", 130)
+  .attr('id', 'mobility_latest_public')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_public_transport != 'number'){
+    return 'no data'}
+    else if ( latest_public_transport >= 0){
+      return '+' + latest_public_transport + '%' }
+      return latest_public_transport + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 135)
+  .attr("y", 160)
+  .attr('id', 'mobility_latest_retail')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_retail != 'number'){
+    return 'no data'}
+    else if ( latest_retail >= 0){
+      return '+' + latest_retail + '%' }
+      return latest_retail + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 85)
+  .attr("y", 190)
+  .attr('id', 'mobility_latest_residential')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_residential != 'number'){
+    return 'no data'}
+    else if ( latest_residential >= 0){
+      return '+' + latest_residential + '%' }
+      return latest_residential + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 85)
+  .attr("y", 220)
+  .attr('id', 'mobility_latest_workplace')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_workplace != 'number'){
+    return 'no data'}
+    else if ( latest_workplace >= 0){
+      return '+' + latest_workplace + '%' }
+      return latest_workplace + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
 function update_mobility(chosen_mobility_area){
 var chosen_mobility_area = d3.select('#select_mobility_area_button').property("value")
 
@@ -338,6 +426,24 @@ update_mobility_trend
 svg_mobility_trends
     .selectAll("#mobility_chosen_area_label")
     .remove();
+svg_mobility_trends
+    .selectAll("#mobility_latest_grocery")
+    .remove();
+svg_mobility_trends
+    .selectAll("#mobility_latest_parks")
+    .remove();
+svg_mobility_trends
+    .selectAll("#mobility_latest_retail")
+    .remove();
+svg_mobility_trends
+    .selectAll("#mobility_latest_public")
+    .remove();
+svg_mobility_trends
+    .selectAll("#mobility_latest_residential")
+    .remove();
+svg_mobility_trends
+    .selectAll("#mobility_latest_workplace")
+    .remove();
 
 svg_mobility_trends
   .append("text")
@@ -349,7 +455,101 @@ svg_mobility_trends
   .style('font-weight', 'bold')
   .style("font-size", "18px")
 
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 145)
+  .attr("y", 70)
+  .attr('id', 'mobility_latest_grocery')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_grocery != 'number'){
+    return 'no data'}
+    else if ( latest_grocery >= 0){
+      return '+' + latest_grocery + '%' }
+      return latest_grocery + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
 
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 50)
+  .attr("y", 100)
+  .attr('id', 'mobility_latest_parks')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_parks != 'number'){
+    return 'no data'}
+    else if ( latest_parks >= 0){
+      return '+' + latest_parks + '%' }
+      return latest_parks + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 115)
+  .attr("y", 130)
+  .attr('id', 'mobility_latest_public')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_public_transport != 'number'){
+    return 'no data'}
+    else if ( latest_public_transport >= 0){
+      return '+' + latest_public_transport + '%' }
+      return latest_public_transport + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 135)
+  .attr("y", 160)
+  .attr('id', 'mobility_latest_retail')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_retail != 'number'){
+    return 'no data'}
+    else if ( latest_retail >= 0){
+      return '+' + latest_retail + '%' }
+      return latest_retail + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 85)
+  .attr("y", 190)
+  .attr('id', 'mobility_latest_residential')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_residential != 'number'){
+    return 'no data'}
+    else if ( latest_residential >= 0){
+      return '+' + latest_residential + '%' }
+      return latest_residential + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", width_hm * .66 + 85)
+  .attr("y", 220)
+  .attr('id', 'mobility_latest_workplace')
+  .attr("text-anchor", "start")
+  .text(function(d) {
+  if ( typeof latest_workplace != 'number'){
+    return 'no data'}
+    else if ( latest_workplace >= 0){
+      return '+' + latest_workplace + '%' }
+      return latest_workplace + '%'
+    })
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
 }
 
 update_mobility()

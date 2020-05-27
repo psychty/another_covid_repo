@@ -652,3 +652,9 @@ daily_trust_deaths_table %>%
 
 meta_trust_deaths %>% 
   write.csv(., paste0(github_repo_dir, '/meta_trust_deaths.csv'), row.names = FALSE, na = '')
+
+
+# Excess mortality ####
+
+# excess_mortality <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) 
+

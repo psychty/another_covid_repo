@@ -83,8 +83,6 @@ select(-c(sub_region_2, country_region_code, country_region)) %>%
   mutate(Date = format(Date, '%d %B (%a)')) %>% 
   mutate(Date = factor(Date, levels = unique(Date)))
 
-
-
 mobility %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/google_mobility_data.json'))
@@ -132,3 +130,6 @@ ggplot(bh_mobility,
 # ● The baseline is the median value, for the corresponding day of the week, during the 5- week period Jan 3–Feb 6, 2020.
 # ● The reports show trends over several weeks with the most recent data representing approximately 2-3 days ago—this is how long it takes to produce the reports.
 
+download.file('https://www.local.gov.uk/sites/default/files/documents/Copy%20of%20COVID%20-%2019%20Estimated%20Population%20at%20risk%20by%20LA.xlsx', paste0(github_repo_dir, '/lg_inform_pop_at_risk.xlsx'), mode = 'wb')
+
+lg_inform_pop_at_risk <- read_excel("~/Documents/Repositories/another_covid_repo/lg_inform_pop_at_risk.xlsx", sheet = "Data", skip = 3)

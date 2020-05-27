@@ -300,7 +300,6 @@
 <p>The national figures covering all settings are reported daily. However, to understand mortality at a local level using publicly available data we have to look at the individual settings and for deaths occurring outside of hospital, there is some time delay in reporting. There are more timely figures for hospital deaths, which are explored further down in the analysis, but these are reported at Acute Hospital Trust and this is not always coterminous with residential populations of local authorities.</p>
 
 <!-- daily trust deaths sussex -->
-
 <p>The ONS has begun publishing weekly data at lower tier local authority for the number of deaths occurring in each week in the 2020 calendar year. From 31 March 2020 these figures also show the number of deaths involving coronavirus (COVID-19), based on any mention of COVID-19 on the death certificate. These are aggregated to upper tier local authority for this analysis.</p>
 
 <p id = 'ons_dates_mortality'></p>
@@ -316,10 +315,32 @@
 <select id='select_mortality_2_area_button'></select>
 <div id = 'all_cause_mortality_by_place'></div>
 
+
 </div>
 <div class = 'right-sidebar'>
   <p class = 'side'>The ONS weekly release of mortality at local authority level can be found <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard'>here</a>. Figures for previous weeks can be revised when new data are published to reflect more complete registrations.</p>
 </div>
+
+<div class = 'content'>
+<p style = 'padding-top: 10px'>The next figure shows the place of death for deaths where there is a mention of Covid-19 as an underlying or contributing factor on the death certificate.</p>
+<p>For most areas deaths with Covid-19 mentioned begin occurring around the week ending 20th March.</p>
+<h4 id = 'selected_m3_title' style = 'padding-top: 10px;'></h4>
+<span class = 'give_me_space'>Area: </span>
+<select id='select_mortality_3_area_button'></select>
+<div id = 'covid_mortality_by_place'></div>
+
+<h4 style = 'padding-top: 10px'>Excess mortality and deaths not recorded as Covid-19</h4>
+<p>It is important to remember that these Covid-19 deaths represent only those deaths where Covid-19 was confirmed or suspected as a cause of death. This is dependent on consistent and accurate recording of cause, which can be subjective for the doctors and officials completing certificates and there is thought to be variation in what is counted as a Covid-19 death locally, regionally and internationally.</p>
+<p>There will also be deaths that occur as an <b>indirect</b> consequence of the Covid-19 pandemic (not the virus itself). A simple example is where an individual experiencing symptoms of a heart attack avoids seeking help or going to Accident & Emergency department due to a fear of getting the virus. There are many other examples of indirect causes of death including lack of nutrition as a result of not being able to access quality food or a person who would normally have a number of friends or family members to check their welfare suddenly being isolated and having fewer or no contacts with others.</p>
+<p>Widely accepted as a superior measure of the true burden of the pandemic is to examine the excess deaths occurring in a population. This measures the additional deaths over a given time period compared to the number usually expected in a population (often a five year average). Such a measure would include those direct Covid-19 deaths that had not been diagnosed as well as indirect deaths.</p>
+<p>The Office for National Statistics do not currently publish historical figures on weekly occurrences of deaths at a local level prior to 2020, so it is not possible to examine excess deaths at this time, but it is hoped that further data will be made available in the near future. Note that weekly death registrations data are available at national and regional level <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/weeklyprovisionalfiguresondeathsregisteredinenglandandwales'>here</a> and registrations by month are available at local authority level <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/monthlyfiguresondeathsregisteredbyareaofusualresidence'>here</a>, however these are not included in this analysis to avoid confusion between occurrences and registrations of deaths.</p>
+<!-- <iframe height="648px" width="100" src="https://www.ons.gov.uk/visualisations/dvc833/fig1/index.html"></iframe> -->
+</div>
+
+<div class = 'right-sidebar'>
+  <p class = 'side_important'>Note that the y axis scale is much smaller for Covid-19 deaths compared to all deaths and the bars are redrawn to fill the height of the figure.</p>
+</div>
+
 </div>
 
 <div class="main" id = 'behaviours'>
@@ -329,24 +350,20 @@
 <p>The reports highlight the percentage change in visits to each type of place (see right hand side for more detail) although the residential category shows a change in duration of time spent there rather than a change in total visitors (which is not likely to change). Food shopping is separated from other retail locations as most non-food retailers have been closed for at least part of the lock down period. Visits to parks are likely to be partly dependent on the weather.</p>
 <p>The figure below shows these changes in mobility in the local authority areas of the region. Choose a different area to change the figure.</p>
 <p>The baseline (shown as the dashed line) is the median value of visits/duration, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020. This means that a Saturday is compared with the median value for Saturdays during January and the beginning of February. The datasets show trends from mid February to the last few days (there is some lag as it takes a few days to compile the data).</p>
+
+<h4 id = 'selected_mobility_title' style = 'padding-top: 10px;'></h4>
+<span class = 'give_me_space'>Area: </span>
+<select id='select_mobility_area_button'></select>
+<div id = 'mobility_trends_google'></div>
+<p id = 'attribution_mobility_google'></p>
+
 </div>
 
 <div class = 'right-sidebar'>
 <p class = 'side'>Data are available at upper tier local authority level and there are wide ranging communities within these geographies that will behave differently.</p>
 <p class = 'side'>Source data on travel are from <b>users who have turned on location history</b> which is off by default. There may be different characteristics of people who turn their location history on or off and this may vary from place to place, and as such this sample may not be representative of the whole population.</p>
 <p class = 'side_important'>There can be days in which the number of visitors is too low to ensure privacy and anonymity of users and these are represented as gaps. These gaps should be treated as true unknowns and do not necessarily mean that places weren’t busy.</p>
-</div>
-
-<div class = 'content'>
-<h4 id = 'selected_mobility_title' style = 'padding-top: 10px;'></h4>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_mobility_area_button'></select>
-<div id = 'mobility_trends_google'></div>
-<p id = 'attribution_mobility_google'></p>
-</div>
-
-<div class = 'right-sidebar'>
-<p class = 'side'><b>Place categories shown:</b></p>
+<p><b>Place categories shown:</b></p>
 <ul>
 <li><b>Grocery & pharmacy</b> includes markets, food warehouses, farmers markets, specialty food shops, and pharmacies</li>
 <li><b>Parks</b> include local and national parks, public beaches, marinas and public gardens.</li>
@@ -358,10 +375,9 @@
 </div>
 </div>
 
-</div>
-
 <div class="main">
 <footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a>2020</footer>
+</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
@@ -375,7 +391,7 @@
 <script src = "covid_se_time_series.js"></script>
 <script src = 'covid_mortality.js'></script>
 <script src = 'google_mobility_trends.js'></script>
-<!-- <script src = 'test.js'></script> -->
+<script src = 'test.js'></script>
 
 </body>
 </html>

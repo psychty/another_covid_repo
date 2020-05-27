@@ -629,7 +629,7 @@ var x_m2 = d3.scaleBand()
 var xAxis_mortality_2 = svg_fg_mortality_2
   .append("g")
   .attr("transform", 'translate(0,' + (height_line - 90) + ")")
-  .call(d3.axisBottom(x_m1).tickSizeOuter(0));
+  .call(d3.axisBottom(x_m2).tickSizeOuter(0));
 
 xAxis_mortality_2
   .selectAll("text")
@@ -1281,7 +1281,6 @@ svg_fg_mortality_2
   .text('this is ' + d3.format('.1%')(chosen_latest_m2_cumulative[0]['Elsewhere (including other communal establishments)']/ chosen_latest_m2_cumulative[0]['All places']) + ' of all deaths in 2020.')
 
 }
-
 
 d3.select("#select_mortality_2_area_button").on("change", function(d) {
 var chosen_m2_area = d3.select('#select_mortality_2_area_button').property("value")
