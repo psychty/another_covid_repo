@@ -117,22 +117,44 @@
 </div>
 </div>
 
+<div class='main' id = 'ch_outbreaks'>
+<h3 style="padding-left:25px;">Suspected and confirmed Covid-19 outbreaks in care home settings</h3>
+<div class = "content">
+<p>Care homes have been significantly impacted by the Covid-19 pandemic and as at May 15th deaths in these settings accounted for around one in four Covid-19 deaths nationally and almost half of deaths across Sussex (see section on <a href = '#selected_m3_title'>mortality in this analysis)</a>.</p>
+<p>Public Health England have begun publishing the number of care homes where a suspected or confirmed outbreak of Covid-19 has been reported to Public Health England each week from the beginning of March 2020 and this is updated every Thursday for the previous week (counted as Monday to Sunday).</p>
+<p>An individual setting is only included in the dataset once even if there are subsequent outbreaks reported. There is also no indication of any status change in outbreak (whether it is active or not) although suspected outbreaks investigated and subsequently confirmed to be not related to Covid-19 are removed from the dataset.</p>
+<p>The data release includes the number of CQC registered care homes in the area and a percentage value of care homes reporting a suspected or confirmed outbreak of COVID-19. However, areas such as rehabilitation units and assisted living units are not required to register with the CQC and so are may not be included in the denominator for the percentage value. The true denominator (all potential care homes and rehabilitation settings) is unknown but will likely be similar to the number registered with the CQC (which is shown as a dashed line on the figure).</p>
+<p>You can choose a different area below using the drop down menu.</p>
+<h4 id = 'carehome_outbreak_title'></h4>
+<div class = 'drop'>
+<span>Area: </span>
+<select id = 'select_carehome_outbreak_area_button'></select>
+</div>
+<div id = 'carehome_outbreak_number'></div>
+</div>
+<div class = 'right-sidebar'>
+<p class = 'side_important'>The numbers of homes with outbreaks (numerator data) may include premises such as rehabilitation units and assisted living units that are not registered with the Care Quality Commission (CQC) which is the denominator used in the specified geographical area.</p>
+</div>
+</div>
+
+<div class = 'main'>
 <h3 style = 'padding-left: 25px;'>A note on testing and data</h3>
 <div class = 'content'>
 <ul class = 'summary'>
 <li class = 'list_summary'>The initial testing strategy was to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>).</li>
 <li class = 'list_summary'>As capacity increased, more and more healthcare workers as well as other keyworkers were prioritised for testing in what has been termed 'Pillar 2' testing, which includes testing from commercial partners. From 23rd April, all symptomatic essential workers and members of thier households were included in the eligibility criteria and from the 28th April anyone aged 65 and over who must leave their home to go to work could access a test.</li>
-<li class = 'list_summary'><b>From 18th May 2020, anyone aged 5 and over with symptoms will be able to have a Covid-19 test.</b></li>
+<li class = 'list_summary'><b>From 27th May 2020, anyone with one or more symptoms is be able to have a Covid-19 test.</b></li>
 <li class = 'list_summary'>Beyond this, the government is planning to expand diagnostics to antibody testing to confirm that a person has had the virus and is therefore likely to be immune from catching it again. See <a href = 'https://www.gov.uk/government/publications/coronavirus-covid-19-scaling-up-testing-programmes/coronavirus-covid-19-scaling-up-our-testing-programmes'>Government testing plans April 6th 2020</a> for more details.</li>
 <br>
 <li class = 'list_summary'>From the 14th April, PHE changed the method of reporting to show confirmed cases by the date at which the specimen for testing was taken. The first positive specimen date is used and duplicate tests for the same patient are removed. Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like cases on the most recent days (which are still being reported daily) are sloping off (getting smaller). <b>This is not necessarily the case, it is simply that the most recent testing results may take several days to be reported.</b> PHE suggest that data for the most recent five days should be treated with caution and considered 'incomplete'.</li>
 </ul>
 </div>
+</div>
 
 <div class='main' id = 'case_time_series'>
 <h3 style="padding-left:25px;">Cumulative confirmed cases over time</h3>
 <div class = "content">
-<p>The first line chart below shows the actual number of confirmed Covid-19 cases over time. You can choose which area to display using the drop down menu. Remember, the last five dots on this figure should be considered incomplete whilst specimens taken on these dates take time to be tested.</p>
+<p>The line chart below shows the actual number of confirmed Covid-19 cases over time. You can choose which area to display using the drop down menu. Remember, the last five dots on this figure should be considered incomplete whilst specimens taken on these dates take time to be tested.</p>
 <p>The dashed line represents the average number of cases reported over the last seven days. This goes some way in smoothing out fluctuation occurring daily as a result of delays or validation. The average line will usually trail a little lower than the actual line whilst cases continue to increase each day.</p>
 <div class = 'drop'>
 <span>Area: </span>
@@ -389,9 +411,10 @@
 <script src = "covid_tracking_data_summary.js"></script>
 <script src = "covid_heatmap.js"></script>
 <script src = "covid_se_time_series.js"></script>
+<script src = 'test.js'></script>
 <script src = 'covid_mortality.js'></script>
 <script src = 'google_mobility_trends.js'></script>
-<script src = 'test.js'></script>
+
 
 </body>
 </html>

@@ -2099,11 +2099,6 @@ svg_daily_new_case_bars
   .text('Testing eligibility changes -')
   .attr("text-anchor", "end")
 
-
-
-
-
-
 var tooltip_daily_case_1 = d3.select("#daily_new_case_bars")
   .append("div")
   .style("opacity", 0)
@@ -2132,6 +2127,22 @@ var mouseleave_daily_case_1 = function(d) {
     .style('opacity', 0)
     .style("visibility", "hidden")
 }
+
+svg_daily_new_case_bars
+  .append('line')
+  .attr('x1', x_daily_cases('23 March') + (x_daily_cases.bandwidth() / 2))
+  .attr('y1', 30)
+  .attr('x2', x_daily_cases('23 March') + (x_daily_cases.bandwidth() / 2))
+  .attr('y2', height_line - 90)
+  .attr('stroke', 'red')
+  .attr("stroke-dasharray", ("3, 3"))
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr("x", x_daily_cases('23 March'))
+  .attr("y", 31)
+  .text('lockdown starts -')
+  .attr("text-anchor", "end")
 
 svg_daily_new_case_bars
   .append('line')

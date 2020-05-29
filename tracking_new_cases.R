@@ -1,6 +1,6 @@
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'readODS'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -474,9 +474,79 @@ daily_cases %>%
 
 # timelines of testing in UK adapted from The Health Foundation - https://www.health.org.uk/news-and-comment/charts-and-infographics/covid-19-policy-tracker
 
-test_timeline <- data.frame(Period = c('27 March', '15 April','17 April','23 April','28 April', '18 May'), Change = c('front-line NHS Staff', 'those in social care settings','additional front-line workers', 'all symptomatic essential worker and members of their households','anyone aged 65+ who must leave their home for work plus asymptomatic NHS and Social Care staff and care home residents', 'anyone aged 5+ who is showing signs of Covid-19')) %>% 
+test_timeline <- data.frame(Period = c('27 March', '15 April','17 April','23 April','28 April', '18 May', '27 May'), Change = c('front-line NHS Staff', 'those in social care settings','additional front-line workers', 'all symptomatic essential worker and members of their households','anyone aged 65+ who must leave their home for work plus asymptomatic NHS and Social Care staff and care home residents', 'anyone aged 5+ who is showing signs of Covid-19', 'anyone with Covid-19 symptoms regardless of age')) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/uk_testing_key_dates.json'))
 
+# Outbreaks in Care Homes ####
+
+download.file('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/886384/Care_home_outbreaks_of_COVID-19_Management_Information.ods', paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), mode = 'wb')
+
+utla_ch_outbreaks <- read_ods(paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), sheet = "Upper_Tier_Local_authorities", skip = 1) %>% 
+  select(-c('Local Authority','Percentage of care homes that have reported an outbreak', 'Government office regions', 'All outbreaks')) %>% 
+  gather(key = "Date", value = "Outbreaks", 3:ncol(.)-1) %>% 
+  rename(Code = UTLAApr19CD) %>% 
+  mutate(Date = as.Date(Date)) %>% 
+  left_join(area_code_names, by = 'Code') %>% 
+  select(Code, Name, `Number of care homes`, Date, Outbreaks) %>% 
+  group_by(Code, Name) %>% 
+  arrange(Date) %>% 
+  mutate(Cumulative_outbreaks = cumsum(Outbreaks)) %>% 
+  ungroup()
+
+ltla_ch_outbreaks <- read_ods(paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), sheet = "Lower_Tier_Local_authorities", skip = 1) %>% 
+  select(-c('Local Authority','Percentage of care homes that have reported an outbreak', 'Government office regions', 'All outbreaks')) %>% 
+  gather(key = "Date", value = "Outbreaks", 3:ncol(.)-1) %>% 
+  rename(Code = LTLAApr19CD) %>% 
+  mutate(Date = as.Date(Date)) %>% 
+  left_join(area_code_names, by = 'Code') %>% 
+  select(Code, Name, `Number of care homes`, Date, Outbreaks) %>% 
+  group_by(Code, Name) %>% 
+  arrange(Date) %>% 
+  mutate(Cumulative_outbreaks = cumsum(Outbreaks)) %>% 
+  ungroup()
+
+sussex_combined_outbreaks <- utla_ch_outbreaks %>% 
+  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
+  group_by(Date) %>% 
+  summarise(Outbreaks = sum(Outbreaks, na.rm = TRUE),
+            `Number of care homes` = sum(`Number of care homes`, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  mutate(Cumulative_outbreaks = cumsum(Outbreaks)) %>% 
+  mutate(Name = 'Sussex areas combined')
+
+care_home_outbreaks <- ltla_ch_outbreaks %>% 
+  bind_rows(utla_ch_outbreaks) %>% 
+  select(-Code) %>% 
+  bind_rows(sussex_combined_outbreaks) %>% 
+  unique() %>% 
+  mutate(Date_label = paste0(format(Date, '%d %b'), ' to ', format(Date + 6, '%d %b'))) %>% 
+  mutate(Week_beginning = paste0('w/b ', format(Date, '%d %b')))
+
+care_home_outbreaks %>% 
+  filter(Date %in% c(min(Date), max(Date))) %>% 
+  select(Date, Date_label, Week_beginning) %>% 
+  unique() %>% 
+  toJSON() %>% 
+  write_lines(paste0(github_repo_dir, '/care_home_outbreak_dates.json'))
+
+care_home_outbreaks %>% 
+  toJSON() %>% 
+  write_lines(paste0(github_repo_dir, '/care_home_outbreaks.json'))
+
+# sanity warning - last column is pointless because the denominator does not include all possible numerator areas.
+
+# Number of COVID-19 outbreaks in care homes - Management Information
+
+# This dataset includes management information describing the number of care homes, assited living units and rehabilitation units reporting a suspected or confirmed outbreak of COVID-19 to PHE.
+
+# Figures are included for each week starting from 2 March 2020 by local authority, government office region and PHE centre.
+
+# Any individual setting will only be included in the dataset once even if the home has reported more than one outbreak. Only the first outbreak is included in this dataset and there is no indication of any status change in outbreak (whether it is active or not) although suspected outbreaks investigated and subsequently confirmed to be not related to Covid-19 are removed from the dataset.
+                      
+# Each weekly total refers to reports in the period Monday to the following Sunday.
+                      
+# For some areas, the percentage of care homes reporting a suspected or confirmed outbreak of COVID-19 is over 100%. This is because the numbers of homes affected (numerator data) may include premises such as rehabilitation units and assisted living units that are not registered with Care Quality Commission (CQC). The denominator used is the total number of care homes registered with CQC in the specified geographical area. 
+                      
 # fin
 

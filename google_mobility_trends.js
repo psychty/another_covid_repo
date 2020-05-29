@@ -169,8 +169,6 @@ svg_mobility_trends
   .style('font-weight', 'bold')
   .style("font-size", "12px")
 
-
-
 svg_mobility_trends
     .append("circle")
     .attr("cx", width_hm * .66)
@@ -255,7 +253,6 @@ svg_mobility_trends
   .text('Workplace')
   .style('font-weight', 'bold')
   .style("font-size", "12px")
-
 
 svg_mobility_trends
   .append("text")
