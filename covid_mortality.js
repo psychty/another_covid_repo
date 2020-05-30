@@ -132,7 +132,7 @@ var x_m1 = d3.scaleBand()
 
 var xAxis_mortality_1 = svg_fg_mortality_1
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
   .call(d3.axisBottom(x_m1).tickSizeOuter(0));
 
 xAxis_mortality_1
@@ -142,7 +142,7 @@ xAxis_mortality_1
 
 var y_m1_ts = d3.scaleLinear()
   .domain([0, d3.max(chosen_m1_df, function(d) {return +d['All causes'];})])
-  .range([height_line - 90, 0])
+  .range([height_line - 120 , 0])
   .nice()
 
 var y_m1_ts_axis = svg_fg_mortality_1
@@ -313,7 +313,7 @@ var stackedData_m1 = d3.stack()
 
 y_m1_ts
   .domain([0, d3.max(chosen_m1_df, function(d) {return +d['All causes'];})])
-  .range([height_line - 90, 0])
+  .range([height_line - 120 , 0])
   .nice();
 
 y_m1_ts_axis
@@ -628,7 +628,7 @@ var x_m2 = d3.scaleBand()
 
 var xAxis_mortality_2 = svg_fg_mortality_2
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
   .call(d3.axisBottom(x_m2).tickSizeOuter(0));
 
 xAxis_mortality_2
@@ -638,7 +638,7 @@ xAxis_mortality_2
 
 var y_m2_ts = d3.scaleLinear()
   .domain([0, d3.max(chosen_m2_df, function(d) {return +d['All places'];})])
-  .range([height_line - 90, 0])
+  .range([height_line - 120 , 0])
   .nice()
 
 var y_m2_ts_axis = svg_fg_mortality_2
@@ -1400,7 +1400,7 @@ var x_m3 = d3.scaleBand()
 
 var xAxis_mortality_3 = svg_fg_mortality_3
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
   .call(d3.axisBottom(x_m3).tickSizeOuter(0));
 
 xAxis_mortality_3
@@ -1410,7 +1410,7 @@ xAxis_mortality_3
 
 var y_m3_ts = d3.scaleLinear()
   .domain([0, d3.max(chosen_m3_df, function(d) {return +d['All places'];})])
-  .range([height_line - 90, 0])
+  .range([height_line - 120 , 0])
   .nice()
 
 var y_m3_ts_axis = svg_fg_mortality_3
@@ -2060,3 +2060,135 @@ d3.select("#select_mortality_3_area_button").on("change", function(d) {
 var chosen_m3_area = d3.select('#select_mortality_3_area_button').property("value")
   update_m3_all_cause_place()
 })
+
+// Hospital Trust Daily Deaths
+var request = new XMLHttpRequest();
+request.open("GET", "./sussex_approximate_latest_hospital_deaths.json", false);
+request.send(null);
+var sussex_latest_hosp_deaths_approx = JSON.parse(request.responseText);
+
+d3.select("#latest_hospital_deaths_sussex")
+  .html(function(d) {
+    return 'The latest daily update of hospital deaths as at ' + sussex_latest_hosp_deaths_approx[0]['Date'] + ' including all Covid-19 confirmed deaths from Brighton and Sussex University Hospitals NHS Trust, East Sussex Healthcare NHS Trust, Sussex Community NHS Foundation Trust, and Western Sussex Hospitals NHS Foundation Trust as well as half of the deaths reported for Surrey and Sussex Healthcare NHS Trust, indicates that there have been ' + d3.format(',.0f')(sussex_latest_hosp_deaths_approx[0]['Cumulative_sussex']) + ' deaths so far (see right side bar for note on Surrey and Sussex Healthcare NHS Trust).'
+  });
+
+sussex_trusts = ['Brighton and Sussex University Hospitals NHS Trust', 'East Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust']
+
+var request = new XMLHttpRequest();
+request.open("GET", "./SE_hospital_trust_daily_mortality.json", false);
+request.send(null);
+var se_hospital_deaths = JSON.parse(request.responseText);
+
+se_trusts = d3.map(se_hospital_deaths, function(d){return d.Trust;}).keys()
+
+var sussex_hosp_deaths_df = se_hospital_deaths.filter(function(d) {
+  return sussex_trusts.indexOf(d.Trust) >= 0
+});
+
+var colour_sussex_trusts = d3.scaleOrdinal()
+  .domain(sussex_trusts)
+  .range(["#ff4457","#e8c25f","#019357","#7daeff","#7729ad"])
+
+d3.select("#sussex_hospital_deaths_title")
+  .html(function(d) {
+    return 'Daily hospital deaths notified to Department for Health and Social Care; Sussex hospital Trusts; up to ' + sussex_latest_hosp_deaths_approx[0]['Date']
+  });
+
+var svg_sussex_hosp_deaths = d3.select('#sussex_trusts_daily_deaths')
+  .append("svg")
+  .attr("width", width_hm)
+  .attr("height", height_line)
+  .append("g")
+  .attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+var x_m_hosp1 = d3.scaleLinear()
+  .domain(d3.extent(sussex_hosp_deaths_df, function(d) {
+    return d3.timeParse("%Y-%m-%d")(d.Date);
+  }))
+  .range([0, width_hm - 60]); // margin left (we pushed the start of the axis over by 50) + another 10 so things do not get cut off
+
+var xAxis_sussex_hosp_line = svg_sussex_hosp_deaths
+  .append("g")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
+  .call(d3.axisBottom(x_m_hosp1).tickFormat(d3.timeFormat("%d-%B")).tickValues(sussex_hosp_deaths_df.map(function(d) {
+    return d3.timeParse("%Y-%m-%d")(d.Date);
+  })));
+
+xAxis_sussex_hosp_line
+  .selectAll("text")
+  .attr("transform", 'translate(-10,10)rotate(-90)')
+  .style("text-anchor", "end")
+  .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
+    if (i%2 == 0) d3.select(this).remove();
+    });
+
+var y_m1_hosp_deaths_ts = d3.scaleLinear()
+  .domain([0, d3.max(sussex_hosp_deaths_df, function(d) {
+    return +d.Cumulative_deaths;
+  })])
+  .range([height_line - 120 , 0]);
+
+var y_m1_hosp_deaths_ts_axis = svg_sussex_hosp_deaths
+  .append("g")
+  .attr("transform", 'translate(0,0)')
+  .call(d3.axisLeft(y_m1_hosp_deaths_ts));
+
+// group the data: I want to draw one line per group
+var grouped_sussex_deaths_hosp = d3.nest() // nest function allows to group the calculation per level of a factor
+  .key(function(d) { return d.Trust;})
+  .entries(sussex_hosp_deaths_df);
+
+svg_sussex_hosp_deaths.selectAll(".line")
+  .data(grouped_sussex_deaths_hosp)
+  .enter()
+  .append("path")
+  .attr("fill", "none")
+  .attr("stroke", function(d){ return colour_sussex_trusts(d.key) })
+  .attr("stroke-width", 1.5)
+  .attr("d", function(d){
+      return d3.line()
+      .x(function(d) { return x_m_hosp1(d3.timeParse("%Y-%m-%d")(d.Date)); })
+      .y(function(d) { return y_m1_hosp_deaths_ts(+d.Cumulative_deaths); })
+      (d.values)
+        })
+
+svg_sussex_hosp_deaths
+  .selectAll('myCircles')
+  .data(grouped_sussex_deaths_hosp)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) {
+    return x_m_hosp1(d3.timeParse("%Y-%m-%d")(d.Date))
+  })
+  .attr("cy", function(d) {
+    return y_m1_hosp_deaths_ts(+d.Cumulative_deaths)
+  })
+  .attr("r", 4)
+  .style("fill", function(d) {
+    return colour_sussex_trusts(d.Trust)
+  })
+  .attr("stroke", function(d) {
+    return colour_sussex_trusts(d.Trust)
+  })
+
+d3.select("#select_hospital_trust_button")
+  .selectAll('myOptions')
+  .data(se_trusts)
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+
+// Retrieve the selected area name
+var chosen_hosp_trust = d3.select('#select_hospital_trust_button').property("value")
+
+
+d3.select("#selected_trust_mortality_title")
+  .html(function(d) {
+    return 'Daily hospital deaths notified to Department for Health and Social Care; ' + chosen_hosp_trust  +  '; up to ' + sussex_latest_hosp_deaths_approx[0]['Date']
+  });

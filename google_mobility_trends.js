@@ -102,7 +102,7 @@ var x_mobility = d3.scaleBand()
 
 var xAxis_mobility = svg_mobility_trends
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line_mobility - 120) + ")")
+  .attr("transform", 'translate(0,' + (height_line_mobility - 140) + ")")
   .call(d3.axisBottom(x_mobility).tickSizeOuter(0));
 
 xAxis_mobility
@@ -115,7 +115,7 @@ xAxis_mobility
 
 var y_mobility_ts = d3.scaleLinear()
   .domain([0 - mobility_change_range, mobility_change_range])
-  .range([height_line_mobility - 120, 0])
+  .range([height_line_mobility - 140, 0])
   .nice()
 
 var y_mobility_ts_axis = svg_mobility_trends

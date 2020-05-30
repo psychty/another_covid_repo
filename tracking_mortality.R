@@ -1,5 +1,4 @@
 # tracking mortality
-
 library(easypackages)
 
 libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'aweek', 'epitools', 'fingertipsR'))
@@ -358,10 +357,10 @@ SE_deaths_by_cause_cat %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/deaths_all_settings_SE.json'))
 
-SE_deaths_by_cause_cat %>%   
-  gather(key = Cause, value = Deaths, `All causes`:`Not attributed to Covid-19`) %>% 
-  group_by(Name, Cause) %>% 
-  mutate(Cumulative_deaths = cumsum(Deaths))
+# SE_deaths_by_cause_cat %>%   
+#   gather(key = Cause, value = Deaths, `All causes`:`Not attributed to Covid-19`) %>% 
+#   group_by(Name, Cause) %>% 
+#   mutate(Cumulative_deaths = cumsum(Deaths))
 
 all_deaths_cipfa_SE %>% 
   toJSON() %>% 
@@ -612,7 +611,7 @@ daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_death
   gather(key = "Date", value = "Deaths", 4:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
   filter(!is.na(Date)) %>% 
-  filter(Code %in% c(local_trust_codes, '-')) %>%
+  # filter(Code %in% c(local_trust_codes, '-')) %>%
   rename(Trust = Name) %>% 
   group_by(Trust) %>% 
   arrange(Date) %>% 
@@ -621,10 +620,12 @@ daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_death
   mutate(`Crude rate deaths per 100,000 emergency catchment population` =  pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[3]]*100000) %>% 
   mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[4]]*100000) %>% 
   mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[5]]*100000) %>% 
-  mutate(`Cumulative rate summary` = ifelse(is.na(`Crude rate deaths per 100,000 emergency catchment population`), NA, paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', round(`Crude rate deaths per 100,000 emergency catchment population`,0), ' per 100,000, 95% CI: ', round(Cumulative_deaths_crude_rate_lci,0), '-', round(Cumulative_deaths_crude_rate_uci,0), ')')))
+  mutate(`Cumulative rate summary` = ifelse(is.na(`Crude rate deaths per 100,000 emergency catchment population`), NA, paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', round(`Crude rate deaths per 100,000 emergency catchment population`,0), ' per 100,000, 95% CI: ', round(Cumulative_deaths_crude_rate_lci,0), '-', round(Cumulative_deaths_crude_rate_uci,0), ')'))) %>% 
+  ungroup()
 
 latest_reported_daily_trust_deaths <- daily_deaths_trust %>% 
   filter(Date == max(Date)) %>% 
+  filter(Code %in% c(local_trust_codes, '-')) %>%
   select(Trust, Cumulative_deaths, `Crude rate deaths per 100,000 emergency catchment population`, `Cumulative rate summary`)
 
 latest_complete_deaths_trust_date <- max(daily_deaths_trust$Date)-5
@@ -632,6 +633,7 @@ latest_complete_deaths_trust_date <- max(daily_deaths_trust$Date)-5
 daily_trust_deaths_table <- daily_deaths_trust %>% 
   filter(Date == latest_complete_deaths_trust_date) %>% 
   rename(`Deaths reported on most recent complete day` = Deaths) %>% 
+  filter(Code %in% c(local_trust_codes, '-')) %>%
   select(Code, Trust, Date, `Deaths reported on most recent complete day`) %>% 
   left_join(latest_reported_daily_trust_deaths, by = 'Trust')
 
@@ -645,6 +647,7 @@ meta_trust_deaths %>%
   select(Description)
 
 daily_deaths_trust %>% 
+  filter(Code %in% c(local_trust_codes, '-')) %>%
   write.csv(., paste0(github_repo_dir, '/daily_trust_deaths.csv'), row.names = FALSE, na = '')
 
 daily_trust_deaths_table %>% 
@@ -653,6 +656,23 @@ daily_trust_deaths_table %>%
 meta_trust_deaths %>% 
   write.csv(., paste0(github_repo_dir, '/meta_trust_deaths.csv'), row.names = FALSE, na = '')
 
+daily_deaths_trust %>% 
+  filter(`NHS England Region` == 'South East') %>% 
+  select(Trust, Date, Deaths, Cumulative_deaths, `Cumulative rate summary`) %>% 
+  toJSON() %>% 
+  write_lines(paste0(github_repo_dir, '/SE_hospital_trust_daily_mortality.json'))
+
+daily_deaths_trust %>% 
+  filter(Code %in% c(local_trust_codes)) %>% 
+  filter(Date == max(Date)) %>% 
+  select(Trust, Date, Cumulative_deaths) %>% 
+  group_by(Date) %>% 
+  mutate(Cumulative_sussex = ifelse(Trust == 'Surrey and Sussex Healthcare NHS Trust', Cumulative_deaths / 2, Cumulative_deaths)) %>% 
+  summarise(Cumulative_sussex = round(sum(Cumulative_sussex),0)) %>%
+  mutate(Date = format(Date, '%d %B')) %>% 
+  toJSON() %>% 
+  write_lines(paste0(github_repo_dir, '/sussex_approximate_latest_hospital_deaths.json'))
+  
 
 # Excess mortality ####
 

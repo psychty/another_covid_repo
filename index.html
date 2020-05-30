@@ -122,15 +122,23 @@
 <div class = "content">
 <p>Care homes have been significantly impacted by the Covid-19 pandemic and as at May 15th deaths in these settings accounted for around one in four Covid-19 deaths nationally and almost half of deaths across Sussex (see section on <a href = '#selected_m3_title'>mortality in this analysis)</a>.</p>
 <p>Public Health England have begun publishing the number of care homes where a suspected or confirmed outbreak of Covid-19 has been reported to Public Health England each week from the beginning of March 2020 and this is updated every Thursday for the previous week (counted as Monday to Sunday).</p>
-<p>An individual setting is only included in the dataset once even if there are subsequent outbreaks reported. There is also no indication of any status change in outbreak (whether it is active or not) although suspected outbreaks investigated and subsequently confirmed to be not related to Covid-19 are removed from the dataset.</p>
+
 <p>The data release includes the number of CQC registered care homes in the area and a percentage value of care homes reporting a suspected or confirmed outbreak of COVID-19. However, areas such as rehabilitation units and assisted living units are not required to register with the CQC and so are may not be included in the denominator for the percentage value. The true denominator (all potential care homes and rehabilitation settings) is unknown but will likely be similar to the number registered with the CQC (which is shown as a dashed line on the figure).</p>
 <p>You can choose a different area below using the drop down menu.</p>
 <h4 id = 'carehome_outbreak_title'></h4>
+<p><font color = 'red'>The line represents the cumulative number of homes reporting an outbreak since March and the bars show the number of care homes reporting an outbreak in that week.</font></p>
 <div class = 'drop'>
 <span>Area: </span>
 <select id = 'select_carehome_outbreak_area_button'></select>
 </div>
+</div>
+<div class = 'right-sidebar'>
+<p>An individual setting is only included in the dataset once even if there are subsequent outbreaks reported. There is also no indication of any status change in outbreak (whether it is active or not) although suspected outbreaks investigated and subsequently confirmed to be not related to Covid-19 are removed from the dataset.</p>
+</div>
+<div class = 'content'>
 <div id = 'carehome_outbreak_number'></div>
+<p>Areas where the cumulative number of outbreaks is close to the dashed line are areas where almost all of the care home settings have experienced at least one suspected or confirmed Covid-19 outbreak.</p>
+<p>This data set only tells us the number of settings in which an outbreak is reported and we do not know how many people in the care home are potentially at risk or how many confirmed cases there are.</p>
 </div>
 <div class = 'right-sidebar'>
 <p class = 'side_important'>The numbers of homes with outbreaks (numerator data) may include premises such as rehabilitation units and assisted living units that are not registered with the Care Quality Commission (CQC) which is the denominator used in the specified geographical area.</p>
@@ -316,6 +324,29 @@
   <p class = 'side'>It is very difficult to know the true impact of Covid-19 quickly, it may take many weeks and months to understand which deaths can be attributed to the virus directly or indirectly. <b>These figures help to build as complete a picture as possible</b>.</p>
 </div>
 
+<h3 style = 'padding-left: 25px; padding-top: 10px;'>Daily hospital deaths attributed to Covid-19</h3>
+<div class = 'content'>
+<p>The number of deaths of patients who have died in hospitals in England and had tested positive for Covid-19 at time of death. All deaths are recorded against the date of death rather than the day the deaths were announced.</p>
+<p>These figures are updated at 2pm each day and include confirmed death cases reported at 5pm the previous day. The totals reported at 5pm on each day may not include all deaths that occurred on that day or on recent prior days due to operational pressures.</p>
+<p>Data are provided daily by NHS Trusts and PHE Health protection teams to NHS England and only once confirmed family have been notified of the death.</p>
+<p id = 'latest_hospital_deaths_sussex'></p>
+
+<p>The figure below shows the five hospital trusts in Sussex with data on Covid-19 mortality</p>
+<h4 id = 'sussex_hospital_deaths_title'></h4>
+<div id = 'sussex_trusts_daily_deaths'></div>
+
+<!-- <p>The next figure shows individual trusts daily reported deaths and you can select any hospital trust in the South East NHS Commissioning region using the drop down menu below to change the trust on the figure.</p>
+<h4 id = 'selected_trust_mortality_title'></h4>
+<span class = 'give_me_space'>Trust: </span>
+<select id = 'select_hospital_trust_button'></select>
+<div id = 'south_east_trusts_daily_deaths'></div> -->
+
+</div>
+<div class = 'right-sidebar'>
+  <p class = 'side'>Hospital provider trusts do not have geographically defined boundaries for the populations they serve nor do they have all encompassing lists of registered patients.</p>
+  <p class = 'side'>There are five provider trusts in the mortality dataset which largely serve residents in Sussex (Brighton and Sussex University Hospitals NHS Trust, East Sussex Healthcare NHS Trust, Surrey and Sussex Healthcare NHS Trust, Sussex Community NHS Foundation Trust, Western Sussex Hospitals NHS Foundation Trust). As a general rule of thumb in planning and monitoring, half the patients in the Surrey and Sussex Healthcare NHS Trust are assigned to Surrey and half to Sussex. This is a crude assumption but if we take all deaths in the other four trusts and half of the deaths in Surrey and Sussex Healthcare NHS Trust, this is assumed to offer a good approximation of daily mortality in Sussex.</p>
+</div>
+
 <h3 style = 'padding-left: 25px; padding-top: 10px;'>Overall number of deaths attributed to Covid-19</h3>
 <div class = 'content'>
 <p id = 'latest_national_deaths_confirmed'></p>
@@ -411,7 +442,7 @@
 <script src = "covid_tracking_data_summary.js"></script>
 <script src = "covid_heatmap.js"></script>
 <script src = "covid_se_time_series.js"></script>
-<script src = 'test.js'></script>
+<!-- <script src = 'test.js'></script> -->
 <script src = 'covid_mortality.js'></script>
 <script src = 'google_mobility_trends.js'></script>
 

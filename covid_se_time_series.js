@@ -1,5 +1,336 @@
+var height_line = 400;
+
+// List of years in the dataset
+var areas_line = ['Sussex areas combined', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'South East region', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham']
+
+var Area_colours = d3.scaleOrdinal()
+  .domain(areas_line)
+  .range(["#d34a2a","#56b851","#bc4bb8","#9bb835","#7b62d0","#c0aa40","#5e74bf","#e27d3c","#5ea3d9","#d2404e","#4fb89c","#d73f7c","#42793c","#e270b7","#90a658","#975088","#d69a45","#c490d4","#846f2e","#a84b5e","#a55730","#e28882"]);
+
+
+// Number of outbreaks reported in care homes
+var request = new XMLHttpRequest();
+request.open("GET", "./care_home_outbreaks.json", false);
+request.send(null);
+var ch_outbreak_data = JSON.parse(request.responseText);
+
+var request = new XMLHttpRequest();
+request.open("GET", "./care_home_outbreak_dates.json", false);
+request.send(null);
+var ch_outbreak_data_date = JSON.parse(request.responseText);
+
+var svg_carehome_outbreak_number = d3.select('#carehome_outbreak_number')
+  .append("svg")
+  .attr("width", width_hm)
+  .attr("height", height_line)
+  .append("g")
+  .attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_carehome_outbreak_area_button")
+  .selectAll('myOptions')
+  .data(['Sussex areas combined','Brighton and Hove', 'East Sussex', 'West Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
+
+// Retrieve the selected area name
+var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
+
+d3.select("#carehome_outbreak_title")
+  .html(function(d) {
+    return 'Number of care homes reporting suspected or confirmed Covid-19; 2020 to ' + ch_outbreak_data_date[1]['Week_beginning'] + '; ' + chosen_ch_outbreak_area });
+
+var chosen_ch_outbreak_df = ch_outbreak_data.filter(function(d) {
+  return d.Name === chosen_ch_outbreak_area
+});
+
+weeks_outbreak_ch = chosen_ch_outbreak_df.map(function(d) {return (d.Week_beginning);});
+
+var ch_number_in_area = d3.map(chosen_ch_outbreak_df, function(d){return d['Number of care homes'];}).keys()[0]
+
+ch_with_outbreaks_so_far =  d3.max(chosen_ch_outbreak_df, function(d) {return +d.Cumulative_outbreaks;})
+
+var x_ch_outbreaks = d3.scaleBand()
+  .domain(weeks_outbreak_ch)
+  .range([0, width_hm - 60]) // this is the 50 that was pushed over from the left plus another 10 so that the chart does not get cut off
+
+var xAxis_ch_outbreaks = svg_carehome_outbreak_number
+  .append("g")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
+  .call(d3.axisBottom(x_ch_outbreaks).tickSizeOuter(0));
+
+xAxis_ch_outbreaks
+  .selectAll("text")
+  .attr("transform", 'translate(-12,10)rotate(-90)')
+  .style("text-anchor", "end");
+
+var y_ch_outbreaks = d3.scaleLinear()
+  .domain([0, +ch_number_in_area])
+  .range([height_line - 120 , 0])
+  .nice();
+
+var y_ch_outbreaks_axis = svg_carehome_outbreak_number
+  .append("g")
+  .attr("transform", 'translate(0,0)')
+  .call(d3.axisLeft(y_ch_outbreaks));
+
+svg_carehome_outbreak_number
+  .append('line')
+  .attr('id', 'carehomes_baseline')
+  .attr('x1', 0)
+  .attr('y1', y_ch_outbreaks(+ch_number_in_area))
+  .attr('x2', width_hm - 60)
+  .attr('y2', y_ch_outbreaks(+ch_number_in_area))
+  .attr('stroke', '#000000')
+  .attr("stroke-dasharray", ("3, 3"))
+
+svg_carehome_outbreak_number
+  .append('text')
+  .attr('id', 'carehomes_baseline_value')
+  .attr('x', 10)
+  .attr('y', y_ch_outbreaks(+ch_number_in_area) + 10)
+  .text(ch_number_in_area + ' CQC registered settings')
+  .attr("text-anchor", 'start')
+  .style('font-weight', 'bold')
+  .style("font-size", "10px")
+
+var tooltip_ch_outbreaks = d3.select("#carehome_outbreak_number")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+var showTooltip_ch_outbreaks = function(d) {
+
+  tooltip_ch_outbreaks
+    .html("<h5>" + d.Name + '</h5><p><b>' + d.Week_beginning + '</b></p><p>This week ' + d3.format(',.0f')(d.Outbreaks) + ' new care homes* reported suspected or confirmed outbreaks to PHE.</p><p>The total number of care home settings which have reported at least one suspected or confirmed Covid-19 outbreak to PHE as at ' + d.Week_beginning + ' is ' + d3.format(',.0f')(d.Cumulative_outbreaks) + ' homes.</p><p>* Care homes are only included in the release once and subsequent outbreaks are not currently identified as new outbreaks.</p>')
+    .style("opacity", 1)
+    .style("top", (event.pageY - 10) + "px")
+    .style("left", (event.pageX + 10) + "px")
+    .style('opacity', 1)
+    .style("visibility", "visible")
+}
+
+var mouseleave_ch_outbreak = function(d) {
+  tooltip_ch_outbreaks
+    .style('opacity', 0)
+    .style("visibility", "hidden")
+}
+
+
+var lines_outbreaks = svg_carehome_outbreak_number
+    .append('g')
+    .append("path")
+    .datum(chosen_ch_outbreak_df)
+    .attr("d", d3.line()
+        .x(function (d) {
+            return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2)
+        })
+        .y(function (d) {
+            return y_ch_outbreaks(+d.Cumulative_outbreaks)
+        }))
+    .attr("stroke", function (d) {
+        return Area_colours(chosen_ch_outbreak_area)
+    })
+    .style("stroke-width", 2)
+    .style("fill", "none");
+
+var dots_outbreaks = svg_carehome_outbreak_number
+  .selectAll('myoutbreakCircles')
+  .data(chosen_ch_outbreak_df)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) { return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2) } )
+  .attr("cy", function(d) { return y_ch_outbreaks(+d.Cumulative_outbreaks) } )
+  .attr("r", 6)
+  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+  .attr("stroke", "white")
+  .on('mousemove', showTooltip_ch_outbreaks)
+  .on('mouseout', mouseleave_ch_outbreak)
+
+var bars_weekly_outbreaks = svg_carehome_outbreak_number
+  .selectAll("myoutbreakbar")
+  .data(chosen_ch_outbreak_df)
+  .enter()
+  .append("rect")
+  .attr("x", function(d) { return x_ch_outbreaks(d.Week_beginning) +  (x_ch_outbreaks.bandwidth() / 4); })
+  .attr("y", function(d) { return y_ch_outbreaks(+d.Outbreaks); })
+  .attr("width", x_ch_outbreaks.bandwidth() / 2)
+  .attr("height", function(d) { return (height_line - 120 ) - y_ch_outbreaks(+d.Outbreaks); })
+  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+  .on('mousemove', showTooltip_ch_outbreaks)
+  .on('mouseout', mouseleave_ch_outbreak)
+
+svg_carehome_outbreak_number
+  .append('text')
+  .attr('id', 'carehomes_so_far_text')
+  .attr('x', 15)
+  .attr('y', 60)
+  .text(ch_with_outbreaks_so_far)
+  .attr("text-anchor", 'start')
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_carehome_outbreak_number
+  .append('text')
+  .attr('x', 15)
+  .attr('y', 75)
+  .text('care home settings')
+  .attr("text-anchor", 'start')
+  .style("font-size", "10px")
+
+svg_carehome_outbreak_number
+  .append('text')
+  .attr('x', 15)
+  .attr('y', 90)
+  .text('with outbreaks reported')
+  .attr("text-anchor", 'start')
+  .style("font-size", "10px")
+
+function update_ch_outbreaks(chosen_ch_outbreak_area){
+var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
+d3.select("#carehome_outbreak_title")
+  .html(function(d) {
+    return 'Number of care homes reporting suspected or confirmed Covid-19; 2020 to ' + ch_outbreak_data_date[1]['Week_beginning'] + '; ' + chosen_ch_outbreak_area });
+
+var chosen_ch_outbreak_df = ch_outbreak_data.filter(function(d) {
+  return d.Name === chosen_ch_outbreak_area
+});
+
+var ch_number_in_area = d3.map(chosen_ch_outbreak_df, function(d){return d['Number of care homes'];}).keys()[0]
+var weeks_outbreak_ch = chosen_ch_outbreak_df.map(function(d) {return (d.Week_beginning);})
+ch_with_outbreaks_so_far =  d3.max(chosen_ch_outbreak_df, function(d) {return +d.Cumulative_outbreaks;})
+
+y_ch_outbreaks
+  .domain([0, +ch_number_in_area])
+  .nice()
+
+y_ch_outbreaks_axis
+  .transition()
+  .duration(1000)
+  .call(d3.axisLeft(y_ch_outbreaks).tickFormat(d3.format(',.0f')));
+
+svg_carehome_outbreak_number
+    .selectAll("#carehomes_baseline")
+    .transition()
+    .duration(500)
+    .style("opacity", 0)
+    .remove();
+
+svg_carehome_outbreak_number
+    .selectAll("#carehomes_baseline_value")
+    .transition()
+    .duration(500)
+    .style("opacity", 0)
+    .remove();
+
+svg_carehome_outbreak_number
+    .selectAll("#carehomes_so_far_text")
+    .transition()
+    .duration(500)
+    .style("opacity", 0)
+    .remove();
+
+svg_carehome_outbreak_number
+  .append('text')
+  .attr('id', 'carehomes_so_far_text')
+  .attr('x', 15)
+  .attr('y', 60)
+  .text(ch_with_outbreaks_so_far)
+  .attr("text-anchor", 'start')
+  .style('font-weight', 'bold')
+  .style("font-size", "16px")
+
+svg_carehome_outbreak_number
+  .append('line')
+  .attr('id', 'carehomes_baseline')
+  .attr('x1', 0)
+  .attr('y1', y_ch_outbreaks(+ch_number_in_area))
+  .attr('x2', width_hm - 60)
+  .attr('y2', y_ch_outbreaks(+ch_number_in_area))
+  .attr('stroke', '#000000')
+  .attr("stroke-dasharray", ("3, 3"))
+  .style("opacity", 0)
+  .transition()
+  .duration(500)
+  .style("opacity", 1)
+
+svg_carehome_outbreak_number
+  .append('text')
+  .attr('id', 'carehomes_baseline_value')
+  .attr('x', 10)
+  .attr('y', y_ch_outbreaks(+ch_number_in_area) + 10)
+  .text(ch_number_in_area + ' CQC registered settings')
+  .attr("text-anchor", 'start')
+  .style('font-weight', 'bold')
+  .style("font-size", "10px")
+  .style("opacity", 0)
+  .transition()
+  .duration(500)
+  .style("opacity", 1)
+
+lines_outbreaks
+.datum(chosen_ch_outbreak_df)
+.transition()
+.duration(1000)
+.attr("d", d3.line()
+    .x(function (d) {
+          return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2)
+        })
+    .y(function (d) {
+          return y_ch_outbreaks(+d.Cumulative_outbreaks)
+        }))
+.attr("stroke", function (d) {
+        return Area_colours(chosen_ch_outbreak_area)
+    })
+
+dots_outbreaks
+  .data(chosen_ch_outbreak_df)
+  .transition()
+  .duration(1000)
+  .attr("cx", function(d) { return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2) } )
+  .attr("cy", function(d) { return y_ch_outbreaks(+d.Cumulative_outbreaks) } )
+  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+
+dots_outbreaks
+  .on('mousemove', showTooltip_ch_outbreaks)
+  .on('mouseout', mouseleave_ch_outbreak)
+
+bars_weekly_outbreaks
+  .data(chosen_ch_outbreak_df)
+  .transition()
+  .duration(1000)
+  .attr("y", function(d) { return y_ch_outbreaks(+d.Outbreaks); })
+  .attr("height", function(d) { return (height_line - 120 ) - y_ch_outbreaks(+d.Outbreaks); })
+  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+
+bars_weekly_outbreaks
+  .on('mousemove', showTooltip_ch_outbreaks)
+  .on('mouseout', mouseleave_ch_outbreak)
+
+}
+
+update_ch_outbreaks()
+
+d3.select("#select_carehome_outbreak_area_button").on("change", function(d) {
+var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
+  update_ch_outbreaks(chosen_ch_outbreak_area)
+})
+
 // Line graph one - actual cases - linear scale
-var height_line = 350;
+
 
 var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
   .append("svg")
@@ -8,12 +339,6 @@ var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
   .append("g")
   .attr("transform", "translate(" + 50 + "," + 20 + ")");
 
-// List of years in the dataset
-var areas_line = ['Sussex areas combined', 'Brighton and Hove', 'East Sussex', 'West Sussex', 'South East region', 'England', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham']
-
-var Area_colours = d3.scaleOrdinal()
-  .domain(areas_line)
-  .range(["#d34a2a","#56b851","#bc4bb8","#9bb835","#7b62d0","#c0aa40","#5e74bf","#e27d3c","#5ea3d9","#d2404e","#4fb89c","#d73f7c","#42793c","#e270b7","#90a658","#975088","#d69a45","#c490d4","#846f2e","#a84b5e","#a55730","#e28882"]);
 
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_line_1_area_button")
@@ -63,7 +388,7 @@ var x_c1 = d3.scaleLinear()
 
 var xAxis_line = svg_cumulative_actual_linear
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
   .call(d3.axisBottom(x_c1).tickFormat(d3.timeFormat("%d-%B")).tickValues(line_1_chosen.map(function(d) {
     return d3.timeParse("%Y-%m-%d")(d.Date);
   })));
@@ -80,7 +405,7 @@ var y_c1_ts = d3.scaleLinear()
   .domain([0, d3.max(line_1_chosen, function(d) {
     return +d.Cumulative_cases;
   })])
-  .range([height_line - 90, 0]);
+  .range([height_line - 120 , 0]);
 
 var y_c1_ts_axis = svg_cumulative_actual_linear
   .append("g")
@@ -121,7 +446,7 @@ svg_cumulative_actual_linear
   .attr('x1', x_c1(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
   .attr('y1', 0)
   .attr('x2', x_c1(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
-  .attr('y2', height_line - 90)
+  .attr('y2', height_line - 120 )
   .attr('stroke', incomplete_colour)
   .attr("stroke-dasharray", ("3, 3"))
 
@@ -130,7 +455,7 @@ svg_cumulative_actual_linear
   .attr('x', x_c1(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
   .attr('y1', 0)
   .attr('width', x_c1(d3.timeParse('%Y-%m-%d')(most_recent)) - x_c1(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
-  .attr('height', height_line - 90)
+  .attr('height', height_line - 120 )
   .style('fill', incomplete_colour)
   .style('stroke', 'none')
   .style('opacity', 0.2)
@@ -540,7 +865,7 @@ var x_c2 = d3.scaleLinear()
 
 var xAxis_line_2 = svg_cumulative_rate_linear
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr("transform", 'translate(0,' + (height_line - 120) + ")")
   .attr('class', 'ticked_off')
   .call(d3.axisBottom(x_c2).tickFormat(d3.timeFormat("%d-%B")).tickValues(line_2_chosen.map(function(d) {
     return d3.timeParse("%Y-%m-%d")(d.Date);
@@ -560,7 +885,7 @@ var y_c2_ts = d3.scaleLinear()
   }), d3.max(line_2_comp_chosen, function(d) {
     return +d.Cumulative_per_100000;
   })])])
-  .range([height_line - 90, 0])
+  .range([height_line - 120 , 0])
   .nice();
 
 var y_c2_ts_axis = svg_cumulative_rate_linear
@@ -573,7 +898,7 @@ svg_cumulative_rate_linear
   .attr('x1', x_c2(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
   .attr('y1', 0)
   .attr('x2', x_c2(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
-  .attr('y2', height_line - 90)
+  .attr('y2', height_line - 120 )
   .attr('stroke', incomplete_colour)
   .attr("stroke-dasharray", ("3, 3"))
 
@@ -582,7 +907,7 @@ svg_cumulative_rate_linear
   .attr('x', x_c2(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
   .attr('y1', 0)
   .attr('width', x_c2(d3.timeParse('%Y-%m-%d')(most_recent)) - x_c1(d3.timeParse('%Y-%m-%d')(first_incomplete_date_actual)))
-  .attr('height', height_line - 90)
+  .attr('height', height_line - 120 )
   .style('fill', incomplete_colour)
   .style('stroke', 'none')
   .style('opacity', 0.2)
@@ -1295,7 +1620,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 // var xAxis_line_4 = svg_cumulative_double_added
 //   .append("g")
 //   .attr('id', 'old_c4_x_axis')
-//   .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+//   .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
 //   .attr('class', 'ticked_off')
 //   .call(d3.axisBottom(x_c4).tickFormat(d3.timeFormat("%d-%B")).tickValues(c4_dates));
 //
@@ -1307,7 +1632,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 // // Log scale for y axis - we will hopefully be able to toggle between log and linear for people to see the difference it makes.
 // var y_c4_ts = d3.scaleLog()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0])
+//   .range([height_line - 120 , 0])
 //   .base(10);
 //
 // // Append the y axis
@@ -1450,7 +1775,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 // // Log scale for y axis - we will hopefully be able to toggle between log and linear for people to see the difference it makes.
 // var y_c4_ts = d3.scaleLog()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0])
+//   .range([height_line - 120 , 0])
 //   .base(10);
 // y_c4_ts_axis
 // .transition()
@@ -1459,7 +1784,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 //   } else if (type_c4_scale[1].checked) {
 // y_c4_ts = d3.scaleLinear()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0]);
+//   .range([height_line - 120 , 0]);
 // y_c4_ts_axis
 // .transition()
 // .duration(1000)
@@ -1567,7 +1892,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 // // Log scale for y axis - we will hopefully be able to toggle between log and linear for people to see the difference it makes.
 // var y_c4_ts = d3.scaleLog()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0])
+//   .range([height_line - 120 , 0])
 //   .base(10);
 //
 // y_c4_ts_axis
@@ -1666,7 +1991,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 //
 // y_c4_ts = d3.scaleLinear()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0]);
+//   .range([height_line - 120 , 0]);
 //
 // y_c4_ts_axis
 // .transition()
@@ -1771,7 +2096,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 // // Log scale for y axis - we will hopefully be able to toggle between log and linear for people to see the difference it makes.
 // var y_c4_ts = d3.scaleLog()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0])
+//   .range([height_line - 120 , 0])
 //   .base(10);
 // y_c4_ts_axis
 // .transition()
@@ -1784,7 +2109,7 @@ var chosen_c3_highlight_area = d3.select('#select_line_3_area_button').property(
 // var defined_y = height_line - 300
 // y_c4_ts = d3.scaleLinear()
 //   .domain([1, d3.max(chosen_4_predicted_double, function(d) {return +d.Cumulative_cases;})])
-//   .range([height_line - 90, 0]);
+//   .range([height_line - 120 , 0]);
 // y_c4_ts_axis
 // .transition()
 // .duration(1000)
@@ -2008,7 +2333,7 @@ var x_daily_cases = d3.scaleBand()
 
 var xAxis_daily_cases = svg_daily_new_case_bars
   .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 90) + ")")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
   .call(d3.axisBottom(x_daily_cases));
 
 xAxis_daily_cases
@@ -2023,7 +2348,7 @@ var y_daily_cases = d3.scaleLinear()
   .domain([0, d3.max(bars_daily_cases_1_chosen, function(d) {
     return +d.New_cases;
   })])
-  .range([height_line - 90, 0])
+  .range([height_line - 120 , 0])
 .nice();
 
 var yAxis_daily_cases = svg_daily_new_case_bars
@@ -2073,7 +2398,7 @@ svg_daily_new_case_bars
 .attr("x", function(d) { return x_daily_cases(d.Period) + (x_daily_cases.bandwidth()/2)})
 .attr("y", 0)
 .attr("width", 2)
-.attr("height", function(d) { return (height_line - 90)})
+.attr("height", function(d) { return (height_line - 120 )})
 .style("fill", incomplete_colour)
 .on("mousemove", showTooltip_testing_key_dates)
 .on('mouseout', mouseleave_testing_key_dates);
@@ -2133,7 +2458,7 @@ svg_daily_new_case_bars
   .attr('x1', x_daily_cases('23 March') + (x_daily_cases.bandwidth() / 2))
   .attr('y1', 30)
   .attr('x2', x_daily_cases('23 March') + (x_daily_cases.bandwidth() / 2))
-  .attr('y2', height_line - 90)
+  .attr('y2', height_line - 120 )
   .attr('stroke', 'red')
   .attr("stroke-dasharray", ("3, 3"))
 
@@ -2149,7 +2474,7 @@ svg_daily_new_case_bars
   .attr('x1', x_daily_cases(first_incomplete_period))
   .attr('y1', 0)
   .attr('x2', x_daily_cases(first_incomplete_period))
-  .attr('y2', height_line - 90)
+  .attr('y2', height_line - 120 )
   .attr('stroke', incomplete_colour)
   .attr("stroke-dasharray", ("3, 3"))
 
@@ -2158,7 +2483,7 @@ svg_daily_new_case_bars
   .attr('x', x_daily_cases(first_incomplete_period))
   .attr('y1', 0)
   .attr('width', (x_daily_cases(most_recent_period) + x_daily_cases.bandwidth()) - x_daily_cases(first_incomplete_period))
-  .attr('height', height_line - 90)
+  .attr('height', height_line - 120 )
   .style('fill', incomplete_colour)
   .style('stroke', 'none')
   .style('opacity', 0.2)
@@ -2172,7 +2497,7 @@ var daily_new_case_bars = svg_daily_new_case_bars
 .attr("x", function(d) { return x_daily_cases(d.Period)})
 .attr("y", function(d) { return y_daily_cases(d.New_cases); })
 .attr("width", x_daily_cases.bandwidth())
-.attr("height", function(d) { return (height_line - 90) - y_daily_cases(d.New_cases); })
+.attr("height", function(d) { return (height_line - 120 ) - y_daily_cases(d.New_cases); })
   .style("fill", function(d) {
     return Area_colours(d.Name)
   })
@@ -2194,7 +2519,7 @@ svg_daily_new_case_bars
   .append("text")
   .attr('id', 'test_milestones')
   .attr("x", function(d) { return x_daily_cases('31 January') + (x_daily_cases.bandwidth()/2)})
-  .attr("y", function(d) { return height_line - 120 })
+  .attr("y", function(d) { return height_line - 150 })
   .text('The black line represents seven day average new cases')
   .attr("text-anchor", "start")
 
@@ -2279,7 +2604,7 @@ daily_new_case_bars
 .attr("x", function(d) { return x_daily_cases(d.Period)})
 .attr("y", function(d) { return y_daily_cases(d.New_cases); })
 // .attr("width", x_daily_cases.bandwidth())
-.attr("height", function(d) { return (height_line - 90) - y_daily_cases(d.New_cases); })
+.attr("height", function(d) { return (height_line - 120 ) - y_daily_cases(d.New_cases); })
   .style("fill", function(d) {
     return Area_colours(d.Name)
   })
