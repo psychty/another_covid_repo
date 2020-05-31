@@ -659,6 +659,9 @@ meta_trust_deaths %>%
 daily_deaths_trust %>% 
   filter(`NHS England Region` == 'South East') %>% 
   select(Trust, Date, Deaths, Cumulative_deaths, `Cumulative rate summary`) %>% 
+  arrange(Date) %>% 
+  mutate(Date = format(Date, '%d %b')) %>% 
+  mutate(Date = factor(Date, levels = unique(Date))) %>% 
   toJSON() %>% 
   write_lines(paste0(github_repo_dir, '/SE_hospital_trust_daily_mortality.json'))
 

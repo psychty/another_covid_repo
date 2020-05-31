@@ -2091,7 +2091,7 @@ var colour_sussex_trusts = d3.scaleOrdinal()
 
 d3.select("#sussex_hospital_deaths_title")
   .html(function(d) {
-    return 'Daily hospital deaths notified to Department for Health and Social Care; Sussex hospital Trusts; up to ' + sussex_latest_hosp_deaths_approx[0]['Date']
+    return 'Cumulative daily hospital deaths notified to Department for Health and Social Care; Sussex hospital Trusts; up to ' + sussex_latest_hosp_deaths_approx[0]['Date']
   });
 
 var svg_sussex_hosp_deaths = d3.select('#sussex_trusts_daily_deaths')
@@ -2101,18 +2101,14 @@ var svg_sussex_hosp_deaths = d3.select('#sussex_trusts_daily_deaths')
   .append("g")
   .attr("transform", "translate(" + 50 + "," + 20 + ")");
 
-var x_m_hosp1 = d3.scaleLinear()
-  .domain(d3.extent(sussex_hosp_deaths_df, function(d) {
-    return d3.timeParse("%Y-%m-%d")(d.Date);
-  }))
-  .range([0, width_hm - 60]); // margin left (we pushed the start of the axis over by 50) + another 10 so things do not get cut off
+var x_m_hosp1 = d3.scaleBand()
+  .domain(d3.map(se_hospital_deaths, function(d){return d.Date;}).keys())
+  .range([0, width_hm * .7]); // margin left (we pushed the start of the axis over by 50) + another 10 so things do not get cut off
 
 var xAxis_sussex_hosp_line = svg_sussex_hosp_deaths
   .append("g")
   .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
-  .call(d3.axisBottom(x_m_hosp1).tickFormat(d3.timeFormat("%d-%B")).tickValues(sussex_hosp_deaths_df.map(function(d) {
-    return d3.timeParse("%Y-%m-%d")(d.Date);
-  })));
+  .call(d3.axisBottom(x_m_hosp1));
 
 xAxis_sussex_hosp_line
   .selectAll("text")
@@ -2126,14 +2122,14 @@ var y_m1_hosp_deaths_ts = d3.scaleLinear()
   .domain([0, d3.max(sussex_hosp_deaths_df, function(d) {
     return +d.Cumulative_deaths;
   })])
-  .range([height_line - 120 , 0]);
+  .range([height_line - 120 , 0])
+  .nice();
 
 var y_m1_hosp_deaths_ts_axis = svg_sussex_hosp_deaths
   .append("g")
   .attr("transform", 'translate(0,0)')
   .call(d3.axisLeft(y_m1_hosp_deaths_ts));
 
-// group the data: I want to draw one line per group
 var grouped_sussex_deaths_hosp = d3.nest() // nest function allows to group the calculation per level of a factor
   .key(function(d) { return d.Trust;})
   .entries(sussex_hosp_deaths_df);
@@ -2147,29 +2143,84 @@ svg_sussex_hosp_deaths.selectAll(".line")
   .attr("stroke-width", 1.5)
   .attr("d", function(d){
       return d3.line()
-      .x(function(d) { return x_m_hosp1(d3.timeParse("%Y-%m-%d")(d.Date)); })
+      .x(function(d) { return x_m_hosp1(d.Date); })
       .y(function(d) { return y_m1_hosp_deaths_ts(+d.Cumulative_deaths); })
       (d.values)
         })
 
 svg_sussex_hosp_deaths
-  .selectAll('myCircles')
-  .data(grouped_sussex_deaths_hosp)
-  .enter()
-  .append("circle")
-  .attr("cx", function(d) {
-    return x_m_hosp1(d3.timeParse("%Y-%m-%d")(d.Date))
-  })
-  .attr("cy", function(d) {
-    return y_m1_hosp_deaths_ts(+d.Cumulative_deaths)
-  })
-  .attr("r", 4)
-  .style("fill", function(d) {
-    return colour_sussex_trusts(d.Trust)
-  })
-  .attr("stroke", function(d) {
-    return colour_sussex_trusts(d.Trust)
-  })
+  .append("text")
+  .attr("x", width_hm * .73)
+  .attr("y", 25)
+  .attr("text-anchor", "start")
+  .text('Total Covid-19 deaths')
+  .style("font-size", "1.2rem")
+  .style('font-weight', 'bold')
+
+svg_sussex_hosp_deaths
+    .append("text")
+    .attr("x", width_hm * .73)
+    .attr("y", 40)
+    .attr("text-anchor", "start")
+    .text('as at ' + sussex_latest_hosp_deaths_approx[0]['Date'])
+    .style("font-size", "1.2rem")
+    .style('font-weight', 'bold')
+
+bsuh_latest = sussex_hosp_deaths_df.filter(function(d) {
+  return d.Trust === 'Brighton and Sussex University Hospitals NHS Trust' &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+svg_sussex_hosp_deaths
+    .append("circle")
+    .attr("cx", width_hm * .76)
+    .attr("cy", 70)
+    .attr("r", 6)
+    .attr("fill", function(d) { return colour_sussex_trusts('Brighton and Sussex University Hospitals NHS Trust'); })
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 70)
+  .attr("text-anchor", "start")
+  .text('Brighton and Sussex University')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 80)
+  .attr("text-anchor", "start")
+  .text('Hospitals NHS Trust')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 90)
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(bsuh_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+  .style('font-weight', 'bold')
+
+
+// svg_sussex_hosp_deaths
+//   .selectAll('myCircles')
+//   .data(sussex_hosp_deaths_df)
+//   .enter()
+//   .append("circle")
+//   .attr("cx", function(d) {
+//     return x_m_hosp1(d3.timeParse("%Y-%m-%d")(d.Date))
+//   })
+//   .attr("cy", function(d) {
+//     return y_m1_hosp_deaths_ts(d.Cumulative_deaths)
+//   })
+//   .attr("r", 3)
+//   .style("fill", function(d) {
+//     return colour_sussex_trusts(d.Trust)
+//   })
+
+////////// select individual trust
 
 d3.select("#select_hospital_trust_button")
   .selectAll('myOptions')
