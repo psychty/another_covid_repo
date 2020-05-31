@@ -486,7 +486,7 @@ var dots_c1 = svg_cumulative_actual_linear
   .attr("cy", function(d) {
     return y_c1_ts(d.Cumulative_cases)
   })
-  .attr("r", 4)
+  .attr("r", 3)
   .style("fill", function(d) {
     return Area_colours(d.Name)
   })
@@ -938,7 +938,7 @@ var dots_area_c2 = svg_cumulative_rate_linear
   .attr("cy", function(d) {
     return y_c2_ts(d.Cumulative_per_100000)
   })
-  .attr("r", 4)
+  .attr("r", 3)
   .style("fill", '#5e106d')
   .attr("stroke", '#5e106d')
   .on("mousemove", showTooltip_area_c2)
@@ -970,7 +970,7 @@ var dots_comp_area_c2 = svg_cumulative_rate_linear
   .attr("cy", function(d) {
     return y_c2_ts(d.Cumulative_per_100000)
   })
-  .attr("r", 4)
+  .attr("r", 3)
   .style("fill", '#f69602')
   .attr("stroke", '#f69602')
   .on("mousemove", showTooltip_comp_area_c2)
@@ -980,14 +980,14 @@ svg_cumulative_rate_linear
     .append("circle")
     .attr("cx", width_hm * .03)
     .attr("cy", 40)
-    .attr("r", 4)
+    .attr("r", 3)
     .style("fill", '#5e106d')
 
 svg_cumulative_rate_linear
     .append("circle")
     .attr("cx", width_hm * .03)
     .attr("cy", 55)
-    .attr("r", 4)
+    .attr("r", 3) 
     .style("fill", '#f69602')
 
 svg_cumulative_rate_linear

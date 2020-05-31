@@ -2143,7 +2143,7 @@ svg_sussex_hosp_deaths.selectAll(".line")
   .attr("stroke-width", 1.5)
   .attr("d", function(d){
       return d3.line()
-      .x(function(d) { return x_m_hosp1(d.Date); })
+      .x(function(d) { return x_m_hosp1(d.Date) + (x_m_hosp1.bandwidth() / 2) })
       .y(function(d) { return y_m1_hosp_deaths_ts(+d.Cumulative_deaths); })
       (d.values)
         })
@@ -2203,22 +2203,209 @@ svg_sussex_hosp_deaths
   .style("font-size", ".8rem")
   .style('font-weight', 'bold')
 
+esh_latest = sussex_hosp_deaths_df.filter(function(d) {
+  return d.Trust === 'East Sussex Healthcare NHS Trust' &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
 
-// svg_sussex_hosp_deaths
-//   .selectAll('myCircles')
-//   .data(sussex_hosp_deaths_df)
-//   .enter()
-//   .append("circle")
-//   .attr("cx", function(d) {
-//     return x_m_hosp1(d3.timeParse("%Y-%m-%d")(d.Date))
-//   })
-//   .attr("cy", function(d) {
-//     return y_m1_hosp_deaths_ts(d.Cumulative_deaths)
-//   })
-//   .attr("r", 3)
-//   .style("fill", function(d) {
-//     return colour_sussex_trusts(d.Trust)
-//   })
+svg_sussex_hosp_deaths
+    .append("circle")
+    .attr("cx", width_hm * .76)
+    .attr("cy", 110)
+    .attr("r", 6)
+    .attr("fill", function(d) { return colour_sussex_trusts('East Sussex Healthcare NHS Trust'); })
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 110)
+  .attr("text-anchor", "start")
+  .text('East Sussex Healthcare')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 120)
+  .attr("text-anchor", "start")
+  .text('NHS Trust')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 130)
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(esh_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+  .style('font-weight', 'bold')
+
+sash_latest = sussex_hosp_deaths_df.filter(function(d) {
+  return d.Trust === 'Surrey and Sussex Healthcare NHS Trust' &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+svg_sussex_hosp_deaths
+    .append("circle")
+    .attr("cx", width_hm * .76)
+    .attr("cy", 150)
+    .attr("r", 6)
+    .attr("fill", function(d) { return colour_sussex_trusts('Surrey and Sussex Healthcare NHS Trust'); })
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 150)
+  .attr("text-anchor", "start")
+  .text('Surrey and Sussex Healthcare')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 160)
+  .attr("text-anchor", "start")
+  .text('NHS Trust')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 170)
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(sash_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+  .style('font-weight', 'bold')
+
+sct_latest = sussex_hosp_deaths_df.filter(function(d) {
+  return d.Trust === 'Sussex Community NHS Foundation Trust' &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+svg_sussex_hosp_deaths
+    .append("circle")
+    .attr("cx", width_hm * .76)
+    .attr("cy", 190)
+    .attr("r", 6)
+    .attr("fill", function(d) { return colour_sussex_trusts('Sussex Community NHS Foundation Trust'); })
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 190)
+  .attr("text-anchor", "start")
+  .text('Sussex Community NHS')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 200)
+  .attr("text-anchor", "start")
+  .text('Foundation Trust')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 210)
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(sct_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+  .style('font-weight', 'bold')
+
+wst_latest = sussex_hosp_deaths_df.filter(function(d) {
+  return d.Trust === 'Western Sussex Hospitals NHS Foundation Trust' &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+svg_sussex_hosp_deaths
+    .append("circle")
+    .attr("cx", width_hm * .76)
+    .attr("cy", 230)
+    .attr("r", 6)
+    .attr("fill", function(d) { return colour_sussex_trusts('Western Sussex Hospitals NHS Foundation Trust'); })
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 230)
+  .attr("text-anchor", "start")
+  .text('Western Sussex Hospitals')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 240)
+  .attr("text-anchor", "start")
+  .text('NHS Foundation Trust')
+  .style("font-size", ".8rem")
+
+svg_sussex_hosp_deaths
+  .append("text")
+  .attr("x", width_hm * .76 + 10)
+  .attr("y", 250)
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(wst_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+  .style('font-weight', 'bold')
+
+sussex_trusts_latest = sussex_hosp_deaths_df.filter(function(d) {
+  return d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+// Create a tooltip for the lines and functions for displaying the tooltips as well as highlighting certain lines.
+var tooltip_sussex_trust_deaths = d3.select("#sussex_trusts_daily_deaths")
+  .append("div")
+  .style("opacity", 0)
+  .attr("class", "tooltip_class")
+  .style("position", "absolute")
+  .style("z-index", "10")
+  .style("background-color", "white")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+
+var showTooltip_trust_deaths = function(d, i) {
+
+tooltip_sussex_trust_deaths
+  .html("<h5>" + d.Trust + '</h5><p class = "side"><b>' + d.Date + '</b></p><p>On this day, <b>' + d3.format(',.0f')(d.Deaths) + ' deaths </b> were notified to the Department for Health and Social Care.</p><p>The cumulative total number of deaths reported by ' + d.Trust + ' as at ' + d.Date + ' is ' + d3.format(',.0f')(d.Cumulative_deaths) + '.</p>')
+  .style("opacity", 1)
+  .attr('visibility', 'visible')
+  .style("top", (event.pageY - 10) + "px")
+  .style("left", (event.pageX + 10) + "px")
+  .style("visibility", "visible");
+
+}
+
+var mouseleave_trust_deaths = function(d) {
+tooltip_sussex_trust_deaths
+  .style("visibility", "hidden")
+}
+
+svg_sussex_hosp_deaths
+  .selectAll('myCircles')
+  .data(sussex_hosp_deaths_df)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) {
+    return x_m_hosp1(d.Date) + (x_m_hosp1.bandwidth() / 2)
+  })
+  .attr("cy", function(d) {
+    return y_m1_hosp_deaths_ts(d.Cumulative_deaths)
+  })
+  .attr("r", function(d) {
+    if (d.Date === sussex_latest_hosp_deaths_approx[0]['Date']) {
+      return 6 }
+      else {
+      return 2.5}})
+  .style("fill", function(d) {
+    return colour_sussex_trusts(d.Trust)
+  })
+ .on('mousemove', showTooltip_trust_deaths)
+ .on('mouseout', mouseleave_trust_deaths)
 
 ////////// select individual trust
 
@@ -2234,12 +2421,300 @@ d3.select("#select_hospital_trust_button")
     return d;
   })
 
-
 // Retrieve the selected area name
 var chosen_hosp_trust = d3.select('#select_hospital_trust_button').property("value")
-
 
 d3.select("#selected_trust_mortality_title")
   .html(function(d) {
     return 'Daily hospital deaths notified to Department for Health and Social Care; ' + chosen_hosp_trust  +  '; up to ' + sussex_latest_hosp_deaths_approx[0]['Date']
   });
+
+var chosen_hosp_deaths_df = se_hospital_deaths.filter(function(d) {
+  return d.Trust === chosen_hosp_trust
+});
+
+var svg_chosen_trust_hosp_deaths = d3.select('#south_east_trusts_daily_deaths')
+  .append("svg")
+  .attr("width", width_hm)
+  .attr("height", height_line)
+  .append("g")
+  .attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+var x_m_hosp2 = d3.scaleBand()
+  .domain(d3.map(chosen_hosp_deaths_df, function(d){return d.Date;}).keys())
+  .range([0, width_hm * .7]); // margin left (we pushed the start of the axis over by 50) + another 10 so things do not get cut off
+
+var xAxis_chosen_hosp_line = svg_chosen_trust_hosp_deaths
+  .append("g")
+  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
+  .call(d3.axisBottom(x_m_hosp2));
+
+xAxis_chosen_hosp_line
+  .selectAll("text")
+  .attr("transform", 'translate(-10,10)rotate(-90)')
+  .style("text-anchor", "end")
+  .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
+    if (i%2 == 0) d3.select(this).remove();
+    });
+
+var y_m2_hosp_deaths_ts = d3.scaleLinear()
+  .domain([0, d3.max(chosen_hosp_deaths_df, function(d) {
+    return +d.Cumulative_deaths;
+  })])
+  .range([height_line - 120 , 0])
+  .nice();
+
+var y_m2_hosp_deaths_ts_axis = svg_chosen_trust_hosp_deaths
+  .append("g")
+  .attr("transform", 'translate(0,0)')
+  .call(d3.axisLeft(y_m2_hosp_deaths_ts));
+
+var lines_trust_death = svg_chosen_trust_hosp_deaths
+    .append('g')
+    .append("path")
+    .datum(chosen_hosp_deaths_df)
+    .attr("d", d3.line()
+      .x(function(d) { return x_m_hosp2(d.Date) + (x_m_hosp2.bandwidth() / 2) })
+      .y(function(d) { return y_m2_hosp_deaths_ts(+d.Cumulative_deaths); }))
+    .attr("stroke", '#0075ff')
+    .style("stroke-width", 2)
+    .style("fill", "none");
+
+var dots_trust_death = svg_chosen_trust_hosp_deaths
+  .selectAll('chosen_trust_death_Circles')
+  .data(chosen_hosp_deaths_df)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) { return x_m_hosp2(d.Date) + (x_m_hosp2.bandwidth() / 2) })
+  .attr("cy", function(d) { return y_m2_hosp_deaths_ts(+d.Cumulative_deaths); })
+  .attr("r", function(d) {
+    if (d.Date === sussex_latest_hosp_deaths_approx[0]['Date']) {
+      return 6 }
+      else {
+      return 3}})
+  .style("fill", '#0075ff')
+  .attr("stroke", "white")
+  .on('mousemove', showTooltip_trust_deaths)
+  .on('mouseout', mouseleave_trust_deaths)
+
+var bars_trust_death = svg_chosen_trust_hosp_deaths
+  .selectAll("chosen_trust_deaths_bar")
+  .data(chosen_hosp_deaths_df)
+  .enter()
+  .append("rect")
+  .attr("x", function(d) { return x_m_hosp2(d.Date) + (x_m_hosp2.bandwidth() / 2) })
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(+d.Deaths);})
+  .attr("width", x_m_hosp2.bandwidth() / 2)
+  .attr("height", function(d) { return (height_line - 120 ) - y_m2_hosp_deaths_ts(+d.Deaths); })
+  .style("fill", '#0075ff')
+  .on('mousemove', showTooltip_trust_deaths)
+  .on('mouseout', mouseleave_trust_deaths)
+
+chosen_trust_latest = chosen_hosp_deaths_df.filter(function(d) {
+  return d.Trust === chosen_hosp_trust &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+chosen_trust_highest_daily = chosen_hosp_deaths_df.filter(function(d) {
+  return d.Deaths === d3.max(chosen_hosp_deaths_df, function(d) {
+  return +d.Deaths;}) })
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t1')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_latest[0]['Cumulative_deaths']) })
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_trust_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t2')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_latest[0]['Cumulative_deaths']) + 15 })
+  .attr("text-anchor", "start")
+  .text('so far in this Trust')
+  .style("font-size", ".8rem")
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t3')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_highest_daily[0]['Deaths']) })
+  .attr("text-anchor", "start")
+  .text('The highest number of daily')
+  .style("font-size", ".8rem")
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t4')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_highest_daily[0]['Deaths']) + 15 })
+  .attr("text-anchor", "start")
+  .text('deaths was ' + chosen_trust_highest_daily[0]['Deaths'] + ' on ' + chosen_trust_highest_daily[0]['Date'])
+  .style("font-size", ".8rem")
+
+function update_chosen_trust_deaths(chosen_ch_outbreak_area){
+var chosen_hosp_trust = d3.select('#select_hospital_trust_button').property("value")
+
+d3.select("#selected_trust_mortality_title")
+  .html(function(d) {
+    return 'Daily hospital deaths notified to Department for Health and Social Care; ' + chosen_hosp_trust  +  '; up to ' + sussex_latest_hosp_deaths_approx[0]['Date']
+  });
+
+var chosen_hosp_deaths_df = se_hospital_deaths.filter(function(d) {
+  return d.Trust === chosen_hosp_trust
+});
+
+chosen_trust_latest = chosen_hosp_deaths_df.filter(function(d) {
+  return d.Trust === chosen_hosp_trust &&
+        d.Date ===  sussex_latest_hosp_deaths_approx[0]['Date']
+});
+
+chosen_trust_highest_daily = chosen_hosp_deaths_df.filter(function(d) {
+  return d.Deaths === d3.max(chosen_hosp_deaths_df, function(d) {
+  return +d.Deaths;}) })
+
+x_m_hosp2
+  .domain(d3.map(chosen_hosp_deaths_df, function(d){return d.Date;}).keys())
+
+xAxis_chosen_hosp_line
+  .transition()
+  .duration(1000)
+  .call(d3.axisBottom(x_m_hosp2));
+
+y_m2_hosp_deaths_ts
+  .domain([0, d3.max(chosen_hosp_deaths_df, function(d) {
+    return +d.Cumulative_deaths;
+  })])
+  .nice();
+
+y_m2_hosp_deaths_ts_axis
+  .transition()
+  .duration(1000)
+  .call(d3.axisLeft(y_m2_hosp_deaths_ts));
+
+lines_trust_death
+    .datum(chosen_hosp_deaths_df)
+    .transition()
+    .duration(1000)
+    .attr("d", d3.line()
+      .x(function(d) { return x_m_hosp2(d.Date) + (x_m_hosp2.bandwidth() / 2) })
+      .y(function(d) { return y_m2_hosp_deaths_ts(+d.Cumulative_deaths); }));
+
+dots_trust_death
+  .data(chosen_hosp_deaths_df)
+  .transition()
+  .duration(1000)
+  .attr("cx", function(d) { return x_m_hosp2(d.Date) + (x_m_hosp2.bandwidth() / 2) })
+  .attr("cy", function(d) { return y_m2_hosp_deaths_ts(+d.Cumulative_deaths); })
+  .attr("r", function(d) {
+    if (d.Date === sussex_latest_hosp_deaths_approx[0]['Date']) {
+      return 6 }
+      else {
+      return 3}})
+
+dots_trust_death
+  .on('mousemove', showTooltip_trust_deaths)
+  .on('mouseout', mouseleave_trust_deaths)
+
+bars_trust_death
+  .data(chosen_hosp_deaths_df)
+  .transition()
+  .duration(1000)
+  .attr("x", function(d) { return x_m_hosp2(d.Date) + (x_m_hosp2.bandwidth() / 2) })
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(+d.Deaths);})
+  .attr("width", x_m_hosp2.bandwidth() / 2)
+  .attr("height", function(d) { return (height_line - 120 ) - y_m2_hosp_deaths_ts(+d.Deaths); })
+
+bars_trust_death
+  .on('mousemove', showTooltip_trust_deaths)
+  .on('mouseout', mouseleave_trust_deaths)
+
+svg_chosen_trust_hosp_deaths
+    .selectAll("#chosen_trust_deaths_t1")
+    .transition()
+    .duration(1000)
+    .style("opacity", 0)
+    .remove();
+
+svg_chosen_trust_hosp_deaths
+    .selectAll("#chosen_trust_deaths_t2")
+    .transition()
+    .duration(1000)
+    .style("opacity", 0)
+    .remove();
+
+svg_chosen_trust_hosp_deaths
+    .selectAll("#chosen_trust_deaths_t3")
+    .transition()
+    .duration(1000)
+    .style("opacity", 0)
+    .remove();
+
+svg_chosen_trust_hosp_deaths
+    .selectAll("#chosen_trust_deaths_t4")
+    .transition()
+    .duration(1000)
+    .style("opacity", 0)
+    .remove();
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t1')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_latest[0]['Cumulative_deaths']) })
+  .attr("text-anchor", "start")
+  .text(d3.format(',.0f')(chosen_trust_latest[0]['Cumulative_deaths']) + ' Covid-19 deaths')
+  .style("font-size", ".8rem")
+  .style('opacity', 0)
+  .transition()
+  .duration(1000)
+  .style("opacity", 1)
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t2')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_latest[0]['Cumulative_deaths']) + 15 })
+  .attr("text-anchor", "start")
+  .text('so far in this Trust')
+  .style("font-size", ".8rem")
+  .style('opacity', 0)
+  .transition()
+  .duration(1000)
+  .style("opacity", 1)
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t3')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_highest_daily[0]['Deaths']) })
+  .attr("text-anchor", "start")
+  .text('The highest number of daily')
+  .style("font-size", ".8rem")
+  .style('opacity', 0)
+  .transition()
+  .duration(1000)
+  .style("opacity", 1)
+
+svg_chosen_trust_hosp_deaths
+  .append("text")
+  .attr('id', 'chosen_trust_deaths_t4')
+  .attr("x", width_hm * .73)
+  .attr("y", function(d) { return y_m2_hosp_deaths_ts(chosen_trust_highest_daily[0]['Deaths']) + 15 })
+  .attr("text-anchor", "start")
+  .text('deaths was ' + chosen_trust_highest_daily[0]['Deaths'] + ' on ' + chosen_trust_highest_daily[0]['Date'])
+  .style("font-size", ".8rem")
+  .style('opacity', 0)
+  .transition()
+  .duration(1000)
+  .style("opacity", 1)
+
+}
+
+d3.select("#select_hospital_trust_button").on("change", function(d) {
+var chosen_hosp_trust = d3.select('#select_hospital_trust_button').property("value")
+  update_chosen_trust_deaths()
+})
