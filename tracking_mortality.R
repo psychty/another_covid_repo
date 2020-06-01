@@ -595,7 +595,7 @@ download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/s
 
 # if the downlaod does fail, it wipes out the old one, which we can use to our advantage
 if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
-download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date()-1, '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
 }
 
  local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
@@ -676,7 +676,6 @@ daily_deaths_trust %>%
   toJSON() %>% 
   write_lines(paste0(github_repo_dir, '/sussex_approximate_latest_hospital_deaths.json'))
   
-
 # Excess mortality ####
 
 # excess_mortality <- read_excel(paste0(github_repo_dir, '/ons_mortality.xlsx'), sheet = 'Occurrences - All data', skip = 2) 
