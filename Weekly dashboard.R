@@ -387,6 +387,36 @@ area_x_place <- place_of_death %>%
   mutate(Deaths_proportion = Deaths / sum(Deaths)) %>% 
   ungroup()
 
+if(Area_x != 'West Sussex'){
+  
+  area_x_place_death_all_cause_plot <- ggplot(area_x_place,
+                                              aes(x = Week_ending, 
+                                                  y = Deaths,
+                                                  fill = Place_of_death)) +
+    geom_bar(stat = 'identity',
+             colour = '#ffffff') +
+    labs(title = paste0('Weekly all cause deaths; ', Area_x, '; w/e 3rd Jan 2020 - ', latest_we$Week_ending),
+         subtitle = 'By week of occurrence and place of death',
+         x = 'Week',
+         y = 'Number of deaths') +
+    scale_fill_manual(values = rev(c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc')),
+                      breaks = c("Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'),
+                      name = 'Place of death') +
+    scale_y_continuous(breaks = seq(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))),ifelse(Area_x == 'Brighton and Hove',25, 50)),
+                       limits = c(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))))) +
+    ph_theme() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
+          legend.position = c(.39,.85),
+          legend.key.size = unit(0.5, "lines")) +
+    guides(fill = guide_legend(nrow = 2, byrow = TRUE))
+}  
+  
+if(Area_x == 'West Sussex'){
+area_x_place <- area_x_place %>% 
+  mutate(Place_of_death = as.character(Place_of_death)) %>% 
+  mutate(Place_of_death = ifelse(Place_of_death == 'Elsewhere (including other communal establishments)', 'Elsewhere', Place_of_death)) %>% 
+  mutate(Place_of_death = factor(Place_of_death, levels = rev(c('Home', "Care home", "Hospital", "Hospice", 'Elsewhere'))))
+
  area_x_place_death_all_cause_plot <- ggplot(area_x_place,
        aes(x = Week_ending, 
            y = Deaths,
@@ -398,7 +428,7 @@ area_x_place <- place_of_death %>%
        x = 'Week',
        y = 'Number of deaths') +
   scale_fill_manual(values = rev(c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc')),
-                    breaks = c("Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'),
+                    breaks = c("Home", "Care home", "Hospital", "Hospice", 'Elsewhere'),
                     name = 'Place of death') +
    scale_y_continuous(breaks = seq(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))),ifelse(Area_x == 'Brighton and Hove',25, 50)),
                       limits = c(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))))) +
@@ -407,7 +437,11 @@ area_x_place <- place_of_death %>%
         legend.position = c(.39,.85),
         legend.key.size = unit(0.5, "lines")) +
   guides(fill = guide_legend(nrow = 2, byrow = TRUE))
+}
 
+
+ 
+ 
 png(paste0(github_repo_dir, '/Outputs/007_', gsub(' ','_', Area_x), '_place_death_all_cause_plot.png'), width = 1080, height = 550, res = 150)
 print(area_x_place_death_all_cause_plot)
 dev.off()
@@ -1499,7 +1533,7 @@ deaths_trust_plot <- ggplot(data = daily_deaths_trust,
   geom_point(aes(x = Date,
                  y = Cumulative_deaths,
                  fill = Name),
-             size = 2,
+             size = 1.5,
              colour = '#ffffff',
              shape = 21) +
   labs(title = paste0('Cumulative confirmed Covid-19 deaths over time; to ', format(max(daily_deaths_trust$Date), '%d %b')),
@@ -1513,6 +1547,10 @@ deaths_trust_plot <- ggplot(data = daily_deaths_trust,
                      limits = c(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 250, ceiling)),
                      labels = comma,
                      expand = c(0, 0.1)) +
+  scale_fill_manual(values = c("#ff4457","#e8c25f","#019357","#7daeff","#7729ad"),
+                    breaks = c('Brighton and Sussex University Hospitals NHS Trust', 'East Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust')) +
+  scale_colour_manual(values = c("#ff4457","#e8c25f","#019357","#7daeff","#7729ad"),
+                    breaks = c('Brighton and Sussex University Hospitals NHS Trust', 'East Sussex Healthcare NHS Trust', 'Sussex Community NHS Foundation Trust', 'Western Sussex Hospitals NHS Foundation Trust', 'Surrey and Sussex Healthcare NHS Trust')) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = .5, vjust = .5),
         legend.key.size = unit(0.5, "lines"),

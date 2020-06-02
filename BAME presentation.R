@@ -7,7 +7,6 @@ libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
-
 # Infographic on ICU audit and ONS slides of deaths 
 
 # https://www.icnarc.org/Our-Audit/Audits/Cmp/Reports 
@@ -100,7 +99,10 @@ Child_poverty_UK_under_16 <- data.frame(Ethnicity_hoh = c('White','Mixed/Multipl
 
 Smoking <- fingertips_data(92443, AreaTypeID = 101, categorytype = TRUE) %>% 
   filter(CategoryType == 'Ethnic groups') %>% 
-  filter(Timeperiod == 2018)
+  filter(Timeperiod == 2018) %>% 
+  View()
+
+
 
 # White and mixed groups significantly higher current smoking prevalence compared to other groups. Black, Chinese, and Asian groups have the lowest current smoking prevalence.
 
@@ -110,7 +112,11 @@ neet <- fingertips_data(IndicatorID = 93203,  AreaTypeID = 202, categorytype = T
   filter(CategoryType == 'Ethnic groups') %>% 
   filter(Timeperiod == 2018)
 
-first_time_criminal_system <- fingertips_data(IndicatorID = 10401,  AreaTypeID = 101, categorytype = TRUE)
+indicator_metadata(93203) %>% 
+  View()
+
+
+# first_time_criminal_system <- fingertips_data(IndicatorID = 10401,  AreaTypeID = 101, categorytype = TRUE)
 
 # mental health indicators
 
@@ -143,6 +149,18 @@ hypertension_diabetes <- gpps_prevalence %>%
 # % bame by occupation (JC says elementary occupation)
 # % bame in NHS senior roles compared to overall workforce
 # access to primary care
+
+# manage own condition
+
+# similar
+
+manage_condition <- read_excel("/Users/richtyler/Downloads/nhs-out-fram-feb-20-xslx/NHSOF_2.1_I00706_D.xlsx", 
+                               sheet = "Indicator data", skip = 13) %>% 
+  filter(Breakdown == 'Ethnicity') %>% 
+  filter(Year == '2018/19') %>% 
+  mutate(Prevalence = paste0(round(Numerator / Denominator * 100,1),'%')) %>% 
+  mutate(Prevalence_lci = paste0(round(PHEindicatormethods:::wilson_lower(Numerator, Denominator) *100,2), '%'),
+         Prevalence_uci = paste0(round(PHEindicatormethods:::wilson_upper(Numerator, Denominator) *100,2), '%'))
 
 # slide on ICU data ethnicity
 
