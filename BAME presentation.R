@@ -122,6 +122,19 @@ first_time_criminal_system <- fingertips_data(IndicatorID = 10401,  AreaTypeID =
 # housing and overcrowding
 # lack of car in household
 
+gpps_prevalence <- read_csv(paste0(github_repo_dir, '/prevalence_ltcs_gp_patient_survey_england_2019.csv'))
+
+names(gpps_prevalence)
+
+hypertension_diabetes <- gpps_prevalence %>% 
+  select(Q56, `Weighted Base`, Diabetes,`A breathing condition, such as asthma or COPD`, `High blood pressure`) %>% 
+  rename(Ethnicity = Q56,
+         Denominator = `Weighted Base`) %>% 
+  gather(key = 'Condition', value = 'Patients', Diabetes:`High blood pressure`) %>% 
+  mutate(Prevalence = paste0(round(Patients / Denominator * 100,1),'%')) %>% 
+  mutate(Prevalence_lci = paste0(round(PHEindicatormethods:::wilson_lower(Patients, Denominator) *100,2), '%'),
+         Prevalence_uci = paste0(round(PHEindicatormethods:::wilson_upper(Patients, Denominator) *100,2), '%'))
+
 # hypertension
 # diabetes
 # screening uptake and health checks
