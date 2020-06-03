@@ -600,7 +600,9 @@ if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
 download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date()-1, '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
 }
 
- local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
+# download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/06/COVID-19-total-announced-deaths-2-June-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+
+local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
 
 daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_deaths_trust.xlsx"), sheet = 'Tab4 Deaths by trust', skip = 15) %>% 
   select(-c(...2, Total)) %>% 

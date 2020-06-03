@@ -1,7 +1,7 @@
 "Code","Trust","Date","Deaths reported on most recent complete day","Cumulative_deaths","Crude rate deaths per 100,000 emergency catchment population","Cumulative rate summary"
-"-","England",2020-05-25,126,26615,,
-"RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-25,0,132,24.6221801075169,"132 deaths (25 per 100,000, 95% CI: 21-29)"
-"RXC","East Sussex Healthcare NHS Trust",2020-05-25,0,81,22.2029735537915,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-25,1,243,63.5520080342292,"243 deaths (64 per 100,000, 95% CI: 56-72)"
-"RDR","Sussex Community NHS Foundation Trust",2020-05-25,0,15,,
-"RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-25,1,107,22.4308312824146,"107 deaths (22 per 100,000, 95% CI: 18-27)"
+"-","England",2020-05-27,110,26866,,
+"RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-27,1,133,24.808711774998,"133 deaths (25 per 100,000, 95% CI: 21-29)"
+"RXC","East Sussex Healthcare NHS Trust",2020-05-27,1,81,22.2029735537915,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-27,0,247,64.59813162327,"247 deaths (65 per 100,000, 95% CI: 57-73)"
+"RDR","Sussex Community NHS Foundation Trust",2020-05-27,0,15,,
+"RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-27,0,109,22.8500991568523,"109 deaths (23 per 100,000, 95% CI: 19-28)"
