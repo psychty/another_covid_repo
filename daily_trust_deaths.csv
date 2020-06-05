@@ -1,565 +1,577 @@
 "NHS England Region","Code","Trust","Date","Deaths","Cumulative_deaths","Emergency_catchment_pop_2018","Name","National_grouping","Crude rate deaths per 100,000 emergency catchment population","Cumulative_deaths_crude_rate_lci","Cumulative_deaths_crude_rate_uci","Cumulative rate summary"
-"-","-","England",2020-02-29,0,0,,,,,0,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-02-29,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-02-29,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-02-29,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-02-29,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-02-29,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-01,0,0,,,,,0,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-01,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-01,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-01,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-01,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-01,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-02,1,1,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-02,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-02,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-02,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-02,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-02,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-03,2,3,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-03,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-03,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-03,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-03,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-03,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-04,0,3,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-04,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-04,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-04,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-04,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-04,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-05,2,5,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-05,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-05,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-05,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-05,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-05,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-06,2,7,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-06,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-06,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-06,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-06,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-06,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-07,1,8,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-07,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-07,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-07,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-07,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-07,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-08,5,13,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-08,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-08,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-08,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-08,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-08,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-09,4,17,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-09,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-09,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-09,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-09,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-09,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-10,1,18,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-10,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-10,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-10,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-10,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-10,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-11,11,29,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-11,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-11,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-11,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-11,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-11,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-12,14,43,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-12,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-12,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-12,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-12,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-12,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-13,20,63,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-13,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-13,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-13,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-13,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-13,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-14,23,86,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-14,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-14,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-14,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-14,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-14,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-15,28,114,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-15,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-15,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-15,0,0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-15,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-15,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-16,42,156,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-16,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-16,0,0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-16,1,1,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.261530897260202,0.00661400309526515,1.45715686820204,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-16,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-16,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-17,48,204,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-17,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-17,1,1,364816,"East Sussex Healthcare NHS Trust","Y59",0.27411078461471,0.00693214299679281,1.5272475131387,"1 deaths (0 per 100,000, 95% CI: 0-2)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-17,0,1,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.261530897260202,0.00661400309526515,1.45715686820204,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-17,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-17,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-18,69,273,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-18,0,0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-18,0,1,364816,"East Sussex Healthcare NHS Trust","Y59",0.27411078461471,0.00693214299679281,1.5272475131387,"1 deaths (0 per 100,000, 95% CI: 0-2)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-18,1,2,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.523061794520405,0.0633437350847197,1.88948044263044,"2 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-18,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-18,0,0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-19,64,337,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-19,1,1,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.186531667481188,0.00471730506418175,1.03928791303373,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-19,0,1,364816,"East Sussex Healthcare NHS Trust","Y59",0.27411078461471,0.00693214299679281,1.5272475131387,"1 deaths (0 per 100,000, 95% CI: 0-2)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-19,0,2,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.523061794520405,0.0633437350847197,1.88948044263044,"2 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-19,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-19,1,1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-20,106,443,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-20,0,1,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.186531667481188,0.00471730506418175,1.03928791303373,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-20,1,2,364816,"East Sussex Healthcare NHS Trust","Y59",0.54822156922942,0.0663906295829508,1.98036626673706,"2 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-20,0,2,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.523061794520405,0.0633437350847197,1.88948044263044,"2 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-20,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-20,0,1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-21,104,547,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-21,1,2,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.373063334962377,0.0451786486935952,1.34763403226615,"2 deaths (0 per 100,000, 95% CI: 0-1)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-21,0,2,364816,"East Sussex Healthcare NHS Trust","Y59",0.54822156922942,0.0663906295829508,1.98036626673706,"2 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-21,1,3,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.784592691780607,0.161801638721018,2.29291371271295,"3 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-21,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-21,0,1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-22,151,698,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-22,1,3,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.559595002443565,0.115401773893631,1.63537472131754,"3 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-22,1,3,364816,"East Sussex Healthcare NHS Trust","Y59",0.82233235384413,0.169584452951415,2.40320506460181,"3 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-22,3,6,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",1.56918538356121,0.575862555275389,3.41545713148297,"6 deaths (2 per 100,000, 95% CI: 1-3)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-22,0,0,,,,,0,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-22,0,1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
-"-","-","England",2020-03-23,162,860,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-23,0,3,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.559595002443565,0.115401773893631,1.63537472131754,"3 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-23,2,5,364816,"East Sussex Healthcare NHS Trust","Y59",1.37055392307355,0.445014928922604,3.19841289036183,"5 deaths (1 per 100,000, 95% CI: 0-3)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-23,1,7,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",1.83071628082142,0.7360414509272,3.77197526195576,"7 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-23,1,1,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-23,1,2,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.419267874437657,0.0507741024982784,1.51454083871592,"2 deaths (0 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-24,204,1064,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-24,2,5,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.932658337405941,0.302831487869526,2.17651155379059,"5 deaths (1 per 100,000, 95% CI: 0-2)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-24,0,5,364816,"East Sussex Healthcare NHS Trust","Y59",1.37055392307355,0.445014928922604,3.19841289036183,"5 deaths (1 per 100,000, 95% CI: 0-3)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-24,0,7,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",1.83071628082142,0.7360414509272,3.77197526195576,"7 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-24,0,1,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-24,0,2,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.419267874437657,0.0507741024982784,1.51454083871592,"2 deaths (0 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-25,263,1327,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-25,2,7,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",1.30572167236832,0.524966803597688,2.69028570880626,"7 deaths (1 per 100,000, 95% CI: 1-3)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-25,0,5,364816,"East Sussex Healthcare NHS Trust","Y59",1.37055392307355,0.445014928922604,3.19841289036183,"5 deaths (1 per 100,000, 95% CI: 0-3)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-25,1,8,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",2.09224717808162,0.903283630654573,4.12256098932258,"8 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-25,0,1,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-25,0,2,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.419267874437657,0.0507741024982784,1.51454083871592,"2 deaths (0 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-26,325,1652,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-26,2,9,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",1.67878500733069,0.76764886861628,3.18685708482704,"9 deaths (2 per 100,000, 95% CI: 1-3)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-26,1,6,364816,"East Sussex Healthcare NHS Trust","Y59",1.64466470768826,0.603562097291015,3.57974389999988,"6 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-26,1,9,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",2.35377807534182,1.07629926918571,4.46820426841949,"9 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-26,0,1,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-26,2,4,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.838535748875314,0.228477754154545,2.14698457321076,"4 deaths (1 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-27,350,2002,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-27,3,12,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",2.23838000977426,1.1566089049595,3.90999464886301,"12 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-27,1,7,364816,"East Sussex Healthcare NHS Trust","Y59",1.91877549230297,0.771445751672975,3.95341089497843,"7 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-27,2,11,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",2.87683986986223,1.4361060335347,5.14745387988805,"11 deaths (3 per 100,000, 95% CI: 1-5)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-27,0,1,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-27,1,5,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.04816968609414,0.340337691573614,2.44607627532953,"5 deaths (1 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-28,359,2361,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-28,7,19,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",3.54410168214258,2.13378594799103,5.53455400622289,"19 deaths (4 per 100,000, 95% CI: 2-6)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-28,0,7,364816,"East Sussex Healthcare NHS Trust","Y59",1.91877549230297,0.771445751672975,3.95341089497843,"7 deaths (2 per 100,000, 95% CI: 1-4)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-28,3,14,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",3.66143256164283,2.00174017325272,6.14326040459836,"14 deaths (4 per 100,000, 95% CI: 2-6)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-28,0,1,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-28,0,5,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.04816968609414,0.340337691573614,2.44607627532953,"5 deaths (1 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-29,437,2798,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-29,2,21,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",3.91716501710495,2.4247916337437,5.98780271593436,"21 deaths (4 per 100,000, 95% CI: 2-6)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-29,2,9,364816,"East Sussex Healthcare NHS Trust","Y59",2.46699706153239,1.12807029780197,4.68312918537002,"9 deaths (2 per 100,000, 95% CI: 1-5)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-29,4,18,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",4.70755615068364,2.78999031473326,7.43997213652371,"18 deaths (5 per 100,000, 95% CI: 3-7)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-29,1,2,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-29,0,5,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.04816968609414,0.340337691573614,2.44607627532953,"5 deaths (1 per 100,000, 95% CI: 0-2)"
-"-","-","England",2020-03-30,496,3294,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-30,1,22,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",4.10369668458614,2.57175958127071,6.21304618494915,"22 deaths (4 per 100,000, 95% CI: 3-6)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-30,2,11,364816,"East Sussex Healthcare NHS Trust","Y59",3.01521863076181,1.50518411310486,5.39505135555873,"11 deaths (3 per 100,000, 95% CI: 2-5)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-30,3,21,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",5.49214884246425,3.39973335469151,8.39533274999174,"21 deaths (5 per 100,000, 95% CI: 3-8)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-30,1,3,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-30,2,7,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.4674375605318,0.589984850472993,3.02348224832912,"7 deaths (1 per 100,000, 95% CI: 1-3)"
-"-","-","England",2020-03-31,573,3867,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-31,3,25,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",4.66329168702971,3.01783684843765,6.88393882602268,"25 deaths (5 per 100,000, 95% CI: 3-7)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-31,1,12,364816,"East Sussex Healthcare NHS Trust","Y59",3.28932941537652,1.69965228270306,5.74578952470494,"12 deaths (3 per 100,000, 95% CI: 2-6)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-31,5,26,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",6.79980332876526,4.44185719346927,9.96329049625233,"26 deaths (7 per 100,000, 95% CI: 4-10)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-31,1,4,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-31,5,12,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",2.51560724662594,1.29985691889808,4.39425425084117,"12 deaths (3 per 100,000, 95% CI: 1-4)"
-"-","-","England",2020-04-01,642,4509,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-01,4,29,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",5.40941835695446,3.6227779595773,7.76882312448083,"29 deaths (5 per 100,000, 95% CI: 4-8)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-01,1,13,364816,"East Sussex Healthcare NHS Trust","Y59",3.56344019999123,1.89738160264581,6.09358691783166,"13 deaths (4 per 100,000, 95% CI: 2-6)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-01,4,30,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",7.84592691780607,5.29361122927936,11.200544711431,"30 deaths (8 per 100,000, 95% CI: 5-11)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-01,0,4,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-01,2,14,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",2.9348751210636,1.60452427687948,4.92422073058233,"14 deaths (3 per 100,000, 95% CI: 2-5)"
-"-","-","England",2020-04-02,642,5151,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-02,0,29,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",5.40941835695446,3.6227779595773,7.76882312448083,"29 deaths (5 per 100,000, 95% CI: 4-8)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-02,0,13,364816,"East Sussex Healthcare NHS Trust","Y59",3.56344019999123,1.89738160264581,6.09358691783166,"13 deaths (4 per 100,000, 95% CI: 2-6)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-02,5,35,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",9.15358140410708,6.37580517629638,12.7304170981398,"35 deaths (9 per 100,000, 95% CI: 6-13)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-02,0,4,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-02,1,15,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",3.14450905828243,1.7599577088916,5.18638965000549,"15 deaths (3 per 100,000, 95% CI: 2-5)"
-"-","-","England",2020-04-03,696,5847,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-03,3,32,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",5.96901335939803,4.08280066658896,8.42647034785325,"32 deaths (6 per 100,000, 95% CI: 4-8)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-03,5,18,364816,"East Sussex Healthcare NHS Trust","Y59",4.93399412306478,2.92419152861351,7.79784194226611,"18 deaths (5 per 100,000, 95% CI: 3-8)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-03,5,40,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",10.4612358904081,7.47366028045885,14.2452331522575,"40 deaths (10 per 100,000, 95% CI: 7-14)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-03,0,4,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-03,2,17,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",3.56377693272008,2.07603110462778,5.70595210709213,"17 deaths (4 per 100,000, 95% CI: 2-6)"
-"-","-","England",2020-04-04,776,6623,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-04,3,35,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",6.52860836184159,4.54741517552516,9.07971468734147,"35 deaths (7 per 100,000, 95% CI: 5-9)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-04,2,20,364816,"East Sussex Healthcare NHS Trust","Y59",5.4822156922942,3.3486861311414,8.46683750139715,"20 deaths (5 per 100,000, 95% CI: 3-8)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-04,11,51,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",13.3380757602703,9.93107337572,17.5371047403751,"51 deaths (13 per 100,000, 95% CI: 10-18)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-04,0,4,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-04,2,19,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",3.98304480715774,2.39805902933175,6.22001809527465,"19 deaths (4 per 100,000, 95% CI: 2-6)"
-"-","-","England",2020-04-05,742,7365,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-05,5,40,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",7.46126669924753,5.33043831113738,10.1601268583773,"40 deaths (7 per 100,000, 95% CI: 5-10)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-05,2,22,364816,"East Sussex Healthcare NHS Trust","Y59",6.03043726152362,3.77923516248845,9.13015461450049,"22 deaths (6 per 100,000, 95% CI: 4-9)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-05,12,63,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",16.4764465273927,12.6609535713462,21.0805321503351,"63 deaths (16 per 100,000, 95% CI: 13-21)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-05,1,5,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-05,4,23,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",4.82158055603306,3.05647076410228,7.23474130922059,"23 deaths (5 per 100,000, 95% CI: 3-7)"
-"-","-","England",2020-04-06,727,8092,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-06,5,45,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",8.39392503665347,6.12258611408477,11.231732110545,"45 deaths (8 per 100,000, 95% CI: 6-11)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-06,0,22,364816,"East Sussex Healthcare NHS Trust","Y59",6.03043726152362,3.77923516248845,9.13015461450049,"22 deaths (6 per 100,000, 95% CI: 4-9)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-06,8,71,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",18.5686937054744,14.5023036421516,23.4218866374629,"71 deaths (19 per 100,000, 95% CI: 15-23)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-06,1,6,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-06,4,27,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",5.66011630490837,3.73005227654489,8.23517638519683,"27 deaths (6 per 100,000, 95% CI: 4-8)"
-"-","-","England",2020-04-07,809,8901,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-07,4,49,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",9.14005170657822,6.76186035002772,12.0836327524611,"49 deaths (9 per 100,000, 95% CI: 7-12)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-07,2,24,364816,"East Sussex Healthcare NHS Trust","Y59",6.57865883075304,4.21507219589784,9.78852290507402,"24 deaths (7 per 100,000, 95% CI: 4-10)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-07,5,76,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",19.8763481917754,15.6602999756287,24.8782136919235,"76 deaths (20 per 100,000, 95% CI: 16-25)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-07,0,6,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-07,2,29,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",6.07938417934603,4.07146527767128,8.73100530935768,"29 deaths (6 per 100,000, 95% CI: 4-9)"
-"-","-","England",2020-04-08,895,9796,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-08,3,52,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",9.69964670902179,7.24416005997099,12.7197942742745,"52 deaths (10 per 100,000, 95% CI: 7-13)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-08,3,27,364816,"East Sussex Healthcare NHS Trust","Y59",7.40099118459717,4.87729978142954,10.7680592671905,"27 deaths (7 per 100,000, 95% CI: 5-11)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-08,9,85,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",22.2301262671172,17.7566374782282,27.4878952247683,"85 deaths (22 per 100,000, 95% CI: 18-27)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-08,0,6,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-08,4,33,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",6.91791992822134,4.76197776603684,9.71533489396676,"33 deaths (7 per 100,000, 95% CI: 5-10)"
-"-","-","England",2020-04-09,787,10583,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-09,4,56,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",10.4457733789465,7.89062626692029,13.5647095595373,"56 deaths (10 per 100,000, 95% CI: 8-14)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-09,2,29,364816,"East Sussex Healthcare NHS Trust","Y59",7.94921275382659,5.32372075151668,11.4163896722743,"29 deaths (8 per 100,000, 95% CI: 5-11)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-09,12,97,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",25.3684970342396,20.5721356967076,30.947415113894,"97 deaths (25 per 100,000, 95% CI: 21-31)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-09,0,6,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-09,2,35,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",7.337187802659,5.11062041253734,10.2042530602638,"35 deaths (7 per 100,000, 95% CI: 5-10)"
-"-","-","England",2020-04-10,737,11320,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-10,3,59,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",11.0053683813901,8.37779634223298,14.1961187836364,"59 deaths (11 per 100,000, 95% CI: 8-14)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-10,4,33,364816,"East Sussex Healthcare NHS Trust","Y59",9.04565589228543,6.22661330070617,12.7034682738416,"33 deaths (9 per 100,000, 95% CI: 6-13)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-10,6,103,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",26.9376824178008,21.9874027945044,32.6697744370285,"103 deaths (27 per 100,000, 95% CI: 22-33)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-10,0,6,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-10,3,38,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",7.96608961431548,5.63727792324675,10.9340804226532,"38 deaths (8 per 100,000, 95% CI: 6-11)"
-"-","-","England",2020-04-11,774,12094,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-11,5,64,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",11.9380267187961,9.19373462303015,15.2445931454642,"64 deaths (12 per 100,000, 95% CI: 9-15)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-11,3,36,364816,"East Sussex Healthcare NHS Trust","Y59",9.86798824612956,6.91140970372402,13.6614557860579,"36 deaths (10 per 100,000, 95% CI: 7-14)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-11,5,108,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",28.2453369041019,23.1701991089061,34.1017257896026,"108 deaths (28 per 100,000, 95% CI: 23-34)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-11,1,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-11,2,40,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",8.38535748875314,5.99062231821042,11.4184761479131,"40 deaths (8 per 100,000, 95% CI: 6-11)"
-"-","-","England",2020-04-12,716,12810,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-12,5,69,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",12.870685056202,10.0141598967595,16.288675679175,"69 deaths (13 per 100,000, 95% CI: 10-16)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-12,1,37,364816,"East Sussex Healthcare NHS Trust","Y59",10.1420990307443,7.14097343808332,13.9795477377241,"37 deaths (10 per 100,000, 95% CI: 7-14)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-12,2,110,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",28.7683986986223,23.6441249865788,34.673704560306,"110 deaths (29 per 100,000, 95% CI: 24-35)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-12,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-12,3,43,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",9.01425930040963,6.52366380107046,12.1421521104072,"43 deaths (9 per 100,000, 95% CI: 7-12)"
-"-","-","England",2020-04-13,694,13504,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-13,3,72,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",13.4302800586456,10.5083669651772,16.9132164445298,"72 deaths (13 per 100,000, 95% CI: 11-17)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-13,0,37,364816,"East Sussex Healthcare NHS Trust","Y59",10.1420990307443,7.14097343808332,13.9795477377241,"37 deaths (10 per 100,000, 95% CI: 7-14)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-13,9,119,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",31.1221767739641,25.7821429518882,37.2423201370561,"119 deaths (31 per 100,000, 95% CI: 26-37)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-13,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-13,4,47,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",9.85279504928494,7.23946275934579,13.1021286345245,"47 deaths (10 per 100,000, 95% CI: 7-13)"
-"-","-","England",2020-04-14,646,14150,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-14,4,76,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",14.1764067285703,11.1693948910493,17.7438869843773,"76 deaths (14 per 100,000, 95% CI: 11-18)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-14,3,40,364816,"East Sussex Healthcare NHS Trust","Y59",10.9644313845884,7.83315051828146,14.9304425492023,"40 deaths (11 per 100,000, 95% CI: 8-15)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-14,4,123,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",32.1683003630049,26.7350026009716,38.3813380029971,"123 deaths (32 per 100,000, 95% CI: 27-38)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-14,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-14,1,48,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",10.0624289865038,7.41924042932676,13.3413208230663,"48 deaths (10 per 100,000, 95% CI: 7-13)"
-"-","-","England",2020-04-15,684,14834,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-15,5,81,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",15.1090650659762,11.9987804544702,18.7791883757719,"81 deaths (15 per 100,000, 95% CI: 12-19)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-15,2,42,364816,"East Sussex Healthcare NHS Trust","Y59",11.5126529538178,8.29730738595827,15.5617623776948,"42 deaths (12 per 100,000, 95% CI: 8-16)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-15,3,126,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",32.9528930547855,27.4506398957234,39.2346174312663,"126 deaths (33 per 100,000, 95% CI: 27-39)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-15,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-15,2,50,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",10.4816968609414,7.77971728668184,13.8188098682701,"50 deaths (10 per 100,000, 95% CI: 8-14)"
-"-","-","England",2020-04-16,636,15470,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-16,3,84,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",15.6686600684198,12.4979344627752,19.3988667523743,"84 deaths (16 per 100,000, 95% CI: 12-19)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-16,2,44,364816,"East Sussex Healthcare NHS Trust","Y59",12.0608745230472,8.76344934753616,16.1911610999116,"44 deaths (12 per 100,000, 95% CI: 9-16)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-16,6,132,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",34.5220784383467,28.8843374824881,40.9387804444941,"132 deaths (35 per 100,000, 95% CI: 29-41)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-16,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-16,3,53,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",11.1105986725979,8.32259874316731,14.5329333277557,"53 deaths (11 per 100,000, 95% CI: 8-15)"
-"-","-","England",2020-04-17,607,16077,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-17,3,87,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",16.2282550708634,12.9981670559856,20.0174913267786,"87 deaths (16 per 100,000, 95% CI: 13-20)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-17,1,45,364816,"East Sussex Healthcare NHS Trust","Y59",12.3349853076619,8.99722232833285,16.5051808252034,"45 deaths (12 per 100,000, 95% CI: 9-17)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-17,7,139,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",36.3527947191681,30.5608246084035,42.9231725212579,"139 deaths (36 per 100,000, 95% CI: 31-43)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-17,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-17,4,57,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",11.9491344214732,9.05015827899128,15.4814926348148,"57 deaths (12 per 100,000, 95% CI: 9-15)"
-"-","-","England",2020-04-18,570,16647,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-18,1,88,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",16.4147867383446,13.1651388990929,20.2234762898577,"88 deaths (16 per 100,000, 95% CI: 13-20)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-18,3,48,364816,"East Sussex Healthcare NHS Trust","Y59",13.1573176615061,9.70116691175363,17.4446941517388,"48 deaths (13 per 100,000, 95% CI: 10-17)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-18,6,145,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",37.9219801027293,32.0008816232022,44.6210439022028,"145 deaths (38 per 100,000, 95% CI: 32-45)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-18,0,7,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-18,1,58,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",12.1587683586921,9.23266273339269,15.7180331738028,"58 deaths (12 per 100,000, 95% CI: 9-16)"
-"-","-","England",2020-04-19,520,17167,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-19,5,93,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",17.3474450757505,14.0016238835998,21.2517876028084,"93 deaths (17 per 100,000, 95% CI: 14-21)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-19,1,49,364816,"East Sussex Healthcare NHS Trust","Y59",13.4314284461208,9.93664438338933,17.7570602327198,"49 deaths (13 per 100,000, 95% CI: 10-18)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-19,7,152,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",39.7526963835508,33.6842836295324,46.5985915182816,"152 deaths (40 per 100,000, 95% CI: 34-47)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-19,3,10,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-19,4,62,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",12.9973041075674,9.96495848030858,16.6619558747859,"62 deaths (13 per 100,000, 95% CI: 10-17)"
-"-","-","England",2020-04-20,562,17729,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-20,1,94,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",17.5339767432317,14.1692379206712,21.4571469885482,"94 deaths (18 per 100,000, 95% CI: 14-21)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-20,1,50,364816,"East Sussex Healthcare NHS Trust","Y59",13.7055392307355,10.1725151844424,18.0690439042748,"50 deaths (14 per 100,000, 95% CI: 10-18)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-20,9,161,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",42.1064744588926,35.8535608268912,49.1362959802357,"161 deaths (42 per 100,000, 95% CI: 36-49)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-20,0,10,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-20,2,64,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",13.416571982005,10.3323945622544,17.132662381336,"64 deaths (13 per 100,000, 95% CI: 10-17)"
-"-","-","England",2020-04-21,482,18211,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-21,5,99,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.4666350806376,15.0087695334286,22.4824665072242,"99 deaths (18 per 100,000, 95% CI: 15-22)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-21,1,51,364816,"East Sussex Healthcare NHS Trust","Y59",13.9796500153502,10.4087675437311,18.380656322499,"51 deaths (14 per 100,000, 95% CI: 10-18)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-21,3,164,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",42.8910671506732,36.57780604724,49.9810551615304,"164 deaths (43 per 100,000, 95% CI: 37-50)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-21,2,12,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-21,1,65,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",13.6262059192239,10.5164163330697,17.367717287351,"65 deaths (14 per 100,000, 95% CI: 11-17)"
-"-","-","England",2020-04-22,498,18709,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-22,2,101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-22,2,53,364816,"East Sussex Healthcare NHS Trust","Y59",14.5278715845796,10.8823700102604,19.0028094213869,"53 deaths (15 per 100,000, 95% CI: 11-19)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-22,3,167,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",43.6756598424538,37.3026012692895,50.8252691897742,"167 deaths (44 per 100,000, 95% CI: 37-51)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-22,1,13,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-22,1,66,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",13.8358398564427,10.7006375433943,17.6025798426222,"66 deaths (14 per 100,000, 95% CI: 11-18)"
-"-","-","England",2020-04-23,449,19158,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-23,0,101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-23,2,55,364816,"East Sussex Healthcare NHS Trust","Y59",15.076093153809,11.3573808117872,19.6236158029164,"55 deaths (15 per 100,000, 95% CI: 11-20)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-23,8,175,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",45.7679070205354,39.2379604793297,53.0739501005401,"175 deaths (46 per 100,000, 95% CI: 39-53)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-23,0,13,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-23,1,67,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",14.0454737936615,10.8850511668952,17.8372551779777,"67 deaths (14 per 100,000, 95% CI: 11-18)"
-"-","-","England",2020-04-24,437,19595,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-24,0,101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-24,3,58,364816,"East Sussex Healthcare NHS Trust","Y59",15.8984255076532,12.0723412416354,20.5524089421345,"58 deaths (16 per 100,000, 95% CI: 12-21)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-24,5,180,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",47.0755615068364,40.4493940362354,54.4775729738417,"180 deaths (47 per 100,000, 95% CI: 40-54)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-24,0,13,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-24,1,68,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",14.2551077308803,11.0696448079534,18.0717457724237,"68 deaths (14 per 100,000, 95% CI: 11-18)"
-"-","-","England",2020-04-25,382,19977,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-25,0,101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-25,0,58,364816,"East Sussex Healthcare NHS Trust","Y59",15.8984255076532,12.0723412416354,20.5524089421345,"58 deaths (16 per 100,000, 95% CI: 12-21)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-25,4,184,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",48.1216850958772,41.4194884407775,55.599519685879,"184 deaths (48 per 100,000, 95% CI: 41-56)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-25,0,13,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-25,2,70,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",14.674375605318,11.4393951891119,18.5401907734486,"70 deaths (15 per 100,000, 95% CI: 11-19)"
-"-","-","England",2020-04-26,379,20356,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-26,0,101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-26,3,61,364816,"East Sussex Healthcare NHS Trust","Y59",16.7207578614973,12.7900536058812,21.4785099828782,"61 deaths (17 per 100,000, 95% CI: 13-21)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-26,6,190,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",49.6908704794384,42.8761656560777,57.2809180123409,"190 deaths (50 per 100,000, 95% CI: 43-57)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-26,0,13,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-26,2,72,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",15.0936434797557,11.8098463944334,19.0079475628908,"72 deaths (15 per 100,000, 95% CI: 12-19)"
-"-","-","England",2020-04-27,343,20699,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-27,1,102,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.0262300830812,15.513613826545,23.0965452421403,"102 deaths (19 per 100,000, 95% CI: 16-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-27,0,61,364816,"East Sussex Healthcare NHS Trust","Y59",16.7207578614973,12.7900536058812,21.4785099828782,"61 deaths (17 per 100,000, 95% CI: 13-21)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-27,2,192,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",50.2139322739588,43.3621211478602,57.8409926871272,"192 deaths (50 per 100,000, 95% CI: 43-58)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-27,0,13,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-27,2,74,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",15.5129113541933,12.1809759607177,19.4750397543711,"74 deaths (16 per 100,000, 95% CI: 12-19)"
-"-","-","England",2020-04-28,339,21038,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-28,0,102,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.0262300830812,15.513613826545,23.0965452421403,"102 deaths (19 per 100,000, 95% CI: 16-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-28,0,61,364816,"East Sussex Healthcare NHS Trust","Y59",16.7207578614973,12.7900536058812,21.4785099828782,"61 deaths (17 per 100,000, 95% CI: 13-21)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-28,4,196,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",51.2600558629996,44.3346081751496,58.9605701501559,"196 deaths (51 per 100,000, 95% CI: 44-59)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-28,1,14,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-28,3,77,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",16.1418131658498,12.7388660501959,20.1744907587446,"77 deaths (16 per 100,000, 95% CI: 13-20)"
-"-","-","England",2020-04-29,321,21359,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-29,1,103,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.2127617505624,15.6820740868676,23.3010614264449,"103 deaths (19 per 100,000, 95% CI: 16-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-29,2,63,364816,"East Sussex Healthcare NHS Trust","Y59",17.2689794307267,13.2699575987736,22.0945259942841,"63 deaths (17 per 100,000, 95% CI: 13-22)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-29,2,198,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",51.7831176575201,44.8211337974683,59.5200787487401,"198 deaths (52 per 100,000, 95% CI: 45-60)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-29,0,14,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-29,4,81,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",16.9803489147251,13.484850172953,21.1050233461519,"81 deaths (17 per 100,000, 95% CI: 13-21)"
-"-","-","England",2020-04-30,309,21668,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-30,0,103,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.2127617505624,15.6820740868676,23.3010614264449,"103 deaths (19 per 100,000, 95% CI: 16-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-30,1,64,364816,"East Sussex Healthcare NHS Trust","Y59",17.5430902153414,13.5103162111193,22.4021338824768,"64 deaths (18 per 100,000, 95% CI: 14-22)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-30,2,200,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",52.3061794520405,45.3078405157542,60.0793883842019,"200 deaths (52 per 100,000, 95% CI: 45-60)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-30,0,14,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-30,1,82,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.1899828519439,13.671704097879,21.3373059357744,"82 deaths (17 per 100,000, 95% CI: 14-21)"
-"-","-","England",2020-05-01,305,21973,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-01,0,103,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.2127617505624,15.6820740868676,23.3010614264449,"103 deaths (19 per 100,000, 95% CI: 16-23)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-01,0,64,364816,"East Sussex Healthcare NHS Trust","Y59",17.5430902153414,13.5103162111193,22.4021338824768,"64 deaths (18 per 100,000, 95% CI: 14-22)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-01,5,205,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",53.6138339383415,46.5254044364539,61.4769195088081,"205 deaths (54 per 100,000, 95% CI: 47-61)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-01,0,14,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-01,2,84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
-"-","-","England",2020-05-02,265,22238,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-02,2,105,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.5858250855248,16.0192692258274,23.7098361547771,"105 deaths (20 per 100,000, 95% CI: 16-24)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-02,0,64,364816,"East Sussex Healthcare NHS Trust","Y59",17.5430902153414,13.5103162111193,22.4021338824768,"64 deaths (18 per 100,000, 95% CI: 14-22)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-02,3,208,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.3984266301221,47.2564698559459,62.3149144038196,"208 deaths (54 per 100,000, 95% CI: 47-62)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-02,0,14,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-02,0,84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
-"-","-","England",2020-05-03,251,22489,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-03,0,105,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.5858250855248,16.0192692258274,23.7098361547771,"105 deaths (20 per 100,000, 95% CI: 16-24)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-03,1,65,364816,"East Sussex Healthcare NHS Trust","Y59",17.8172009999561,13.7509373274022,22.7094843314075,"65 deaths (18 per 100,000, 95% CI: 14-23)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-03,1,209,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.6599575273823,47.50024426396,62.5941606319291,"209 deaths (55 per 100,000, 95% CI: 48-63)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-03,0,14,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-03,0,84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
-"-","-","England",2020-05-04,257,22746,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-04,2,107,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.9588884204871,16.3567932287574,24.1182756202768,"107 deaths (20 per 100,000, 95% CI: 16-24)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-04,0,65,364816,"East Sussex Healthcare NHS Trust","Y59",17.8172009999561,13.7509373274022,22.7094843314075,"65 deaths (18 per 100,000, 95% CI: 14-23)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-04,0,209,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.6599575273823,47.50024426396,62.5941606319291,"209 deaths (55 per 100,000, 95% CI: 48-63)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-04,1,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-04,0,84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
-"-","-","England",2020-05-05,249,22995,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-05,1,108,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",20.1454200879683,16.525679837191,24.3223720109524,"108 deaths (20 per 100,000, 95% CI: 17-24)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-05,1,66,364816,"East Sussex Healthcare NHS Trust","Y59",18.0913117845709,13.9918192245543,23.0165832685171,"66 deaths (18 per 100,000, 95% CI: 14-23)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-05,1,210,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.9214884246425,47.7440611250601,62.8733646685879,"210 deaths (55 per 100,000, 95% CI: 48-63)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-05,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-05,1,85,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.8188846636004,14.2330939301022,22.033326701333,"85 deaths (18 per 100,000, 95% CI: 14-22)"
-"-","-","England",2020-05-06,260,23255,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-06,4,112,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",20.8915467578931,17.2020349657621,25.1379634568655,"112 deaths (21 per 100,000, 95% CI: 17-25)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-06,1,67,364816,"East Sussex Healthcare NHS Trust","Y59",18.3654225691856,14.2329527151624,23.3234374027162,"67 deaths (18 per 100,000, 95% CI: 14-23)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-06,0,210,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.9214884246425,47.7440611250601,62.8733646685879,"210 deaths (55 per 100,000, 95% CI: 48-63)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-06,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-06,1,86,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.0285186008193,14.4204879420941,22.2650737908283,"86 deaths (18 per 100,000, 95% CI: 14-22)"
-"-","-","England",2020-05-07,249,23504,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-07,2,114,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.2646100928555,17.5406810844416,25.545297487996,"114 deaths (21 per 100,000, 95% CI: 18-26)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-07,2,69,364816,"East Sussex Healthcare NHS Trust","Y59",18.913644138415,14.7159421433614,23.9364271549414,"69 deaths (19 per 100,000, 95% CI: 15-24)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-07,0,210,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.9214884246425,47.7440611250601,62.8733646685879,"210 deaths (55 per 100,000, 95% CI: 48-63)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-07,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-07,1,87,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.2381525380381,14.6080125341137,22.4966922600397,"87 deaths (18 per 100,000, 95% CI: 15-22)"
-"-","-","England",2020-05-08,210,23714,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-08,1,115,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.4511417603367,17.710117514642,25.7488526124685,"115 deaths (21 per 100,000, 95% CI: 18-26)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-08,1,70,364816,"East Sussex Healthcare NHS Trust","Y59",19.1877549230297,14.9577956336908,24.242574018497,"70 deaths (19 per 100,000, 95% CI: 15-24)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-08,2,212,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",55.4445502191629,48.231820998067,63.4316473672098,"212 deaths (55 per 100,000, 95% CI: 48-63)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-08,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-08,0,87,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.2381525380381,14.6080125341137,22.4966922600397,"87 deaths (18 per 100,000, 95% CI: 15-22)"
-"-","-","England",2020-05-09,199,23913,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-09,1,116,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.6376734278178,17.8796282106849,25.9523230447378,"116 deaths (22 per 100,000, 95% CI: 18-26)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-09,0,70,364816,"East Sussex Healthcare NHS Trust","Y59",19.1877549230297,14.9577956336908,24.242574018497,"70 deaths (19 per 100,000, 95% CI: 15-24)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-09,4,216,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",56.4906738082037,49.2078370879906,64.5477194687402,"216 deaths (56 per 100,000, 95% CI: 49-65)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-09,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-09,1,88,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.4477864752569,14.7956641288693,22.7281888171726,"88 deaths (18 per 100,000, 95% CI: 15-23)"
-"-","-","England",2020-05-10,192,24105,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-10,1,117,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.824205095299,18.0492122130805,26.1557324939142,"117 deaths (22 per 100,000, 95% CI: 18-26)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-10,1,71,364816,"East Sussex Healthcare NHS Trust","Y59",19.4618657076444,15.1998783765724,24.5485018810766,"71 deaths (19 per 100,000, 95% CI: 15-25)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-10,3,219,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",57.2752664999843,49.9402744350514,65.3843508748798,"219 deaths (57 per 100,000, 95% CI: 50-65)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-10,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-10,0,88,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.4477864752569,14.7956641288693,22.7281888171726,"88 deaths (18 per 100,000, 95% CI: 15-23)"
-"-","-","England",2020-05-11,161,24266,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-11,1,118,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.0107367627802,18.2188685828241,26.3590704940734,"118 deaths (22 per 100,000, 95% CI: 18-26)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-11,1,72,364816,"East Sussex Healthcare NHS Trust","Y59",19.7359764922591,15.442186052052,24.8541981775616,"72 deaths (20 per 100,000, 95% CI: 15-25)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-11,1,220,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",57.5367973972445,50.1844997396927,65.6631489759867,"220 deaths (58 per 100,000, 95% CI: 50-66)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-11,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-11,1,89,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.6574204124757,14.9834456052006,22.9595612764871,"89 deaths (19 per 100,000, 95% CI: 15-23)"
-"-","-","England",2020-05-12,182,24448,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-12,3,121,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.5703317652238,18.7282628007816,26.9686647023333,"121 deaths (23 per 100,000, 95% CI: 19-27)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-12,2,74,364816,"East Sussex Healthcare NHS Trust","Y59",20.2841980614885,15.9274634740073,25.4649533291018,"74 deaths (20 per 100,000, 95% CI: 16-25)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-12,2,222,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",58.0598591917649,50.6730680111824,66.220628238305,"222 deaths (58 per 100,000, 95% CI: 51-66)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-12,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-12,1,90,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.8670543496946,15.1713392077506,23.1908127380661,"90 deaths (19 per 100,000, 95% CI: 15-23)"
-"-","-","England",2020-05-13,158,24606,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-13,0,121,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.5703317652238,18.7282628007816,26.9686647023333,"121 deaths (23 per 100,000, 95% CI: 19-27)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-13,1,75,364816,"East Sussex Healthcare NHS Trust","Y59",20.5583088461032,16.1704093458892,25.7700182040318,"75 deaths (21 per 100,000, 95% CI: 16-26)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-13,3,225,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",58.8444518835455,51.4062106232001,67.0565610697752,"225 deaths (59 per 100,000, 95% CI: 51-67)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-13,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-13,1,91,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",19.0766882869134,15.3593593734823,23.4219461271588,"91 deaths (19 per 100,000, 95% CI: 15-23)"
-"-","-","England",2020-05-14,173,24779,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-14,2,123,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.9433951001862,19.068204435943,27.3747195947375,"123 deaths (23 per 100,000, 95% CI: 19-27)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-14,2,77,364816,"East Sussex Healthcare NHS Trust","Y59",21.1065304153327,16.6569431192616,26.3795336024677,"77 deaths (21 per 100,000, 95% CI: 17-26)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-14,2,227,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",59.3675136780659,51.8951628297834,67.6136584325039,"227 deaths (59 per 100,000, 95% CI: 52-68)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-14,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-14,2,93,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",19.495956161351,15.7357492259175,23.8838582653228,"93 deaths (19 per 100,000, 95% CI: 16-24)"
-"-","-","England",2020-05-15,167,24946,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-15,0,123,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.9433951001862,19.068204435943,27.3747195947375,"123 deaths (23 per 100,000, 95% CI: 19-27)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-15,0,77,364816,"East Sussex Healthcare NHS Trust","Y59",21.1065304153327,16.6569431192616,26.3795336024677,"77 deaths (21 per 100,000, 95% CI: 17-26)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-15,2,229,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",59.8905754725863,52.3842650642323,68.1706067264697,"229 deaths (60 per 100,000, 95% CI: 52-68)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-15,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-15,1,94,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",19.7055900985699,15.9241225514707,24.1146517662805,"94 deaths (20 per 100,000, 95% CI: 16-24)"
-"-","-","England",2020-05-16,163,25109,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-16,1,124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-16,0,77,364816,"East Sussex Healthcare NHS Trust","Y59",21.1065304153327,16.6569431192616,26.3795336024677,"77 deaths (21 per 100,000, 95% CI: 17-26)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-16,0,229,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",59.8905754725863,52.3842650642323,68.1706067264697,"229 deaths (60 per 100,000, 95% CI: 52-68)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-16,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-16,2,96,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.1248579730075,16.3011978028692,24.5758993945514,"96 deaths (20 per 100,000, 95% CI: 16-25)"
-"-","-","England",2020-05-17,134,25243,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-17,0,124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-17,1,78,364816,"East Sussex Healthcare NHS Trust","Y59",21.3806411999474,16.9005094358528,26.6840109910918,"78 deaths (21 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-17,2,231,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",60.4136372671067,52.8735153662294,68.7274078947487,"231 deaths (60 per 100,000, 95% CI: 53-69)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-17,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-17,1,97,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.3344919102264,16.4898979366484,24.8063557500681,"97 deaths (20 per 100,000, 95% CI: 16-25)"
-"-","-","England",2020-05-18,145,25388,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-18,0,124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-18,0,78,364816,"East Sussex Healthcare NHS Trust","Y59",21.3806411999474,16.9005094358528,26.6840109910918,"78 deaths (21 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-18,1,232,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",60.6751681643669,53.1181954415205,69.0057539024339,"232 deaths (61 per 100,000, 95% CI: 53-69)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-18,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-18,1,98,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.5441258474452,16.6787143288412,25.036709381843,"98 deaths (21 per 100,000, 95% CI: 17-25)"
-"-","-","England",2020-05-19,138,25526,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-19,0,124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-19,1,79,364816,"East Sussex Healthcare NHS Trust","Y59",21.6547519845621,17.1442710204638,26.9882831188568,"79 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-19,3,235,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",61.4597608561475,53.8524525410598,69.8405764175407,"235 deaths (61 per 100,000, 95% CI: 54-70)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-19,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-19,0,98,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.5441258474452,16.6787143288412,25.036709381843,"98 deaths (21 per 100,000, 95% CI: 17-25)"
-"-","-","England",2020-05-20,149,25675,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-20,1,125,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.3164584351485,19.4084146120085,27.7805076219569,"125 deaths (23 per 100,000, 95% CI: 19-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-20,0,79,364816,"East Sussex Healthcare NHS Trust","Y59",21.6547519845621,17.1442710204638,26.9882831188568,"79 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-20,2,237,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",61.9828226506679,54.3421356989171,70.396947452905,"237 deaths (62 per 100,000, 95% CI: 54-70)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-20,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-20,3,101,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.1730276591017,17.2457771978602,25.7271542294954,"101 deaths (21 per 100,000, 95% CI: 17-26)"
-"-","-","England",2020-05-21,142,25817,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-21,1,126,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.5029901026297,19.5786183843529,27.9833040344723,"126 deaths (24 per 100,000, 95% CI: 20-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-21,1,80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-21,1,238,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",62.2443535479282,54.587030127026,70.6750804500665,"238 deaths (62 per 100,000, 95% CI: 55-71)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-21,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-21,1,102,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.3826615963205,17.4350017392037,25.9570923299175,"102 deaths (21 per 100,000, 95% CI: 17-26)"
-"-","-","England",2020-05-22,118,25935,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-22,0,126,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.5029901026297,19.5786183843529,27.9833040344723,"126 deaths (24 per 100,000, 95% CI: 20-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-22,0,80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-22,2,240,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",62.7674153424486,55.0769235747106,71.2312424996493,"240 deaths (63 per 100,000, 95% CI: 55-71)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-22,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-22,0,102,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.3826615963205,17.4350017392037,25.9570923299175,"102 deaths (21 per 100,000, 95% CI: 17-26)"
-"-","-","England",2020-05-23,117,26052,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-23,0,126,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.5029901026297,19.5786183843529,27.9833040344723,"126 deaths (24 per 100,000, 95% CI: 20-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-23,0,80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-23,2,242,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.290477136969,55.5669550285197,71.7872673913476,"242 deaths (63 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-23,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-23,1,103,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.5922955335393,17.6243260942218,26.1869381974835,"103 deaths (22 per 100,000, 95% CI: 18-26)"
-"-","-","England",2020-05-24,108,26160,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-24,1,127,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.6895217701109,19.7488869017637,28.1860364410558,"127 deaths (24 per 100,000, 95% CI: 20-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-24,0,80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-24,0,242,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.290477136969,55.5669550285197,71.7872673913476,"242 deaths (63 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-24,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-24,1,104,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.8019294707582,17.8137498804054,26.416687057955,"104 deaths (22 per 100,000, 95% CI: 18-26)"
-"-","-","England",2020-05-25,128,26288,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-25,0,127,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.6895217701109,19.7488869017637,28.1860364410558,"127 deaths (24 per 100,000, 95% CI: 20-28)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-25,0,80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-25,1,243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-25,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-25,1,105,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.011563407977,18.0032834345261,26.6463403831444,"105 deaths (22 per 100,000, 95% CI: 18-27)"
-"-","-","England",2020-05-26,128,26416,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-26,4,131,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.4356484400357,20.4305933616483,28.9963407879669,"131 deaths (24 per 100,000, 95% CI: 20-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-26,0,80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-26,0,243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-26,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-26,2,107,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.4308312824146,18.3826103691722,27.105365783091,"107 deaths (22 per 100,000, 95% CI: 18-27)"
-"-","-","England",2020-05-27,110,26526,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-27,1,132,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.6221801075169,20.6011744353763,29.1987641267493,"132 deaths (25 per 100,000, 95% CI: 21-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-27,1,81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-27,0,243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-27,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-27,0,107,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.4308312824146,18.3826103691722,27.105365783091,"107 deaths (22 per 100,000, 95% CI: 18-27)"
-"-","-","England",2020-05-28,110,26636,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-28,1,133,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.808711774998,20.7718158854562,29.4011277479712,"133 deaths (25 per 100,000, 95% CI: 21-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-28,0,81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-28,0,243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-28,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-28,0,107,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.4308312824146,18.3826103691722,27.105365783091,"107 deaths (22 per 100,000, 95% CI: 18-27)"
-"-","-","England",2020-05-29,89,26725,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-29,0,133,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.808711774998,20.7718158854562,29.4011277479712,"133 deaths (25 per 100,000, 95% CI: 21-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-29,0,81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-29,1,244,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.8135389314894,56.0571152699081,72.3431568161668,"244 deaths (64 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-29,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-29,1,108,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.6404652196335,18.5724138762526,27.3347398648607,"108 deaths (23 per 100,000, 95% CI: 19-27)"
-"-","-","England",2020-05-30,75,26800,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-30,0,133,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.808711774998,20.7718158854562,29.4011277479712,"133 deaths (25 per 100,000, 95% CI: 21-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-30,0,81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-30,0,244,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.8135389314894,56.0571152699081,72.3431568161668,"244 deaths (64 per 100,000, 95% CI: 56-72)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-30,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-30,1,109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
-"-","-","England",2020-05-31,47,26847,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-31,0,133,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.808711774998,20.7718158854562,29.4011277479712,"133 deaths (25 per 100,000, 95% CI: 21-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-31,0,81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-31,2,246,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",64.3366007260098,56.5474309181342,72.8989124304813,"246 deaths (64 per 100,000, 95% CI: 57-73)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-31,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-31,0,109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
-"-","-","England",2020-06-01,19,26866,,,,,,,
-"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-06-01,0,133,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.808711774998,20.7718158854562,29.4011277479712,"133 deaths (25 per 100,000, 95% CI: 21-29)"
-"South East","RXC","East Sussex Healthcare NHS Trust",2020-06-01,0,81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
-"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-06-01,1,247,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",64.59813162327,56.7926310169203,73.1767405670943,"247 deaths (65 per 100,000, 95% CI: 57-73)"
-"South East","RDR","Sussex Community NHS Foundation Trust",2020-06-01,0,15,,,,,,,
-"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-06-01,0,109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
+"-","-","England",2020-02-29,"0",0,,,,,0,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-02-29,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-02-29,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-02-29,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-02-29,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-02-29,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-01,"0",0,,,,,0,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-01,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-01,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-01,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-01,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-01,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-02,"1",1,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-02,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-02,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-02,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-02,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-02,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-03,"2",3,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-03,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-03,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-03,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-03,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-03,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-04,"0",3,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-04,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-04,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-04,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-04,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-04,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-05,"2",5,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-05,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-05,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-05,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-05,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-05,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-06,"2",7,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-06,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-06,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-06,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-06,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-06,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-07,"1",8,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-07,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-07,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-07,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-07,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-07,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-08,"5",13,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-08,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-08,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-08,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-08,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-08,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-09,"4",17,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-09,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-09,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-09,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-09,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-09,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-10,"1",18,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-10,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-10,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-10,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-10,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-10,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-11,"11",29,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-11,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-11,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-11,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-11,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-11,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-12,"14",43,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-12,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-12,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-12,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-12,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-12,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-13,"20",63,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-13,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-13,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-13,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-13,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-13,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-14,"23",86,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-14,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-14,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-14,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-14,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-14,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-15,"28",114,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-15,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-15,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-15,"0",0,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0,0,0.964756044076496,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-15,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-15,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-16,"42",156,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-16,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-16,"0",0,364816,"East Sussex Healthcare NHS Trust","Y59",0,0,1.0111617364295,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-16,"1",1,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.261530897260202,0.00661400309526515,1.45715686820204,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-16,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-16,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-17,"48",204,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-17,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-17,"1",1,364816,"East Sussex Healthcare NHS Trust","Y59",0.27411078461471,0.00693214299679281,1.5272475131387,"1 deaths (0 per 100,000, 95% CI: 0-2)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-17,"0",1,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.261530897260202,0.00661400309526515,1.45715686820204,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-17,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-17,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-18,"70",274,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-18,"0",0,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0,0,0.688092900301184,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-18,"0",1,364816,"East Sussex Healthcare NHS Trust","Y59",0.27411078461471,0.00693214299679281,1.5272475131387,"1 deaths (0 per 100,000, 95% CI: 0-2)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-18,"1",2,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.523061794520405,0.0633437350847197,1.88948044263044,"2 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-18,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-18,"0",0,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0,0,0.773314396479125,"0 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-19,"64",338,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-19,"1",1,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.186531667481188,0.00471730506418175,1.03928791303373,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-19,"0",1,364816,"East Sussex Healthcare NHS Trust","Y59",0.27411078461471,0.00693214299679281,1.5272475131387,"1 deaths (0 per 100,000, 95% CI: 0-2)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-19,"0",2,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.523061794520405,0.0633437350847197,1.88948044263044,"2 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-19,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-19,"1",1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-20,"106",444,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-20,"0",1,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.186531667481188,0.00471730506418175,1.03928791303373,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-20,"1",2,364816,"East Sussex Healthcare NHS Trust","Y59",0.54822156922942,0.0663906295829508,1.98036626673706,"2 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-20,"0",2,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.523061794520405,0.0633437350847197,1.88948044263044,"2 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-20,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-20,"0",1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-21,"104",548,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-21,"1",2,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.373063334962377,0.0451786486935952,1.34763403226615,"2 deaths (0 per 100,000, 95% CI: 0-1)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-21,"0",2,364816,"East Sussex Healthcare NHS Trust","Y59",0.54822156922942,0.0663906295829508,1.98036626673706,"2 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-21,"1",3,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",0.784592691780607,0.161801638721018,2.29291371271295,"3 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-21,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-21,"0",1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-22,"151",699,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-22,"1",3,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.559595002443565,0.115401773893631,1.63537472131754,"3 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-22,"1",3,364816,"East Sussex Healthcare NHS Trust","Y59",0.82233235384413,0.169584452951415,2.40320506460181,"3 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-22,"3",6,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",1.56918538356121,0.575862555275389,3.41545713148297,"6 deaths (2 per 100,000, 95% CI: 1-3)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-22,"0",0,,,,,0,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-22,"0",1,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.209633937218828,0.00530155145783206,1.1680055191442,"1 deaths (0 per 100,000, 95% CI: 0-1)"
+"-","-","England",2020-03-23,"162",861,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-23,"0",3,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.559595002443565,0.115401773893631,1.63537472131754,"3 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-23,"2",5,364816,"East Sussex Healthcare NHS Trust","Y59",1.37055392307355,0.445014928922604,3.19841289036183,"5 deaths (1 per 100,000, 95% CI: 0-3)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-23,"1",7,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",1.83071628082142,0.7360414509272,3.77197526195576,"7 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-23,"1",1,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-23,"1",2,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.419267874437657,0.0507741024982784,1.51454083871592,"2 deaths (0 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-24,"205",1066,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-24,"2",5,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",0.932658337405941,0.302831487869526,2.17651155379059,"5 deaths (1 per 100,000, 95% CI: 0-2)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-24,"0",5,364816,"East Sussex Healthcare NHS Trust","Y59",1.37055392307355,0.445014928922604,3.19841289036183,"5 deaths (1 per 100,000, 95% CI: 0-3)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-24,"0",7,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",1.83071628082142,0.7360414509272,3.77197526195576,"7 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-24,"0",1,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-24,"0",2,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.419267874437657,0.0507741024982784,1.51454083871592,"2 deaths (0 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-25,"263",1329,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-25,"2",7,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",1.30572167236832,0.524966803597688,2.69028570880626,"7 deaths (1 per 100,000, 95% CI: 1-3)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-25,"0",5,364816,"East Sussex Healthcare NHS Trust","Y59",1.37055392307355,0.445014928922604,3.19841289036183,"5 deaths (1 per 100,000, 95% CI: 0-3)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-25,"1",8,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",2.09224717808162,0.903283630654573,4.12256098932258,"8 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-25,"0",1,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-25,"0",2,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.419267874437657,0.0507741024982784,1.51454083871592,"2 deaths (0 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-26,"325",1654,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-26,"2",9,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",1.67878500733069,0.76764886861628,3.18685708482704,"9 deaths (2 per 100,000, 95% CI: 1-3)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-26,"1",6,364816,"East Sussex Healthcare NHS Trust","Y59",1.64466470768826,0.603562097291015,3.57974389999988,"6 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-26,"1",9,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",2.35377807534182,1.07629926918571,4.46820426841949,"9 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-26,"0",1,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-26,"2",4,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",0.838535748875314,0.228477754154545,2.14698457321076,"4 deaths (1 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-27,"350",2004,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-27,"3",12,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",2.23838000977426,1.1566089049595,3.90999464886301,"12 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-27,"1",7,364816,"East Sussex Healthcare NHS Trust","Y59",1.91877549230297,0.771445751672975,3.95341089497843,"7 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-27,"2",11,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",2.87683986986223,1.4361060335347,5.14745387988805,"11 deaths (3 per 100,000, 95% CI: 1-5)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-27,"0",1,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-27,"1",5,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.04816968609414,0.340337691573614,2.44607627532953,"5 deaths (1 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-28,"359",2363,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-28,"7",19,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",3.54410168214258,2.13378594799103,5.53455400622289,"19 deaths (4 per 100,000, 95% CI: 2-6)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-28,"0",7,364816,"East Sussex Healthcare NHS Trust","Y59",1.91877549230297,0.771445751672975,3.95341089497843,"7 deaths (2 per 100,000, 95% CI: 1-4)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-28,"3",14,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",3.66143256164283,2.00174017325272,6.14326040459836,"14 deaths (4 per 100,000, 95% CI: 2-6)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-28,"0",1,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-28,"0",5,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.04816968609414,0.340337691573614,2.44607627532953,"5 deaths (1 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-29,"439",2802,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-29,"2",21,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",3.91716501710495,2.4247916337437,5.98780271593436,"21 deaths (4 per 100,000, 95% CI: 2-6)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-29,"2",9,364816,"East Sussex Healthcare NHS Trust","Y59",2.46699706153239,1.12807029780197,4.68312918537002,"9 deaths (2 per 100,000, 95% CI: 1-5)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-29,"4",18,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",4.70755615068364,2.78999031473326,7.43997213652371,"18 deaths (5 per 100,000, 95% CI: 3-7)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-29,"1",2,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-29,"0",5,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.04816968609414,0.340337691573614,2.44607627532953,"5 deaths (1 per 100,000, 95% CI: 0-2)"
+"-","-","England",2020-03-30,"497",3299,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-30,"1",22,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",4.10369668458614,2.57175958127071,6.21304618494915,"22 deaths (4 per 100,000, 95% CI: 3-6)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-30,"2",11,364816,"East Sussex Healthcare NHS Trust","Y59",3.01521863076181,1.50518411310486,5.39505135555873,"11 deaths (3 per 100,000, 95% CI: 2-5)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-30,"3",21,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",5.49214884246425,3.39973335469151,8.39533274999174,"21 deaths (5 per 100,000, 95% CI: 3-8)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-30,"1",3,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-30,"2",7,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",1.4674375605318,0.589984850472993,3.02348224832912,"7 deaths (1 per 100,000, 95% CI: 1-3)"
+"-","-","England",2020-03-31,"574",3873,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-03-31,"3",25,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",4.66329168702971,3.01783684843765,6.88393882602268,"25 deaths (5 per 100,000, 95% CI: 3-7)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-03-31,"1",12,364816,"East Sussex Healthcare NHS Trust","Y59",3.28932941537652,1.69965228270306,5.74578952470494,"12 deaths (3 per 100,000, 95% CI: 2-6)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-03-31,"5",26,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",6.79980332876526,4.44185719346927,9.96329049625233,"26 deaths (7 per 100,000, 95% CI: 4-10)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-03-31,"1",4,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-03-31,"5",12,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",2.51560724662594,1.29985691889808,4.39425425084117,"12 deaths (3 per 100,000, 95% CI: 1-4)"
+"-","-","England",2020-04-01,"643",4516,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-01,"4",29,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",5.40941835695446,3.6227779595773,7.76882312448083,"29 deaths (5 per 100,000, 95% CI: 4-8)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-01,"1",13,364816,"East Sussex Healthcare NHS Trust","Y59",3.56344019999123,1.89738160264581,6.09358691783166,"13 deaths (4 per 100,000, 95% CI: 2-6)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-01,"4",30,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",7.84592691780607,5.29361122927936,11.200544711431,"30 deaths (8 per 100,000, 95% CI: 5-11)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-01,"0",4,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-01,"2",14,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",2.9348751210636,1.60452427687948,4.92422073058233,"14 deaths (3 per 100,000, 95% CI: 2-5)"
+"-","-","England",2020-04-02,"643",5159,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-02,"0",29,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",5.40941835695446,3.6227779595773,7.76882312448083,"29 deaths (5 per 100,000, 95% CI: 4-8)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-02,"0",13,364816,"East Sussex Healthcare NHS Trust","Y59",3.56344019999123,1.89738160264581,6.09358691783166,"13 deaths (4 per 100,000, 95% CI: 2-6)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-02,"5",35,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",9.15358140410708,6.37580517629638,12.7304170981398,"35 deaths (9 per 100,000, 95% CI: 6-13)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-02,"0",4,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-02,"1",15,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",3.14450905828243,1.7599577088916,5.18638965000549,"15 deaths (3 per 100,000, 95% CI: 2-5)"
+"-","-","England",2020-04-03,"697",5856,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-03,"3",32,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",5.96901335939803,4.08280066658896,8.42647034785325,"32 deaths (6 per 100,000, 95% CI: 4-8)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-03,"5",18,364816,"East Sussex Healthcare NHS Trust","Y59",4.93399412306478,2.92419152861351,7.79784194226611,"18 deaths (5 per 100,000, 95% CI: 3-8)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-03,"5",40,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",10.4612358904081,7.47366028045885,14.2452331522575,"40 deaths (10 per 100,000, 95% CI: 7-14)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-03,"0",4,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-03,"2",17,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",3.56377693272008,2.07603110462778,5.70595210709213,"17 deaths (4 per 100,000, 95% CI: 2-6)"
+"-","-","England",2020-04-04,"778",6634,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-04,"3",35,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",6.52860836184159,4.54741517552516,9.07971468734147,"35 deaths (7 per 100,000, 95% CI: 5-9)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-04,"2",20,364816,"East Sussex Healthcare NHS Trust","Y59",5.4822156922942,3.3486861311414,8.46683750139715,"20 deaths (5 per 100,000, 95% CI: 3-8)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-04,"11",51,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",13.3380757602703,9.93107337572,17.5371047403751,"51 deaths (13 per 100,000, 95% CI: 10-18)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-04,"0",4,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-04,"2",19,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",3.98304480715774,2.39805902933175,6.22001809527465,"19 deaths (4 per 100,000, 95% CI: 2-6)"
+"-","-","England",2020-04-05,"745",7379,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-05,"5",40,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",7.46126669924753,5.33043831113738,10.1601268583773,"40 deaths (7 per 100,000, 95% CI: 5-10)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-05,"2",22,364816,"East Sussex Healthcare NHS Trust","Y59",6.03043726152362,3.77923516248845,9.13015461450049,"22 deaths (6 per 100,000, 95% CI: 4-9)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-05,"12",63,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",16.4764465273927,12.6609535713462,21.0805321503351,"63 deaths (16 per 100,000, 95% CI: 13-21)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-05,"1",5,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-05,"4",23,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",4.82158055603306,3.05647076410228,7.23474130922059,"23 deaths (5 per 100,000, 95% CI: 3-7)"
+"-","-","England",2020-04-06,"725",8104,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-06,"5",45,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",8.39392503665347,6.12258611408477,11.231732110545,"45 deaths (8 per 100,000, 95% CI: 6-11)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-06,"0",22,364816,"East Sussex Healthcare NHS Trust","Y59",6.03043726152362,3.77923516248845,9.13015461450049,"22 deaths (6 per 100,000, 95% CI: 4-9)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-06,"8",71,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",18.5686937054744,14.5023036421516,23.4218866374629,"71 deaths (19 per 100,000, 95% CI: 15-23)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-06,"1",6,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-06,"4",27,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",5.66011630490837,3.73005227654489,8.23517638519683,"27 deaths (6 per 100,000, 95% CI: 4-8)"
+"-","-","England",2020-04-07,"807",8911,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-07,"4",49,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",9.14005170657822,6.76186035002772,12.0836327524611,"49 deaths (9 per 100,000, 95% CI: 7-12)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-07,"2",24,364816,"East Sussex Healthcare NHS Trust","Y59",6.57865883075304,4.21507219589784,9.78852290507402,"24 deaths (7 per 100,000, 95% CI: 4-10)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-07,"5",76,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",19.8763481917754,15.6602999756287,24.8782136919235,"76 deaths (20 per 100,000, 95% CI: 16-25)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-07,"0",6,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-07,"2",29,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",6.07938417934603,4.07146527767128,8.73100530935768,"29 deaths (6 per 100,000, 95% CI: 4-9)"
+"-","-","England",2020-04-08,"899",9810,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-08,"3",52,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",9.69964670902179,7.24416005997099,12.7197942742745,"52 deaths (10 per 100,000, 95% CI: 7-13)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-08,"3",27,364816,"East Sussex Healthcare NHS Trust","Y59",7.40099118459717,4.87729978142954,10.7680592671905,"27 deaths (7 per 100,000, 95% CI: 5-11)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-08,"9",85,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",22.2301262671172,17.7566374782282,27.4878952247683,"85 deaths (22 per 100,000, 95% CI: 18-27)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-08,"0",6,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-08,"4",33,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",6.91791992822134,4.76197776603684,9.71533489396676,"33 deaths (7 per 100,000, 95% CI: 5-10)"
+"-","-","England",2020-04-09,"788",10598,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-09,"4",56,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",10.4457733789465,7.89062626692029,13.5647095595373,"56 deaths (10 per 100,000, 95% CI: 8-14)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-09,"2",29,364816,"East Sussex Healthcare NHS Trust","Y59",7.94921275382659,5.32372075151668,11.4163896722743,"29 deaths (8 per 100,000, 95% CI: 5-11)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-09,"12",97,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",25.3684970342396,20.5721356967076,30.947415113894,"97 deaths (25 per 100,000, 95% CI: 21-31)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-09,"0",6,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-09,"2",35,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",7.337187802659,5.11062041253734,10.2042530602638,"35 deaths (7 per 100,000, 95% CI: 5-10)"
+"-","-","England",2020-04-10,"738",11336,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-10,"3",59,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",11.0053683813901,8.37779634223298,14.1961187836364,"59 deaths (11 per 100,000, 95% CI: 8-14)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-10,"4",33,364816,"East Sussex Healthcare NHS Trust","Y59",9.04565589228543,6.22661330070617,12.7034682738416,"33 deaths (9 per 100,000, 95% CI: 6-13)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-10,"6",103,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",26.9376824178008,21.9874027945044,32.6697744370285,"103 deaths (27 per 100,000, 95% CI: 22-33)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-10,"0",6,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-10,"3",38,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",7.96608961431548,5.63727792324675,10.9340804226532,"38 deaths (8 per 100,000, 95% CI: 6-11)"
+"-","-","England",2020-04-11,"778",12114,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-11,"5",64,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",11.9380267187961,9.19373462303015,15.2445931454642,"64 deaths (12 per 100,000, 95% CI: 9-15)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-11,"3",36,364816,"East Sussex Healthcare NHS Trust","Y59",9.86798824612956,6.91140970372402,13.6614557860579,"36 deaths (10 per 100,000, 95% CI: 7-14)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-11,"5",108,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",28.2453369041019,23.1701991089061,34.1017257896026,"108 deaths (28 per 100,000, 95% CI: 23-34)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-11,"1",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-11,"2",40,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",8.38535748875314,5.99062231821042,11.4184761479131,"40 deaths (8 per 100,000, 95% CI: 6-11)"
+"-","-","England",2020-04-12,"719",12833,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-12,"5",69,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",12.870685056202,10.0141598967595,16.288675679175,"69 deaths (13 per 100,000, 95% CI: 10-16)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-12,"1",37,364816,"East Sussex Healthcare NHS Trust","Y59",10.1420990307443,7.14097343808332,13.9795477377241,"37 deaths (10 per 100,000, 95% CI: 7-14)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-12,"2",110,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",28.7683986986223,23.6441249865788,34.673704560306,"110 deaths (29 per 100,000, 95% CI: 24-35)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-12,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-12,"3",43,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",9.01425930040963,6.52366380107046,12.1421521104072,"43 deaths (9 per 100,000, 95% CI: 7-12)"
+"-","-","England",2020-04-13,"694",13527,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-13,"3",72,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",13.4302800586456,10.5083669651772,16.9132164445298,"72 deaths (13 per 100,000, 95% CI: 11-17)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-13,"0",37,364816,"East Sussex Healthcare NHS Trust","Y59",10.1420990307443,7.14097343808332,13.9795477377241,"37 deaths (10 per 100,000, 95% CI: 7-14)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-13,"9",119,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",31.1221767739641,25.7821429518882,37.2423201370561,"119 deaths (31 per 100,000, 95% CI: 26-37)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-13,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-13,"4",47,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",9.85279504928494,7.23946275934579,13.1021286345245,"47 deaths (10 per 100,000, 95% CI: 7-13)"
+"-","-","England",2020-04-14,"647",14174,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-14,"4",76,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",14.1764067285703,11.1693948910493,17.7438869843773,"76 deaths (14 per 100,000, 95% CI: 11-18)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-14,"3",40,364816,"East Sussex Healthcare NHS Trust","Y59",10.9644313845884,7.83315051828146,14.9304425492023,"40 deaths (11 per 100,000, 95% CI: 8-15)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-14,"4",123,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",32.1683003630049,26.7350026009716,38.3813380029971,"123 deaths (32 per 100,000, 95% CI: 27-38)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-14,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-14,"1",48,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",10.0624289865038,7.41924042932676,13.3413208230663,"48 deaths (10 per 100,000, 95% CI: 7-13)"
+"-","-","England",2020-04-15,"685",14859,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-15,"5",81,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",15.1090650659762,11.9987804544702,18.7791883757719,"81 deaths (15 per 100,000, 95% CI: 12-19)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-15,"2",42,364816,"East Sussex Healthcare NHS Trust","Y59",11.5126529538178,8.29730738595827,15.5617623776948,"42 deaths (12 per 100,000, 95% CI: 8-16)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-15,"3",126,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",32.9528930547855,27.4506398957234,39.2346174312663,"126 deaths (33 per 100,000, 95% CI: 27-39)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-15,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-15,"2",50,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",10.4816968609414,7.77971728668184,13.8188098682701,"50 deaths (10 per 100,000, 95% CI: 8-14)"
+"-","-","England",2020-04-16,"637",15496,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-16,"3",84,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",15.6686600684198,12.4979344627752,19.3988667523743,"84 deaths (16 per 100,000, 95% CI: 12-19)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-16,"2",44,364816,"East Sussex Healthcare NHS Trust","Y59",12.0608745230472,8.76344934753616,16.1911610999116,"44 deaths (12 per 100,000, 95% CI: 9-16)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-16,"6",132,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",34.5220784383467,28.8843374824881,40.9387804444941,"132 deaths (35 per 100,000, 95% CI: 29-41)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-16,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-16,"3",53,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",11.1105986725979,8.32259874316731,14.5329333277557,"53 deaths (11 per 100,000, 95% CI: 8-15)"
+"-","-","England",2020-04-17,"607",16103,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-17,"3",87,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",16.2282550708634,12.9981670559856,20.0174913267786,"87 deaths (16 per 100,000, 95% CI: 13-20)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-17,"1",45,364816,"East Sussex Healthcare NHS Trust","Y59",12.3349853076619,8.99722232833285,16.5051808252034,"45 deaths (12 per 100,000, 95% CI: 9-17)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-17,"7",139,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",36.3527947191681,30.5608246084035,42.9231725212579,"139 deaths (36 per 100,000, 95% CI: 31-43)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-17,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-17,"4",57,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",11.9491344214732,9.05015827899128,15.4814926348148,"57 deaths (12 per 100,000, 95% CI: 9-15)"
+"-","-","England",2020-04-18,"571",16674,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-18,"1",88,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",16.4147867383446,13.1651388990929,20.2234762898577,"88 deaths (16 per 100,000, 95% CI: 13-20)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-18,"3",48,364816,"East Sussex Healthcare NHS Trust","Y59",13.1573176615061,9.70116691175363,17.4446941517388,"48 deaths (13 per 100,000, 95% CI: 10-17)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-18,"6",145,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",37.9219801027293,32.0008816232022,44.6210439022028,"145 deaths (38 per 100,000, 95% CI: 32-45)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-18,"0",7,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-18,"1",58,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",12.1587683586921,9.23266273339269,15.7180331738028,"58 deaths (12 per 100,000, 95% CI: 9-16)"
+"-","-","England",2020-04-19,"522",17196,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-19,"5",93,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",17.3474450757505,14.0016238835998,21.2517876028084,"93 deaths (17 per 100,000, 95% CI: 14-21)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-19,"1",49,364816,"East Sussex Healthcare NHS Trust","Y59",13.4314284461208,9.93664438338933,17.7570602327198,"49 deaths (13 per 100,000, 95% CI: 10-18)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-19,"7",152,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",39.7526963835508,33.6842836295324,46.5985915182816,"152 deaths (40 per 100,000, 95% CI: 34-47)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-19,"3",10,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-19,"4",62,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",12.9973041075674,9.96495848030858,16.6619558747859,"62 deaths (13 per 100,000, 95% CI: 10-17)"
+"-","-","England",2020-04-20,"562",17758,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-20,"1",94,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",17.5339767432317,14.1692379206712,21.4571469885482,"94 deaths (18 per 100,000, 95% CI: 14-21)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-20,"1",50,364816,"East Sussex Healthcare NHS Trust","Y59",13.7055392307355,10.1725151844424,18.0690439042748,"50 deaths (14 per 100,000, 95% CI: 10-18)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-20,"9",161,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",42.1064744588926,35.8535608268912,49.1362959802357,"161 deaths (42 per 100,000, 95% CI: 36-49)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-20,"0",10,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-20,"2",64,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",13.416571982005,10.3323945622544,17.132662381336,"64 deaths (13 per 100,000, 95% CI: 10-17)"
+"-","-","England",2020-04-21,"483",18241,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-21,"5",99,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.4666350806376,15.0087695334286,22.4824665072242,"99 deaths (18 per 100,000, 95% CI: 15-22)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-21,"1",51,364816,"East Sussex Healthcare NHS Trust","Y59",13.9796500153502,10.4087675437311,18.380656322499,"51 deaths (14 per 100,000, 95% CI: 10-18)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-21,"3",164,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",42.8910671506732,36.57780604724,49.9810551615304,"164 deaths (43 per 100,000, 95% CI: 37-50)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-21,"2",12,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-21,"1",65,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",13.6262059192239,10.5164163330697,17.367717287351,"65 deaths (14 per 100,000, 95% CI: 11-17)"
+"-","-","England",2020-04-22,"499",18740,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-22,"2",101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-22,"2",53,364816,"East Sussex Healthcare NHS Trust","Y59",14.5278715845796,10.8823700102604,19.0028094213869,"53 deaths (15 per 100,000, 95% CI: 11-19)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-22,"3",167,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",43.6756598424538,37.3026012692895,50.8252691897742,"167 deaths (44 per 100,000, 95% CI: 37-51)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-22,"1",13,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-22,"1",66,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",13.8358398564427,10.7006375433943,17.6025798426222,"66 deaths (14 per 100,000, 95% CI: 11-18)"
+"-","-","England",2020-04-23,"449",19189,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-23,"0",101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-23,"2",55,364816,"East Sussex Healthcare NHS Trust","Y59",15.076093153809,11.3573808117872,19.6236158029164,"55 deaths (15 per 100,000, 95% CI: 11-20)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-23,"8",175,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",45.7679070205354,39.2379604793297,53.0739501005401,"175 deaths (46 per 100,000, 95% CI: 39-53)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-23,"0",13,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-23,"1",67,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",14.0454737936615,10.8850511668952,17.8372551779777,"67 deaths (14 per 100,000, 95% CI: 11-18)"
+"-","-","England",2020-04-24,"437",19626,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-24,"0",101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-24,"3",58,364816,"East Sussex Healthcare NHS Trust","Y59",15.8984255076532,12.0723412416354,20.5524089421345,"58 deaths (16 per 100,000, 95% CI: 12-21)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-24,"5",180,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",47.0755615068364,40.4493940362354,54.4775729738417,"180 deaths (47 per 100,000, 95% CI: 40-54)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-24,"0",13,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-24,"1",68,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",14.2551077308803,11.0696448079534,18.0717457724237,"68 deaths (14 per 100,000, 95% CI: 11-18)"
+"-","-","England",2020-04-25,"384",20010,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-25,"0",101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-25,"0",58,364816,"East Sussex Healthcare NHS Trust","Y59",15.8984255076532,12.0723412416354,20.5524089421345,"58 deaths (16 per 100,000, 95% CI: 12-21)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-25,"4",184,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",48.1216850958772,41.4194884407775,55.599519685879,"184 deaths (48 per 100,000, 95% CI: 41-56)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-25,"0",13,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-25,"2",70,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",14.674375605318,11.4393951891119,18.5401907734486,"70 deaths (15 per 100,000, 95% CI: 11-19)"
+"-","-","England",2020-04-26,"383",20393,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-26,"0",101,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",18.8396984156,15.3452423801398,22.8919469893086,"101 deaths (19 per 100,000, 95% CI: 15-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-26,"3",61,364816,"East Sussex Healthcare NHS Trust","Y59",16.7207578614973,12.7900536058812,21.4785099828782,"61 deaths (17 per 100,000, 95% CI: 13-21)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-26,"6",190,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",49.6908704794384,42.8761656560777,57.2809180123409,"190 deaths (50 per 100,000, 95% CI: 43-57)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-26,"0",13,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-26,"2",72,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",15.0936434797557,11.8098463944334,19.0079475628908,"72 deaths (15 per 100,000, 95% CI: 12-19)"
+"-","-","England",2020-04-27,"342",20735,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-27,"1",102,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.0262300830812,15.513613826545,23.0965452421403,"102 deaths (19 per 100,000, 95% CI: 16-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-27,"0",61,364816,"East Sussex Healthcare NHS Trust","Y59",16.7207578614973,12.7900536058812,21.4785099828782,"61 deaths (17 per 100,000, 95% CI: 13-21)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-27,"2",192,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",50.2139322739588,43.3621211478602,57.8409926871272,"192 deaths (50 per 100,000, 95% CI: 43-58)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-27,"0",13,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-27,"2",74,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",15.5129113541933,12.1809759607177,19.4750397543711,"74 deaths (16 per 100,000, 95% CI: 12-19)"
+"-","-","England",2020-04-28,"337",21072,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-28,"0",102,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.0262300830812,15.513613826545,23.0965452421403,"102 deaths (19 per 100,000, 95% CI: 16-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-28,"0",61,364816,"East Sussex Healthcare NHS Trust","Y59",16.7207578614973,12.7900536058812,21.4785099828782,"61 deaths (17 per 100,000, 95% CI: 13-21)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-28,"4",196,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",51.2600558629996,44.3346081751496,58.9605701501559,"196 deaths (51 per 100,000, 95% CI: 44-59)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-28,"1",14,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-28,"3",77,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",16.1418131658498,12.7388660501959,20.1744907587446,"77 deaths (16 per 100,000, 95% CI: 13-20)"
+"-","-","England",2020-04-29,"322",21394,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-29,"1",103,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.2127617505624,15.6820740868676,23.3010614264449,"103 deaths (19 per 100,000, 95% CI: 16-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-29,"2",63,364816,"East Sussex Healthcare NHS Trust","Y59",17.2689794307267,13.2699575987736,22.0945259942841,"63 deaths (17 per 100,000, 95% CI: 13-22)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-29,"2",198,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",51.7831176575201,44.8211337974683,59.5200787487401,"198 deaths (52 per 100,000, 95% CI: 45-60)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-29,"0",14,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-29,"4",81,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",16.9803489147251,13.484850172953,21.1050233461519,"81 deaths (17 per 100,000, 95% CI: 13-21)"
+"-","-","England",2020-04-30,"310",21704,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-04-30,"0",103,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.2127617505624,15.6820740868676,23.3010614264449,"103 deaths (19 per 100,000, 95% CI: 16-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-04-30,"1",64,364816,"East Sussex Healthcare NHS Trust","Y59",17.5430902153414,13.5103162111193,22.4021338824768,"64 deaths (18 per 100,000, 95% CI: 14-22)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-04-30,"2",200,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",52.3061794520405,45.3078405157542,60.0793883842019,"200 deaths (52 per 100,000, 95% CI: 45-60)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-04-30,"0",14,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-04-30,"1",82,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.1899828519439,13.671704097879,21.3373059357744,"82 deaths (17 per 100,000, 95% CI: 14-21)"
+"-","-","England",2020-05-01,"305",22009,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-01,"0",103,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.2127617505624,15.6820740868676,23.3010614264449,"103 deaths (19 per 100,000, 95% CI: 16-23)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-01,"0",64,364816,"East Sussex Healthcare NHS Trust","Y59",17.5430902153414,13.5103162111193,22.4021338824768,"64 deaths (18 per 100,000, 95% CI: 14-22)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-01,"5",205,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",53.6138339383415,46.5254044364539,61.4769195088081,"205 deaths (54 per 100,000, 95% CI: 47-61)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-01,"0",14,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-01,"2",84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
+"-","-","England",2020-05-02,"268",22277,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-02,"2",105,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.5858250855248,16.0192692258274,23.7098361547771,"105 deaths (20 per 100,000, 95% CI: 16-24)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-02,"0",64,364816,"East Sussex Healthcare NHS Trust","Y59",17.5430902153414,13.5103162111193,22.4021338824768,"64 deaths (18 per 100,000, 95% CI: 14-22)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-02,"3",208,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.3984266301221,47.2564698559459,62.3149144038196,"208 deaths (54 per 100,000, 95% CI: 47-62)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-02,"0",14,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-02,"0",84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
+"-","-","England",2020-05-03,"251",22528,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-03,"0",105,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.5858250855248,16.0192692258274,23.7098361547771,"105 deaths (20 per 100,000, 95% CI: 16-24)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-03,"1",65,364816,"East Sussex Healthcare NHS Trust","Y59",17.8172009999561,13.7509373274022,22.7094843314075,"65 deaths (18 per 100,000, 95% CI: 14-23)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-03,"1",209,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.6599575273823,47.50024426396,62.5941606319291,"209 deaths (55 per 100,000, 95% CI: 48-63)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-03,"0",14,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-03,"0",84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
+"-","-","England",2020-05-04,"256",22784,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-04,"2",107,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",19.9588884204871,16.3567932287574,24.1182756202768,"107 deaths (20 per 100,000, 95% CI: 16-24)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-04,"0",65,364816,"East Sussex Healthcare NHS Trust","Y59",17.8172009999561,13.7509373274022,22.7094843314075,"65 deaths (18 per 100,000, 95% CI: 14-23)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-04,"0",209,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.6599575273823,47.50024426396,62.5941606319291,"209 deaths (55 per 100,000, 95% CI: 48-63)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-04,"1",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-04,"0",84,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.6092507263816,14.0458252687774,21.8014499618075,"84 deaths (18 per 100,000, 95% CI: 14-22)"
+"-","-","England",2020-05-05,"249",23033,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-05,"1",108,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",20.1454200879683,16.525679837191,24.3223720109524,"108 deaths (20 per 100,000, 95% CI: 17-24)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-05,"1",66,364816,"East Sussex Healthcare NHS Trust","Y59",18.0913117845709,13.9918192245543,23.0165832685171,"66 deaths (18 per 100,000, 95% CI: 14-23)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-05,"1",210,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.9214884246425,47.7440611250601,62.8733646685879,"210 deaths (55 per 100,000, 95% CI: 48-63)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-05,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-05,"1",85,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",17.8188846636004,14.2330939301022,22.033326701333,"85 deaths (18 per 100,000, 95% CI: 14-22)"
+"-","-","England",2020-05-06,"262",23295,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-06,"4",112,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",20.8915467578931,17.2020349657621,25.1379634568655,"112 deaths (21 per 100,000, 95% CI: 17-25)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-06,"1",67,364816,"East Sussex Healthcare NHS Trust","Y59",18.3654225691856,14.2329527151624,23.3234374027162,"67 deaths (18 per 100,000, 95% CI: 14-23)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-06,"0",210,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.9214884246425,47.7440611250601,62.8733646685879,"210 deaths (55 per 100,000, 95% CI: 48-63)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-06,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-06,"1",86,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.0285186008193,14.4204879420941,22.2650737908283,"86 deaths (18 per 100,000, 95% CI: 14-22)"
+"-","-","England",2020-05-07,"254",23549,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-07,"2",114,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.2646100928555,17.5406810844416,25.545297487996,"114 deaths (21 per 100,000, 95% CI: 18-26)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-07,"2",69,364816,"East Sussex Healthcare NHS Trust","Y59",18.913644138415,14.7159421433614,23.9364271549414,"69 deaths (19 per 100,000, 95% CI: 15-24)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-07,"0",210,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",54.9214884246425,47.7440611250601,62.8733646685879,"210 deaths (55 per 100,000, 95% CI: 48-63)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-07,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-07,"1",87,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.2381525380381,14.6080125341137,22.4966922600397,"87 deaths (18 per 100,000, 95% CI: 15-22)"
+"-","-","England",2020-05-08,"213",23762,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-08,"1",115,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.4511417603367,17.710117514642,25.7488526124685,"115 deaths (21 per 100,000, 95% CI: 18-26)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-08,"1",70,364816,"East Sussex Healthcare NHS Trust","Y59",19.1877549230297,14.9577956336908,24.242574018497,"70 deaths (19 per 100,000, 95% CI: 15-24)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-08,"2",212,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",55.4445502191629,48.231820998067,63.4316473672098,"212 deaths (55 per 100,000, 95% CI: 48-63)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-08,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-08,"0",87,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.2381525380381,14.6080125341137,22.4966922600397,"87 deaths (18 per 100,000, 95% CI: 15-22)"
+"-","-","England",2020-05-09,"202",23964,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-09,"1",116,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.6376734278178,17.8796282106849,25.9523230447378,"116 deaths (22 per 100,000, 95% CI: 18-26)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-09,"0",70,364816,"East Sussex Healthcare NHS Trust","Y59",19.1877549230297,14.9577956336908,24.242574018497,"70 deaths (19 per 100,000, 95% CI: 15-24)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-09,"4",216,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",56.4906738082037,49.2078370879906,64.5477194687402,"216 deaths (56 per 100,000, 95% CI: 49-65)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-09,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-09,"1",88,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.4477864752569,14.7956641288693,22.7281888171726,"88 deaths (18 per 100,000, 95% CI: 15-23)"
+"-","-","England",2020-05-10,"193",24157,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-10,"1",117,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",21.824205095299,18.0492122130805,26.1557324939142,"117 deaths (22 per 100,000, 95% CI: 18-26)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-10,"1",71,364816,"East Sussex Healthcare NHS Trust","Y59",19.4618657076444,15.1998783765724,24.5485018810766,"71 deaths (19 per 100,000, 95% CI: 15-25)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-10,"3",219,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",57.2752664999843,49.9402744350514,65.3843508748798,"219 deaths (57 per 100,000, 95% CI: 50-65)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-10,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-10,"0",88,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.4477864752569,14.7956641288693,22.7281888171726,"88 deaths (18 per 100,000, 95% CI: 15-23)"
+"-","-","England",2020-05-11,"164",24321,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-11,"1",118,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.0107367627802,18.2188685828241,26.3590704940734,"118 deaths (22 per 100,000, 95% CI: 18-26)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-11,"1",72,364816,"East Sussex Healthcare NHS Trust","Y59",19.7359764922591,15.442186052052,24.8541981775616,"72 deaths (20 per 100,000, 95% CI: 15-25)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-11,"1",220,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",57.5367973972445,50.1844997396927,65.6631489759867,"220 deaths (58 per 100,000, 95% CI: 50-66)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-11,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-11,"1",89,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.6574204124757,14.9834456052006,22.9595612764871,"89 deaths (19 per 100,000, 95% CI: 15-23)"
+"-","-","England",2020-05-12,"182",24503,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-12,"3",121,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.5703317652238,18.7282628007816,26.9686647023333,"121 deaths (23 per 100,000, 95% CI: 19-27)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-12,"2",74,364816,"East Sussex Healthcare NHS Trust","Y59",20.2841980614885,15.9274634740073,25.4649533291018,"74 deaths (20 per 100,000, 95% CI: 16-25)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-12,"2",222,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",58.0598591917649,50.6730680111824,66.220628238305,"222 deaths (58 per 100,000, 95% CI: 51-66)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-12,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-12,"1",90,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",18.8670543496946,15.1713392077506,23.1908127380661,"90 deaths (19 per 100,000, 95% CI: 15-23)"
+"-","-","England",2020-05-13,"159",24662,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-13,"0",121,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.5703317652238,18.7282628007816,26.9686647023333,"121 deaths (23 per 100,000, 95% CI: 19-27)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-13,"1",75,364816,"East Sussex Healthcare NHS Trust","Y59",20.5583088461032,16.1704093458892,25.7700182040318,"75 deaths (21 per 100,000, 95% CI: 16-26)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-13,"3",225,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",58.8444518835455,51.4062106232001,67.0565610697752,"225 deaths (59 per 100,000, 95% CI: 51-67)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-13,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-13,"1",91,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",19.0766882869134,15.3593593734823,23.4219461271588,"91 deaths (19 per 100,000, 95% CI: 15-23)"
+"-","-","England",2020-05-14,"176",24838,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-14,"2",123,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.9433951001862,19.068204435943,27.3747195947375,"123 deaths (23 per 100,000, 95% CI: 19-27)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-14,"2",77,364816,"East Sussex Healthcare NHS Trust","Y59",21.1065304153327,16.6569431192616,26.3795336024677,"77 deaths (21 per 100,000, 95% CI: 17-26)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-14,"2",227,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",59.3675136780659,51.8951628297834,67.6136584325039,"227 deaths (59 per 100,000, 95% CI: 52-68)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-14,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-14,"2",93,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",19.495956161351,15.7357492259175,23.8838582653228,"93 deaths (19 per 100,000, 95% CI: 16-24)"
+"-","-","England",2020-05-15,"170",25008,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-15,"0",123,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",22.9433951001862,19.068204435943,27.3747195947375,"123 deaths (23 per 100,000, 95% CI: 19-27)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-15,"0",77,364816,"East Sussex Healthcare NHS Trust","Y59",21.1065304153327,16.6569431192616,26.3795336024677,"77 deaths (21 per 100,000, 95% CI: 17-26)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-15,"2",229,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",59.8905754725863,52.3842650642323,68.1706067264697,"229 deaths (60 per 100,000, 95% CI: 52-68)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-15,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-15,"1",94,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",19.7055900985699,15.9241225514707,24.1146517662805,"94 deaths (20 per 100,000, 95% CI: 16-24)"
+"-","-","England",2020-05-16,"167",25175,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-16,"1",124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-16,"0",77,364816,"East Sussex Healthcare NHS Trust","Y59",21.1065304153327,16.6569431192616,26.3795336024677,"77 deaths (21 per 100,000, 95% CI: 17-26)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-16,"0",229,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",59.8905754725863,52.3842650642323,68.1706067264697,"229 deaths (60 per 100,000, 95% CI: 52-68)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-16,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-16,"2",96,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.1248579730075,16.3011978028692,24.5758993945514,"96 deaths (20 per 100,000, 95% CI: 16-25)"
+"-","-","England",2020-05-17,"136",25311,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-17,"0",124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-17,"1",78,364816,"East Sussex Healthcare NHS Trust","Y59",21.3806411999474,16.9005094358528,26.6840109910918,"78 deaths (21 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-17,"2",231,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",60.4136372671067,52.8735153662294,68.7274078947487,"231 deaths (60 per 100,000, 95% CI: 53-69)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-17,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-17,"1",97,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.3344919102264,16.4898979366484,24.8063557500681,"97 deaths (20 per 100,000, 95% CI: 16-25)"
+"-","-","England",2020-05-18,"150",25461,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-18,"0",124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-18,"0",78,364816,"East Sussex Healthcare NHS Trust","Y59",21.3806411999474,16.9005094358528,26.6840109910918,"78 deaths (21 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-18,"1",232,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",60.6751681643669,53.1181954415205,69.0057539024339,"232 deaths (61 per 100,000, 95% CI: 53-69)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-18,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-18,"1",98,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.5441258474452,16.6787143288412,25.036709381843,"98 deaths (21 per 100,000, 95% CI: 17-25)"
+"-","-","England",2020-05-19,"141",25602,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-19,"0",124,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.1299267676673,19.2382763641454,27.5776464388067,"124 deaths (23 per 100,000, 95% CI: 19-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-19,"1",79,364816,"East Sussex Healthcare NHS Trust","Y59",21.6547519845621,17.1442710204638,26.9882831188568,"79 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-19,"3",235,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",61.4597608561475,53.8524525410598,69.8405764175407,"235 deaths (61 per 100,000, 95% CI: 54-70)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-19,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-19,"0",98,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",20.5441258474452,16.6787143288412,25.036709381843,"98 deaths (21 per 100,000, 95% CI: 17-25)"
+"-","-","England",2020-05-20,"150",25752,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-20,"1",125,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.3164584351485,19.4084146120085,27.7805076219569,"125 deaths (23 per 100,000, 95% CI: 19-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-20,"0",79,364816,"East Sussex Healthcare NHS Trust","Y59",21.6547519845621,17.1442710204638,26.9882831188568,"79 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-20,"2",237,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",61.9828226506679,54.3421356989171,70.396947452905,"237 deaths (62 per 100,000, 95% CI: 54-70)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-20,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-20,"3",101,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.1730276591017,17.2457771978602,25.7271542294954,"101 deaths (21 per 100,000, 95% CI: 17-26)"
+"-","-","England",2020-05-21,"146",25898,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-21,"1",126,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.5029901026297,19.5786183843529,27.9833040344723,"126 deaths (24 per 100,000, 95% CI: 20-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-21,"1",80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-21,"1",238,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",62.2443535479282,54.587030127026,70.6750804500665,"238 deaths (62 per 100,000, 95% CI: 55-71)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-21,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-21,"1",102,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.3826615963205,17.4350017392037,25.9570923299175,"102 deaths (21 per 100,000, 95% CI: 17-26)"
+"-","-","England",2020-05-22,"120",26018,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-22,"0",126,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.5029901026297,19.5786183843529,27.9833040344723,"126 deaths (24 per 100,000, 95% CI: 20-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-22,"0",80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-22,"2",240,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",62.7674153424486,55.0769235747106,71.2312424996493,"240 deaths (63 per 100,000, 95% CI: 55-71)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-22,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-22,"0",102,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.3826615963205,17.4350017392037,25.9570923299175,"102 deaths (21 per 100,000, 95% CI: 17-26)"
+"-","-","England",2020-05-23,"121",26139,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-23,"0",126,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.5029901026297,19.5786183843529,27.9833040344723,"126 deaths (24 per 100,000, 95% CI: 20-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-23,"0",80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-23,"2",242,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.290477136969,55.5669550285197,71.7872673913476,"242 deaths (63 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-23,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-23,"1",103,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.5922955335393,17.6243260942218,26.1869381974835,"103 deaths (22 per 100,000, 95% CI: 18-26)"
+"-","-","England",2020-05-24,"110",26249,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-24,"1",127,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.6895217701109,19.7488869017637,28.1860364410558,"127 deaths (24 per 100,000, 95% CI: 20-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-24,"0",80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-24,"0",242,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.290477136969,55.5669550285197,71.7872673913476,"242 deaths (63 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-24,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-24,"1",104,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",21.8019294707582,17.8137498804054,26.416687057955,"104 deaths (22 per 100,000, 95% CI: 18-26)"
+"-","-","England",2020-05-25,"129",26378,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-25,"0",127,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",23.6895217701109,19.7488869017637,28.1860364410558,"127 deaths (24 per 100,000, 95% CI: 20-28)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-25,"0",80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-25,"1",243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-25,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-25,"1",105,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.011563407977,18.0032834345261,26.6463403831444,"105 deaths (22 per 100,000, 95% CI: 18-27)"
+"-","-","England",2020-05-26,"134",26512,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-26,"4",131,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.4356484400357,20.4305933616483,28.9963407879669,"131 deaths (24 per 100,000, 95% CI: 20-29)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-26,"0",80,364816,"East Sussex Healthcare NHS Trust","Y59",21.9288627691768,17.3882324866454,27.292368229462,"80 deaths (22 per 100,000, 95% CI: 17-27)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-26,"0",243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-26,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-26,"2",107,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.4308312824146,18.3826103691722,27.105365783091,"107 deaths (22 per 100,000, 95% CI: 18-27)"
+"-","-","England",2020-05-27,"114",26626,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-27,"2",133,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.808711774998,20.7718158854562,29.4011277479712,"133 deaths (25 per 100,000, 95% CI: 21-29)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-27,"1",81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-27,"0",243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-27,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-27,"0",107,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.4308312824146,18.3826103691722,27.105365783091,"107 deaths (22 per 100,000, 95% CI: 18-27)"
+"-","-","England",2020-05-28,"108",26734,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-28,"1",134,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",24.9952434424792,20.9425170314777,29.6034323198557,"134 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-28,"0",81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-28,"0",243,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.5520080342292,55.8120161378987,72.065228932794,"243 deaths (64 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-28,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-28,"0",107,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.4308312824146,18.3826103691722,27.105365783091,"107 deaths (22 per 100,000, 95% CI: 18-27)"
+"-","-","England",2020-05-29,"101",26835,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-29,"1",135,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",25.1817751099604,21.1132772057134,29.8056784982548,"135 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-29,"0",81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-29,"1",244,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.8135389314894,56.0571152699081,72.3431568161668,"244 deaths (64 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-29,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-29,"1",108,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.6404652196335,18.5724138762526,27.3347398648607,"108 deaths (23 per 100,000, 95% CI: 19-27)"
+"-","-","England",2020-05-30,"86",26921,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-30,"0",135,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",25.1817751099604,21.1132772057134,29.8056784982548,"135 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-30,"0",81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-30,"0",244,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",63.8135389314894,56.0571152699081,72.3431568161668,"244 deaths (64 per 100,000, 95% CI: 56-72)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-30,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-30,"1",109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
+"-","-","England",2020-05-31,"72",26993,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-05-31,"0",135,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",25.1817751099604,21.1132772057134,29.8056784982548,"135 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-05-31,"0",81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-05-31,"2",246,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",64.3366007260098,56.5474309181342,72.8989124304813,"246 deaths (64 per 100,000, 95% CI: 57-73)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-05-31,"0",15,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-05-31,"0",109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
+"-","-","England",2020-06-01,"74",27067,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-06-01,"1",136,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",25.3683067774416,21.284095752791,30.0078669269689,"136 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-06-01,"0",81,364816,"East Sussex Healthcare NHS Trust","Y59",22.2029735537915,17.6323686439256,27.5962689318124,"81 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-06-01,"1",247,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",64.59813162327,56.7926310169203,73.1767405670943,"247 deaths (65 per 100,000, 95% CI: 57-73)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-06-01,"1",16,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-06-01,"0",109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
+"-","-","England",2020-06-02,"69",27136,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-06-02,"0",136,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",25.3683067774416,21.284095752791,30.0078669269689,"136 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-06-02,"1",82,364816,"East Sussex Healthcare NHS Trust","Y59",22.4770843384062,17.8766929964104,27.8999943864714,"82 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-06-02,"0",247,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",64.59813162327,56.7926310169203,73.1767405670943,"247 deaths (65 per 100,000, 95% CI: 57-73)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-06-02,"0",16,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-06-02,"0",109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"
+"-","-","England",2020-06-03,"24",27160,,,,,,,
+"South East","RXH","Brighton and Sussex University Hospitals NHS Trust",2020-06-03,"0",136,536102,"Brighton and Sussex University Hospitals NHS Trust","Y59",25.3683067774416,21.284095752791,30.0078669269689,"136 deaths (25 per 100,000, 95% CI: 21-30)"
+"South East","RXC","East Sussex Healthcare NHS Trust",2020-06-03,"0",82,364816,"East Sussex Healthcare NHS Trust","Y59",22.4770843384062,17.8766929964104,27.8999943864714,"82 deaths (22 per 100,000, 95% CI: 18-28)"
+"South East","RTP","Surrey and Sussex Healthcare NHS Trust",2020-06-03,"0",247,382364,"Surrey and Sussex Healthcare NHS Trust","Y59",64.59813162327,56.7926310169203,73.1767405670943,"247 deaths (65 per 100,000, 95% CI: 57-73)"
+"South East","RDR","Sussex Community NHS Foundation Trust",2020-06-03,"1",17,,,,,,,
+"South East","RYR","Western Sussex Hospitals NHS Foundation Trust",2020-06-03,"0",109,477022,"Western Sussex Hospitals NHS Foundation Trust","Y59",22.8500991568523,18.7623090595156,27.5640234794671,"109 deaths (23 per 100,000, 95% CI: 19-28)"

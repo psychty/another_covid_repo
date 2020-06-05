@@ -593,14 +593,26 @@ catchment_pop <- read_csv(paste0(github_repo_dir, '/trust_catchment_population_e
 # This should download the data for today (it will only work after the new file is published at 5pm though), shame on those who release new filenames each day and do not allow for a static url
 
 # This is a bit of a hack, it says download today. If you run the script before a new file is uploaded it will obviously fail. So at the very least, you'll get the updated file from yesterday 
-download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date(), '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+# download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date(), '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+# 
+# # if the downlaod does fail, it wipes out the old one, which we can use to our advantage
+# if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
+# download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date()-1, '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+# }
 
-# if the downlaod does fail, it wipes out the old one, which we can use to our advantage
-if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
-download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date()-1, '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
-}
+# find urls on a page
+scraped_urls <- read_html('https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/') %>%
+  html_nodes("a") %>%
+  html_attr("href")
 
-# download.file('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/06/COVID-19-total-announced-deaths-2-June-2020.xlsx', paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
+# search for our specific url (the filename always contains this "total" string). This will return all strings
+url <- grep('COVID-19-total-announced-deaths', scraped_urls, value = T)
+
+#2nd query inverts findings to ignore new weekly file and only take summary
+query_url2 <- "weekly-table"
+url2 <- grep(query_url2, url, value = T, invert = T)
+
+download.file(url2, paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
 
 local_trust_codes <- c('RXC', 'RTP', 'RDR','RXH', 'RYR')
 
@@ -615,18 +627,17 @@ daily_deaths_trust <- read_excel(paste0(github_repo_dir, "/refreshed_daily_death
   gather(key = "Date", value = "Deaths", 4:ncol(.)) %>% 
   mutate(Date = as.Date(as.numeric(Date), origin = "1899-12-30")) %>% 
   filter(!is.na(Date)) %>% 
-  # filter(Code %in% c(local_trust_codes, '-')) %>%
   rename(Trust = Name) %>% 
   group_by(Trust) %>% 
   arrange(Date) %>% 
   mutate(Cumulative_deaths = cumsum(Deaths)) %>% 
   left_join(catchment_pop, by = 'Code') %>% 
-  mutate(`Crude rate deaths per 100,000 emergency catchment population` =  pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[3]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[4]]*100000) %>% 
-  mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[5]]*100000) %>% 
+  mutate(`Crude rate deaths per 100,000 emergency catchment population` = ifelse(is.na(Cumulative_deaths), NA, pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[3]]*100000)) %>% 
+  mutate(Cumulative_deaths_crude_rate_lci = ifelse(is.na(Cumulative_deaths), NA, pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[4]]*100000)) %>% 
+  mutate(Cumulative_deaths_crude_rate_uci = ifelse(is.na(Cumulative_deaths), NA, pois.exact(Cumulative_deaths, Emergency_catchment_pop_2018)[[5]]*100000)) %>% 
   mutate(`Cumulative rate summary` = ifelse(is.na(`Crude rate deaths per 100,000 emergency catchment population`), NA, paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', round(`Crude rate deaths per 100,000 emergency catchment population`,0), ' per 100,000, 95% CI: ', round(Cumulative_deaths_crude_rate_lci,0), '-', round(Cumulative_deaths_crude_rate_uci,0), ')'))) %>% 
   ungroup()
-
+  
 latest_reported_daily_trust_deaths <- daily_deaths_trust %>% 
   filter(Date == max(Date)) %>% 
   filter(Code %in% c(local_trust_codes, '-')) %>%

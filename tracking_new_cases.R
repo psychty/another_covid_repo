@@ -550,3 +550,5 @@ care_home_outbreaks %>%
                       
 # fin
 
+age_standardised_confirmed_cases <- read_csv(paste0(github_repo_dir, '/age_standardised_cases_phe_13_may.csv'))
+

@@ -265,7 +265,7 @@ icnarc_ethnicity <-  ggplot(ethnicity_icnarc,
   scale_y_continuous(limits = c(0,80),
                      breaks = seq(0, 100, 10),
                      labels = unit_format(suffix = '%')) +
-  scale_fill_manual(values = c('#16577f', '#7ea6f8'),
+  scale_fill_manual(values = c('#4c2954', '#7ea6f8'),
                     name = '') +
   geom_text(size = 3.5,
             vjust = -1,
@@ -274,8 +274,18 @@ icnarc_ethnicity <-  ggplot(ethnicity_icnarc,
   ph_theme() +
   theme(axis.text.x = element_text(hjust = 0.5))
 
-png(paste0(github_repo_dir, "/icnarc_ethnicicty_patients.png"), width = 900, height = 650, res = 200)
+png(paste0(github_repo_dir, "/icnarc_ethnicicty_patients.png"), width = 900, height = 650, res = 150)
 icnarc_ethnicity
 dev.off()
 
-# slide ONS mortality data ethnicity
+# PHE data 
+
+# download.file('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/889167/Disparities_risks_outcomes_of_COVID19_data_pack.ods', paste0(github_repo_dir, '/Covid_datapack_phe.ods'), mode = 'wb')
+# 
+# library('readODS')
+# 
+# age_standardised_confirmed_cases <- read_ods(paste0(github_repo_dir, '/Covid_datapack_phe.ods'), sheet = "Table_2a", skip = 6, col_names = FALSE) 
+# 
+# age_standardised_confirmed_cases <- age_standardised_confirmed_cases %>%  
+#   select(-`Region Code`)#, `Region Name`)) #%>% 
+#   colnames(., c('Area_code', 'Area_name',	'Males_cases','Males_population','Males_rate','Males_lci', 'Males_uci', 'Females_cases', 'Females_population', 'Females_rate', 'Females_lci', 'Females_uci', 'Total_cases', 'Total_population', 'Total_rate', 'Total_lci', 'Total_uci'))
