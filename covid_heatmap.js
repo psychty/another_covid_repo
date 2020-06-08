@@ -1,7 +1,7 @@
 
 d3.select("#summary_cases_title")
   .html(function(d) {
-    return 'Summary of Covid-19 confirmed cases; ' + first_date + ' - ' + latest_date
+    return 'Summary of Covid-19 pillar 1 confirmed cases; ' + first_date + ' - ' + latest_date
   });
 
 var x = d3.scaleBand()
@@ -396,7 +396,10 @@ function counts_new_cases_tile_plot() {
       .attr("x", 335)
       .attr("y", height_hm * .5)
       .text(function(d) {
-        return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
+      if (isNaN(area_x_case_summary[0]['Previous_doubling_time'])) {
+      return 'No cases*';
+      }
+      return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
       })
       .attr("text-anchor", "start")
       .attr('font-weight', function(d) {
@@ -413,7 +416,10 @@ function counts_new_cases_tile_plot() {
       .attr("x", 420)
       .attr("y", height_hm * .5)
       .text(function(d) {
-        return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
+      if (isNaN(area_x_case_summary[0]['Latest_doubling_time'])) {
+      return 'No cases*';
+      }
+      return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
       })
       .attr("text-anchor", "start")
       .attr('font-weight', function(d) {
@@ -661,7 +667,10 @@ function counts_new_cases_rates_tile_plot() {
       .attr("x", 335)
       .attr("y", height_hm * .5)
       .text(function(d) {
-        return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
+      if (isNaN(area_x_case_summary[0]['Previous_doubling_time'])) {
+      return 'No cases*';
+      }
+      return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
       })
       .attr("text-anchor", "start")
       .attr('font-weight', function(d) {
@@ -678,7 +687,10 @@ function counts_new_cases_rates_tile_plot() {
       .attr("x", 420)
       .attr("y", height_hm * .5)
       .text(function(d) {
-        return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
+      if (isNaN(area_x_case_summary[0]['Latest_doubling_time'])) {
+      return 'No cases*';
+      }
+      return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
       })
       .attr("text-anchor", "start")
       .attr('font-weight', function(d) {

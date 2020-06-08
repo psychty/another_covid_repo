@@ -2,7 +2,7 @@
 
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'officer', 'lemon', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'png', 'epitools'))
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'lemon', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'png', 'epitools'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
 
@@ -1540,8 +1540,8 @@ deaths_trust_plot <- ggplot(data = daily_deaths_trust,
                breaks = seq.Date(max(daily_deaths_trust$Date) -(52*7), max(daily_deaths_trust$Date), by = 7),
                limits = c(min(daily_deaths_trust$Date), max(daily_deaths_trust$Date) + 1),
                expand = c(0,0.1)) +
-  scale_y_continuous(breaks = seq(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 250, ceiling),25),
-                     limits = c(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 250, ceiling)),
+  scale_y_continuous(breaks = seq(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 275, ceiling),25),
+                     limits = c(0,round_any(max(daily_deaths_trust$Cumulative_deaths, na.rm = TRUE), 275, ceiling)),
                      labels = comma,
                      expand = c(0, 0.1)) +
   scale_fill_manual(values = c("#ff4457","#e8c25f","#019357","#7daeff","#7729ad"),
@@ -1559,4 +1559,3 @@ png(paste0(github_repo_dir, "/Outputs/023_deaths_trust_plot.png"), width = 1080,
 deaths_trust_plot
 dev.off()  
 
-# read_pptx(path = paste0(github_repo_dir, '/Death Slides - West Sussex V1.pptx'))

@@ -1,4 +1,7 @@
 
+// ltla heatmap table
+
+// ltla_sussex_daily_cases.json
 
 // var data = daily_cases.filter(function(d) {
 //   return d.Name === 'West Sussex'

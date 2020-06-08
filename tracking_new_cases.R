@@ -245,7 +245,8 @@ doubling_time_df <- daily_cases_reworked %>%
   mutate(Slope = coef(lm(Log10Cumulative_cases ~ Days_since_first_case))[2]) %>% 
   mutate(Double_time = log(2, base = 10)/coef(lm(Log10Cumulative_cases ~ Days_since_first_case))[2]) %>%
   mutate(N_days_in_doubling_period = n()) %>% 
-  mutate(Double_time = ifelse(N_days_in_doubling_period != double_time_period, NA, Double_time)) %>%
+  mutate(Cases_in_doubling_period = sum(New_cases, na.rm = TRUE)) %>% 
+  mutate(Double_time = ifelse(N_days_in_doubling_period != double_time_period, NA, ifelse(Cases_in_doubling_period == 0, NA, Double_time))) %>%
   mutate(Slope = ifelse(N_days_in_doubling_period != double_time_period, NA, Slope)) %>% 
   mutate(date_range_label = paste0(ifelse(period_in_reverse == '1', paste0('most recent complete ', double_time_period, ' days ('), ifelse(period_in_reverse == '2', paste0('previous ', double_time_period, ' days ('), paste0('period ', period_in_reverse, ' ('))), format(min(Date), '%d-%B'), '-', format(max(Date), '%d-%B'), ')')) %>% 
   mutate(date_range_label = ifelse(N_days_in_doubling_period != double_time_period, NA, date_range_label)) %>% 
@@ -480,7 +481,7 @@ test_timeline <- data.frame(Period = c('27 March', '15 April','17 April','23 Apr
 
 # Outbreaks in Care Homes ####
 
-download.file('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/886384/Care_home_outbreaks_of_COVID-19_Management_Information.ods', paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), mode = 'wb')
+download.file('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/889782/Care_home_outbreaks_of_COVID-19_Management_Information.ods', paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), mode = 'wb')
 
 utla_ch_outbreaks <- read_ods(paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), sheet = "Upper_Tier_Local_authorities", skip = 1) %>% 
   select(-c('Local Authority','Percentage of care homes that have reported an outbreak', 'Government office regions', 'All outbreaks')) %>% 
@@ -550,5 +551,5 @@ care_home_outbreaks %>%
                       
 # fin
 
-age_standardised_confirmed_cases <- read_csv(paste0(github_repo_dir, '/age_standardised_cases_phe_13_may.csv'))
+# age_standardised_confirmed_cases <- read_csv(paste0(github_repo_dir, '/age_standardised_cases_phe_13_may.csv'))
 
