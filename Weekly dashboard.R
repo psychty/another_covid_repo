@@ -388,7 +388,6 @@ area_x_place <- place_of_death %>%
   ungroup()
 
 if(Area_x != 'West Sussex'){
-  
   area_x_place_death_all_cause_plot <- ggplot(area_x_place,
                                               aes(x = Week_ending, 
                                                   y = Deaths,
@@ -399,7 +398,7 @@ if(Area_x != 'West Sussex'){
          subtitle = 'By week of occurrence and place of death',
          x = 'Week',
          y = 'Number of deaths') +
-    scale_fill_manual(values = rev(c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc')),
+    scale_fill_manual(values = c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc'),
                       breaks = c("Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'),
                       name = 'Place of death') +
     scale_y_continuous(breaks = seq(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))),ifelse(Area_x == 'Brighton and Hove',25, 50)),
@@ -411,7 +410,7 @@ if(Area_x != 'West Sussex'){
     guides(fill = guide_legend(nrow = 2, byrow = TRUE))
 }  
   
-if(Area_x == 'West Sussex'){
+if(Area_x %in% c('East Sussex','West Sussex')){
 area_x_place <- area_x_place %>% 
   mutate(Place_of_death = as.character(Place_of_death)) %>% 
   mutate(Place_of_death = ifelse(Place_of_death == 'Elsewhere (including other communal establishments)', 'Elsewhere', Place_of_death)) %>% 
@@ -427,7 +426,7 @@ area_x_place <- area_x_place %>%
        subtitle = 'By week of occurrence and place of death',
        x = 'Week',
        y = 'Number of deaths') +
-  scale_fill_manual(values = rev(c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc')),
+  scale_fill_manual(values = c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc'),
                     breaks = c("Home", "Care home", "Hospital", "Hospice", 'Elsewhere'),
                     name = 'Place of death') +
    scale_y_continuous(breaks = seq(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))),ifelse(Area_x == 'Brighton and Hove',25, 50)),
@@ -469,7 +468,7 @@ all_cause_rate_df <- all_cause_rate %>%
   left_join(England_all_cause_rate, by = 'Week_ending') %>% 
   mutate(significance = factor(ifelse(Deaths_crude_rate_uci < Eng_lci, 'Significantly lower', ifelse(Deaths_crude_rate_lci > Eng_uci, 'Significantly higher', 'Statistically similar')), levels = c('Significantly lower', 'Statistically similar', 'Significantly higher')))
 
-crude_rate_plot <-ggplot(all_cause_rate_df) +
+crude_rate_plot <- ggplot(all_cause_rate_df) +
   geom_line(data = England_all_cause_rate, aes(x = Week_ending, y = Eng_deaths_rate, group = '1'), colour = '#777777') +
   geom_line(aes(x = Week_ending,
                     y = Deaths_crude_rate_per_100000,
@@ -494,10 +493,10 @@ crude_rate_plot <-ggplot(all_cause_rate_df) +
                      limits = c(0,round_any(max(all_cause_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling))) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
-        legend.key.size = unit(0.5, "lines")) +
-  facet_rep_grid(Name ~ .) +
-  theme(strip.text = element_blank()) +
-  annotate(geom = "text", label = levels(all_cause_rate_df$Name), x = 1, y = round_any(max(all_cause_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-5, size = 3, fontface = "bold", hjust = 0)
+        legend.key.size = unit(0.5, "lines"),
+        strip.text = element_blank()) +
+  facet_grid(Name ~ .) #+
+  # annotate(geom = "text", label = levels(all_cause_rate_df$Name), x = 1, y = round_any(max(all_cause_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-5, size = 3, fontface = "bold", hjust = 0)
 
 png(paste0(github_repo_dir, "/Outputs/008_crude_rate_plot.png"), width = 1600, height = 1450, res = 250)
 crude_rate_plot
@@ -551,9 +550,9 @@ crude_rate_plot_covid <-ggplot(covid_19_rate_df) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
         legend.key.size = unit(0.5, "lines")) +
-  facet_rep_grid(Name ~ .) +
-  theme(strip.text = element_blank()) +
-  annotate(geom = "text", label = levels(covid_19_rate_df$Name), x = 1, y = round_any(max(covid_19_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-5, size = 3, fontface = "bold", hjust = 0)
+  facet_grid(Name ~ .) +
+  theme(strip.text = element_blank()) #+
+  # annotate(geom = "text", label = levels(covid_19_rate_df$Name), x = 1, y = round_any(max(covid_19_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-5, size = 3, fontface = "bold", hjust = 0)
 
 png(paste0(github_repo_dir, "/Outputs/009_crude_rate_plot_covid.png"), width = 1600, height = 1450, res = 250)
 crude_rate_plot_covid
@@ -1208,7 +1207,7 @@ area_x_place_death_all_cause_proportion_plot <- ggplot(area_x_place,
        subtitle = 'By week of occurrence and place of death',
        x = 'Week',
        y = 'Number of deaths') +
-  scale_fill_manual(values = rev(c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc')),
+  scale_fill_manual(values = c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc'),
                     breaks = c("Home", "Care home", "Hospital", "Hospice", 'Elsewhere (including other communal establishments)'),
                     name = 'Place of death') +
   scale_y_continuous(breaks = seq(0,1,.2),
@@ -1248,7 +1247,7 @@ latest_place_death <- ggplot(latest_area_x_place, aes(x = 2,
   coord_polar(theta = "y", start = 0, direction = 1) +
   labs(x = '', 
        y = '')+
-  scale_fill_manual(values = rev(c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc')),
+  scale_fill_manual(values = c("#f6de6c", "#ed8a46", "#be3e2b","#34738f", '#4837bc'),
                     breaks = rev(levels(latest_area_x_place$Place_label)),
                     name = '') +
   scale_colour_manual(values= "#ffffff", guide = FALSE) +
@@ -1326,9 +1325,9 @@ crude_rate_care_home_plot_covid <- ggplot(covid_19_rate_care_home_df) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
         legend.key.size = unit(0.5, "lines")) +
-  facet_rep_grid(Name ~ .) +
-  theme(strip.text = element_blank()) +
-  annotate(geom = "text", label = levels(covid_19_rate_care_home_df$Name), x = 1, y = round_any(max(covid_19_rate_care_home_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-2, size = 3, fontface = "bold", hjust = 0)
+  facet_grid(Name ~ .) +
+  theme(strip.text = element_blank()) #+
+  # annotate(geom = "text", label = levels(covid_19_rate_care_home_df$Name), x = 1, y = round_any(max(covid_19_rate_care_home_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-2, size = 3, fontface = "bold", hjust = 0)
 
 png(paste0(github_repo_dir, "/Outputs/020_crude_rate_care_home_plot_covid.png"), width = 1600, height = 1450, res = 250)
 crude_rate_care_home_plot_covid
@@ -1433,7 +1432,7 @@ area_x_daily_cause_ch_deaths_plot <- ggplot(area_x_cqc_deaths_stack,
         legend.position =  c(.1,.8))  +
   guides(colour = FALSE)
 
-if(Area_x == 'Brighton and Hove'){
+if(Area_x %in% c('Brighton and Hove', 'East Sussex')){
   area_x_daily_cause_ch_deaths_plot <- area_x_daily_cause_ch_deaths_plot +
     theme(legend.position = c(.5,.8))
 }
@@ -1467,13 +1466,13 @@ area_x_cumulative_cqc_covid_ch_deaths_plot <- ggplot(area_x_cqc_deaths,
                # date_minor_breaks = '1 day',
                expand = c(0,.5)) +
   ph_theme() +
-  annotate(geom = "text", 
-           x = area_x_cqc_deaths$Date,
-           y = area_x_cqc_deaths$Cumulative_covid,
-           label = area_x_cqc_deaths$Cumulative_covid,
-           size = 2.4, 
-           fontface = "bold",
-           vjust = -1) +
+  # annotate(geom = "text", 
+  #          x = area_x_cqc_deaths$Date,
+  #          y = area_x_cqc_deaths$Cumulative_covid,
+  #          label = area_x_cqc_deaths$Cumulative_covid,
+  #          size = 2.4, 
+  #          fontface = "bold",
+  #          vjust = -1) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6, vjust = .5)) 
 
 png(paste0(github_repo_dir, '/Outputs/022_',gsub(' ','_', Area_x), '_cumulative_cqc_covid_ch_deaths_plot.png'), width = 1280, height = 600, res = 150)

@@ -2471,6 +2471,29 @@ svg_daily_new_case_bars
 
 svg_daily_new_case_bars
   .append('line')
+  .attr('x1', x_daily_cases('13 May') + (x_daily_cases.bandwidth() / 2))
+  .attr('y1', 30)
+  .attr('x2', x_daily_cases('13 May') + (x_daily_cases.bandwidth() / 2))
+  .attr('y2', height_line - 120 )
+  .attr('stroke', 'red')
+  .attr("stroke-dasharray", ("3, 3"))
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr("x", x_daily_cases('13 May'))
+  .attr("y", 22)
+  .text('more people    -')
+  .attr("text-anchor", "end")
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr("x", x_daily_cases('13 May'))
+  .attr("y", 31)
+  .text('return to work')
+  .attr("text-anchor", "end")
+
+svg_daily_new_case_bars
+  .append('line')
   .attr('x1', x_daily_cases(first_incomplete_period))
   .attr('y1', 0)
   .attr('x2', x_daily_cases(first_incomplete_period))

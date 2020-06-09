@@ -1,6 +1,5 @@
 library(easypackages)
 
-
 libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'epitools', 'projections', 'incidence', 'xml2', 'rvest'))
 
 github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
@@ -379,7 +378,7 @@ ggplot(data = wsx_spc, aes(x = Date, y = Triage_count, group = 1)) +
         legend.title = element_text(face = 'bold', size = 8))
 
 
-ggplot(data = wsx_spc, aes(x = Date, y = Triage_count, group = 1)) +
+ggplot(data = esx_spc, aes(x = Date, y = Triage_count, group = 1)) +
 annotate('rect',
          xmin = min(nhs_pathways$Date) ,
          xmax = max(nhs_pathways$Date) ,
