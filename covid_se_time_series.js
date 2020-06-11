@@ -2482,14 +2482,14 @@ svg_daily_new_case_bars
   .append("text")
   .attr("x", x_daily_cases('13 May'))
   .attr("y", 22)
-  .text('more people    -')
+  .text('more people')
   .attr("text-anchor", "end")
 
 svg_daily_new_case_bars
   .append("text")
   .attr("x", x_daily_cases('13 May'))
   .attr("y", 31)
-  .text('return to work')
+  .text('return to work -')
   .attr("text-anchor", "end")
 
 svg_daily_new_case_bars

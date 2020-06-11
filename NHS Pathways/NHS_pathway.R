@@ -1,15 +1,6 @@
 library(easypackages)
 
-libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'epitools', 'projections', 'incidence', 'xml2', 'rvest'))
-
-github_repo_dir <- "~/Documents/Repositories/another_covid_repo"
-
-capwords = function(s, strict = FALSE) {
-  cap = function(s) paste(toupper(substring(s, 1, 1)),
-                          {s = substring(s, 2); if(strict) tolower(s) else s},sep = "", collapse = " " )
-  sapply(strsplit(s, split = " "), cap, USE.NAMES = !is.null(names(s)))}
-
-options(scipen = 999)
+libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'epitools', 'xml2', 'rvest'))
 
 ph_theme = function(){
   theme( 
@@ -35,24 +26,14 @@ ph_theme = function(){
   ) 
 }
 
-
 # NHS pathway analysis
 
 # Many caveats around this, not counts of people, people might not use this or might use it multiple times over the course of their symptoms (and maybe not at the start of their symptoms).
-
-# https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest
 
 # Might be useful to have a cumulative count of number of people using the system
 # West Sussex CCG has 390 triages per 100,000, whilst cases are around 26 diagnosed cases per 100,000. YOU ARE COMPARING SMALL APPLES AND REALLY RIPE CRAB APPLES
 
 # People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment.
-
-# nhs_111_online %>% 
-# filter(journeydate == '31/03/2020') %>% 
-# filter(ccgname %in% c('NHS Coastal West Sussex CCG', 'NHS Crawley CCG', 'NHS Horsham and Mid Sussex CCG')) %>% 
-# summarise(Total = sum(Total, na.rm = TRUE))
-
-# CCG to NHS England lookup - tidy mergers
 
 ccg_region_2019 <- read_csv('https://opendata.arcgis.com/datasets/40f816a75fb14dfaaa6db375e6c3d5e6_0.csv') %>% 
   select(CCG19CD, CCG19NM) %>% 
@@ -69,35 +50,6 @@ ccg_region_2020 <- read_csv('https://opendata.arcgis.com/datasets/888dc5cc66ba4a
 ccg_region_2019 <- ccg_region_2019 %>% 
   left_join(ccg_region_2020[c('New_CCG_Code', 'CCG_Name')], by = c('New_CCG_Name'='CCG_Name'))
 
-# Daily deaths by trust
-
-# This webscraping method is great if the data uploader puts a typo in the filepath, but may break if other files are uploaded with similar names. I think it will work more of the time than the method I have been using.
-
-# An alternative that I have been using takes the system date from the computer to change the filepath.
-# This should download the data for today (it will only work after the new file is published at 5pm though), shame on those who release new filenames each day and do not allow for a static url.
-
-# This is a bit of a hack. If you run the script before a new file is uploaded it will obviously fail. So at the very least, you'll get the updated file from yesterday 
-# download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date(), '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date(), '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
- 
-# if the downlaod does fail, it wipes out the old one, which we can use to our advantage.
-# if(!file.exists(paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'))){
-# download.file(paste0('https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2020/',format(Sys.Date()-1, '%m'),'/COVID-19-total-announced-deaths-',format(Sys.Date()-1, '%d-%B-%Y'),'.xlsx'), paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
-# }
-
-# find urls on a page
-scraped_urls <- read_html('https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/') %>%
-  html_nodes("a") %>%
-  html_attr("href")
-
-# search for our specific url (the filename always contains this string). This will return all strings
-url <- grep('COVID-19-total-announced-deaths', scraped_urls, value = T)
-
-#2nd query inverts findings to ignore new weekly file and only take summary
-query_url2 <- "weekly-table"
-trust_deaths_url <- grep(query_url2, url, value = T, invert = T)
-
-nhs_2018_pop <- read_csv('https://raw.githubusercontent.com/qleclerc/nhs_pathways_report/master/data/csv/nhs_region_population_2018.csv')
-
 # NHS Pathway Data
 calls_webpage <- read_html('https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest') %>%
   html_nodes("a") %>%
@@ -109,13 +61,6 @@ nhs_111_pathways_raw <- read_csv(grep('NHS%20Pathways%20Covid-19%20data%202020',
   select(-`Call Date`) %>% 
   mutate(AgeBand = ifelse(is.na(AgeBand), 'Unknown', AgeBand))
   
-nhs_111_pathways_post_april <- nhs_111_pathways_raw %>% 
-  filter(Date >= '2020-04-01') %>% 
-  left_join(ccg_region_2020[c('New_CCG_Code', 'NHS_region')], by = c('CCGCode' ='New_CCG_Code')) %>% 
-  filter(!is.na(NHS_region)) %>% 
-  rename(New_CCG_Code = CCGCode,
-         New_CCG_Name = CCG_Name)
-
 nhs_111_pathways_pre_april <- nhs_111_pathways_raw %>% 
   filter(Date < '2020-04-01') %>% 
   left_join(ccg_region_2019[c('Old_CCG_Code','New_CCG_Code', 'New_CCG_Name')], by = c('CCGCode' = 'Old_CCG_Code')) %>% 
@@ -124,6 +69,13 @@ nhs_111_pathways_pre_april <- nhs_111_pathways_raw %>%
   left_join(ccg_region_2020[c('New_CCG_Code', 'NHS_region')], by = 'New_CCG_Code') %>% 
   ungroup() %>% 
   filter(!is.na(NHS_region))
+
+nhs_111_pathways_post_april <- nhs_111_pathways_raw %>% 
+  filter(Date >= '2020-04-01') %>% 
+  left_join(ccg_region_2020[c('New_CCG_Code', 'NHS_region')], by = c('CCGCode' ='New_CCG_Code')) %>% 
+  filter(!is.na(NHS_region)) %>% 
+  rename(New_CCG_Code = CCGCode,
+         New_CCG_Name = CCG_Name)
 
 nhs_111_pathways <- nhs_111_pathways_pre_april %>% 
   bind_rows(nhs_111_pathways_post_april) %>% 
@@ -163,33 +115,389 @@ nhs_111_online <- nhs_111_online_pre_april %>%
   mutate(Pathway = '111 online Journey') %>% 
   rename(Triage_count = Total)
 
-nhs_pathways <- nhs_111_pathways %>% 
+nhs_pathways_p1 <- nhs_111_pathways %>% 
   bind_rows(nhs_111_online) %>% 
-  rename(CCG_Code = New_CCG_Code,
-         CCG_Name = New_CCG_Name)
-  
-nhs_pathways_all_ages_persons <- nhs_pathways %>% 
-  group_by(CCG_Code, CCG_Name, Date, Pathway) %>% 
+  rename(Area_Code = New_CCG_Code,
+         Area_Name = New_CCG_Name)
+
+sussex_pathways <- nhs_pathways_p1 %>% 
+  filter(Area_Name %in% c('NHS West Sussex CCG', 'NHS East Sussex CCG', 'NHS Brighton and Hove CCG')) %>% 
+  group_by(Date, Pathway, Sex, AgeBand) %>% 
   summarise(Triage_count = sum(Triage_count)) %>% 
-  group_by(CCG_Code, CCG_Name, Pathway) %>% 
-  arrange(CCG_Code, Pathway, Date) %>% 
+  mutate(Area_Name = 'Sussex areas combined',
+         Area_Code = '-',
+         NHS_region = '-')
+  
+nhs_pathways <- nhs_pathways_p1 %>% 
+  bind_rows(sussex_pathways)
+
+nhs_pathways_all_ages_persons <- nhs_pathways %>% 
+  group_by(Area_Code, Area_Name, Date, Pathway) %>% 
+  summarise(Triage_count = sum(Triage_count)) %>% 
+  group_by(Area_Code, Area_Name, Pathway) %>% 
+  arrange(Area_Code, Pathway, Date) %>% 
   mutate(Number_change = Triage_count - lag(Triage_count),
          Percentage_change = (Triage_count - lag(Triage_count))/ lag(Triage_count))
 
-nhs_pathways_all_ages_persons %>% 
-  filter(CCG_Name == 'NHS West Sussex CCG') %>% 
-  View()
+rm(ccg_region_2019, ccg_region_2020, nhs_111_online, nhs_111_online_pre_april, nhs_111_online_post_april, nhs_111_online_raw, nhs_111_pathways, nhs_111_pathways_raw, calls_webpage, nhs_pathways_p1, sussex_pathways)
 
-# This data is based on potential COVID-19 symptoms reported by members of the public to NHS Pathways through NHS 111 or 999 and 111 online,  and is not based on the outcomes of tests for coronavirus.
-# This is not a count of people. In 111 online, any user that starts and launches the COVID-19 assessment services is indicating they may have symptoms of coronavirus. They may have accessed the service multiple times with different symptoms.
-# The North East, West Midlands, South East Coast, South Central, and Isle of Wight Ambulance Services use NHS Pathways to triage calls to 999. The North West, Yorkshire, East Midlands, East of England, London, and South Western Ambulance Services use another system to triage calls to 999. Therefore, for CCGs in those areas, data here will not include most 999 calls related to COVID-19.
-# NHS Pathways data is sourced from a live system that is updated every 15 minutes. The data is extracted for the dashboard and open data files with as little delay as possible but there can be a time delay between the extraction processes meaning that the dashboard and open data files may have different totals.
-# Users of 111 online can change answers and reach multiple dispositions so the data indicates those users that have started an assessment and completed a final disposition.
-# Users enter their current location which may differ from their home postcode.
-# 111 online updated the service on the 9th April so that under 16s are directed to use the normal 111 online triage. Due to small numbers data for 17 and 18 year olds has been suppressed and therefore does not appear in the data. This means that data for the 0-18 age band is no longer available in the 111 online data and is not included within the overall totals for 111 online.
-# 111 online updated the service on the 23rd April so that there is now a separate covid assessment for 5 - 15 year olds. This means that from data for 23rd April 2020 onwards the 0-18 age band will be reinstated into the 111 online data and will cover ages from 5 to 18 years old.
-# Following the changes to the assessment of COVID-19 in NHS Pathways release 19.3.8 (on 18th May) those receiving a specific COVID-19 disposition will be reduced due to the following reasons:
-#   Previously anyone with a symptom that was thought to be COVID (e.g. cold of flu like symptoms) would be assessed via a specific COVID pathway and would only receive a COVID disposition, whereas in release 19.3.8 those with cold or flu like symptoms will only receive a COVID specific disposition if they meet the case definition of breathlessness, continuous cough, loss of smell or fever.  All other symptoms will be assessed and a non COVID disposition reached.
-# Previously all children under 5 were assessed using the COVID specific pathways, in release 19.3.8 this is no longer the case and will receive a non COVID disposition on assessment as their risk of COVID is low but higher risk of a non COVID related illness and therefore requires further assessment. 
-# Those Adults calling with Chest Pain would have previously received a COVID specific disposition now they will only receive a COVID specific disposition if chest pain with fever or cough.
-# Also, there were some random calls such as those with injuries receiving COVID as the question was asked ahead of illness and injury split.
+nhs_pathways_all_ages_persons_all_pathways <- nhs_pathways %>% 
+  group_by(Area_Code, Area_Name, Date) %>% 
+  summarise(Triage_count = sum(Triage_count)) %>% 
+  group_by(Area_Code, Area_Name) %>% 
+  arrange(Area_Code, Date) %>% 
+  mutate(Number_change = Triage_count - lag(Triage_count),
+         Percentage_change = (Triage_count - lag(Triage_count))/ lag(Triage_count))
+
+latest_triage_date = nhs_pathways %>% 
+  filter(Date == max(Date)) %>% 
+  select(Date) %>% 
+  unique() %>% 
+  mutate(Date = format(Date, '%d %B'))
+  
+sussex_pathways <- nhs_pathways_all_ages_persons_all_pathways %>% 
+  filter(Area_Name == 'Sussex areas combined')
+
+ggplot(sussex_pathways,
+       aes(x = Date,
+           y = Triage_count,
+           group = 1)) +
+  geom_segment(x = as.Date('2020-04-09'), y = 0, xend = as.Date('2020-04-09'), yend = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-09'), select = Triage_count)), color = "red", linetype = "dashed") +
+  geom_segment(x = as.Date('2020-04-23'), y = 0, xend = as.Date('2020-04-23'), yend = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-23'), select = Triage_count)), color = "blue", linetype = "dashed") +
+  geom_segment(x = as.Date('2020-05-18'), y = 0, xend = as.Date('2020-05-18'), yend = as.numeric(subset(sussex_pathways, Date == as.Date('2020-05-18'), select = Triage_count)), color = "red", linetype = "dashed") +
+  geom_line() +
+  geom_point() +
+  scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(nhs_pathways$Date) -(52*7), max(nhs_pathways$Date), by = 2),
+               limits = c(min(nhs_pathways$Date), max(nhs_pathways$Date)),
+               expand = c(0.01,0.01)) +
+  scale_y_continuous(labels = comma,
+                     breaks = seq(0,round_any(max(sussex_pathways$Triage_count, na.rm = TRUE), 500, ceiling),250)) +
+  labs(x = 'Date',
+       y = 'Number of complete triages',
+       title = "Total number of complete triages to NHS Pathways for Covid-19; Sussex CCG's combined",
+       subtitle = paste0('Triages via 111 online, 111 phone calls and 999 calls; 18 March - ', latest_triage_date$Date),
+       caption = 'Note: red dashed line = some patients excluded,\nblue dashed line = additional patients added') +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5)) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-08'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-09'), select = Triage_count)),
+           label = '9th April',
+           fontface = 'bold',
+           size = 2.5,
+           hjust = 1,
+           vjust = 1) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-08'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-09'), select = Triage_count)),
+           label = '111 online removed\nfor 0-18 year olds',
+           size = 2.5,
+           hjust = 1,
+           vjust = 1.75) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-23'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-23'), select = Triage_count)),
+           label = '23rd April',
+           fontface = 'bold',
+           size = 2.5,
+           hjust = 0,
+           vjust = -8) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-23'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-23'), select = Triage_count)),
+           label = '111 online reinstated\nfor 5-18 year olds',
+           size = 2.5,
+           hjust = 0,
+           vjust = -1.25) +
+  annotate(geom = 'text',
+           x = as.Date('2020-05-18'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-05-18'), select = Triage_count)),
+           label = '18th May',
+           size = 2.5,
+           fontface = 'bold',
+           hjust = 0,
+           vjust = -6) +
+  annotate(geom = 'text',
+           x = as.Date('2020-05-18'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-05-18'), select = Triage_count)),
+           label = 'Covid-19 pathway case\ndefinition change',
+           size = 2.5,
+           hjust = 0,
+           vjust = -.5)
+
+# SPC ####
+
+run_length <- 6
+trend_length <- 7
+
+paste0('These are our conditions; to highlight any consecutive data points in which the last ' , run_length, ' are above or below the process mean, in addition we want to highlight any periods of ', trend_length, ' or more values which are increasing or decreasing.')
+
+sussex_spc <- sussex_pathways %>% 
+  mutate(process_number = ifelse(Date <= '2020-04-09', 1, ifelse(Date <= '2020-04-23', 2, ifelse(Date <= '2020-05-18', 3, 4)))) %>% 
+  group_by(process_number) %>% 
+  mutate(process_mean = mean(Triage_count, na.rm = TRUE)) %>% 
+  mutate(mR = abs(Triage_count - lag(Triage_count))) %>% 
+  mutate(mean_mR = mean(mR, na.rm = TRUE)) %>% 
+  mutate(seq_dev = mean_mR / 1.128) %>% 
+  mutate(lower_control_limit = process_mean - (seq_dev * 3),
+         upper_control_limit = process_mean + (seq_dev * 3)) %>% 
+  mutate(one_sigma_lci = process_mean - seq_dev,
+         one_sigma_uci = process_mean + seq_dev,
+         two_sigma_lci = process_mean - (seq_dev * 2),
+         two_sigma_uci = process_mean + (seq_dev * 2)) %>% 
+  mutate(location = ifelse(Triage_count > upper_control_limit, 'Outside +/- 3sigma', ifelse(Triage_count < lower_control_limit, 'Outside +/- 3sigma', ifelse(Triage_count > two_sigma_uci, 'Between +/- 2sigma and 3sigma', ifelse(Triage_count < two_sigma_lci, 'Between +/- 2sigma and 3sigma', ifelse(Triage_count > one_sigma_uci, 'Between +/- 1sigma and 2sigma', ifelse(Triage_count < one_sigma_lci, 'Between +/- 1sigma and 2sigma', 'Within +/- 1sigma'))))))) %>% 
+  mutate(rule_1 = ifelse(Triage_count > upper_control_limit, 'Special cause concern', ifelse(Triage_count < lower_control_limit, 'Special cause concern', 'Common cause variation'))) %>% # This highlights any values outside the control limits
+  mutate(above_mean = ifelse(Triage_count > process_mean, 1, 0)) %>% # above_mean is 1 if the value is above the mean and 0 if not.
+  mutate(rule_2a = rollapplyr(above_mean, run_length, sum, align = 'right', partial = TRUE)) %>% # sum the last five (or whatever 'run_length' is) values for 'above_mean'. if the sum is 5 (or whatever 'run_length' is set to) then you know that there have been at least this many consecutive values above the process mean and this constitutes a 'run'. 
+  mutate(rule_2a_label = rollapply(rule_2a, run_length, function(x)if(any(x == run_length)) 'Run above (shift)' else 'No run', align = 'left', partial = TRUE)) %>% # Now we want to identify all values related to that above run which means we have to look forward (using align = 'left') to see if a value should be included in a run.
+  mutate(below_mean = ifelse(Triage_count < process_mean, 1, 0)) %>% # Now we do the same as above mean but for the below mean run.
+  mutate(rule_2b = rollapplyr(below_mean, run_length, sum, partial = TRUE)) %>%
+  mutate(rule_2b_label = rollapply(rule_2b, run_length, function(x)if(any(x == run_length)) 'Run below (shift)' else 'No run', align = 'left', partial = TRUE)) %>%
+  mutate(rule_2 = ifelse(rule_2a_label == 'Run above (shift)', rule_2a_label, rule_2b_label)) %>%
+  select(-c(above_mean, below_mean, rule_2a, rule_2a_label, rule_2b, rule_2b_label)) %>% 
+  mutate(trend_down = ifelse(Triage_count < lag(Triage_count, 1), 1, 0)) %>% # Now we say give 1 if the Triage_count value is lower than the previous Triage_count value, if not give 0
+  mutate(trend_down = ifelse(is.na(trend_down), lead(trend_down, 1), trend_down)) %>% # As we were comparing value x to its predecessor, the first row has nothing to compare to and will be NA, so instead we'll use the value of row 2 to determine what this value should be.
+  mutate(rule_3a = rollapplyr(trend_down, trend_length, sum, align = 'right', partial = TRUE)) %>% # Similarly to earlier (although we are using 'trend_length' rather than 'run_length') we can sum all the 1's to figure out which values are part of a downward trend. Note that this includes trends from above the mean to below the mean.
+  mutate(rule_3a_label = rollapply(rule_3a, trend_length, function(x)if(any(x == trend_length)) 'Trend down (drift)' else 'No trend', align = 'left', partial = TRUE)) %>% # Equally, we use the rule_3a value but looking ahead six (or whatever) values to see if value x should be considered part of the trend.
+  mutate(trend_up = ifelse(Triage_count > lag(Triage_count, 1), 1, 0)) %>% 
+  mutate(trend_up = ifelse(is.na(trend_up), lead(trend_up, 1), trend_up)) %>% 
+  mutate(rule_3b = rollapplyr(trend_up, trend_length, sum, align = 'right', partial = TRUE)) %>% 
+  mutate(rule_3b_label = rollapply(rule_3b, trend_length, function(x)if(any(x == trend_length)) 'Trend up (drift)' else 'No trend', align = 'left', partial = TRUE)) %>%
+  mutate(rule_3 = ifelse(rule_3a_label == 'Trend down (drift)', rule_3a_label, rule_3b_label)) %>% 
+  select(-c(trend_down, trend_up, rule_3a, rule_3a_label, rule_3b, rule_3b_label)) %>%
+  mutate(close_to_limit = ifelse(location == 'Between +/- 2sigma and 3sigma', 1, 0)) %>% 
+  mutate(rule_4 = rollapplyr(close_to_limit, 3, sum, align = 'right', partial = TRUE)) %>% 
+  mutate(rule_4_label = ifelse(rule_4 >= 2, 'Close to limits', ifelse(lead(rule_4,1) >= 2, 'Close to limits', 'Not two out of three'))) %>% 
+  mutate(rule_4_label = ifelse(is.na(rule_4_label), ifelse(rule_4 >= 2, 'Close to limits', 'Not two out of three'), rule_4_label)) %>% 
+  mutate(rule_4 = rule_4_label) %>% 
+  select(-c(rule_4_label, close_to_limit)) %>% 
+  mutate(no_variation = ifelse(location == 'Within +/- 1sigma', 1, 0)) %>% 
+  mutate(rule_5 = rollapplyr(no_variation, 15, sum, align = 'right', partial = TRUE)) %>% 
+  mutate(rule_5 = rollapply(rule_5, 15, function(x)if(any(x == 15)) 'Little variation' else 'Variation', align = 'left', partial = TRUE)) %>% 
+  select(-no_variation) %>% 
+  mutate(top_label = factor(ifelse(rule_1 == 'Special cause concern', 'Special cause concern', ifelse(rule_2 %in% c('Run above (shift)', 'Run below (shift)'), rule_2, ifelse(rule_3 %in% c('Trend down (drift)', 'Trend up (drift)'), rule_3, ifelse(rule_4 == 'Close to limits', 'Close to limits', ifelse(rule_5 == 'Little variation', rule_5, 'Common cause variation'))))), levels = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'))) %>% 
+  mutate(variation_label = factor(ifelse(rule_1 == 'Special cause concern', 'Special cause variation', ifelse(rule_2 %in% c('Run above (shift)', 'Run below (shift)'), 'Special cause variation', ifelse(rule_3 %in% c('Trend down (drift)', 'Trend up (drift)'), 'Special cause variation', 'Common cause variation'))), levels = c('Common cause variation', 'Special cause concern'))) # What is an improvement and what is concern will depend on the context. in a purely variation context (where you want things to stay within limits), trends (drift) and runs (shift) as well as points outside of limits may be of concern regardless of whether they are above or below the process mean. In cases where higher values are good then you may want to mark upward trends (drift) and above mean runs as improvement and below mean runs and downward drifts as special variation of concern.
+
+
+
+spc_break_points <- sussex_spc %>% 
+  select(Date, process_number) %>% 
+  group_by(start_process = min(Date),
+           end_process = max(Date)) %>% 
+  select(-Date) %>% 
+  unique()
+
+sussex_spc <- sussex_spc %>% 
+  left_join(spc_break_points, by = 'process_number')
+
+
+# TO DO 
+
+ggplot(data = sussex_spc, aes(x = Date, y = Triage_count, group = 1)) +
+  geom_line(aes(x = Date, 
+                y = process_mean),
+             colour = "#264852",
+             lwd = .8) +
+  geom_line(colour = '#999999') +
+  geom_point(aes(fill =  top_label,
+                 colour = top_label), 
+             size = 4, 
+             shape = 21) +
+  geom_line(aes(x = Date,
+                y = lower_control_limit),
+             colour = "#A8423F",
+             linetype="dotted",
+             lwd = .7) +
+  geom_line(aes(x = Date,
+                 y = upper_control_limit),
+             colour = "#A8423F",
+             linetype="dotted",
+             lwd = .7) +
+  geom_line(aes(x = Date, 
+                y = two_sigma_uci),
+             colour = "#3d2b65",
+             linetype="dashed",
+             lwd = .7) +
+  geom_line(aes(x = Date,
+                y = two_sigma_lci),
+             colour = "#3d2b65",
+             linetype="dashed",
+             lwd = .7) +
+  geom_line(aes(x = Date,
+                 y = one_sigma_uci),
+             colour = "#45748d",
+             linetype="solid",
+             lwd = .4) +
+  geom_line(aes(x = Date,
+                y = one_sigma_lci),
+             colour = "#45748d",
+             linetype="solid",
+             lwd = .4) +  
+  scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(nhs_pathways$Date) -(52*7), max(nhs_pathways$Date), by = 7),
+               limits = c(min(nhs_pathways$Date), max(nhs_pathways$Date)),
+               expand = c(0.01,0.01)) +
+  scale_y_continuous(labels = comma) +
+  scale_fill_manual(values= c("#b5a7b6","#fdbf00","#cc6633", "#61b8d2","#00fdf6","#832157","#ef4d96", '#5a535b'),
+                    breaks = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                    limits = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                    name = 'Variation key') +  
+  scale_colour_manual(values=  c("#b5a7b6","#fdbf00","#cc6633", "#61b8d2","#00fdf6","#832157","#ef4d96", '#5a535b'),
+                      breaks = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                      limits = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                      name = 'Variation key') +  
+  labs(caption = "Note: Y axis does not start at zero.\nThe red dotted lines represent 99% control limits (3σ, moving range) control limits respectively.\nThe thick solid line represents the long term average.") +
+  theme(legend.position = "bottom", 
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5, size = 8),
+        plot.background = element_rect(fill = "white", colour = "#E2E2E3"), 
+        panel.background = element_rect(fill = '#ffffff'),
+        axis.line = element_line(colour = "#E7E7E7", size = .3),
+        axis.text = element_text(colour = "#000000", size = 8), 
+        plot.title = element_text(colour = "#000000", face = "bold", size = 10, vjust = -.5), 
+        axis.title = element_text(colour = "#000000", face = "bold", size = 8),     
+        panel.grid = element_blank(), 
+        strip.background = element_rect(fill = "#327d9c"),
+        axis.ticks = element_line(colour = "#9e9e9e"),
+        legend.key = element_rect(fill = '#ffffff'),
+        legend.text = element_text(colour = "#000000", size = 8),
+        legend.title = element_text(face = 'bold', size = 8))
+
+
+
+ggplot(data = sussex_spc, aes(x = Date, y = Triage_count, group = 1)) +
+  annotate('rect',
+         xmin = sussex_spc$start_process,
+         xmax = sussex_spc$end_process,
+         ymin = sussex_spc$one_sigma_lci,
+         ymax = sussex_spc$one_sigma_uci,
+         fill = '#d2e8f5',
+         alpha = .01) +
+  annotate('rect',
+           xmin = sussex_spc$start_process,
+           xmax = sussex_spc$end_process,
+           ymin = sussex_spc$one_sigma_uci,
+           ymax = sussex_spc$two_sigma_uci,
+           fill = '#ffecd4',
+           alpha = .01) +
+  annotate('rect',
+           xmin = sussex_spc$start_process,
+           xmax = sussex_spc$end_process,
+           ymin = sussex_spc$one_sigma_lci,
+           ymax = sussex_spc$two_sigma_lci,
+           fill = '#ffecd4',
+           alpha = .01) +
+  annotate('rect',
+           xmin = sussex_spc$start_process,
+           xmax = sussex_spc$end_process,
+           ymin = sussex_spc$two_sigma_uci,
+           ymax = sussex_spc$upper_control_limit,
+           fill = '#edcf66',
+           alpha = .01) +
+  annotate('rect',
+           xmin = sussex_spc$start_process,
+           xmax = sussex_spc$end_process,
+           ymin = sussex_spc$two_sigma_lci,
+           ymax = sussex_spc$lower_control_limit,
+           fill = '#edcf66',
+           alpha = .01) +
+  geom_line(aes(x = Date,
+                y = process_mean),
+             colour = "#264852",
+             lwd = .8) +
+  geom_line(aes(x = Date,
+                y = lower_control_limit),
+             colour = "#A8423F",
+             linetype="dotted",
+             lwd = .7) +
+  geom_line(aes(x = Date,
+                y = upper_control_limit),
+             colour = "#A8423F",
+             linetype="dotted",
+             lwd = .7) +
+  geom_segment(x = as.Date('2020-04-09'), y = 0, xend = as.Date('2020-04-09'), yend = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-09'), select = Triage_count)), color = "red", linetype = "dashed") +
+  geom_segment(x = as.Date('2020-04-23'), y = 0, xend = as.Date('2020-04-23'), yend = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-23'), select = Triage_count)), color = "blue", linetype = "dashed") +
+  geom_segment(x = as.Date('2020-05-18'), y = 0, xend = as.Date('2020-05-18'), yend = as.numeric(subset(sussex_pathways, Date == as.Date('2020-05-18'), select = Triage_count)), color = "red", linetype = "dashed") +
+  geom_line(colour = '#999999') +
+  geom_point(aes(fill =  top_label,
+                 colour = top_label), 
+             size = 4, 
+             shape = 21) +
+  scale_x_date(date_labels = "%b %d",
+               breaks = seq.Date(max(nhs_pathways$Date) -(52*7), max(nhs_pathways$Date), by = 2),
+               limits = c(min(nhs_pathways$Date), max(nhs_pathways$Date)),
+               expand = c(0.01,0.01)) +
+  scale_fill_manual(values= c("#b5a7b6","#fdbf00","#cc6633", "#61b8d2","#00fdf6","#832157","#ef4d96", '#5a535b'),
+                    breaks = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                    limits = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                    name = 'Variation key') +  
+  scale_colour_manual(values=  c("#b5a7b6","#fdbf00","#cc6633", "#61b8d2","#00fdf6","#832157","#ef4d96", '#5a535b'),
+                      breaks = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                      limits = c('Common cause variation', 'Close to limits', 'Special cause concern', 'Run above (shift)', 'Run below (shift)','Trend up (drift)', 'Trend down (drift)', 'Little variation'),
+                      name = 'Variation key') +  
+  scale_y_continuous(labels = comma,
+                     breaks = seq(0,round_any(max(sussex_pathways$Triage_count, na.rm = TRUE), 500, ceiling),250)) +
+  labs(x = 'Date',
+       y = 'Number of complete triages',
+       title = "Total number of complete triages to NHS Pathways for Covid-19; Sussex CCG's combined",
+       subtitle = paste0('Triages via 111 online, 111 phone calls and 999 calls; 18 March - ', latest_triage_date$Date),
+       caption = "Note: The red dotted lines represent 99% control limits (3σ, moving range) control limits respectively\nThe solid line represents the long term average.") +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-08'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-09'), select = Triage_count)),
+           label = '9th April',
+           fontface = 'bold',
+           size = 2.5,
+           hjust = 1,
+           vjust = 1) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-08'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-09'), select = Triage_count)),
+           label = '111 online removed\nfor 0-18 year olds',
+           size = 2.5,
+           hjust = 1,
+           vjust = 1.75) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-23'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-23'), select = Triage_count)),
+           label = '23rd April',
+           fontface = 'bold',
+           size = 2.5,
+           hjust = 0,
+           vjust = -8) +
+  annotate(geom = 'text',
+           x = as.Date('2020-04-23'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-04-23'), select = Triage_count)),
+           label = '111 online reinstated\nfor 5-18 year olds',
+           size = 2.5,
+           hjust = 0,
+           vjust = -1.25) +
+  annotate(geom = 'text',
+           x = as.Date('2020-05-18'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-05-18'), select = Triage_count)),
+           label = '18th May',
+           size = 2.5,
+           fontface = 'bold',
+           hjust = 0,
+           vjust = -6) +
+  annotate(geom = 'text',
+           x = as.Date('2020-05-18'), 
+           y = as.numeric(subset(sussex_pathways, Date == as.Date('2020-05-18'), select = Triage_count)),
+           label = 'Covid-19 pathway case\ndefinition change',
+           size = 2.5,
+           hjust = 0,
+           vjust = -.5) +
+  theme(legend.position = "bottom", 
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5, size = 8),
+        plot.background = element_rect(fill = "white", colour = "#E2E2E3"), 
+        panel.background = element_rect(fill = '#ffffff'),
+        axis.line = element_line(colour = "#E7E7E7", size = .3),
+        axis.text = element_text(colour = "#000000", size = 8), 
+        plot.title = element_text(colour = "#000000", face = "bold", size = 10, vjust = -.5), 
+        axis.title = element_text(colour = "#000000", face = "bold", size = 8),     
+        panel.grid = element_blank(), 
+        strip.background = element_rect(fill = "#327d9c"),
+        axis.ticks = element_line(colour = "#9e9e9e"),
+        legend.key = element_rect(fill = '#ffffff'),
+        legend.text = element_text(colour = "#000000", size = 8),
+        legend.title = element_text(face = 'bold', size = 8))
