@@ -380,16 +380,27 @@ all_deaths_cipfa_SE %>%
 # u = low reliability The age-standardised rate is of low quality.														
 # : = not available The age-standardised rate and its lower and upper confidence interval is unavailable.														
 # Figures are for deaths occurring between 1 March 2020 and 17 April 2020. Figures only include deaths that were registered by 18 April 2020. More information on registration delays can be found on the ONS website:														
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fdeathsinvolvingcovid19bylocalareaanddeprivation%2f1march2020to17april2020/referencetablesdraft.xlsx', paste0(github_repo_dir, '/granular_mortality_file.xlsx'), mode = 'wb')
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fdeathsinvolvingcovid19bylocalareaanddeprivation%2f1march2020to31may2020/referencetablesworkbook1.xlsx', paste0(github_repo_dir, '/granular_mortality_file.xlsx'), mode = 'wb')
 
-la_asmr <- read_excel(paste0(github_repo_dir, '/granular_mortality_file.xlsx'), sheet = "Table 2", skip = 5, col_names = c('Sex',	'Area_type',	'Code',	'Name',	'All_cause_deaths',	'All_cause_ASMR',	'All_cause_ASMR_data_quality',	'All_cause_ASMR_lci',	'All_cause_ASMR_uci',	'null',	'Covid_deaths',	'Covid_ASMR',	'Covid_ASMR_data_quality',	'Covid_ASMR_lci',	'Covid_ASMR_uci'), col_types = c("text", "text", "text", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric", "text", "numeric", "numeric")) %>% 
-  select(-null) %>% 
-  filter(!is.na(Name))
+la_asmr <- read_excel(paste0(github_repo_dir, '/granular_mortality_file.xlsx'), sheet = "Table 2", skip = 5, col_names = c('Cause', 'Sex',' Area_type', 'Code', 'Name', 'null_1', 'March_deaths', 'March_asmr_val', 'null_2', 'March_asmr_lci', 'March_asmer_uci', 'null_3', 'April_deaths', 'April_asmr_val', 'null_4', 'April_asmr_lci', 'April_asmer_uci', 'null_5', 'May_deaths', 'May_asmr_val', 'null_6', 'May_asmr_lci','May_asmr_uci', 'null_7', 'Three_month_deaths', 'Three_month_asmr_val', 'null_8', 'Three_month_asmr_lci', 'Three_month_asmr_uci'), col_types = c('text', 'text','text', 'text', 'text', 'text', 'numeric', 'numeric', 'text', 'numeric', 'numeric', 'text', 'numeric', 'numeric', 'text', 'numeric', 'numeric', 'text', 'numeric', 'numeric', 'text', 'numeric','numeric', 'text', 'numeric', 'numeric', 'text', 'numeric', 'numeric')) %>% 
+ select(-c(null_1,null_2,null_3,null_4,null_5, null_6,null_7, null_8)) %>%
+  filter(!is.na(Name)) %>% 
+  gather(key = 'item', value = 'value', March_deaths:Three_month_asmr_uci) %>% 
+  mutate(Month = ifelse(grepl('March', item), 'March',ifelse(grepl('April', item), 'April',ifelse(grepl('May', item), 'May',ifelse(grepl('Three_month', item), 'March - May 2020', NA))))) %>% 
+  mutate(Measure = ifelse(grepl('deaths', item), 'Deaths',ifelse(grepl('_val', item), 'ASMR',ifelse(grepl('lci', item), 'Rate_lci',ifelse(grepl('uci', item), 'Rate_uci', NA))))) %>% 
+  select(-item) %>% 
+  spread(Measure, value)
 
 la_asmr %>% 
   write.csv(., paste0(github_repo_dir, '/mortality_01_march_to_date_la.csv'), row.names = FALSE, na = '')
 
-msoa_deaths <- read_excel("~/Documents/Repositories/another_covid_repo/granular_mortality_file.xlsx", sheet = "Table 5", col_types = c("text","text", "numeric", "numeric", "numeric"), skip = 11) 
+msoa_deaths <- read_excel(paste0(github_repo_dir, '/granular_mortality_file.xlsx'), sheet = "Table 5", skip = 13, col_names = c('Code', 'Name', 'HOC_name','null_1','March_Covid','April_Covid','May_Covid','Three_months_Covid','null_2','March_Non_Covid','April_Non_Covid','May_Non_Covid','Three_months_Non_Covid','null_3','March_deaths','April_deaths','May_deaths','Three_month_deaths'), col_types = c("text","text", "text", 'text', "numeric", "numeric",'numeric','numeric','text','numeric','numeric','numeric','numeric','text','numeric','numeric','numeric','numeric')) %>% 
+  select(-c(null_1,null_2,null_3)) %>% 
+  gather(key = 'item', value = 'value', March_Covid:Three_month_deaths) %>% 
+  mutate(Month = ifelse(grepl('March', item), 'March',ifelse(grepl('April', item), 'April',ifelse(grepl('May', item), 'May',ifelse(grepl('Three_month', item), 'March - May 2020', NA))))) %>% 
+  mutate(Cause = ifelse(grepl('deaths', item), 'All cause',ifelse(grepl('Non_Covid', item), 'Not Covid-19',ifelse(grepl('Covid', item), 'Covid-19', NA)))) %>% 
+  select(-item) %>% 
+  spread(Cause, value)
 
 msoa_deaths %>% 
   write.csv(., paste0(github_repo_dir, '/mortality_01_march_to_date_msoa.csv'), row.names = FALSE, na = '')

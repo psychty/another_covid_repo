@@ -495,8 +495,7 @@ crude_rate_plot <- ggplot(all_cause_rate_df) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
         legend.key.size = unit(0.5, "lines"),
         strip.text = element_blank()) +
-  facet_grid(Name ~ .) #+
-  # annotate(geom = "text", label = levels(all_cause_rate_df$Name), x = 1, y = round_any(max(all_cause_rate_df$Deaths_crude_rate_uci, na.rm = TRUE), 10, ceiling)-5, size = 3, fontface = "bold", hjust = 0)
+  facet_grid(Name ~ .) 
 
 png(paste0(github_repo_dir, "/Outputs/008_crude_rate_plot.png"), width = 1600, height = 1450, res = 250)
 crude_rate_plot
@@ -597,7 +596,7 @@ read_csv(paste0(github_repo_dir, '/care_home_ons_cipfa.csv')) %>%
   select(Name, `All cause latest week care home summary`, `Covid-19 latest week care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds`, `Total number of all cause care home deaths to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`, `Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours`, `Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds`, `Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours`) %>% 
   write.csv(., paste0(github_repo_dir, '/Outputs/Table_5_cipfa_weekly_deaths_care_home_table.csv'), row.names = FALSE, na = '')
 
-# slide 3 - local asmr data between 01 March and two weeks prior
+# slide 3 - local asmr data March - May ####
 
 asmr_title <- as.character(dates_granular %>% 
   filter(`Worksheet name` == 'Table 2') %>% 
@@ -606,27 +605,42 @@ asmr_title <- as.character(dates_granular %>%
 asmr_title <- gsub('Number of deaths and a', 'A', asmr_title)
 asmr_title <- gsub('Local Authorities in England and Wales', 'Sussex districts and boroughs', asmr_title)
 
-sussex_asmr <- la_asmr %>%
-  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden')) %>%
-  mutate(Name = factor(Name, levels = c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden'))) %>%
+Persons_table <- la_asmr %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex', 'South East','England')) %>% 
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England'))) %>% 
+  arrange(Name) %>% 
+  filter(Sex == 'Persons') %>% 
+  mutate(`Age-standardised rate per 100,000` = paste0(round(ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Rate_lci,0), '-', round(Rate_uci,0))) %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes') %>% 
+  mutate(Deaths = format(Deaths, big.mark = ',', trim = TRUE)) %>% 
+  select(Name, Deaths, `Age-standardised rate per 100,000`) %>% 
+  write.csv(., paste0(github_repo_dir, '/Outputs/Table_6_all_cause_ltla_asmr_table.csv'), row.names = FALSE, na = '')
+
+sussex_cumulative_all_cause_asmr <- la_asmr %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex', 'South East','England')) %>% 
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England'))) %>% 
+  arrange(Name) %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes') %>% 
   mutate(Sex = factor(Sex, levels = c('Females', 'Persons', 'Males')))
-# 
-all_cause_ltla_asmr_plot <- ggplot(sussex_asmr,
+
+all_cause_ltla_asmr_plot <- ggplot(sussex_cumulative_all_cause_asmr,
        aes(x = Name,
-           y = All_cause_ASMR,
+           y = ASMR,
            fill = Name)) +
   geom_bar(stat = 'identity',
            colour = '#ffffff',
            size = .25) +
-  geom_errorbar(aes(ymin = All_cause_ASMR, ymax = All_cause_ASMR_uci), colour = "#919191", width = 0.25) +
-  geom_errorbar(aes(ymin = All_cause_ASMR_lci, ymax = All_cause_ASMR), colour = "#ffffff", width = 0.25) +
+  geom_errorbar(aes(ymin = ASMR, ymax = Rate_uci), colour = "#919191", width = 0.25) +
+  geom_errorbar(aes(ymin = Rate_lci, ymax = ASMR), colour = "#ffffff", width = 0.25) +
   # scale_fill_manual(values = c("#c85979",  "#cb5336",  "#c18b41",  "#7ca343",  "#49ae8a",  "#6980ce",  "#b460bd",'#E56C39', '#A4A3A4', '#DAD8DA')) +
   labs(title = paste0(asmr_title),
        subtitle = 'All cause mortality rates per 100,000 people (2013 European Standard Population)',
        x = '',
        y = 'Number of deaths\nper 100,000 ESP') +
-  scale_y_continuous(breaks = seq(0,round_any(max(sussex_asmr$All_cause_ASMR_uci, na.rm = TRUE), 20, ceiling),20),
-                     limits = c(0,round_any(max(sussex_asmr$All_cause_ASMR_uci, na.rm = TRUE), 20, ceiling))) +
+  scale_y_continuous(breaks = seq(0,round_any(max(sussex_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling),20),
+                     limits = c(0,round_any(max(sussex_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling))) +
   facet_rep_grid(. ~ Sex, repeat.tick.labels = TRUE) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
@@ -636,38 +650,28 @@ png(paste0(github_repo_dir, "/Outputs/010_all_cause_ltla_asmr_plot.png"), width 
 all_cause_ltla_asmr_plot
 dev.off()
 
-la_asmr %>% 
-  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England')) %>% 
-  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England'))) %>% 
-  filter(Sex == 'Persons') %>% 
-  mutate(`All cause deaths` = paste0(format(All_cause_deaths, big.mark = ',', trim = TRUE)),
-         `Age-standardised rate per 100,000` = paste0(round(All_cause_ASMR,0), ' per 100,000 ESP, 95% CI: ', round(All_cause_ASMR_lci,0), '-', round(All_cause_ASMR_uci,0))) %>%
-  select(Name, `All cause deaths`, `Age-standardised rate per 100,000`) %>% 
-  write.csv(., paste0(github_repo_dir, '/Outputs/Table_6_all_cause_ltla_asmr_table.csv'), row.names = FALSE, na = '')
-
 second_asmr_title <- gsub('districts and boroughs', 'compared to South East region and England', asmr_title)
 
-utla_asmr <- la_asmr %>% 
+utla_cumulative_all_cause_asmr <- sussex_cumulative_all_cause_asmr %>% 
   filter(Name %in% c('Brighton and Hove', 'East Sussex','West Sussex', 'South East', 'England')) %>% 
-  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex', 'South East', 'England'))) %>% 
-  mutate(Sex = factor(Sex, levels = c('Females', 'Persons', 'Males')))
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex', 'South East', 'England')))
 
-utla_asmr_plot <- ggplot(utla_asmr,
+utla_asmr_plot <- ggplot(utla_cumulative_all_cause_asmr,
        aes(x = Sex,
-           y = All_cause_ASMR,
+           y = ASMR,
            fill = Sex)) +
   geom_bar(stat = 'identity',
            colour = '#ffffff',
            size = .25) +
-  geom_errorbar(aes(ymin = All_cause_ASMR, ymax = All_cause_ASMR_uci), colour = "#919191", width = 0.25) +  
-  geom_errorbar(aes(ymin = All_cause_ASMR_lci, ymax = All_cause_ASMR), colour = "#ffffff", width = 0.25) +  
+  geom_errorbar(aes(ymin = ASMR, ymax = Rate_uci), colour = "#919191", width = 0.25) +  
+  geom_errorbar(aes(ymin = Rate_lci, ymax = ASMR), colour = "#ffffff", width = 0.25) +  
   scale_fill_manual(values = c('#F76402','#172343', '#45C3FF')) +
   labs(title = paste0(second_asmr_title),
        subtitle = 'All cause mortality rates per 100,000 people (2013 European Standard Population)',
        x = '',
        y = 'Number of deaths\nper 100,000 ESP') +
-  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr$All_cause_ASMR_uci, na.rm = TRUE), 20, ceiling),20),
-                     limits = c(0,round_any(max(utla_asmr$All_cause_ASMR_uci, na.rm = TRUE), 20, ceiling))) +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling),20),
+                     limits = c(0,round_any(max(utla_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling))) +
   facet_rep_grid(. ~ Name,  repeat.tick.labels = FALSE) +
   ph_theme() +
   theme(axis.text.x = element_blank()) 
@@ -682,59 +686,74 @@ third_asmr_title <- gsub('by sex, Sussex compared to South East region and Engla
 ltla_codes <- read_csv('https://opendata.arcgis.com/datasets/35de30c6778b463a8305939216656132_0.csv')
 
 ltla_asmr_all_cause <- la_asmr %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes',
+         Sex == 'Persons') %>% 
   filter(Code %in% ltla_codes$LAD19CD) %>% 
   filter(substr(Code, 1,1) == 'E') %>% 
-  filter(Sex == 'Persons') %>% 
-  arrange(-All_cause_ASMR) %>% 
-  mutate(Rank_all_cause = rank(-All_cause_ASMR)) %>% 
-  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', All_cause_deaths, ' deaths)')) %>% 
+  arrange(-ASMR) %>% 
+  mutate(Rank_all_cause = rank(-ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', Deaths, ' deaths)')) %>% 
   mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
   mutate(Area_highlight = ifelse(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden'), 'Highlight', 'No highlight'))
 
 eng_asmr <- la_asmr %>% 
   filter(Name %in% c('England')) %>% 
-  filter(Sex == 'Persons')
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes',
+         Sex == 'Persons') 
 
 se_asmr <- la_asmr %>% 
   filter(Name %in% c('South East')) %>% 
-  filter(Sex == 'Persons')
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes',
+         Sex == 'Persons') 
 
 ltla_asmr_all_cause_plot <- ggplot(ltla_asmr_all_cause,
          aes(x = Name_label,
-             y = All_cause_ASMR,
+             y = ASMR,
              fill = Area_highlight,
              colour = Area_highlight)) +
   geom_bar(stat = 'identity') +
-  geom_hline(yintercept = eng_asmr$All_cause_ASMR,
+  geom_hline(yintercept = eng_asmr$ASMR,
              colour = '#ff6632',
              lty = 'longdash') +
   annotate('text',
            label = 'England',
            x = 5, 
-           y = eng_asmr$All_cause_ASMR,
+           y = eng_asmr$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
            vjust = -1) +
-  geom_hline(yintercept = se_asmr$All_cause_ASMR,
+  geom_hline(yintercept = se_asmr$ASMR,
              colour = '#5d1048',
              lty = 'longdash') +
   annotate('text',
            label = 'South East region',
            x = 5, 
-           y = se_asmr$All_cause_ASMR,
+           y = se_asmr$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
            vjust = -1) +
-  geom_text(data = subset(ltla_asmr_all_cause, Area_highlight == 'Highlight'),
+  geom_text(data = subset(ltla_asmr_all_cause, Area_highlight == 'Highlight' & Name %in% c('Mid Sussex', 'Eastbourne','Adur','Chichester')),
             size = 3.5,
             angle = 90,
             hjust = -.05,
-            aes(label = Name_label)) + 
-  # annotate(geom = "text", x = 19, y = 150, label = "Helpful annotation", color = "red",
-  #          fill = '#ffffff',
-  #            angle = 90) +
+            aes(label = Name_label)) + # these are plotted in the middle
+  geom_text(data = subset(ltla_asmr_all_cause, Name %in% c('Arun','Wealden','Worthing', 'Crawley', 'Lewes')),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            nudge_x = -2.5,
+            aes(label = Name_label)) + # nudged left
+  geom_text(data = subset(ltla_asmr_all_cause, Name %in% c('Brighton and Hove', 'Hastings', 'Rother', 'Horsham')),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            nudge_x = 2,
+            aes(label = Name_label)) + # nudged right
   labs(title = third_asmr_title,
        subtitle = 'All causes',
        caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
@@ -742,8 +761,8 @@ ltla_asmr_all_cause_plot <- ggplot(ltla_asmr_all_cause,
        y = 'Age-standardised rate\ndeaths per 100,000') +
   scale_fill_manual(values = c('#212c3d', '#e8c387')) +
   scale_colour_manual(values = c('#212c3d', '#e8c387')) +
-  scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling),25),
-                     limits = c(0,round_any(max(ltla_asmr_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling)),
+  scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_all_cause$ASMR, na.rm = TRUE), 50, ceiling),25),
+                     limits = c(0,round_any(max(ltla_asmr_all_cause$ASMR, na.rm = TRUE), 50, ceiling)),
                      expand = c(0,0.1)) +
   ph_theme() +
   theme(axis.text.x = element_blank(),
@@ -770,49 +789,54 @@ if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
 }
 
 utla_asmr_bars_all_cause <- la_asmr %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes',
+         Sex == 'Persons') %>% 
   filter(Code %in% lookup$UTLA19CD) %>% 
-  filter(Sex == 'Persons') %>% 
-  arrange(-All_cause_ASMR) %>% 
-  mutate(Rank_all_cause = rank(-All_cause_ASMR)) %>% 
-  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', All_cause_deaths, ' deaths)')) %>% 
+  arrange(-ASMR) %>% 
+  mutate(Rank_all_cause = rank(-ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', Deaths, ' deaths)')) %>% 
   mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
   mutate(Area_highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex','West Sussex'), 'Highlight', 'No highlight'))
 
 eng_asmr <- la_asmr %>% 
-  filter(Name %in% c('England')) %>% 
-  filter(Sex == 'Persons')
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes',
+         Sex == 'Persons') %>% 
+  filter(Name %in% c('England'))
 
 se_asmr <- la_asmr %>% 
-  filter(Name %in% c('South East')) %>% 
-  filter(Sex == 'Persons')
+  filter(Month == 'March - May 2020',
+         Cause == 'All causes',
+         Sex == 'Persons') %>%  
+  filter(Name %in% c('South East'))
 
 third_asmr_title_utla <- gsub('Lower', 'Upper', third_asmr_title)
 
-
 utla_asmr_all_cause_plot <- ggplot(utla_asmr_bars_all_cause,
        aes(x = Name_label,
-           y = All_cause_ASMR,
+           y = ASMR,
            fill = Area_highlight,
            colour = Area_highlight)) +
   geom_bar(stat = 'identity') +
-  geom_hline(yintercept = eng_asmr$All_cause_ASMR,
+  geom_hline(yintercept = eng_asmr$ASMR,
              colour = '#ff6632',
              lty = 'longdash') +
   annotate('text',
            label = 'England',
            x = 5, 
-           y = eng_asmr$All_cause_ASMR,
+           y = eng_asmr$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
            vjust = -1) +
-  geom_hline(yintercept = se_asmr$All_cause_ASMR,
+  geom_hline(yintercept = se_asmr$ASMR,
              colour = '#5d1048',
              lty = 'longdash') +
   annotate('text',
            label = 'South East region',
            x = 5, 
-           y = se_asmr$All_cause_ASMR,
+           y = se_asmr$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
@@ -829,8 +853,8 @@ utla_asmr_all_cause_plot <- ggplot(utla_asmr_bars_all_cause,
        y = 'Age-standardised rate\ndeaths per 100,000') +
   scale_fill_manual(values = c('#212c3d', '#e8c387')) +
   scale_colour_manual(values = c('#212c3d', '#e8c387')) +
-  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling),25),
-                     limits = c(0,round_any(max(utla_asmr_bars_all_cause$All_cause_ASMR, na.rm = TRUE), 50, ceiling)),
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_all_cause$ASMR, na.rm = TRUE), 50, ceiling),25),
+                     limits = c(0,round_any(max(utla_asmr_bars_all_cause$ASMR, na.rm = TRUE), 50, ceiling)),
                      expand = c(0,0.1)) +
   ph_theme() +
   theme(axis.text.x = element_blank(),
@@ -840,6 +864,72 @@ png(paste0(github_repo_dir, "/Outputs/012_utla_asmr_all_cause_plot.png"), width 
 utla_asmr_all_cause_plot
 dev.off()
 
+# over time ####
+
+three_month_la_asmr <- la_asmr %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex')) %>% 
+  mutate(Name = factor(Name, levels = rev(c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing')))) %>% 
+  mutate(Area_highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'), 'bold', 'plain')) %>% 
+  arrange(Name) %>% 
+  filter(Sex == 'Persons') %>% 
+  mutate(`Age-standardised rate per 100,000` = paste0(round(ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Rate_lci,0), '-', round(Rate_uci,0))) %>% 
+  filter(Cause == 'All causes') %>% 
+  mutate(Deaths = format(Deaths, big.mark = ',', trim = TRUE)) %>% 
+  mutate(Month = factor(Month, levels = c('March', 'April', 'May', 'March - May 2020')))
+
+highlight_three_month_la_asmr <- three_month_la_asmr %>% 
+  select(Name, Area_highlight) %>% 
+  unique()
+
+eng_three_month_la_asmr <- la_asmr %>% 
+  filter(Name == 'England') %>% 
+  filter(Sex == 'Persons') %>% 
+  mutate(`Age-standardised rate per 100,000` = paste0(round(ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Rate_lci,0), '-', round(Rate_uci,0))) %>% 
+  filter(Cause == 'All causes') %>% 
+  mutate(Deaths = format(Deaths, big.mark = ',', trim = TRUE)) %>% 
+  mutate(Month = factor(Month, levels = c('March', 'April', 'May', 'March - May 2020'))) %>% 
+  rename(Eng_ASMR = ASMR,
+         Eng_lci = Rate_lci,
+         Eng_uci = Rate_uci) %>% 
+  select(Month, Eng_lci, Eng_ASMR, Eng_uci)
+
+three_month_la_asmr_final <- three_month_la_asmr %>% 
+  left_join(eng_three_month_la_asmr, by = 'Month') %>% 
+  mutate(significance = factor(ifelse(Rate_uci < Eng_lci, 'Significantly lower', ifelse(Rate_lci > Eng_uci, 'Significantly higher', 'Statistically similar')), levels = c('Significantly lower', 'Statistically similar', 'Significantly higher')))
+
+asmr_over_time_all_cause_plot <- ggplot(three_month_la_asmr_final,
+       aes(x = Name,
+           y = ASMR,
+           fill = significance)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_manual(values = c("#92D050", "#FFC000","#C00000"),
+                    breaks = c('Significantly lower','Statistically similar','Significantly higher'),
+                    name = 'Compared\nto England',
+                    drop = FALSE) +
+  geom_bar(stat = 'identity',
+           colour = '#ffffff',
+           size = .25) +
+  geom_errorbar(aes(ymin = Rate_lci, ymax = Rate_uci), colour = "#919191", width = 0.25) +  
+  labs(title = 'Age standardised mortality rates; Sussex areas, deaths occuring March to May 2020; Persons',
+       subtitle = 'All cause mortality rates per 100,000 people (2013 European Standard Population)',
+       x = 'Month',
+       y = 'Number of deaths\nper 100,000 ESP',
+       caption = 'Dashed line represents national (England) age standardised rate') +
+  geom_hline(data = eng_three_month_la_asmr, 
+             aes(yintercept = Eng_ASMR),
+             colour = '#003389',
+             lty = 'longdash') +
+  scale_y_continuous(breaks = seq(0,400, 100),
+                     limits = c(0,400)) +
+  coord_flip() +
+  facet_grid(. ~ Month) +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5),
+        axis.text.y = element_text(colour = "#323232", face = highlight_three_month_la_asmr$Area_highlight, size = 8)) 
+
+png(paste0(github_repo_dir, "/Outputs/sussex_asmr_all_cause_over_time_plot.png"), width = 1300, height = 750, res = 110)
+asmr_over_time_all_cause_plot
+dev.off()
 
 # msoa_boundaries
 lookup_msoa_la <- read_csv('https://opendata.arcgis.com/datasets/fe6c55f0924b4734adf1cf7104a0173e_0.csv') %>% 
@@ -848,14 +938,15 @@ lookup_msoa_la <- read_csv('https://opendata.arcgis.com/datasets/fe6c55f0924b473
   unique()
 
 msoa_deaths <- read_csv(paste0(github_repo_dir, '/mortality_01_march_to_date_msoa.csv')) %>% 
-  rename(All_cause_deaths = 'All causes',
-         Covid_19_mentioned = 'COVID-19',
-         Proportion_covid_19 = 'COVID-19 deaths as a percentage of all causes (%)',
-         msoa11cd = 'MSOA code',
-         msoa11nm = 'MSOA name') %>% 
-  filter(msoa11cd %in% lookup_msoa_la$MSOA11CD) %>% 
-  mutate(all_cause_bins = factor(ifelse(All_cause_deaths == 0, 'None', ifelse(All_cause_deaths <= 5, '1-5 deaths', ifelse(All_cause_deaths <= 15, '6-15', ifelse(All_cause_deaths <= 25, '16-25', ifelse(All_cause_deaths <= 35, '26-35', ifelse(All_cause_deaths <= 45, '36-45', NA)))))), levels = c('None', '1-5 deaths', '6-15', '16-25','26-35','36-45'))) %>% 
-  mutate(covid_mentioned_bins = factor(ifelse(Covid_19_mentioned == 0, 'None', ifelse(Covid_19_mentioned <= 5, '1-5 deaths', ifelse(Covid_19_mentioned <= 10, '6-10', ifelse(Covid_19_mentioned <= 15, '11-15', NA)))), levels = c('None', '1-5 deaths', '6-10', '11-15'))) %>% 
+  rename(All_cause_deaths = 'All cause',
+         Covid_19_mentioned = 'Covid-19',
+         msoa11cd = 'Code',
+         msoa11nm = 'Name') %>% 
+  filter(msoa11cd %in% lookup_msoa_la$MSOA11CD,
+         Month == 'March - May 2020')%>%
+  mutate(Proportion_covid_19 = Covid_19_mentioned / All_cause_deaths * 100) %>% 
+  mutate(all_cause_bins = factor(ifelse(All_cause_deaths == 0, 'None', ifelse(All_cause_deaths <= 10, '1-10 deaths', ifelse(All_cause_deaths <= 20, '11-20', ifelse(All_cause_deaths <= 30, '21-30', ifelse(All_cause_deaths <= 40, '31-40', ifelse(All_cause_deaths <= 50, '41-50',ifelse(All_cause_deaths <= 60, '51-60',ifelse(All_cause_deaths <= 70, '61-70',ifelse(All_cause_deaths <= 80, '71-80',ifelse(All_cause_deaths <= 90, '81-90', ifelse(All_cause_deaths <= 100, '91-100', NA ))))))))))), levels = c('None', '1-10 deaths', '11-20', '21-30','31-40','41-50','51-60','61-70','71-80','81-90','91-100'))) %>% 
+  mutate(covid_mentioned_bins = factor(ifelse(Covid_19_mentioned == 0, 'None', ifelse(Covid_19_mentioned <= 5, '1-5 deaths', ifelse(Covid_19_mentioned <= 10, '6-10', ifelse(Covid_19_mentioned <= 15, '11-15', ifelse(Covid_19_mentioned <= 20, '16-20',ifelse(Covid_19_mentioned <= 25, '21-25',ifelse(Covid_19_mentioned <= 30, '26-30', ifelse(Covid_19_mentioned <= 35, '31-35', NA )))))))), levels = c('None', '1-5 deaths', '6-10', '11-15', '16-20','21-25','26-30','31-35'))) %>% 
   mutate(Proportion_covid_bins = factor(ifelse(is.na(Proportion_covid_19), 'None', ifelse(Proportion_covid_19 == 0, 'None', ifelse(Proportion_covid_19 <= 20, '1-20% of deaths', ifelse(Proportion_covid_19 <= 40, '21-40%', ifelse(Proportion_covid_19 <= 60, '41-60%', ifelse(Proportion_covid_19 <= 80, '61-80%', ifelse(Proportion_covid_19 <= 100, '81-100%', NA))))))), levels = c('None', '1-20% of deaths', '21-40%','41-60%','61-80%','81-100%')))
 
 # summary(msoa_deaths$All_cause_deaths)
@@ -910,7 +1001,7 @@ total_msoa_deaths_plot <- ggplot() +
   coord_fixed(1.5) + 
   map_theme() +
   labs(title = msoa_total_title) +
-  scale_fill_manual(values = c('#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'),
+  scale_fill_manual(values = c('#fff7f3','#fde0dd','#fcc5c0','#fa9fb5','#f768a1','#dd3497','#ae017e','#7a0177','#49006a'),
                     name = 'Total deaths') +
   geom_polygon(data = County_boundary, aes(x=long, y=lat, group = group), 
                color="#000000", 
@@ -926,128 +1017,157 @@ png(paste0(github_repo_dir, "/Outputs/013_total_msoa_deaths_plot.png"), width = 
 total_msoa_deaths_plot
 dev.off()
 
-covid_ltla_asmr_plot <- ggplot(sussex_asmr,
-         aes(x = Name,
-             y = Covid_ASMR,
-             fill = Name)) +
+la_asmr %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex', 'South East','England')) %>% 
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England'))) %>% 
+  arrange(Name) %>% 
+  filter(Sex == 'Persons') %>% 
+  mutate(`Age-standardised rate per 100,000` = paste0(round(ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Rate_lci,0), '-', round(Rate_uci,0))) %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19') %>% 
+  mutate(Deaths = format(Deaths, big.mark = ',', trim = TRUE)) %>% 
+  select(Name, Deaths, `Age-standardised rate per 100,000`) %>% 
+  write.csv(., paste0(github_repo_dir, '/Outputs/Table_7_covid_ltla_asmr_table.csv'), row.names = FALSE, na = '')
+
+sussex_cumulative_covid_asmr <- la_asmr %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex', 'South East','England')) %>% 
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England'))) %>% 
+  arrange(Name) %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19') %>% 
+  mutate(Sex = factor(Sex, levels = c('Females', 'Persons', 'Males')))
+
+covid_ltla_asmr_plot <- ggplot(sussex_cumulative_covid_asmr,
+                               aes(x = Name,
+                                   y = ASMR,
+                                   fill = Name)) +
   geom_bar(stat = 'identity',
            colour = '#ffffff',
            size = .25) +
-  geom_errorbar(aes(ymin = Covid_ASMR, ymax = Covid_ASMR_uci), colour = "#919191", width = 0.25) +  
-  geom_errorbar(aes(ymin = Covid_ASMR_lci, ymax = Covid_ASMR), colour = "#ffffff", width = 0.25) +  
+  geom_errorbar(aes(ymin = ASMR, ymax = Rate_uci), colour = "#919191", width = 0.25) +
+  geom_errorbar(aes(ymin = Rate_lci, ymax = ASMR), colour = "#ffffff", width = 0.25) +
+  # scale_fill_manual(values = c("#c85979",  "#cb5336",  "#c18b41",  "#7ca343",  "#49ae8a",  "#6980ce",  "#b460bd",'#E56C39', '#A4A3A4', '#DAD8DA')) +
   labs(title = paste0(asmr_title),
        subtitle = 'Covid-19 mortality rates per 100,000 people (2013 European Standard Population)',
        x = '',
        y = 'Number of deaths\nper 100,000 ESP') +
-  scale_y_continuous(breaks = seq(0,round_any(max(sussex_asmr$Covid_ASMR_uci, na.rm = TRUE), 10, ceiling),10),
-                     limits = c(0,round_any(max(sussex_asmr$Covid_ASMR_uci, na.rm = TRUE), 10, ceiling))) +
+  scale_y_continuous(breaks = seq(0,round_any(max(sussex_cumulative_covid_asmr$Rate_uci, na.rm = TRUE), 20, ceiling),20),
+                     limits = c(0,round_any(max(sussex_cumulative_covid_asmr$Rate_uci, na.rm = TRUE), 20, ceiling))) +
   facet_rep_grid(. ~ Sex, repeat.tick.labels = TRUE) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
-        legend.position = "none") 
+        legend.position = "none")
 
 png(paste0(github_repo_dir, "/Outputs/014_covid_ltla_asmr_plot.png"), width = 1600, height = 550, res = 150)
 covid_ltla_asmr_plot
 dev.off()
 
-la_asmr %>% 
-  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England')) %>% 
-  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','South East', 'England'))) %>% 
-  filter(Sex == 'Persons') %>% 
-  mutate(`Covid-19 deaths` = paste0(format(Covid_deaths, big.mark = ',', trim = TRUE)),
-         `Age-standardised rate per 100,000` = paste0(round(Covid_ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Covid_ASMR_lci,0), '-', round(Covid_ASMR_uci,0))) %>%
-  select(Name, `Covid-19 deaths`, `Age-standardised rate per 100,000`) %>% 
-  write.csv(., paste0(github_repo_dir, '/Outputs/Table_7_covid_ltla_asmr_table.csv'), row.names = FALSE, na = '')
+utla_cumulative_covid_asmr <- sussex_cumulative_covid_asmr %>% 
+  filter(Name %in% c('Brighton and Hove', 'East Sussex','West Sussex', 'South East', 'England')) %>% 
+  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex', 'South East', 'England')))
 
-utla_asmr_covid_plot <- ggplot(utla_asmr,
-                         aes(x = Sex,
-                             y = Covid_ASMR,
-                             fill = Sex)) +
+utla_asmr_plot_2 <- ggplot(utla_cumulative_covid_asmr,
+                           aes(x = Sex,
+                               y = ASMR,
+                               fill = Sex)) +
   geom_bar(stat = 'identity',
            colour = '#ffffff',
            size = .25) +
-  geom_errorbar(aes(ymin = Covid_ASMR, ymax = Covid_ASMR_uci), colour = "#919191", width = 0.25) +  
-  geom_errorbar(aes(ymin = Covid_ASMR_lci, ymax = Covid_ASMR), colour = "#ffffff", width = 0.25) +  
+  geom_errorbar(aes(ymin = ASMR, ymax = Rate_uci), colour = "#919191", width = 0.25) +  
+  geom_errorbar(aes(ymin = Rate_lci, ymax = ASMR), colour = "#ffffff", width = 0.25) +  
   scale_fill_manual(values = c('#F76402','#172343', '#45C3FF')) +
   labs(title = paste0(second_asmr_title),
        subtitle = 'Covid-19 mortality rates per 100,000 people (2013 European Standard Population)',
        x = '',
        y = 'Number of deaths\nper 100,000 ESP') +
-  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr$Covid_ASMR_uci, na.rm = TRUE), 10, ceiling),10),
-                     limits = c(0,round_any(max(utla_asmr$Covid_ASMR_uci, na.rm = TRUE), 10, ceiling))) +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_cumulative_covid_asmr$Rate_uci, na.rm = TRUE), 20, ceiling),20),
+                     limits = c(0,round_any(max(utla_cumulative_covid_asmr$Rate_uci, na.rm = TRUE), 20, ceiling))) +
   facet_rep_grid(. ~ Name,  repeat.tick.labels = FALSE) +
   ph_theme() +
   theme(axis.text.x = element_blank()) 
 
 png(paste0(github_repo_dir, "/Outputs/015_covid_utla_asmr_plot.png"), width = 1080, height = 400, res = 100)
-utla_asmr_covid_plot
+utla_asmr_plot_2
 dev.off()
 
 ltla_asmr_covid <- la_asmr %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19',
+         Sex == 'Persons') %>% 
   filter(Code %in% ltla_codes$LAD19CD) %>% 
   filter(substr(Code, 1,1) == 'E') %>% 
-  filter(Sex == 'Persons') %>% 
-  arrange(-Covid_ASMR) %>% 
-  mutate(Rank_covid = rank(-Covid_ASMR)) %>% 
-  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_covid), ', ', Covid_deaths, ' deaths)')) %>% 
+  arrange(-ASMR) %>% 
+  mutate(Rank_all_cause = rank(-ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', Deaths, ' deaths)')) %>% 
   mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
   mutate(Area_highlight = ifelse(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden'), 'Highlight', 'No highlight'))
 
-ltla_asmr_covid_plot <-
-  ggplot(ltla_asmr_covid,
-         aes(x = Name_label,
-             y = Covid_ASMR,
-             fill = Area_highlight,
-             colour = Area_highlight)) +
+eng_asmr_2 <- la_asmr %>% 
+  filter(Name %in% c('England')) %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19',
+         Sex == 'Persons') 
+
+se_asmr_2 <- la_asmr %>% 
+  filter(Name %in% c('South East')) %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19',
+         Sex == 'Persons') 
+
+ltla_asmr_covid_plot <- ggplot(ltla_asmr_covid,
+                               aes(x = Name_label,
+                                   y = ASMR,
+                                   fill = Area_highlight,
+                                   colour = Area_highlight)) +
   geom_bar(stat = 'identity') +
-  geom_hline(yintercept = eng_asmr$Covid_ASMR,
+  geom_hline(yintercept = eng_asmr_2$ASMR,
              colour = '#ff6632',
              lty = 'longdash') +
   annotate('text',
            label = 'England',
            x = 5, 
-           y = eng_asmr$Covid_ASMR,
+           y = eng_asmr_2$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
            vjust = -1) +
-  geom_hline(yintercept = se_asmr$Covid_ASMR,
+  geom_hline(yintercept = se_asmr_2$ASMR,
              colour = '#5d1048',
              lty = 'longdash') +
   annotate('text',
            label = 'South East region',
            x = 5, 
-           y = se_asmr$Covid_ASMR,
+           y = se_asmr_2$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
            vjust = -1) +
-  geom_text(data = subset(ltla_asmr_covid, Area_highlight == 'Highlight' & !(Name %in% c('Chichester','Adur','Arun','Eastbourne'))),
+  geom_text(data = subset(ltla_asmr_covid, Area_highlight == 'Highlight' & Name %in% c('Arun','Wealden','Mid Sussex', 'Eastbourne','Chichester', 'Crawley', 'Lewes', 'Brighton and Hove', 'Hastings', 'Rother', 'Horsham')),
             size = 3.5,
             angle = 90,
             hjust = -.05,
-            aes(label = Name_label)) + 
-  geom_text(data = subset(ltla_asmr_covid, Name %in% c('Chichester', 'Adur', 'Arun')),
+            aes(label = Name_label)) + # these are plotted in the middle
+  geom_text(data = subset(ltla_asmr_covid, Name %in% c('Worthing')),
             size = 3.5,
             angle = 90,
             hjust = -.05,
             nudge_x = -2.5,
-            aes(label = Name_label)) + 
-    geom_text(data = subset(ltla_asmr_covid, Name %in% c('Eastbourne')),
-              size = 3.5,
-              angle = 90,
-              hjust = -.05,
-              nudge_x = 2,
-              aes(label = Name_label)) + 
+            aes(label = Name_label)) + # nudged left
+  geom_text(data = subset(ltla_asmr_covid, Name %in% c('Adur')),
+            size = 3.5,
+            angle = 90,
+            hjust = -.05,
+            nudge_x = 2,
+            aes(label = Name_label)) + # nudged right
   labs(title = third_asmr_title,
        subtitle = 'Covid-19 mentioned as underlying or contributing cause',
        caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
        x = 'Area',
        y = 'Age-standardised rate\ndeaths per 100,000') +
-  scale_fill_manual(values = c('#212c3d', '#f2cdd7')) +
-  scale_colour_manual(values = c('#212c3d', '#f2cdd7')) +
-  scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling),20),
-                     limits = c(0,round_any(max(ltla_asmr_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling)),
+  scale_fill_manual(values = c('#212c3d', '#e8c387')) +
+  scale_colour_manual(values = c('#212c3d', '#e8c387')) +
+  scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_covid$ASMR, na.rm = TRUE), 50, ceiling),25),
+                     limits = c(0,round_any(max(ltla_asmr_covid$ASMR, na.rm = TRUE), 50, ceiling)),
                      expand = c(0,0.1)) +
   ph_theme() +
   theme(axis.text.x = element_blank(),
@@ -1058,39 +1178,52 @@ ltla_asmr_covid_plot
 dev.off()
 
 utla_asmr_bars_covid <- la_asmr %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19',
+         Sex == 'Persons') %>% 
   filter(Code %in% lookup$UTLA19CD) %>% 
-  filter(Sex == 'Persons') %>% 
-  arrange(-Covid_ASMR) %>% 
-  mutate(Rank_covid = rank(-Covid_ASMR)) %>% 
-  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_covid), ', ', Covid_deaths, ' deaths)')) %>% 
+  arrange(-ASMR) %>% 
+  mutate(Rank_all_cause = rank(-ASMR)) %>% 
+  mutate(Name_label = paste0(Name, ' (', ordinal(Rank_all_cause), ', ', Deaths, ' deaths)')) %>% 
   mutate(Name_label = factor(Name_label, levels = Name_label)) %>% 
   mutate(Area_highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex','West Sussex'), 'Highlight', 'No highlight'))
 
-utla_asmr_covid_plot <-
-  ggplot(utla_asmr_bars_covid,
-         aes(x = Name_label,
-             y = Covid_ASMR,
-             fill = Area_highlight,
-             colour = Area_highlight)) +
+eng_asmr_3 <- la_asmr %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19',
+         Sex == 'Persons') %>% 
+  filter(Name %in% c('England'))
+
+se_asmr_3 <- la_asmr %>% 
+  filter(Month == 'March - May 2020',
+         Cause == 'COVID-19',
+         Sex == 'Persons') %>% 
+  filter(Name %in% c('South East'))
+
+utla_asmr_covid_plot <- ggplot(utla_asmr_bars_covid,
+                               aes(x = Name_label,
+                                   y = ASMR,
+                                   fill = Area_highlight,
+                                   colour = Area_highlight)) +
   geom_bar(stat = 'identity') +
-  geom_hline(yintercept = eng_asmr$Covid_ASMR,
+  geom_hline(yintercept = eng_asmr_3$ASMR,
              colour = '#ff6632',
              lty = 'longdash') +
   annotate('text',
            label = 'England',
            x = 5, 
-           y = eng_asmr$Covid_ASMR,
+           y = eng_asmr_3$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
            vjust = -1) +
-  geom_hline(yintercept = se_asmr$Covid_ASMR,
+  geom_hline(yintercept = se_asmr_3$ASMR,
              colour = '#5d1048',
              lty = 'longdash') +
   annotate('text',
            label = 'South East region',
            x = 5, 
-           y = se_asmr$Covid_ASMR,
+           y = se_asmr_3$ASMR,
            colour = '#000000',
            size = 3,
            hjust = 0,
@@ -1105,10 +1238,10 @@ utla_asmr_covid_plot <-
        caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
        x = 'Area',
        y = 'Age-standardised rate\ndeaths per 100,000') +
-  scale_fill_manual(values = c('#212c3d', '#f2cdd7')) +
-  scale_colour_manual(values = c('#212c3d', '#f2cdd7')) +
-  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling),20),
-                     limits = c(0,round_any(max(utla_asmr_bars_covid$Covid_ASMR, na.rm = TRUE), 20, ceiling)),
+  scale_fill_manual(values = c('#212c3d', '#e8c387')) +
+  scale_colour_manual(values = c('#212c3d', '#e8c387')) +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_covid$ASMR, na.rm = TRUE), 50, ceiling),25),
+                     limits = c(0,round_any(max(utla_asmr_bars_covid$ASMR, na.rm = TRUE), 50, ceiling)),
                      expand = c(0,0.1)) +
   ph_theme() +
   theme(axis.text.x = element_blank(),
@@ -1118,10 +1251,73 @@ png(paste0(github_repo_dir, "/Outputs/016_utla_asmr_covid_plot.png"), width = 13
 utla_asmr_covid_plot
 dev.off()
 
-msoa_covid_title <- as.character(dates_granular %>% 
-                                   filter(`Worksheet name` == 'Table 5') %>% 
-                                   select(Content)) %>% 
-  gsub('England and Wales, ', 'Sussex, Covid-19 ', .)
+# over time ####
+
+three_month_la_asmr_cov <- la_asmr %>% 
+  filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex')) %>% 
+  mutate(Name = factor(Name, levels = rev(c('Brighton and Hove', 'East Sussex', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing')))) %>% 
+  mutate(Area_highlight = ifelse(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex'), 'bold', 'plain')) %>% 
+  arrange(Name) %>% 
+  filter(Sex == 'Persons') %>% 
+  mutate(`Age-standardised rate per 100,000` = paste0(round(ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Rate_lci,0), '-', round(Rate_uci,0))) %>% 
+  filter(Cause == 'COVID-19') %>% 
+  mutate(Deaths = format(Deaths, big.mark = ',', trim = TRUE)) %>% 
+  mutate(Month = factor(Month, levels = c('March', 'April', 'May', 'March - May 2020')))
+
+highlight_three_month_la_asmr_cov <- three_month_la_asmr_cov %>% 
+  select(Name, Area_highlight) %>% 
+  unique()
+
+eng_three_month_la_asmr_cov <- la_asmr %>% 
+  filter(Name == 'England') %>% 
+  filter(Sex == 'Persons') %>% 
+  mutate(`Age-standardised rate per 100,000` = paste0(round(ASMR,0), ' per 100,000 ESP, 95% CI: ', round(Rate_lci,0), '-', round(Rate_uci,0))) %>% 
+  filter(Cause == 'COVID-19') %>% 
+  mutate(Deaths = format(Deaths, big.mark = ',', trim = TRUE)) %>% 
+  mutate(Month = factor(Month, levels = c('March', 'April', 'May', 'March - May 2020'))) %>% 
+  rename(Eng_ASMR = ASMR,
+         Eng_lci = Rate_lci,
+         Eng_uci = Rate_uci) %>% 
+  select(Month, Eng_lci, Eng_ASMR, Eng_uci)
+
+three_month_la_asmr_cov_final <- three_month_la_asmr_cov %>% 
+  left_join(eng_three_month_la_asmr_cov, by = 'Month') %>% 
+  mutate(significance = factor(ifelse(Rate_uci < Eng_lci, 'Significantly lower', ifelse(Rate_lci > Eng_uci, 'Significantly higher', 'Statistically similar')), levels = c('Significantly lower', 'Statistically similar', 'Significantly higher')))
+
+asmr_over_time_covid_plot <- ggplot(three_month_la_asmr_cov_final,
+                                    aes(x = Name,
+                                        y = ASMR,
+                                        fill = significance)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_manual(values = c("#92D050", "#FFC000","#C00000"),
+                    breaks = c('Significantly lower','Statistically similar','Significantly higher'),
+                    name = 'Compared\nto England',
+                    drop = FALSE) +
+  geom_bar(stat = 'identity',
+           colour = '#ffffff',
+           size = .25) +
+  geom_errorbar(aes(ymin = Rate_lci, ymax = Rate_uci), colour = "#919191", width = 0.25) +  
+  labs(title = 'Age standardised mortality rates; Sussex areas, deaths occuring March to May 2020; Persons',
+       subtitle = 'Covid-19 mortality rates per 100,000 people (2013 European Standard Population)',
+       x = 'Month',
+       y = 'Number of deaths\nper 100,000 ESP',
+       caption = 'Dashed line represents national (England) age standardised rate') +
+  geom_hline(data = eng_three_month_la_asmr_cov, 
+             aes(yintercept = Eng_ASMR),
+             colour = '#003389',
+             lty = 'longdash') +
+  scale_y_continuous(breaks = seq(0,150, 250),
+                     limits = c(0,150)) +
+  coord_flip() +
+  facet_grid(. ~ Month) +
+  ph_theme() +
+  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5),
+        axis.text.y = element_text(colour = "#323232", face = highlight_three_month_la_asmr_cov$Area_highlight, size = 8)) 
+
+png(paste0(github_repo_dir, "/Outputs/sussex_asmr_covid_over_time_plot.png"), width = 1300, height = 750, res = 110)
+asmr_over_time_covid_plot
+dev.off()
+
 
 covid_msoa_deaths_plot <- ggplot() +
   geom_polygon(data = msoa_fortified, 
@@ -1133,9 +1329,9 @@ covid_msoa_deaths_plot <- ggplot() +
                size = .1) +
   coord_fixed(1.5) + 
   map_theme() +
-  labs(title = msoa_covid_title) +
-  scale_fill_manual(values = c('#ffffb2','#fecc5c','#fd8d3c','#e31a1c'),
-                    name = 'Deaths where Covid-19\nmentioned') +
+  labs(title = msoa_total_title) +
+  scale_fill_manual(values = c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#b10026'),
+                    name = 'Deaths where\nCovid-19\nmentioned') +
   geom_polygon(data = County_boundary, aes(x=long, y=lat, group = group), 
                color="#000000", 
                fill = NA, 
@@ -1146,13 +1342,14 @@ covid_msoa_deaths_plot <- ggplot() +
         legend.key.width = unit(0.2,"cm"),
         legend.key.height = unit(0.2,"cm")) 
 
+
 png(paste0(github_repo_dir, "/Outputs/017_covid_msoa_deaths_plot.png"), width = 2600, height = 1450, res = 350)
 covid_msoa_deaths_plot
 dev.off()
 
 msoa_prop_covid_title <- as.character(dates_granular %>% 
-                                   filter(`Worksheet name` == 'Table 5') %>% 
-                                   select(Content)) %>% 
+                                        filter(`Worksheet name` == 'Table 5') %>% 
+                                        select(Content)) %>% 
   gsub('Number of deaths by Middle Layer Super Output Area', 'Proportion of deaths where Covid-19 mentioned by MSOA', .) %>% 
   gsub('England and Wales, ', 'Sussex, ', .)
 
@@ -1168,7 +1365,8 @@ covid_msoa_prop_deaths_plot <- ggplot() +
   map_theme() +
   labs(title = msoa_prop_covid_title) +
   scale_fill_manual(values = c('#ffffcc','#d9f0a3','#addd8e','#78c679','#31a354','#006837'),
-                    name = 'Deaths where Covid-19\nmentioned') +
+                    name = 'Deaths where Covid-19\nmentioned',
+                    drop = FALSE) +
   geom_polygon(data = County_boundary, aes(x=long, y=lat, group = group), 
                color="#000000", 
                fill = NA, 
