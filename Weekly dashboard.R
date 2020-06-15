@@ -639,8 +639,8 @@ all_cause_ltla_asmr_plot <- ggplot(sussex_cumulative_all_cause_asmr,
        subtitle = 'All cause mortality rates per 100,000 people (2013 European Standard Population)',
        x = '',
        y = 'Number of deaths\nper 100,000 ESP') +
-  scale_y_continuous(breaks = seq(0,round_any(max(sussex_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling),20),
-                     limits = c(0,round_any(max(sussex_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling))) +
+  scale_y_continuous(breaks = seq(0,round_any(max(sussex_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 50, ceiling),50),
+                     limits = c(0,round_any(max(sussex_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 50, ceiling))) +
   facet_rep_grid(. ~ Sex, repeat.tick.labels = TRUE) +
   ph_theme() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5),
@@ -670,8 +670,8 @@ utla_asmr_plot <- ggplot(utla_cumulative_all_cause_asmr,
        subtitle = 'All cause mortality rates per 100,000 people (2013 European Standard Population)',
        x = '',
        y = 'Number of deaths\nper 100,000 ESP') +
-  scale_y_continuous(breaks = seq(0,round_any(max(utla_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling),20),
-                     limits = c(0,round_any(max(utla_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 20, ceiling))) +
+  scale_y_continuous(breaks = seq(0,round_any(max(utla_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 50, ceiling),50),
+                     limits = c(0,round_any(max(utla_cumulative_all_cause_asmr$Rate_uci, na.rm = TRUE), 50, ceiling))) +
   facet_rep_grid(. ~ Name,  repeat.tick.labels = FALSE) +
   ph_theme() +
   theme(axis.text.x = element_blank()) 
@@ -1164,8 +1164,8 @@ ltla_asmr_covid_plot <- ggplot(ltla_asmr_covid,
        caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
        x = 'Area',
        y = 'Age-standardised rate\ndeaths per 100,000') +
-  scale_fill_manual(values = c('#212c3d', '#e8c387')) +
-  scale_colour_manual(values = c('#212c3d', '#e8c387')) +
+  scale_fill_manual(values = c('#212c3d', '#f2cdd7')) +
+  scale_colour_manual(values = c('#212c3d', '#f2cdd7')) +
   scale_y_continuous(breaks = seq(0,round_any(max(ltla_asmr_covid$ASMR, na.rm = TRUE), 50, ceiling),25),
                      limits = c(0,round_any(max(ltla_asmr_covid$ASMR, na.rm = TRUE), 50, ceiling)),
                      expand = c(0,0.1)) +
@@ -1238,8 +1238,8 @@ utla_asmr_covid_plot <- ggplot(utla_asmr_bars_covid,
        caption = 'Note: whilst age standardised rates are plotted on the figure, number of actual deaths is given in brackets)',
        x = 'Area',
        y = 'Age-standardised rate\ndeaths per 100,000') +
-  scale_fill_manual(values = c('#212c3d', '#e8c387')) +
-  scale_colour_manual(values = c('#212c3d', '#e8c387')) +
+  scale_fill_manual(values = c('#212c3d', '#f2cdd7')) +
+  scale_colour_manual(values = c('#212c3d', '#f2cdd7')) +
   scale_y_continuous(breaks = seq(0,round_any(max(utla_asmr_bars_covid$ASMR, na.rm = TRUE), 50, ceiling),25),
                      limits = c(0,round_any(max(utla_asmr_bars_covid$ASMR, na.rm = TRUE), 50, ceiling)),
                      expand = c(0,0.1)) +

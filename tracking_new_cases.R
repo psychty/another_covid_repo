@@ -553,3 +553,8 @@ care_home_outbreaks %>%
 
 # age_standardised_confirmed_cases <- read_csv(paste0(github_repo_dir, '/age_standardised_cases_phe_13_may.csv'))
 
+daily_cases %>% 
+  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'Surrey', 'West Sussex')) %>% 
+  rename(Area = Name) %>% 
+  select(Area, Date, New_cases, Cumulative_cases) %>% 
+  write.csv(., paste0(github_repo_dir, '/utla_local_daily_cases.csv'), row.names = FALSE)
