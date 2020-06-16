@@ -268,7 +268,7 @@ tab_1 <- tab_1 %>%
 tab_1 %>% 
   write.csv(., paste0(github_repo_dir, '/Outputs/Table_2_weekly_deaths_table.csv'), row.names = FALSE, na = '')
   
-# slide 2 - local figure plus crude rate per 100,000
+# slide 2 - local figures ####
 
 for(i in 1:length(Areas_to_loop)){
   Area_x <- Areas_to_loop[i]
@@ -442,6 +442,14 @@ png(paste0(github_repo_dir, '/Outputs/007_', gsub(' ','_', Area_x), '_place_deat
 print(area_x_place_death_all_cause_plot)
 dev.off()
 
+png(paste0(github_repo_dir, '/Outputs/019a_count_', gsub(' ','_', Area_x), '_place_death_all_cause_plot.png'), width = 1080, height = 400, res = 150)
+print(
+area_x_place_death_all_cause_plot +
+  theme(axis.text.x = element_blank(),
+        legend.position = 'none',
+        axis.title.x = element_blank()))
+dev.off()
+
 }
 
 rm(Area_x)
@@ -590,10 +598,14 @@ total_covid_deaths_table %>%
 # cipfa tables ####
 read_csv(paste0(github_repo_dir, '/all_deaths_cipfa_ons.csv')) %>% 
   select(Name, `All cause latest week summary`, `Covid-19 latest week summary`,`Proportion of deaths occuring in week that are attributed to Covid-19`, `Rank of latest Covid-19 deaths crude rate among CIPFA neighbours`, `Total number of all cause deaths to date in 2020`, `Rank of cumulative all cause deaths crude rate among CIPFA neighbours`,  `Total number of deaths attributed to Covid-19 to date in 2020`, `Rank of cumulative Covid-19 deaths crude rate among CIPFA neighbours`, `Proportion of deaths to date in 2020 attributed to Covid-19`, `Rank of proportion of deaths to date attributed to Covid-19 among CIPFA neighbours`) %>% 
+  mutate(`Proportion of deaths occuring in week that are attributed to Covid-19` = paste0(round(`Proportion of deaths occuring in week that are attributed to Covid-19` * 100, 1), '%')) %>% 
+mutate(`Proportion of deaths to date in 2020 attributed to Covid-19` = paste0(round(`Proportion of deaths to date in 2020 attributed to Covid-19` * 100, 1), '%')) %>% 
   write.csv(., paste0(github_repo_dir, '/Outputs/Table_4_cipfa_weekly_deaths_all_table.csv'), row.names = FALSE, na = '')
 
 read_csv(paste0(github_repo_dir, '/care_home_ons_cipfa.csv')) %>% 
   select(Name, `All cause latest week care home summary`, `Covid-19 latest week care home summary`, `Proportion of care home deaths occuring in week that are attributed to Covid-19`, `Rank of latest Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds`, `Total number of all cause care home deaths to date in 2020`, `Total number of care home deaths attributed to Covid-19 to date in 2020`, `Proportion of care home deaths to date in 2020 attributed to Covid-19`, `Rank of cumulative all cause care home deaths crude rate among CIPFA neighbours`, `Rank of cumulative Covid-19 care home deaths crude rate among CIPFA neighbours per 1,000 care home beds`, `Rank of proportion of care home deaths to date attributed to Covid-19 among CIPFA neighbours`) %>% 
+  mutate(`Proportion of care home deaths occuring in week that are attributed to Covid-19` = paste0(round(`Proportion of care home deaths occuring in week that are attributed to Covid-19` * 100, 1), '%')) %>% 
+  mutate(`Proportion of care home deaths to date in 2020 attributed to Covid-19` = paste0(round(`Proportion of care home deaths to date in 2020 attributed to Covid-19` * 100, 1), '%')) %>% 
   write.csv(., paste0(github_repo_dir, '/Outputs/Table_5_cipfa_weekly_deaths_care_home_table.csv'), row.names = FALSE, na = '')
 
 # slide 3 - local asmr data March - May ####
@@ -864,7 +876,7 @@ png(paste0(github_repo_dir, "/Outputs/012_utla_asmr_all_cause_plot.png"), width 
 utla_asmr_all_cause_plot
 dev.off()
 
-# over time ####
+# over time
 
 three_month_la_asmr <- la_asmr %>% 
   filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex')) %>% 
@@ -1251,7 +1263,7 @@ png(paste0(github_repo_dir, "/Outputs/016_utla_asmr_covid_plot.png"), width = 13
 utla_asmr_covid_plot
 dev.off()
 
-# over time ####
+# over time #
 
 three_month_la_asmr_cov <- la_asmr %>% 
   filter(Name %in% c('Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex','Worthing','Brighton and Hove', 'Eastbourne', 'Hastings', 'Lewes', 'Rother', 'Wealden', 'West Sussex', 'East Sussex')) %>% 
@@ -1416,7 +1428,7 @@ area_x_place_death_all_cause_proportion_plot <- ggplot(area_x_place,
         legend.key.size = unit(0.5, "lines")) +
   guides(fill = guide_legend(nrow = 2, byrow = TRUE))
 
-png(paste0(github_repo_dir, '/Outputs/019_', gsub(' ', '_', Area_x),'_place_death_all_cause_proportion_plot.png'), width = 1080, height = 550, res = 150)
+png(paste0(github_repo_dir, '/Outputs/019b_', gsub(' ', '_', Area_x),'_place_death_all_cause_proportion_plot.png'), width = 1080, height = 550, res = 150)
 print(area_x_place_death_all_cause_proportion_plot)
 dev.off()
 
@@ -1430,16 +1442,16 @@ latest_area_x_place <- area_x_place %>%
   mutate(Place_label = paste0(Place_of_death, ' (', format(Deaths, big.mark = ',', trim = TRUE), ' deaths)')) %>% 
   mutate(Place_label = factor(Place_label, levels = unique(Place_label)))
 
-latest_place_death <- ggplot(latest_area_x_place, aes(x = 2, 
-                                                      y = Deaths, 
-                                                      fill = Place_label,
-                                                      colour = "#ffffff")) +
+latest_place_death <-  ggplot(latest_area_x_place, aes(x = 2, 
+                                  y = Deaths, 
+                                  fill = Place_label,
+                                  colour = "#ffffff")) +
   geom_bar(stat="identity") +
-  geom_text(data = subset(latest_area_x_place, Deaths > 10), 
-            aes(label = format(Deaths,big.mark = ","), 
-                y = pos), 
-            size = 4, 
-            colour = "#000000", 
+  geom_text(data = subset(latest_area_x_place, Deaths > 5),
+            aes(label = format(Deaths,big.mark = ","),
+                y = pos),
+            size = 4,
+            colour = "#000000",
             fontface="bold") +
   xlim(.5, 2.5) +
   coord_polar(theta = "y", start = 0, direction = 1) +
@@ -1463,7 +1475,7 @@ latest_place_death <- ggplot(latest_area_x_place, aes(x = 2,
         legend.box.margin=margin(0,0,0,0)) +
   guides(fill = guide_legend(nrow = 5, byrow = TRUE))
 
-png(paste0(github_repo_dir, '/Outputs/019_', gsub(' ', '_', Area_x), '_latest_place_death.png'), width = 1500, height = 1500, res = 220)
+png(paste0(github_repo_dir, '/Outputs/019c_', gsub(' ', '_', Area_x), '_latest_place_death.png'), width = 1500, height = 1500, res = 220)
 print(latest_place_death)
 dev.off()
 
@@ -1559,7 +1571,7 @@ total_covid_deaths_table_ch <- care_home_ons %>%
 total_covid_deaths_table_ch %>% 
   write.csv(., paste0(github_repo_dir, '/Outputs/Table_9_total_covid_deaths_table_ch.csv'), row.names = FALSE, na = '')
 
-# daily care home view
+# daily care home view #### 
 local_cqc_ch <- cqc_ch_deaths %>% 
   filter(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex', 'England'))
 
@@ -1648,6 +1660,9 @@ cumulative_area_x_deaths_cqc <- cqc_deaths %>%
   mutate(Cause = factor(Cause, levels = rev(c('Non-Covid', 'COVID 19')))) %>%
   mutate(lab_posit = ifelse(Cause == 'Non-Covid', 1.5, -1))
 
+latest_value <- area_x_cqc_deaths %>% 
+  filter(Date %in% c(max(Date), max(Date)-7, max(Date)-14, max(Date)-21, max(Date)-28, max(Date)-35, max(Date)-42, max(Date)-49, max(Date)-56, max(Date)-63, max(Date)-70))
+
 area_x_cumulative_cqc_covid_ch_deaths_plot <- ggplot(area_x_cqc_deaths,
        aes(x = Date,
            y = Cumulative_covid)) +
@@ -1664,13 +1679,13 @@ area_x_cumulative_cqc_covid_ch_deaths_plot <- ggplot(area_x_cqc_deaths,
                # date_minor_breaks = '1 day',
                expand = c(0,.5)) +
   ph_theme() +
-  # annotate(geom = "text", 
-  #          x = area_x_cqc_deaths$Date,
-  #          y = area_x_cqc_deaths$Cumulative_covid,
-  #          label = area_x_cqc_deaths$Cumulative_covid,
-  #          size = 2.4, 
-  #          fontface = "bold",
-  #          vjust = -1) +
+  annotate(geom = "text",
+           x = latest_value$Date,
+           y = latest_value$Cumulative_covid,
+           label = latest_value$Cumulative_covid,
+           size = 3,
+           fontface = "bold",
+           vjust = -1) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 6, vjust = .5)) 
 
 png(paste0(github_repo_dir, '/Outputs/022_',gsub(' ','_', Area_x), '_cumulative_cqc_covid_ch_deaths_plot.png'), width = 1280, height = 600, res = 150)

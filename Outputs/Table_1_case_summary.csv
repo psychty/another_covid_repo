@@ -1,18 +1,18 @@
-"Name","Total confirmed cases so far","Total cases per 100,000 population","Confirmed cases swabbed on most recent complete day","most recent complete 7 days (30-May-05-June)","previous 7 days (23-May-29-May)","Rate of growth in cases"
-"Brighton and Hove","473","163","3","71.4 days","92.3 days","Speeding up"
-"East Sussex","736","133","3","185.7 days","90.5 days","Slowing"
-"Eastbourne","152","147","0","588.1 days","323.8 days","Slowing"
-"Hastings","55","59","0","NA days","95.2 days",
-"Lewes","208","202","1","153.3 days","49.8 days","Slowing"
-"Rother","100","105","0","78.4 days","NA days",
-"Wealden","221","138","2","201.8 days","74.0 days","Slowing"
-"West Sussex","1,343","156","1","699.8 days","450.1 days","Slowing"
-"Adur","99","155","0","NA days","382.3 days",
-"Arun","164","103","0","NA days","1,057.7 days",
+"Name","Total confirmed cases so far","Total cases per 100,000 population","Confirmed cases swabbed on most recent complete day","most recent complete 7 days (03-June-09-June)","previous 7 days (27-May-02-June)","Rate of growth in cases"
+"Brighton and Hove","479","165","2","175.1 days","107.2 days","Slowing"
+"East Sussex","746","135","2","678.6 days","200.0 days","Slowing"
+"Eastbourne","155","150","0","NA days","588.1 days",
+"Hastings","55","59","0","NA days","352.6 days",
+"Lewes","209","203","1","504.3 days","146.1 days","Slowing"
+"Rother","103","108","1","643.7 days","208.1 days","Slowing"
+"Wealden","224","140","0","427.0 days","161.1 days","Slowing"
+"West Sussex","1,357","158","5","553.7 days","585.5 days","Speeding up"
+"Adur","100","157","0","NA days","637.2 days",
+"Arun","164","103","0","NA days","NA days",
 "Chichester","143","118","0","NA days","NA days",
-"Crawley","212","189","0","680.9 days","251.8 days","Slowing"
-"Horsham","218","153","1","206.4 days","369.3 days","Speeding up"
-"Mid Sussex","290","194","0","509.8 days","427.5 days","Slowing"
-"Worthing","217","197","0","1,195,631,400,226,466.0 days","463.3 days","Slowing"
-"South East region","22,179","243","58","232.4 days","216.9 days","Slowing"
-"England","156,018","279","320","267.5 days","213.2 days","Slowing"
+"Crawley","219","195","2","343.3 days","677.7 days","Speeding up"
+"Horsham","223","157","3","131.5 days","313.0 days","Speeding up"
+"Mid Sussex","291","194","0","1,872.9 days","507.3 days","Slowing"
+"Worthing","217","197","0","NA days","381.2 days",
+"South East region","22,354","245","40","378.9 days","288.6 days","Slowing"
+"England","157,293","281","305","407.2 days","268.5 days","Slowing"

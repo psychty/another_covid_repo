@@ -93,13 +93,17 @@ if(!file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv')
 lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) #%>% 
   select(-c(FID, LTLA19NM)) %>% 
   left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>% 
-  select(-c(FID, LAD19NM))
-
+  select(-c(FID, LAD19NM)) %>% 
+  add_row(LTLA19CD ='E06000060', UTLA19CD = 'E06000060', UTLA19NM = 'Buckinghamshire', RGN19CD = 'E12000008', RGN19NM = 'South East')
 }
 
 if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
-  lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
+  lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv')) %>% 
+    add_row(LTLA19CD ='E06000060', UTLA19CD = 'E06000060', UTLA19NM = 'Buckinghamshire', RGN19CD = 'E12000008', RGN19NM = 'South East')
 }
+
+mye_total <- mye_total %>% 
+  mutate(Area_code = ifelse(Area_code == 'E10000002', 'E06000060', Area_code))
 
 # DHSC running total - daily deaths - be cautious of the definition of these deaths
 read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-deaths_latest.csv') %>%
@@ -137,7 +141,7 @@ week_ending <- data.frame(Week_ending = get_date(week = 1:52, year = 2020)) %>%
 # Boo! but we can get around it with some date hackery. This will probably not work on Tuesday morning next week
 # download.file(paste0('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek',substr(as.character(as.aweek(Sys.Date()-11)), 7,8), 'finalcodes.xlsx'), paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
 
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek22.xlsx', paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek23.xlsx', paste0(github_repo_dir, '/ons_mortality.xlsx'), mode = 'wb')
 
 # https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fhealthandsocialcare%2fcausesofdeath%2fdatasets%2fdeathregistrationsandoccurrencesbylocalauthorityandhealthboard%2f2020/lahbtablesweek20finalcodes.xlsx
 
@@ -473,8 +477,7 @@ Care_home_deaths <- Occurrences %>%
   mutate(Cumulative_deaths_crude_rate_per_1000_care_home_beds =  pois.exact(Cumulative_deaths, Care_home_beds)[[3]]*1000) %>% 
   mutate(Cumulative_deaths_crude_rate_lci = pois.exact(Cumulative_deaths, Care_home_beds)[[4]]*1000) %>% 
   mutate(Cumulative_deaths_crude_rate_uci = pois.exact(Cumulative_deaths, Care_home_beds)[[5]]*1000) %>% 
-  mutate(Deaths_label = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_1000_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 1,000 care home beds, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) %>% 
-  mutate(Cumulative_deaths_label = paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Cumulative_deaths_crude_rate_per_1000_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 1,000 care home beds, 95% CI: ', format(round(Cumulative_deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Cumulative_deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
+  mutate(Deaths_label = paste0(format(Deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Deaths_crude_rate_per_1000_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 1,000 care home beds, 95% CI: ', format(round(Deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) %>%   mutate(Cumulative_deaths_label = paste0(format(Cumulative_deaths, big.mark = ',', trim = TRUE), ' deaths (', format(round(Cumulative_deaths_crude_rate_per_1000_care_home_beds, 0), big.mark = ',', trim = TRUE), ' per 1,000 care home beds, 95% CI: ', format(round(Cumulative_deaths_crude_rate_lci, 0), big.mark = ',', trim = TRUE), '-', format(round(Cumulative_deaths_crude_rate_uci, 0), big.mark = ',', trim = TRUE), ')')) 
 
 Care_home_latest_all_cause <- Care_home_deaths %>% 
   filter(Week_ending == max(Week_ending)) %>% 
@@ -543,7 +546,7 @@ Care_home_deaths %>%
 
 # Note: The notifications only include those received by 5pm on 22nd May.
 
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/cqccovidnotifications20200529.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
+download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200614coviddeathnotificationdata20200612.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
 
 cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
   rename(Name = ...1) %>% 
