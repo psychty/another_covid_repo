@@ -1642,7 +1642,7 @@ area_x_daily_cause_ch_deaths_plot <- ggplot(area_x_cqc_deaths_stack,
         legend.position =  c(.1,.8))  +
   guides(colour = FALSE)
 
-if(Area_x %in% c('Brighton and Hove', 'East Sussex')){
+if(Area_x %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')){
   area_x_daily_cause_ch_deaths_plot <- area_x_daily_cause_ch_deaths_plot +
     theme(legend.position = c(.5,.8))
 }
