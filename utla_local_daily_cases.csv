@@ -146,9 +146,11 @@
 "Surrey",2020-06-22,4,3026
 "Surrey",2020-06-23,7,3033
 "Surrey",2020-06-24,1,3034
-"Surrey",2020-06-25,0,3034
-"Surrey",2020-06-26,0,3034
-"Surrey",2020-06-27,0,3034
+"Surrey",2020-06-25,1,3035
+"Surrey",2020-06-26,1,3036
+"Surrey",2020-06-27,0,3036
+"Surrey",2020-06-28,0,3036
+"Surrey",2020-06-29,0,3036
 "West Sussex",2020-01-30,0,0
 "West Sussex",2020-01-31,0,0
 "West Sussex",2020-02-01,0,0
@@ -299,6 +301,8 @@
 "West Sussex",2020-06-25,0,1378
 "West Sussex",2020-06-26,0,1378
 "West Sussex",2020-06-27,0,1378
+"West Sussex",2020-06-28,0,1378
+"West Sussex",2020-06-29,0,1378
 "East Sussex",2020-01-30,0,0
 "East Sussex",2020-01-31,0,0
 "East Sussex",2020-02-01,0,0
@@ -438,9 +442,9 @@
 "East Sussex",2020-06-14,4,756
 "East Sussex",2020-06-15,3,759
 "East Sussex",2020-06-16,9,768
-"East Sussex",2020-06-17,2,770
-"East Sussex",2020-06-18,0,770
-"East Sussex",2020-06-19,3,773
+"East Sussex",2020-06-17,3,771
+"East Sussex",2020-06-18,0,771
+"East Sussex",2020-06-19,2,773
 "East Sussex",2020-06-20,2,775
 "East Sussex",2020-06-21,1,776
 "East Sussex",2020-06-22,1,777
@@ -448,7 +452,9 @@
 "East Sussex",2020-06-24,0,778
 "East Sussex",2020-06-25,1,779
 "East Sussex",2020-06-26,0,779
-"East Sussex",2020-06-27,0,779
+"East Sussex",2020-06-27,1,780
+"East Sussex",2020-06-28,1,781
+"East Sussex",2020-06-29,1,782
 "Brighton and Hove",2020-01-30,0,0
 "Brighton and Hove",2020-01-31,0,0
 "Brighton and Hove",2020-02-01,0,0
@@ -567,30 +573,30 @@
 "Brighton and Hove",2020-05-24,3,427
 "Brighton and Hove",2020-05-25,5,432
 "Brighton and Hove",2020-05-26,3,435
-"Brighton and Hove",2020-05-27,5,440
-"Brighton and Hove",2020-05-28,0,440
-"Brighton and Hove",2020-05-29,2,442
-"Brighton and Hove",2020-05-30,3,445
-"Brighton and Hove",2020-05-31,3,448
-"Brighton and Hove",2020-06-01,5,453
-"Brighton and Hove",2020-06-02,5,458
-"Brighton and Hove",2020-06-03,6,464
-"Brighton and Hove",2020-06-04,3,467
-"Brighton and Hove",2020-06-05,3,470
-"Brighton and Hove",2020-06-06,2,472
-"Brighton and Hove",2020-06-07,0,472
-"Brighton and Hove",2020-06-08,2,474
-"Brighton and Hove",2020-06-09,2,476
-"Brighton and Hove",2020-06-10,1,477
-"Brighton and Hove",2020-06-11,1,478
-"Brighton and Hove",2020-06-12,1,479
-"Brighton and Hove",2020-06-13,1,480
-"Brighton and Hove",2020-06-14,2,482
-"Brighton and Hove",2020-06-15,0,482
-"Brighton and Hove",2020-06-16,1,483
-"Brighton and Hove",2020-06-17,0,483
-"Brighton and Hove",2020-06-18,1,484
-"Brighton and Hove",2020-06-19,3,487
+"Brighton and Hove",2020-05-27,6,441
+"Brighton and Hove",2020-05-28,0,441
+"Brighton and Hove",2020-05-29,2,443
+"Brighton and Hove",2020-05-30,3,446
+"Brighton and Hove",2020-05-31,3,449
+"Brighton and Hove",2020-06-01,5,454
+"Brighton and Hove",2020-06-02,5,459
+"Brighton and Hove",2020-06-03,6,465
+"Brighton and Hove",2020-06-04,3,468
+"Brighton and Hove",2020-06-05,3,471
+"Brighton and Hove",2020-06-06,2,473
+"Brighton and Hove",2020-06-07,0,473
+"Brighton and Hove",2020-06-08,2,475
+"Brighton and Hove",2020-06-09,2,477
+"Brighton and Hove",2020-06-10,1,478
+"Brighton and Hove",2020-06-11,1,479
+"Brighton and Hove",2020-06-12,1,480
+"Brighton and Hove",2020-06-13,1,481
+"Brighton and Hove",2020-06-14,2,483
+"Brighton and Hove",2020-06-15,0,483
+"Brighton and Hove",2020-06-16,1,484
+"Brighton and Hove",2020-06-17,0,484
+"Brighton and Hove",2020-06-18,1,485
+"Brighton and Hove",2020-06-19,2,487
 "Brighton and Hove",2020-06-20,1,488
 "Brighton and Hove",2020-06-21,0,488
 "Brighton and Hove",2020-06-22,1,489
@@ -599,3 +605,5 @@
 "Brighton and Hove",2020-06-25,0,489
 "Brighton and Hove",2020-06-26,0,489
 "Brighton and Hove",2020-06-27,0,489
+"Brighton and Hove",2020-06-28,1,490
+"Brighton and Hove",2020-06-29,0,490
