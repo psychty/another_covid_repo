@@ -71,7 +71,8 @@ mye_total <- mye_total %>%
 
 # Prior to April 14th, the earliest reporting date was March 9th. In some areas, there were already cases, and in other areas there were none. Data are now back dated and revised such that every lab-confirmed case is attributed to the date at which the specemin was taken, which means the time series starts at different dates for different areas. The first specimens for a confirmed Covid-19 infection were taken on Janurary 30th 2020.
 
-daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%   rename(Name = `Area name`) %>% 
+daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv') %>%   
+  rename(Name = `Area name`) %>% 
   rename(Code = `Area code`) %>% 
   rename(Date = `Specimen date`) %>% 
   rename(New_cases = `Daily lab-confirmed cases`) %>% 

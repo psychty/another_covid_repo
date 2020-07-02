@@ -48,7 +48,7 @@
 <p>Data are back dated and revised such that every lab-confirmed case is attributed to the date at which the specimen was taken, which means the outbreak starts on different dates for different areas. The first specimens for a confirmed Covid-19 infection were taken on January 30th 2020.</p>
 <p id = 'data_recency'></p>
 
-<p>The first table and visualisation shows the most recently recorded confirmed cases and the number of new confirmed cases by day from pillar 1 testing (NHS and PHE laboratories). It is ordered by total number (cumulative) of confirmed cases to date with the highest number of confirmed cases at the top. You can toggle between viewing the coloured tiles as actual confirmed cases or as confirmed cases per 100,000 population (crude, all age population as at 2018). </p>
+<p>The first table and visualisation shows the most recently recorded confirmed cases and the number of new confirmed cases by day from pillar 1 (NHS and PHE laboratories) and pillar 2 (commercial testing) combined. It is ordered by total number (cumulative) of confirmed cases to date with the highest number of confirmed cases at the top. You can toggle between viewing the coloured tiles as actual confirmed cases or as confirmed cases per 100,000 population (crude, all age population as at 2018). </p>
 <p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date). Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</font></p>
 </div>
 
@@ -162,9 +162,9 @@
 </div>
 
 <div class='main' id = 'case_time_series'>
-<h3 style="padding-left:25px;">Cumulative pillar 1 confirmed cases over time</h3>
+<h3 style="padding-left:25px;">Cumulative pillar 1 and pillar 2 confirmed cases over time</h3>
 <div class = "content">
-<p>The line chart below shows the actual number of confirmed Covid-19 cases over time diagnosed via pillar 1 testing. You can choose which area to display using the drop down menu. Remember, the last five dots on this figure should be considered incomplete whilst specimens taken on these dates take time to be tested.</p>
+<p>The line chart below shows the actual number of confirmed Covid-19 cases over time diagnosed via pillar 1 and 2 testing combined. You can choose which area to display using the drop down menu. Remember, the last five dots on this figure should be considered incomplete whilst specimens taken on these dates take time to be tested.</p>
 <p>The dashed line represents the average number of cases reported over the last seven days. This goes some way in smoothing out fluctuation occurring daily as a result of delays or validation. The average line will usually trail a little lower than the actual line whilst cases continue to increase each day.</p>
 <div class = 'drop'>
 <span>Area: </span>
@@ -183,7 +183,7 @@
 <!-- <h2>Maybe add an early description of trends for each area compared to England which can be displayed on the plots</h2> -->
 <div class="main" id = 'case_time_series_rate'>
 <div class = 'content'>
-<p>This figure shows the number of pillar 1 confirmed Covid-19 cases per 100,000 population over time. It allows you to compare different areas as if they had the same size population.</p>
+<p>This figure shows the number of pillar 1 and pillar 2 confirmed Covid-19 cases per 100,000 population over time. It allows you to compare different areas as if they had the same size population.</p>
 <p>England is shown as the second, reference line, in purple. However, you can change both the chosen area and the second area for comparison to explore differences between any pair of areas in the South East region or against national and regional values.</p>
 <h4 id = 'selected_line_2_compare_title'></h4>
 <div class = 'drop'>
@@ -204,7 +204,7 @@
 </div>
 
 <div class="main" id = 'loglinear_timeseries'>
-<h3 style = 'padding-left:25px;'>Cumulative pillar 1 cases over time from a different perspective</h3>
+<h3 style = 'padding-left:25px;'>Cumulative pillar 1 and pillar 2 cases over time from a different perspective</h3>
 <div class = 'content'>
 <p>So far, we have compared areas over time using counts and rates. These have shown vast differences across areas, and particularly highlighted that some local areas might be much further along their individual outbreaks than others. Indeed, we see that some areas such as Kent are recording their 2,000th confirmed case whilst the 50th case is being reported on the Isle of Wight.</p>
 <p>As some areas record their first few confirmed cases on different days, we have redrawn the x axis (along the bottom from left to right) on the next figure to count the number of days since case number 10. By doing this, you pull all of the trajectories to start at the same point on the figure and they can be compared with other areas on this basis. Starting on case number 10, rather than case number 1, means that the trajectories are a little more established and potentially showing transmission within an area as opposed to single cases coming into the area.</p>
