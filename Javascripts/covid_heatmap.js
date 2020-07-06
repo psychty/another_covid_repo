@@ -4,8 +4,10 @@ d3.select("#summary_cases_title")
     return 'Summary of Covid-19 pillar 1 confirmed cases; ' + first_date + ' - ' + latest_date
   });
 
+start_tile_x_pos = 340
+
 var x = d3.scaleBand()
-  .range([510, width_hm])
+  .range([start_tile_x_pos, width_hm])
   .domain(dates)
   .padding(0.05);
 
@@ -144,63 +146,63 @@ svg_title
   .style('font-weight', 'bold')
   .style("font-size", "10px")
 
-svg_title
-  .append("text")
-  .attr("x", 335)
-  .attr("y", 10)
-  .text('Case doubling')
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
+// svg_title
+//   .append("text")
+//   .attr("x", 335)
+//   .attr("y", 10)
+//   .text('Case doubling')
+//   .attr("text-anchor", "start")
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//
+// svg_title
+//   .append("text")
+//   .attr("x", 335)
+//   .attr("y", 25)
+//   .text('time between')
+//   .attr("text-anchor", "start")
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//
+// svg_title
+//   .append("text")
+//   .attr("x", 335)
+//   .attr("y", 40)
+//   .text(doubling_week_2_label)
+//   .attr("text-anchor", "start")
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//
+// svg_title
+//   .append("text")
+//   .attr("x", 420)
+//   .attr("y", 10)
+//   .text('Case doubling')
+//   .attr("text-anchor", "start")
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//
+// svg_title
+//   .append("text")
+//   .attr("x", 420)
+//   .attr("y", 25)
+//   .text('time between')
+//   .attr("text-anchor", "start")
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//
+// svg_title
+//   .append("text")
+//   .attr("x", 420)
+//   .attr("y", 40)
+//   .text(doubling_week_1_label)
+//   .attr("text-anchor", "start")
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
 
 svg_title
   .append("text")
-  .attr("x", 335)
-  .attr("y", 25)
-  .text('time between')
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-
-svg_title
-  .append("text")
-  .attr("x", 335)
-  .attr("y", 40)
-  .text(doubling_week_2_label)
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-
-svg_title
-  .append("text")
-  .attr("x", 420)
-  .attr("y", 10)
-  .text('Case doubling')
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-
-svg_title
-  .append("text")
-  .attr("x", 420)
-  .attr("y", 25)
-  .text('time between')
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-
-svg_title
-  .append("text")
-  .attr("x", 420)
-  .attr("y", 40)
-  .text(doubling_week_1_label)
-  .attr("text-anchor", "start")
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-
-svg_title
-  .append("text")
-  .attr("x", 510)
+  .attr("x", start_tile_x_pos)
   .attr("y", 10)
   .attr('id', 'what_am_i_showing_tiles')
   .text('New cases by day')
@@ -210,7 +212,7 @@ svg_title
 
 svg_title
   .append("text")
-  .attr("x", 510)
+  .attr("x", start_tile_x_pos)
   .attr("y", 40)
   .text(first_date)
   .attr("text-anchor", "start")
@@ -391,45 +393,45 @@ function counts_new_cases_tile_plot() {
       })
       .style("font-size", "10px")
 
-    svg
-      .append("text")
-      .attr("x", 335)
-      .attr("y", height_hm * .5)
-      .text(function(d) {
-      if (isNaN(area_x_case_summary[0]['Previous_doubling_time'])) {
-      return 'No cases*';
-      }
-      return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
-      })
-      .attr("text-anchor", "start")
-      .attr('font-weight', function(d) {
-        if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
-          return ('bold')
-        } else {
-          return ('normal')
-        }
-      })
-      .style("font-size", "10px")
-
-    svg
-      .append("text")
-      .attr("x", 420)
-      .attr("y", height_hm * .5)
-      .text(function(d) {
-      if (isNaN(area_x_case_summary[0]['Latest_doubling_time'])) {
-      return 'No cases*';
-      }
-      return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
-      })
-      .attr("text-anchor", "start")
-      .attr('font-weight', function(d) {
-        if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
-          return ('bold')
-        } else {
-          return ('normal')
-        }
-      })
-      .style("font-size", "10px")
+    // svg
+    //   .append("text")
+    //   .attr("x", 335)
+    //   .attr("y", height_hm * .5)
+    //   .text(function(d) {
+    //   if (isNaN(area_x_case_summary[0]['Previous_doubling_time'])) {
+    //   return 'No cases*';
+    //   }
+    //   return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
+    //   })
+    //   .attr("text-anchor", "start")
+    //   .attr('font-weight', function(d) {
+    //     if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    //       return ('bold')
+    //     } else {
+    //       return ('normal')
+    //     }
+    //   })
+    //   .style("font-size", "10px")
+    //
+    // svg
+    //   .append("text")
+    //   .attr("x", 420)
+    //   .attr("y", height_hm * .5)
+    //   .text(function(d) {
+    //   if (isNaN(area_x_case_summary[0]['Latest_doubling_time'])) {
+    //   return 'No cases*';
+    //   }
+    //   return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
+    //   })
+    //   .attr("text-anchor", "start")
+    //   .attr('font-weight', function(d) {
+    //     if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    //       return ('bold')
+    //     } else {
+    //       return ('normal')
+    //     }
+    //   })
+    //   .style("font-size", "10px")
 
 // var increasing_symbol = d3.symbol()
 //   .type('triangle-up')
@@ -662,45 +664,45 @@ function counts_new_cases_rates_tile_plot() {
       })
       .style("font-size", "10px")
 
-    svg
-      .append("text")
-      .attr("x", 335)
-      .attr("y", height_hm * .5)
-      .text(function(d) {
-      if (isNaN(area_x_case_summary[0]['Previous_doubling_time'])) {
-      return 'No cases*';
-      }
-      return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
-      })
-      .attr("text-anchor", "start")
-      .attr('font-weight', function(d) {
-        if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
-          return ('bold')
-        } else {
-          return ('normal')
-        }
-      })
-      .style("font-size", "10px")
-
-    svg
-      .append("text")
-      .attr("x", 420)
-      .attr("y", height_hm * .5)
-      .text(function(d) {
-      if (isNaN(area_x_case_summary[0]['Latest_doubling_time'])) {
-      return 'No cases*';
-      }
-      return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
-      })
-      .attr("text-anchor", "start")
-      .attr('font-weight', function(d) {
-        if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
-          return ('bold')
-        } else {
-          return ('normal')
-        }
-      })
-      .style("font-size", "10px")
+    // svg
+    //   .append("text")
+    //   .attr("x", 335)
+    //   .attr("y", height_hm * .5)
+    //   .text(function(d) {
+    //   if (isNaN(area_x_case_summary[0]['Previous_doubling_time'])) {
+    //   return 'No cases*';
+    //   }
+    //   return d3.format(",.1f")(area_x_case_summary[0]['Previous_doubling_time']) + ' days'
+    //   })
+    //   .attr("text-anchor", "start")
+    //   .attr('font-weight', function(d) {
+    //     if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    //       return ('bold')
+    //     } else {
+    //       return ('normal')
+    //     }
+    //   })
+    //   .style("font-size", "10px")
+    //
+    // svg
+    //   .append("text")
+    //   .attr("x", 420)
+    //   .attr("y", height_hm * .5)
+    //   .text(function(d) {
+    //   if (isNaN(area_x_case_summary[0]['Latest_doubling_time'])) {
+    //   return 'No cases*';
+    //   }
+    //   return d3.format(",.1f")(area_x_case_summary[0]['Latest_doubling_time']) + ' days'
+    //   })
+    //   .attr("text-anchor", "start")
+    //   .attr('font-weight', function(d) {
+    //     if (area_x_chosen === 'West Sussex' || area_x_chosen == 'East Sussex' || area_x_chosen == 'Brighton and Hove') {
+    //       return ('bold')
+    //     } else {
+    //       return ('normal')
+    //     }
+    //   })
+    //   .style("font-size", "10px")
 
 svg
   .append('line')
@@ -831,7 +833,7 @@ function toggle_count_rate_func() {
 
     svg_title
       .append("text")
-      .attr("x", 510)
+      .attr("x", start_tile_x_pos)
       .attr("y", 10)
       .attr('id', 'what_am_i_showing_tiles')
       .text('New cases by day')
@@ -872,7 +874,7 @@ function toggle_count_rate_func() {
 
     svg_title
       .append("text")
-      .attr("x", 510)
+      .attr("x", start_tile_x_pos)
       .attr("y", 10)
       .attr('id', 'what_am_i_showing_tiles')
       .text('New cases per 100,000 population by day')
