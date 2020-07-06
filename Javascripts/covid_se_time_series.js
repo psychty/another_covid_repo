@@ -359,7 +359,7 @@ var selected_line_1_area_option = d3.select('#select_line_1_area_button').proper
 // Update text based on selected area
 d3.select("#selected_line_1_compare_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 confirmed cumulative cases over time; ' + selected_line_1_area_option
+    return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; ' + selected_line_1_area_option
   });
 
 var line_1_chosen = daily_cases.filter(function(d) {
@@ -617,7 +617,7 @@ function update_cumulative_actual_linear() {
 
   d3.select("#selected_line_1_compare_title")
     .html(function(d) {
-      return 'Covid-19 pillar 1 confirmed cumulative cases over time; ' + selected_line_1_area_option
+      return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; ' + selected_line_1_area_option
     });
 
   var old_n = line_1_chosen.filter(function(d) {
@@ -796,7 +796,7 @@ var selected_line_2_comp_area_option = d3.select('#select_line_2_comp_area_butto
 // Update text based on selected area
 d3.select("#selected_line_2_compare_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 confirmed cumulative cases over time; rate per 100,000 population; ' + selected_line_2_area_option + ' compared to ' + selected_line_2_comp_area_option
+    return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; rate per 100,000 population; ' + selected_line_2_area_option + ' compared to ' + selected_line_2_comp_area_option
   });
 
 var line_2_chosen = daily_cases.filter(function(d) {
@@ -1028,7 +1028,7 @@ function update_cumulative_actual_rate_per_100000() {
 
   d3.select("#selected_line_2_compare_title")
     .html(function(d) {
-      return 'Covid-19 pillar 1 confirmed cumulative cases over time; rate per 100,000 population; ' + selected_line_2_area_option + ' compared to ' + selected_line_2_comp_area_option
+      return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; rate per 100,000 population; ' + selected_line_2_area_option + ' compared to ' + selected_line_2_comp_area_option
     });
 
   var line_2_chosen = daily_cases.filter(function(d) {
@@ -1333,7 +1333,7 @@ y_c3_ts_axis
 
 d3.select("#selected_line_3_log_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 confirmed cumulative cases over time; days since case 10; loglinear scale; ' + chosen_c3_highlight_area + ' highlighted'
+    return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; days since case 10; loglinear scale; ' + chosen_c3_highlight_area + ' highlighted'
 });
 
 lines_c3
@@ -1394,7 +1394,7 @@ y_c3_ts_axis
 // Update text based on selected area
 d3.select("#selected_line_3_log_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 confirmed cumulative cases over time; days since case 10; linear scale; ' + chosen_c3_highlight_area + ' highlighted'
+    return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; days since case 10; linear scale; ' + chosen_c3_highlight_area + ' highlighted'
 });
 }
 
@@ -2312,7 +2312,7 @@ var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_but
 // Update text based on selected area
 d3.select("#selected_daily_cases_bars_1_compare_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 confirmed new daily confirmed cases over time; ' + selected_line_5_area_option
+    return 'Covid-19 pillar 1 and 2 confirmed new daily confirmed cases over time; ' + selected_line_5_area_option
   });
 
 var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {
@@ -2575,7 +2575,7 @@ var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_but
 
 d3.select("#selected_daily_cases_bars_1_compare_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 confirmed new daily confirmed cases over time; ' + selected_line_5_area_option
+    return 'Covid-19 pillar 1 ans 2 confirmed new daily confirmed cases over time; ' + selected_line_5_area_option
   });
 
 var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {
