@@ -438,6 +438,11 @@ area_x_place <- area_x_place %>%
   guides(fill = guide_legend(nrow = 2, byrow = TRUE))
 }
 
+if(Area_x == 'West Sussex'){
+  area_x_place_death_all_cause_plot <- area_x_place_death_all_cause_plot +
+    theme(legend.position = c(.25, .85))
+}
+
 png(paste0(github_repo_dir, '/Outputs/007_', gsub(' ','_', Area_x), '_place_death_all_cause_plot.png'), width = 1080, height = 550, res = 150)
 print(area_x_place_death_all_cause_plot)
 dev.off()
