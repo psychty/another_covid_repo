@@ -336,7 +336,7 @@ area_x_wk_all_deaths_plot_2 <- ggplot(area_x_all_cause,
            vjust = -.5) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5)) 
 
-png(paste0(github_repo_dir, '/Outputs/004_',gsub(' ', '_', Area_x), '_wk_all_deaths_plot_v2.png'), width = 1080, height = 550, res = 150)
+png(paste0(github_repo_dir, '/Outputs/004_',gsub(' ', '_', Area_x), '_wk_all_deaths_plot_v2.png'), width = 1580, height = 1050, res = 150)
 print(area_x_wk_all_deaths_plot_2)
 dev.off()
 
