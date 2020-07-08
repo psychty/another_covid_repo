@@ -80,172 +80,172 @@ daily_deaths_trust <- read_csv(paste0(github_repo_dir, '/daily_trust_deaths.csv'
 daily_trust_deaths_table <- read_csv(paste0(github_repo_dir, '/daily_trust_deaths_table.csv'))
 meta_trust_deaths <- read_csv(paste0(github_repo_dir, '/meta_trust_deaths.csv'))
 
-# Confirmed cases - context ####
-
-daily_cases <- read_csv(paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv')) %>% 
-  mutate(Name = factor(Name, levels = rev(c('Brighton and Hove','East Sussex','Eastbourne', 'Hastings', 'Lewes','Rother','Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex', 'Worthing', 'South East region', 'England')))) %>% 
-  mutate(new_case_key = factor(ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases >= 76 & New_cases <= 100, '76-100 cases', ifelse(New_cases >100, 'More than 100 cases', NA))))))), levels =  c('No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', '76-100 cases', 'More than 100 cases'))) %>%
-  mutate(new_case_per_100000_key = factor(ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 2, '1-2 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 4, '3-4 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 6, '5-6 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 8, '7-8 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 10, '9-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 10, 'More than 10 new cases per 100,000', NA)))))))), levels =  c('No new cases', '1-2 new cases per 100,000', '3-4 new cases per 100,000', '5-6 new cases per 100,000', '7-8 new cases per 100,000', '9-10 new cases per 100,000', 'More than 10 new cases per 100,000'))) 
-
-# daily_cases %>% 
-#   group_by(new_case_per_100000_key) %>% 
-#   summarise(n())
-
-# PHE say the last five data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
-complete_date <- max(daily_cases$Date) - 5
-complete_period <- format(complete_date, '%d %B')
-
-# Latest
-case_summary_latest <- daily_cases %>% 
-  filter(Date == max(Date)) %>% 
-  select(Name, Cumulative_cases, Cumulative_per_100000, Seven_day_average_cumulative_cases) %>% 
-  rename(`Total confirmed cases so far` = Cumulative_cases,
-         `Total cases per 100,000 population` = Cumulative_per_100000,
-         `Seven day average cumulative cases` = Seven_day_average_cumulative_cases)
-
-case_summary_complete <- daily_cases %>% 
-  filter(Date == complete_date) %>% 
-  select(Name, New_cases, New_cases_per_100000, Seven_day_average_new_cases) %>% 
-  rename(`Confirmed cases swabbed on most recent complete day` = New_cases,
-         `Confirmed cases swabbed per 100,000 population on most recent complete day` = New_cases_per_100000,
-         `Average number of confirmed cases tested in past seven complete days` = Seven_day_average_new_cases) 
-
-doubling_time_df_summary <- daily_cases %>% 
-  filter(period_in_reverse %in% c(1,2)) %>% 
-  arrange(-period_in_reverse) %>% 
-  select(Name, date_range_label, Double_time) %>% 
-  unique() %>% 
-  spread(date_range_label, Double_time)
-
-case_summary <- case_summary_latest %>% 
-  left_join(case_summary_complete, by = 'Name') %>% 
-  left_join(doubling_time_df_summary, by = 'Name') %>% 
-  arrange(Name) %>% 
-  mutate(Name = factor(Name, levels = unique(Name))) %>% 
-  mutate(`Rate of growth in cases` = ifelse(.[[8]] > .[[9]], 'Slowing', ifelse(.[[8]] < .[[9]], 'Speeding up', NA))) %>% 
-  mutate_at(vars(2,5), funs(format(., big.mark = ',', trim = TRUE))) %>% 
-  mutate_at(vars(3,4,6,7), funs(format(round(.,0), big.mark = ',', trim = TRUE))) %>% 
-  mutate_at(vars(8,9), funs(paste0(format(round(.,1), big.mark = ',', trim = TRUE),' days'))) %>% 
-  mutate(highlight = ifelse(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex'), 'bold', 'plain'))
-
-new_case_rate_plot <- ggplot(daily_cases, aes(x = Date,
-                           y = Name,
-                           fill = new_case_per_100000_key)) +
-  scale_fill_manual(values = c('#ffffb2','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#b10026'),
-                    name = 'Tile colour\nkey',
-                    drop = FALSE) +
-  geom_tile(colour = "#ffffff") +
-  labs(x = NULL,
-       y = NULL) +
-  scale_x_date(date_labels = "%b %d",
-               breaks = seq.Date(max(daily_cases$Date) -(52*7), max(daily_cases$Date), by = 7),
-               limits = c(min(daily_cases$Date), max(daily_cases$Date)),
-               expand = c(0,0.0)) +
-  scale_y_discrete(position = 'right') +
-  hm_theme() +
-  theme(axis.text.y = element_text(colour = "#323232", face = case_summary$highlight, size = 8)) +
-  # theme(axis.text.y = element_blank()) +
-  theme(legend.position = 'none')
-
-paste0('Summary of new confirmed Covid-19 cases per 100,000 population (all ages); ', format(min(daily_cases$Date), '%d %B'), ' to ',format(max(daily_cases$Date), '%d %B'))
-
-paste0('The latest available data in this analysis are for ', format(max(daily_cases$Date), '%a %d %b') , '. However, as data for recent days are likely to change significantly, only data up to ', format(complete_date, '%a %d %b'), ' should be treated as complete. The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date).')
-
-png(paste0(github_repo_dir, "/Outputs/001_new_case_rate_plot.png"), width = 680, height = 500, res = 120)
-new_case_rate_plot
-dev.off()
-
-case_summary %>%
-  arrange(rev(Name)) %>%
-  select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past seven complete days`, highlight, `Seven day average cumulative cases`)) %>%
-  write.csv(., paste0(github_repo_dir, '/Outputs/Table_1_case_summary.csv'), row.names = FALSE, na = '')
-
-case_summary %>%
-  select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past seven complete days`, highlight, `Seven day average cumulative cases`)) %>%
-  names()
-
-utla_daily_cases <- daily_cases %>% 
-  filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
-  filter(Days_since_case_x >= 0) %>% 
-  mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex')))
-
-cases_linear_plot <- ggplot(utla_daily_cases,
-       aes(x = Days_since_case_x,
-           y = Cumulative_cases,
-           group = Name,
-           colour = Name)) +
-    geom_line() +
-    geom_point(aes(x = Days_since_case_x,
-                   y = Cumulative_cases,
-                   fill = Name),
-             size = 2,
-             colour = '#ffffff',
-             shape = 21) +
-  labs(title = paste0('Cumulative confirmed Covid-19 cases over time; days since case 10; linear scale'),
-       x = 'Days since case 10',
-       y = 'Number of confirmed cases') +
-  scale_colour_manual(values = c("#549037", "#003366",'#710a60'),
-                    name = '') +
-  scale_fill_manual(values = c("#549037", "#003366",'#710a60'),
-                      name = '') +
-  scale_x_continuous(limits = c(0,max(utla_daily_cases$Days_since_case_x)+2),
-                     breaks = seq(0,max(utla_daily_cases$Days_since_case_x), 2),
-                     expand = c(0,0.01)) +
-  scale_y_continuous(breaks = seq(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling),100),
-                     limits = c(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling)),
-                     labels = comma) +
-  ph_theme() +
-  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) 
-
-png(paste0(github_repo_dir, "/Outputs/002_cases_linear_plot.png"), width = 1080, height = 450, res = 150)
-cases_linear_plot
-dev.off()  
-
-cases_loglinear_plot <-  ggplot(utla_daily_cases,
-         aes(x = Days_since_case_x,
-             y = Cumulative_cases,
-             group = Name,
-             colour = Name)) +
-  geom_line() +
-  geom_point(aes(x = Days_since_case_x,
-                 y = Cumulative_cases,
-                 fill = Name),
-             size = 2,
-             colour = '#ffffff',
-             shape = 21) +
-  labs(title = paste0('Cumulative confirmed Covid-19 cases over time; days since case 10; loglinear scale'),
-       x = 'Days since case 10',
-       y = 'Number of confirmed cases') +
-  scale_colour_manual(values = c("#549037", "#003366",'#710a60'),
-                      name = '') +
-  scale_fill_manual(values = c("#549037", "#003366",'#710a60'),
-                    name = '') +
-  scale_x_continuous(limits = c(0,max(utla_daily_cases$Days_since_case_x)+2),
-                     breaks = seq(0,max(utla_daily_cases$Days_since_case_x), 2),
-                     expand = c(0,0.01)) +
-  scale_y_continuous(trans = 'log10',
-                     breaks= c(10, 50, 100, 250, 500, 1000, 2000),
-                     labels = comma) +
-  ph_theme() +
-  theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) 
-
-png(paste0(github_repo_dir, "/Outputs/003_cases_loglinear_plot.png"), width = 1080, height = 450, res = 150)
-cases_loglinear_plot
-dev.off()  
-
-for(i in 1:length(Areas_to_loop)){
-  Area_x <- Areas_to_loop[i]
-
-cum_cases <- utla_daily_cases %>% 
-  filter(Date == max(Date)) %>% 
-  select(Name, Date, Cumulative_cases) %>% 
-  mutate(Proportion_confirmed_cases = Cumulative_cases / sum(Cumulative_cases)) %>% 
-  filter(Name == Area_x)
-
-print(paste0('As at ', format(unique(cum_cases$Date), '%d %b'), ', ', Area_x, ' has recorded ', format(cum_cases$Cumulative_cases, big.mark = ',', trim = TRUE), ' confirmed Covid-19 cases. This is ', round(cum_cases$Proportion_confirmed_cases * 100, 1), '% of confirmed cases in Sussex to date.'))
-}
-
-rm(Area_x)
+# # Confirmed cases - context ####
+# 
+# daily_cases <- read_csv(paste0(github_repo_dir, '/ltla_sussex_daily_cases.csv')) %>% 
+#   mutate(Name = factor(Name, levels = rev(c('Brighton and Hove','East Sussex','Eastbourne', 'Hastings', 'Lewes','Rother','Wealden','West Sussex','Adur', 'Arun', 'Chichester','Crawley','Horsham','Mid Sussex', 'Worthing', 'South East region', 'England')))) %>% 
+#   mutate(new_case_key = factor(ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases >= 76 & New_cases <= 100, '76-100 cases', ifelse(New_cases >100, 'More than 100 cases', NA))))))), levels =  c('No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', '76-100 cases', 'More than 100 cases'))) %>%
+#   mutate(new_case_per_100000_key = factor(ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 2, '1-2 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 4, '3-4 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 6, '5-6 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 8, '7-8 new cases per 100,000', ifelse(round(New_cases_per_100000,0) <= 10, '9-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 10, 'More than 10 new cases per 100,000', NA)))))))), levels =  c('No new cases', '1-2 new cases per 100,000', '3-4 new cases per 100,000', '5-6 new cases per 100,000', '7-8 new cases per 100,000', '9-10 new cases per 100,000', 'More than 10 new cases per 100,000'))) 
+# 
+# # daily_cases %>% 
+# #   group_by(new_case_per_100000_key) %>% 
+# #   summarise(n())
+# 
+# # PHE say the last five data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
+# complete_date <- max(daily_cases$Date) - 5
+# complete_period <- format(complete_date, '%d %B')
+# 
+# # Latest
+# case_summary_latest <- daily_cases %>% 
+#   filter(Date == max(Date)) %>% 
+#   select(Name, Cumulative_cases, Cumulative_per_100000, Seven_day_average_cumulative_cases) %>% 
+#   rename(`Total confirmed cases so far` = Cumulative_cases,
+#          `Total cases per 100,000 population` = Cumulative_per_100000,
+#          `Seven day average cumulative cases` = Seven_day_average_cumulative_cases)
+# 
+# case_summary_complete <- daily_cases %>% 
+#   filter(Date == complete_date) %>% 
+#   select(Name, New_cases, New_cases_per_100000, Seven_day_average_new_cases) %>% 
+#   rename(`Confirmed cases swabbed on most recent complete day` = New_cases,
+#          `Confirmed cases swabbed per 100,000 population on most recent complete day` = New_cases_per_100000,
+#          `Average number of confirmed cases tested in past seven complete days` = Seven_day_average_new_cases) 
+# 
+# doubling_time_df_summary <- daily_cases %>% 
+#   filter(period_in_reverse %in% c(1,2)) %>% 
+#   arrange(-period_in_reverse) %>% 
+#   select(Name, date_range_label, Double_time) %>% 
+#   unique() %>% 
+#   spread(date_range_label, Double_time)
+# 
+# case_summary <- case_summary_latest %>% 
+#   left_join(case_summary_complete, by = 'Name') %>% 
+#   left_join(doubling_time_df_summary, by = 'Name') %>% 
+#   arrange(Name) %>% 
+#   mutate(Name = factor(Name, levels = unique(Name))) %>% 
+#   mutate(`Rate of growth in cases` = ifelse(.[[8]] > .[[9]], 'Slowing', ifelse(.[[8]] < .[[9]], 'Speeding up', NA))) %>% 
+#   mutate_at(vars(2,5), funs(format(., big.mark = ',', trim = TRUE))) %>% 
+#   mutate_at(vars(3,4,6,7), funs(format(round(.,0), big.mark = ',', trim = TRUE))) %>% 
+#   mutate_at(vars(8,9), funs(paste0(format(round(.,1), big.mark = ',', trim = TRUE),' days'))) %>% 
+#   mutate(highlight = ifelse(Name %in% c('West Sussex', 'Brighton and Hove', 'East Sussex'), 'bold', 'plain'))
+# 
+# new_case_rate_plot <- ggplot(daily_cases, aes(x = Date,
+#                            y = Name,
+#                            fill = new_case_per_100000_key)) +
+#   scale_fill_manual(values = c('#ffffb2','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#b10026'),
+#                     name = 'Tile colour\nkey',
+#                     drop = FALSE) +
+#   geom_tile(colour = "#ffffff") +
+#   labs(x = NULL,
+#        y = NULL) +
+#   scale_x_date(date_labels = "%b %d",
+#                breaks = seq.Date(max(daily_cases$Date) -(52*7), max(daily_cases$Date), by = 7),
+#                limits = c(min(daily_cases$Date), max(daily_cases$Date)),
+#                expand = c(0,0.0)) +
+#   scale_y_discrete(position = 'right') +
+#   hm_theme() +
+#   theme(axis.text.y = element_text(colour = "#323232", face = case_summary$highlight, size = 8)) +
+#   # theme(axis.text.y = element_blank()) +
+#   theme(legend.position = 'none')
+# 
+# paste0('Summary of new confirmed Covid-19 cases per 100,000 population (all ages); ', format(min(daily_cases$Date), '%d %B'), ' to ',format(max(daily_cases$Date), '%d %B'))
+# 
+# paste0('The latest available data in this analysis are for ', format(max(daily_cases$Date), '%a %d %b') , '. However, as data for recent days are likely to change significantly, only data up to ', format(complete_date, '%a %d %b'), ' should be treated as complete. The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from six days prior (latest complete date).')
+# 
+# png(paste0(github_repo_dir, "/Outputs/001_new_case_rate_plot.png"), width = 680, height = 500, res = 120)
+# new_case_rate_plot
+# dev.off()
+# 
+# case_summary %>%
+#   arrange(rev(Name)) %>%
+#   select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past seven complete days`, highlight, `Seven day average cumulative cases`)) %>%
+#   write.csv(., paste0(github_repo_dir, '/Outputs/Table_1_case_summary.csv'), row.names = FALSE, na = '')
+# 
+# case_summary %>%
+#   select(-c(`Confirmed cases swabbed per 100,000 population on most recent complete day`,`Average number of confirmed cases tested in past seven complete days`, highlight, `Seven day average cumulative cases`)) %>%
+#   names()
+# 
+# utla_daily_cases <- daily_cases %>% 
+#   filter(Name %in% c('Brighton and Hove', 'East Sussex', 'West Sussex')) %>% 
+#   filter(Days_since_case_x >= 0) %>% 
+#   mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex')))
+# 
+# cases_linear_plot <- ggplot(utla_daily_cases,
+#        aes(x = Days_since_case_x,
+#            y = Cumulative_cases,
+#            group = Name,
+#            colour = Name)) +
+#     geom_line() +
+#     geom_point(aes(x = Days_since_case_x,
+#                    y = Cumulative_cases,
+#                    fill = Name),
+#              size = 2,
+#              colour = '#ffffff',
+#              shape = 21) +
+#   labs(title = paste0('Cumulative confirmed Covid-19 cases over time; days since case 10; linear scale'),
+#        x = 'Days since case 10',
+#        y = 'Number of confirmed cases') +
+#   scale_colour_manual(values = c("#549037", "#003366",'#710a60'),
+#                     name = '') +
+#   scale_fill_manual(values = c("#549037", "#003366",'#710a60'),
+#                       name = '') +
+#   scale_x_continuous(limits = c(0,max(utla_daily_cases$Days_since_case_x)+2),
+#                      breaks = seq(0,max(utla_daily_cases$Days_since_case_x), 2),
+#                      expand = c(0,0.01)) +
+#   scale_y_continuous(breaks = seq(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling),100),
+#                      limits = c(0,round_any(max(utla_daily_cases$Cumulative_cases, na.rm = TRUE), 250, ceiling)),
+#                      labels = comma) +
+#   ph_theme() +
+#   theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) 
+# 
+# png(paste0(github_repo_dir, "/Outputs/002_cases_linear_plot.png"), width = 1080, height = 450, res = 150)
+# cases_linear_plot
+# dev.off()  
+# 
+# cases_loglinear_plot <-  ggplot(utla_daily_cases,
+#          aes(x = Days_since_case_x,
+#              y = Cumulative_cases,
+#              group = Name,
+#              colour = Name)) +
+#   geom_line() +
+#   geom_point(aes(x = Days_since_case_x,
+#                  y = Cumulative_cases,
+#                  fill = Name),
+#              size = 2,
+#              colour = '#ffffff',
+#              shape = 21) +
+#   labs(title = paste0('Cumulative confirmed Covid-19 cases over time; days since case 10; loglinear scale'),
+#        x = 'Days since case 10',
+#        y = 'Number of confirmed cases') +
+#   scale_colour_manual(values = c("#549037", "#003366",'#710a60'),
+#                       name = '') +
+#   scale_fill_manual(values = c("#549037", "#003366",'#710a60'),
+#                     name = '') +
+#   scale_x_continuous(limits = c(0,max(utla_daily_cases$Days_since_case_x)+2),
+#                      breaks = seq(0,max(utla_daily_cases$Days_since_case_x), 2),
+#                      expand = c(0,0.01)) +
+#   scale_y_continuous(trans = 'log10',
+#                      breaks= c(10, 50, 100, 250, 500, 1000, 2000),
+#                      labels = comma) +
+#   ph_theme() +
+#   theme(axis.text.x = element_text(angle = 0, hjust = .5, vjust = .5)) 
+# 
+# png(paste0(github_repo_dir, "/Outputs/003_cases_loglinear_plot.png"), width = 1080, height = 450, res = 150)
+# cases_loglinear_plot
+# dev.off()  
+# 
+# for(i in 1:length(Areas_to_loop)){
+#   Area_x <- Areas_to_loop[i]
+# 
+# cum_cases <- utla_daily_cases %>% 
+#   filter(Date == max(Date)) %>% 
+#   select(Name, Date, Cumulative_cases) %>% 
+#   mutate(Proportion_confirmed_cases = Cumulative_cases / sum(Cumulative_cases)) %>% 
+#   filter(Name == Area_x)
+# 
+# print(paste0('As at ', format(unique(cum_cases$Date), '%d %b'), ', ', Area_x, ' has recorded ', format(cum_cases$Cumulative_cases, big.mark = ',', trim = TRUE), ' confirmed Covid-19 cases. This is ', round(cum_cases$Proportion_confirmed_cases * 100, 1), '% of confirmed cases in Sussex to date.'))
+# }
+# 
+# rm(Area_x)
 
 # Deaths slides ####
 
@@ -304,6 +304,45 @@ area_x_wk_all_deaths_plot <- ggplot(area_x_all_cause,
 png(paste0(github_repo_dir, '/Outputs/004_',gsub(' ', '_', Area_x), '_wk_all_deaths_plot.png'), width = 1080, height = 550, res = 150)
 print(area_x_wk_all_deaths_plot)
 dev.off()
+
+
+area_x_all_cause <- area_x_all_cause %>% 
+  mutate(three_week_average_deaths = round(rollapply(Deaths, 3, mean, align = 'right', fill = NA), 0)) %>% 
+  mutate(death_label = ifelse(is.na(three_week_average_deaths), paste0(Deaths, '\n'), paste0(Deaths, '\n(', three_week_average_deaths, ')')))
+  
+area_x_wk_all_deaths_plot_2 <- ggplot(area_x_all_cause,
+       aes(x = Week_ending, 
+           y = Deaths)) +
+  geom_bar(stat = 'identity',
+           fill = '#f8c000') +
+  geom_line(aes(x = Week_ending,
+                y = three_week_average_deaths,
+                group = 1),
+            colour = '#000000') +
+  labs(title = paste0('Weekly all cause deaths; ',Area_x,'; w/e 3rd Jan 2020 - ', latest_we$Week_ending),
+       subtitle = 'By week of occurrence',
+       caption = 'The black line represents the rolling average number of deaths in the previous three weeks.\nThe number of deaths are given at the top of each bar, with the average number of deaths given in brackets.',
+       x = 'Week',
+       y = 'Number of deaths') +
+  scale_y_continuous(breaks = seq(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))),ifelse(Area_x == 'Brighton and Hove',25, 50)),
+                     limits = c(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))))) +
+  ph_theme() +
+  annotate(geom = "text", 
+           x = area_x_all_cause$Week_ending,
+           y = area_x_all_cause$Deaths,
+           label = area_x_all_cause$death_label,
+           size = 3, 
+           fontface = "bold",
+           vjust = -.5) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = .5)) 
+
+png(paste0(github_repo_dir, '/Outputs/004_',gsub(' ', '_', Area_x), '_wk_all_deaths_plot_v2.png'), width = 1080, height = 550, res = 150)
+print(area_x_wk_all_deaths_plot_2)
+dev.off()
+
+
+
+
 
 area_x_cov_non_cov <- weekly_all_place_deaths %>% 
   filter(Name == Area_x) %>% 
