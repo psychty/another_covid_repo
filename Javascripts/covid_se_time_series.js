@@ -2478,19 +2478,19 @@ svg_daily_new_case_bars
   .attr('stroke', 'red')
   .attr("stroke-dasharray", ("3, 3"))
 
-svg_daily_new_case_bars
-  .append("text")
-  .attr("x", x_daily_cases('13 May'))
-  .attr("y", 22)
-  .text('more people')
-  .attr("text-anchor", "end")
-
-svg_daily_new_case_bars
-  .append("text")
-  .attr("x", x_daily_cases('13 May'))
-  .attr("y", 31)
-  .text('return to work -')
-  .attr("text-anchor", "end")
+// svg_daily_new_case_bars
+//   .append("text")
+//   .attr("x", x_daily_cases('13 May'))
+//   .attr("y", 22)
+//   .text('more people')
+//   .attr("text-anchor", "end")
+//
+// svg_daily_new_case_bars
+//   .append("text")
+//   .attr("x", x_daily_cases('13 May'))
+//   .attr("y", 31)
+//   .text('return to work -')
+//   .attr("text-anchor", "end")
 
 svg_daily_new_case_bars
   .append('line')
@@ -2568,6 +2568,20 @@ svg_daily_new_case_bars
   .attr("y", 66)
   .text(d3.format(',.0f')(peak_daily_cases_1_chosen[0]['Seven_day_average_new_cases']) + ' cases on ' + peak_daily_cases_1_chosen[0]['Period'])
   .attr("text-anchor", "start")
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr("x", x_daily_cases('13 May'))
+  .attr("y", 22)
+  .text('more people')
+  .attr("text-anchor", "end")
+
+svg_daily_new_case_bars
+  .append("text")
+  .attr("x", x_daily_cases('13 May'))
+  .attr("y", 31)
+  .text('return to work -')
+  .attr("text-anchor", "end")
 
 function update_daily_bars() {
 

@@ -108,5 +108,15 @@ dat <- data.frame(
   )
 )
 
+dat <- dat %>% 
+  mutate(density = get_density(x, y, n = 100))
+
+ggplot(dat,
+       aes(x = x,
+           y = y,
+           colour = density)) + 
+  geom_point() +
+  theme(legend.position="none") +
+  coord_equal()
 
 

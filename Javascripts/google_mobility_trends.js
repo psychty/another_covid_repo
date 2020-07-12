@@ -110,7 +110,7 @@ xAxis_mobility
   .attr("transform", 'translate(-10,10)rotate(-90)')
   .style("text-anchor", "end")
   .each(function(d,i) {
-    if (i%2 == 0) d3.select(this).remove();
+    if (i%3 != 0) d3.select(this).remove();
     });
 
 var y_mobility_ts = d3.scaleLinear()
@@ -349,6 +349,45 @@ svg_mobility_trends
     })
   .style('font-weight', 'bold')
   .style("font-size", "16px")
+
+svg_mobility_trends
+  .append('line')
+  .attr('x1', x_mobility('23 March (Mon)') + (x_mobility.bandwidth() / 2))
+  .attr('y1', 30)
+  .attr('x2', x_mobility('23 March (Mon)') + (x_mobility.bandwidth() / 2))
+  .attr('y2', height_line - 120 )
+  .attr('stroke', 'red')
+  .attr("stroke-dasharray", ("3, 3"))
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", x_mobility('23 March (Mon)'))
+  .attr("y", 22)
+  .text('lockdown starts')
+  .attr("text-anchor", "end")
+
+svg_mobility_trends
+  .append('line')
+  .attr('x1', x_mobility('13 May (Wed)') + (x_mobility.bandwidth() / 2))
+  .attr('y1', 30)
+  .attr('x2', x_mobility('13 May (Wed)') + (x_mobility.bandwidth() / 2))
+  .attr('y2', height_line - 120 )
+  .attr('stroke', 'red')
+  .attr("stroke-dasharray", ("3, 3"))
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", x_mobility('13 May (Wed)'))
+  .attr("y", 22)
+  .text('more people')
+  .attr("text-anchor", "end")
+
+svg_mobility_trends
+  .append("text")
+  .attr("x", x_mobility('13 May (Wed)'))
+  .attr("y", 31)
+  .text('return to work -')
+  .attr("text-anchor", "end")
 
 function update_mobility(chosen_mobility_area){
 var chosen_mobility_area = d3.select('#select_mobility_area_button').property("value")

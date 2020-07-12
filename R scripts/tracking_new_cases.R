@@ -485,7 +485,7 @@ test_timeline <- data.frame(Period = c('27 March', '15 April','17 April','23 Apr
 download.file('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/889782/Care_home_outbreaks_of_COVID-19_Management_Information.ods', paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), mode = 'wb')
 
 utla_ch_outbreaks <- read_ods(paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), sheet = "Upper_Tier_Local_authorities", skip = 1) %>% 
-  select(-c('Local Authority','Percentage of care homes that have reported an outbreak', 'Government office regions', 'All outbreaks')) %>% 
+  select(-c('Local Authority', 'Government office regions', 'All outbreaks')) %>% 
   gather(key = "Date", value = "Outbreaks", 3:ncol(.)-1) %>% 
   rename(Code = UTLAApr19CD) %>% 
   mutate(Date = as.Date(Date)) %>% 
@@ -497,7 +497,7 @@ utla_ch_outbreaks <- read_ods(paste0(github_repo_dir, '/latest_carehome_outbreak
   ungroup()
 
 ltla_ch_outbreaks <- read_ods(paste0(github_repo_dir, '/latest_carehome_outbreaks.ods'), sheet = "Lower_Tier_Local_authorities", skip = 1) %>% 
-  select(-c('Local Authority','Percentage of care homes that have reported an outbreak', 'Government office regions', 'All outbreaks')) %>% 
+  select(-c('Local Authority', 'Government office regions', 'All outbreaks')) %>% 
   gather(key = "Date", value = "Outbreaks", 3:ncol(.)-1) %>% 
   rename(Code = LTLAApr19CD) %>% 
   mutate(Date = as.Date(Date)) %>% 
@@ -559,3 +559,4 @@ daily_cases %>%
   rename(Area = Name) %>% 
   select(Area, Date, New_cases, Cumulative_cases) %>% 
   write.csv(., paste0(github_repo_dir, '/utla_local_daily_cases.csv'), row.names = FALSE)
+
