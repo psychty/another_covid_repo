@@ -169,8 +169,74 @@ daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code =
   mutate(new_case_key = factor(ifelse(New_cases == 0, 'No new cases', ifelse(New_cases >= 1 & New_cases <= 10, '1-10 cases', ifelse(New_cases >= 11 & New_cases <= 25, '11-25 cases', ifelse(New_cases >= 26 & New_cases <= 50, '26-50 cases', ifelse(New_cases >= 51 & New_cases <= 75, '51-75 cases', ifelse(New_cases >= 76 & New_cases <= 100, '76-100 cases', ifelse(New_cases >100, 'More than 100 cases', NA))))))), levels =  c('No new cases', '1-10 cases', '11-25 cases', '26-50 cases', '51-75 cases', '76-100 cases', 'More than 100 cases'))) %>%
   mutate(new_case_per_100000_key = factor(ifelse(New_cases_per_100000 < 0, 'Data revised down', ifelse(round(New_cases_per_100000,0) == 0, 'No new cases', ifelse(round(New_cases_per_100000,0) > 0 & round(New_cases_per_100000, 0) <= 5, '1-5 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 6 & round(New_cases_per_100000,0) <= 10, '6-10 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 11 & round(New_cases_per_100000, 0) <= 15, '11-15 new cases per 100,000', ifelse(round(New_cases_per_100000,0) >= 16 & round(New_cases_per_100000,0) <= 20, '16-20 new cases per 100,000', ifelse(round(New_cases_per_100000,0) > 20, 'More than 20 new cases per 100,000', NA))))))), levels =  c('No new cases', '1-5 new cases per 100,000', '6-10 new cases per 100,000', '11-15 new cases per 100,000', '16-20 new cases per 100,000', 'More than 20 new cases per 100,000'))) %>% 
   ungroup() %>% 
-  mutate(Name = ifelse(Name == 'South East', 'South East region', Name))
-  
+  mutate(Name = ifelse(Name == 'South East', 'South East region', Name)) %>% 
+  mutate(Test_pillar = 'Pillars 1 and 2') %>% 
+  group_by(Name) %>% 
+  mutate(Ten_day_average_new_cases = rollapply(New_cases, 10, mean, align = 'right', fill = NA)) %>% 
+  mutate(Fourteen_day_average_new_cases = rollapply(New_cases, 14, mean, align = 'right', fill = NA)) %>% 
+  ungroup()# This is inspired by work of Brennan Klein
+
+# whole time series colours by whether the last x days has:
+#   
+# more than the previous 14-day average
+# fewer than the previous 14-day average
+# fewer than half of the previous 14-day average
+# fewer than 50 cases per day
+# 
+# these will need to be carefully considered locally when cases are fairly low.
+
+p12_test_df_2 <- daily_cases_reworked %>% 
+  group_by(Name) %>% 
+  filter(Date %in% c(complete_date, complete_date - 7)) %>% 
+  select(Name, Date, Seven_day_average_new_cases) %>% 
+  arrange(desc(Date)) %>% 
+  mutate(Date = c('Latest_7_day_average', 'Previous_7_day_average')) %>% 
+  spread(Date, Seven_day_average_new_cases) %>% 
+  mutate(Colour_key = factor(ifelse(Latest_7_day_average == 0, 'No confirmed cases in past 7 days', ifelse(Latest_7_day_average == Previous_7_day_average, 'No change in average cases', ifelse(Latest_7_day_average > Previous_7_day_average, 'Increasing average number of\ncases over past 7 days', ifelse(Latest_7_day_average < Previous_7_day_average, 'Decreasing average number of\ncases over past 7 days', ifelse(Latest_7_day_average < (Previous_7_day_average/2), 'Less than half the previous 7-day average',  NA))))), levels = c('No change in average cases','Increasing average number of\ncases over past 7 days', 'Decreasing average number of\ncases over past 7 days', 'Less than half the previous 7-day average', 'No confirmed cases in past 7 days')))
+
+p12_df <- daily_cases_reworked %>% 
+  left_join(p12_test_df_2, by = 'Name')
+
+# I want to make a ltla small multiples plot where the user can select the UTLA an all LTLAs within that area are displayed.
+
+# Something freaky is happening with downloading of data from Open Geography Portal. The stable urls are broken using the direct reading in R. The quickest workaround (and most frustrating) is to manually download both the ltla to utla and ltla to region look up files and combine them.
+if(!file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
+  # Lookups from ltla to utla and region
+  lookup <- read_csv(url("https://opendata.arcgis.com/datasets/3e4f4af826d343349c13fb7f0aa2a307_0.csv")) #%>% 
+  select(-c(FID, LTLA19NM)) %>% 
+    left_join(read_csv(url('https://opendata.arcgis.com/datasets/3ba3daf9278f47daba0f561889c3521a_0.csv')), by = c('LTLA19CD' = 'LAD19CD')) %>% 
+    select(-c(FID, LAD19NM)) %>% 
+    add_row(LTLA19CD ='E06000060', UTLA19CD = 'E06000060', UTLA19NM = 'Buckinghamshire', RGN19CD = 'E12000008', RGN19NM = 'South East')
+}
+
+if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))){
+  lookup <- read_csv(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv')) %>% 
+    add_row(LTLA19CD ='E06000060', UTLA19CD = 'E06000060', UTLA19NM = 'Buckinghamshire', RGN19CD = 'E12000008', RGN19NM = 'South East')
+}
+
+lower_tier_areas <- p12_df %>% 
+  filter(Type == 'Lower Tier Local Authority') %>% 
+  left_join(lookup, by = c('Code' = 'LTLA19CD')) %>% 
+  filter(RGN19NM == 'South East') %>%
+  mutate(Date_label = format(Date, '%d %b')) %>% 
+  select(Code, Name, Date, Date_label, UTLA19NM, New_cases, New_cases_per_100000, Seven_day_average_new_cases, Case_label, Colour_key)
+
+lower_tier_areas %>% 
+  filter(Date %in% seq.Date(max(lower_tier_areas$Date) -(52*7), max(lower_tier_areas$Date), by = 14)) %>% 
+  select(Date_label) %>% 
+  unique() %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_dates.json'))
+
+lower_tier_areas %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_daily.json'))
+
+case_change_summary <- p12_test_df_2 %>% 
+  filter(Name %in% lower_tier_areas$Name) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_summary.json'))
+
 rm(daily_cases, Areas, Dates, first_date)
 
 # We need to figure out the starting case report date and what to do with data revised down.
@@ -560,3 +626,10 @@ daily_cases %>%
   select(Area, Date, New_cases, Cumulative_cases) %>% 
   write.csv(., paste0(github_repo_dir, '/utla_local_daily_cases.csv'), row.names = FALSE)
 
+# MSOA data
+# requires a bit of tidying but should be straightforward to access
+
+download.file('https://c19downloads.azureedge.net/downloads/msoa_data/MSOAs-09-07-2020.xlsx', paste0(github_repo_dir, '/msoa_case_data.xlsx'), mode = 'wb')
+
+msoa_case_data <- read_excel("Documents/Repositories/another_covid_repo/msoa_case_data.xlsx", 
+                             sheet = "MSOAs-09-07-2020")
