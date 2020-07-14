@@ -1808,7 +1808,7 @@ deaths_trust_plot <- ggplot(data = daily_deaths_trust,
   theme(axis.text.x = element_text(angle = 90, hjust = .5, vjust = .5),
         legend.key.size = unit(0.5, "lines"),
         legend.text = element_text(size = 6),
-        legend.position = c(.25,.8)) +
+        legend.position = c(.2,.8)) +
   guides(colour = guide_legend(nrow = 5, byrow = TRUE))
 
 png(paste0(github_repo_dir, "/Outputs/023_deaths_trust_plot.png"), width = 1080, height = 550, res = 150)

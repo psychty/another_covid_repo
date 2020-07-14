@@ -12,9 +12,21 @@ request.open("GET", "./ltla_case_change_dates.json", false);
 request.send(null);
 var ltla_data_dates = JSON.parse(request.responseText).map(function(d){return d.Date_label});
 
+// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+d3.select("#select_small_multiples_area_button")
+  .selectAll('mysmOptions')
+  .data(['West Sussex', 'Brighton and Hove', 'East Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
+  .enter()
+  .append('option')
+  .text(function(d) {
+    return d;
+  })
+  .attr("value", function(d) {
+    return d;
+  })
 
-
-chosen_utla_area = 'West Sussex'
+// Retrieve the selected area name
+var chosen_utla_area = d3.select('#select_small_multiples_area_button').property("value")
 
 var chosen_ltla_df = ltla_data.filter(function(d) {
   return d.UTLA19NM === chosen_utla_area
@@ -38,15 +50,12 @@ var sm_svg_1 = d3.select("#my_sm_dataviz")
    .append("g")
    .attr("transform", "translate(" + 50 + "," + 20 + ")");
 
+sm_svg_1.attr("id","the_SVG_ID")
+
 // Add X axis --> it is a date format
 var x_sm_1 = d3.scaleBand()
    .domain(chosen_ltla_df.map(function(d) {return (d.Date_label);}))
    .range([0, width_sm - 60]);
-
-sm_svg_1
-  .append("g")
-  .attr("transform", "translate(0," + height_sm + ")")
-  .call(d3.axisBottom(x_sm_1).tickValues(ltla_data_dates));
 
 //Add Y axis
 var y_sm_1 = d3.scaleLinear()
@@ -54,13 +63,19 @@ var y_sm_1 = d3.scaleLinear()
     .range([height_sm, 0 ])
     .nice();
 
-sm_svg_1.append("g")
-    .call(d3.axisLeft(y_sm_1).ticks(5));
-
 // color palette
 var case_change_colour = d3.scaleOrdinal()
   .domain(['No change in average cases','Increasing average number of cases over past 7 days', 'Decreasing average number of cases over past 7 days', 'Less than half the previous 7-day average', 'No confirmed cases in past 7 days'])
   .range(['#aaaaaa','#721606', '#005bd6', '#1fbfbb', '#c2f792'])
+
+ sm_svg_1
+   .append("g")
+   .call(d3.axisLeft(y_sm_1).ticks(5));
+
+ sm_svg_1
+   .append("g")
+   .attr("transform", "translate(0," + height_sm + ")")
+   .call(d3.axisBottom(x_sm_1).tickValues(ltla_data_dates));
 
  // Draw the line
 sm_svg_1
@@ -76,8 +91,6 @@ sm_svg_1
       (d.values)
       })
 
-
-
 // Add plot headings
 sm_svg_1
   .append("text")
@@ -87,3 +100,73 @@ sm_svg_1
   .text(function(d){ return(d.key)})
   .style('fill', '#999999')
   // .style("fill", function(d){ return case_change_colour(d.key) })
+
+function update_ltla_sm(chosen_utla_area){
+var chosen_utla_area = d3.select('#select_small_multiples_area_button').property("value")
+
+var chosen_ltla_df = ltla_data.filter(function(d) {
+  return d.UTLA19NM === chosen_utla_area
+});
+
+var areas_for_sm_1 = d3.nest()
+  .key(function(d) { return d.Name;})
+  .entries(chosen_ltla_df);
+
+// Which areas are present
+small_areas = areas_for_sm_1.map(function(d){return d.key})
+
+d3.selectAll("#the_SVG_ID").remove();
+// sm_svg_1.remove();
+// sm_svg_1 = d3.selectAll("body").append("svg");
+
+sm_svg_1 = d3.select("#my_sm_dataviz")
+   .selectAll("small_multiples")
+   // .attr("id","the_SVG_ID")
+   .data(areas_for_sm_1)
+   .enter()
+   .append("svg")
+   .attr("width", width_sm)
+   .attr("height", height_sm + 60)
+   .append("g")
+   .attr("transform", "translate(" + 50 + "," + 20 + ")");
+
+sm_svg_1
+  .append("g")
+  .call(d3.axisLeft(y_sm_1).ticks(5));
+
+sm_svg_1
+  .append("g")
+  .attr("transform", "translate(0," + height_sm + ")")
+  .call(d3.axisBottom(x_sm_1).tickValues(ltla_data_dates));
+
+ // Draw the line
+sm_svg_1
+  .append("path")
+  .attr("fill", "none")
+  .attr("stroke", function(d){ return case_change_colour(d.Colour_key) })
+  .attr("stroke-width", 1.9)
+  .attr("d", function(d){
+    return d3.line()
+      .defined(d => !isNaN(d.Seven_day_average_new_cases))
+      .x(function(d) { return x_sm_1(d.Date_label); })
+      .y(function(d) { return y_sm_1(+d.Seven_day_average_new_cases); })
+      (d.values)
+      })
+
+// Add plot headings
+sm_svg_1
+  .append("text")
+  .attr("text-anchor", "start")
+  .attr("y", 10)
+  .attr("x", 10)
+  .text(function(d){ return(d.key)})
+  .style('fill', '#999999')
+
+}
+
+
+d3.select("#select_small_multiples_area_button").on("change", function(d) {
+var chosen_utla_area = d3.select('#select_small_multiples_area_button').property("value")
+
+  update_ltla_sm(chosen_utla_area)
+})
