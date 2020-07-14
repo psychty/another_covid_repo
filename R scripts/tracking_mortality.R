@@ -342,7 +342,7 @@ Occurrences %>%
   unique() %>% 
   filter(Week_ending == max(Week_ending)) %>% 
   rename(Occurring_week_ending = Week_ending) %>% 
-  mutate(Reported_week_ending = format(Occurring_week_ending + 7, '%B %d %Y')) %>% 
+  mutate(Reported_week_ending = format(Occurring_week_ending + 8, '%B %d %Y')) %>% 
   mutate(Occurring_week_ending = format(Occurring_week_ending, '%B %d %Y')) %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ons_weekly_mortality_dates.json'))

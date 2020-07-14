@@ -160,10 +160,11 @@
 "Surrey",2020-07-06,3,4582
 "Surrey",2020-07-07,6,4588
 "Surrey",2020-07-08,14,4602
-"Surrey",2020-07-09,6,4608
-"Surrey",2020-07-10,6,4614
-"Surrey",2020-07-11,1,4615
-"Surrey",2020-07-12,0,4615
+"Surrey",2020-07-09,7,4609
+"Surrey",2020-07-10,6,4615
+"Surrey",2020-07-11,1,4616
+"Surrey",2020-07-12,0,4616
+"Surrey",2020-07-13,3,4619
 "West Sussex",2020-01-30,0,0
 "West Sussex",2020-01-31,0,0
 "West Sussex",2020-02-01,0,0
@@ -326,9 +327,10 @@
 "West Sussex",2020-07-07,5,2705
 "West Sussex",2020-07-08,1,2706
 "West Sussex",2020-07-09,2,2708
-"West Sussex",2020-07-10,4,2712
-"West Sussex",2020-07-11,0,2712
-"West Sussex",2020-07-12,0,2712
+"West Sussex",2020-07-10,5,2713
+"West Sussex",2020-07-11,0,2713
+"West Sussex",2020-07-12,2,2715
+"West Sussex",2020-07-13,0,2715
 "East Sussex",2020-01-30,0,0
 "East Sussex",2020-01-31,0,0
 "East Sussex",2020-02-01,0,0
@@ -456,21 +458,21 @@
 "East Sussex",2020-06-02,12,1326
 "East Sussex",2020-06-03,5,1331
 "East Sussex",2020-06-04,5,1336
-"East Sussex",2020-06-05,4,1340
-"East Sussex",2020-06-06,4,1344
-"East Sussex",2020-06-07,0,1344
-"East Sussex",2020-06-08,2,1346
-"East Sussex",2020-06-09,5,1351
-"East Sussex",2020-06-10,8,1359
-"East Sussex",2020-06-11,4,1363
-"East Sussex",2020-06-12,9,1372
-"East Sussex",2020-06-13,10,1382
-"East Sussex",2020-06-14,6,1388
-"East Sussex",2020-06-15,10,1398
-"East Sussex",2020-06-16,11,1409
-"East Sussex",2020-06-17,12,1421
-"East Sussex",2020-06-18,1,1422
-"East Sussex",2020-06-19,8,1430
+"East Sussex",2020-06-05,3,1339
+"East Sussex",2020-06-06,4,1343
+"East Sussex",2020-06-07,0,1343
+"East Sussex",2020-06-08,2,1345
+"East Sussex",2020-06-09,5,1350
+"East Sussex",2020-06-10,8,1358
+"East Sussex",2020-06-11,4,1362
+"East Sussex",2020-06-12,9,1371
+"East Sussex",2020-06-13,10,1381
+"East Sussex",2020-06-14,6,1387
+"East Sussex",2020-06-15,10,1397
+"East Sussex",2020-06-16,11,1408
+"East Sussex",2020-06-17,12,1420
+"East Sussex",2020-06-18,1,1421
+"East Sussex",2020-06-19,9,1430
 "East Sussex",2020-06-20,4,1434
 "East Sussex",2020-06-21,3,1437
 "East Sussex",2020-06-22,3,1440
@@ -489,11 +491,12 @@
 "East Sussex",2020-07-05,7,1497
 "East Sussex",2020-07-06,5,1502
 "East Sussex",2020-07-07,4,1506
-"East Sussex",2020-07-08,5,1511
-"East Sussex",2020-07-09,10,1521
-"East Sussex",2020-07-10,12,1533
-"East Sussex",2020-07-11,5,1538
-"East Sussex",2020-07-12,0,1538
+"East Sussex",2020-07-08,6,1512
+"East Sussex",2020-07-09,10,1522
+"East Sussex",2020-07-10,12,1534
+"East Sussex",2020-07-11,5,1539
+"East Sussex",2020-07-12,0,1539
+"East Sussex",2020-07-13,0,1539
 "Brighton and Hove",2020-01-30,0,0
 "Brighton and Hove",2020-01-31,0,0
 "Brighton and Hove",2020-02-01,0,0
@@ -656,6 +659,7 @@
 "Brighton and Hove",2020-07-07,0,770
 "Brighton and Hove",2020-07-08,1,771
 "Brighton and Hove",2020-07-09,2,773
-"Brighton and Hove",2020-07-10,3,776
-"Brighton and Hove",2020-07-11,0,776
-"Brighton and Hove",2020-07-12,0,776
+"Brighton and Hove",2020-07-10,4,777
+"Brighton and Hove",2020-07-11,0,777
+"Brighton and Hove",2020-07-12,1,778
+"Brighton and Hove",2020-07-13,0,778

@@ -359,7 +359,7 @@ var selected_line_1_area_option = d3.select('#select_line_1_area_button').proper
 // Update text based on selected area
 d3.select("#selected_line_1_compare_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; ' + selected_line_1_area_option
+    return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; ' + selected_line_1_area_option + first_date + ' - ' + latest_date
   });
 
 var line_1_chosen = daily_cases.filter(function(d) {
@@ -617,7 +617,7 @@ function update_cumulative_actual_linear() {
 
   d3.select("#selected_line_1_compare_title")
     .html(function(d) {
-      return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; ' + selected_line_1_area_option
+      return 'Covid-19 pillar 1 and 2 confirmed cumulative cases over time; ' + selected_line_1_area_option + first_date + ' - ' + latest_date
     });
 
   var old_n = line_1_chosen.filter(function(d) {

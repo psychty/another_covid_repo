@@ -197,6 +197,8 @@ p12_test_df_2 <- daily_cases_reworked %>%
 p12_df <- daily_cases_reworked %>% 
   left_join(p12_test_df_2, by = 'Name')
 
+
+
 # I want to make a ltla small multiples plot where the user can select the UTLA an all LTLAs within that area are displayed.
 
 # Something freaky is happening with downloading of data from Open Geography Portal. The stable urls are broken using the direct reading in R. The quickest workaround (and most frustrating) is to manually download both the ltla to utla and ltla to region look up files and combine them.
@@ -215,20 +217,37 @@ if(file.exists(paste0(github_repo_dir, '/ltla_utla_region_lookup_april_19.csv'))
 }
 
 lower_tier_areas <- p12_df %>% 
-  filter(Type == 'Lower Tier Local Authority') %>% 
+  filter(Type %in% c('Lower Tier Local Authority', 'Unitary Authority')) %>% 
   left_join(lookup, by = c('Code' = 'LTLA19CD')) %>% 
   filter(RGN19NM == 'South East') %>%
   mutate(Date_label = format(Date, '%d %b')) %>% 
   select(Code, Name, Date, Date_label, UTLA19NM, New_cases, New_cases_per_100000, Seven_day_average_new_cases, Case_label, Colour_key)
 
-lower_tier_areas %>% 
+upper_tier_areas <- p12_df %>% 
+  filter(Type == 'Upper Tier Local Authority') %>% 
+  filter(Name %in% c('Brighton and Hove', 'Bracknell Forest', 'Buckinghamshire', 'East Sussex', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'West Sussex', 'Windsor and Maidenhead', 'Wokingham'))  %>% 
+  mutate(UTLA19NM = Name) %>% 
+  mutate(Date_label = format(Date, '%d %b')) %>% 
+  select(Code, Name, Date, Date_label, UTLA19NM, New_cases, New_cases_per_100000, Seven_day_average_new_cases, Case_label, Colour_key)
+
+upper_tier_areas %>% 
+  bind_rows(lower_tier_areas) %>% 
   filter(Date %in% seq.Date(max(lower_tier_areas$Date) -(52*7), max(lower_tier_areas$Date), by = 14)) %>% 
   select(Date_label) %>% 
   unique() %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_dates.json'))
 
-lower_tier_areas %>% 
+data.frame(time = c('Latest', 'Previous'), range = c(paste0(format(complete_date - 6, '%d %B') , ' and ', format(complete_date, '%d %B')),  paste0(format(complete_date - 13, '%d %B') , '-', format(complete_date - 7, '%d %B')))) %>% 
+  toJSON() %>% 
+  write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_date_range.json'))
+
+# upper_tier_areas %>% 
+#   bind_rows(lower_tier_areas) %>% 
+#   toJSON() %>% 
+#   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_daily.json'))
+
+  lower_tier_areas %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/ltla_case_change_daily.json'))
 
