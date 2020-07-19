@@ -87,7 +87,7 @@ var date_points_n = d3.map(chosen_ltla_df, function(d){return(d.Date_label)}).ke
 
 var x_sm_1 = d3.scaleBand()
    .domain(date_points_n)
-   .range([0, width_sm - 65]);
+   .range([0, width_sm - 70]);
 
 //Add Y axis
 var y_sm_1 = d3.scaleLinear()
@@ -113,7 +113,7 @@ var sm_svg_1 = d3.select("#my_sm_dataviz")
    .enter()
    .append("svg")
    .attr("width", width_sm)
-   .attr("height", height_sm + 65)
+   .attr("height", height_sm + 70)
    .append("g")
    .attr("transform", "translate(" + 50 + "," + 20 + ")");
 
@@ -240,7 +240,7 @@ sm_svg_1 = d3.select("#my_sm_dataviz")
    .enter()
    .append("svg")
    .attr("width", width_sm)
-   .attr("height", height_sm + 65)
+   .attr("height", height_sm + 70)
    .append("g")
    .attr("transform", "translate(" + 50 + "," + 20 + ")");
 

@@ -1,5 +1,4 @@
 /* This query hides the data viz if the window size width drops below 1150px and shows a message to the user. */
-
 .small_screen_show {
   display: none;
 }
