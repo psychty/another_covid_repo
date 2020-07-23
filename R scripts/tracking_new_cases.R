@@ -652,3 +652,141 @@ download.file('https://c19downloads.azureedge.net/downloads/msoa_data/MSOAs-09-0
 
 msoa_case_data <- read_excel("Documents/Repositories/another_covid_repo/msoa_case_data.xlsx", 
                              sheet = "MSOAs-09-07-2020")
+
+
+# # Calendar view ####
+# 
+# # This is the calendar theme I have created
+# ph_cal_theme = function(){
+#   theme( 
+#     legend.position = "bottom", 
+#     legend.title = element_text(colour = "#000000", size = 10), 
+#     legend.key.size = unit(0.5, "lines"), 
+#     legend.background = element_rect(fill = "#ffffff"), 
+#     legend.key = element_rect(fill = "#ffffff", colour = "#E2E2E3"), 
+#     legend.text = element_text(colour = "#000000", size = 10), 
+#     plot.background = element_rect(fill = "white", colour = "#E2E2E3"), 
+#     panel.background = element_rect(fill = "white"), 
+#     axis.text.y = element_blank(),
+#     axis.text.x = element_text(colour = "#000000", size = 9), 
+#     plot.title = element_text(colour = "#000000", face = "bold", size = 12, vjust = 1), 
+#     axis.title = element_text(colour = "#327d9c", face = "bold", size = 10),     
+#     panel.grid.major.x = element_blank(),
+#     panel.grid.minor.x = element_blank(), 
+#     panel.grid.major.y = element_blank(),
+#     panel.grid.minor.y = element_blank(), 
+#     strip.text = element_text(colour = "#000000", face = "bold"),
+#     strip.background = element_rect(fill = "#ffffff"), 
+#     axis.ticks = element_blank() 
+#   )}
+# 
+# for(i in 1:length(areas_to_loop)){
+#   
+#   area_x <- areas_to_loop[i]
+#   
+#   cal_df_raw <- hm_df %>% 
+#     filter(Name == area_x) %>% 
+#     select(Name, Date, New_cases_per_100000, new_case_per_100000_key)
+#   
+#   # I need to find a way of back filling the dates if the data starts part way through a month.
+#   # Later we will be getting the days to be plotted on a grid of 42 days (six times seven day weeks) and so the data needs to begin at the beginning of the month to be plotted correctly).
+#   
+#   # In this case I think the site went live on the first but had not hits so I'm going to add it in.
+#   # Add the 1/11/2013 to the dataset (it won't be created otherwise)
+#   cases_date_add <- data.frame(Date = seq.Date(as.Date('2020-01-01'), min(cal_df_raw$Date) - 1, by = '1 day'), Name = area_x, New_cases = 0, new_case_key = 'No new cases', new_case_per_100000_key = 'No new cases')
+#   
+#   cal_df <- cases_date_add %>% 
+#     bind_rows(cal_df_raw) %>% 
+#     mutate(Year = format(Date, "%Y"),
+#            Month_n = format(Date, "%m"),
+#            Month_name = format(Date, "%b"),
+#            Weekday = format(Date, "%w"),
+#            Weekday = ifelse(Weekday == 0, 7, Weekday),
+#            Weekday_name = format(Date, "%a"),
+#            Month_year = format(Date, "%m-%Y"))
+#   
+#   months_in_between <- data.frame(Date = seq.Date(from = min(cal_df$Date), to = max(cal_df$Date), by = "months"))
+#   
+#   # This asks if the first day of the month for the first observation is '01'. If it is then it will skip over the next three lines, if it is not then it will create a new field that concatenates the month-year of the date with 01 at the start, and then overwrites the date field with the dates starting on the 1st of the month. The third line removes the created field.
+#   
+#   if (!(format(months_in_between$Date, "%d")[1] == "01")){
+#     months_in_between$Date_1 <- paste("01", format(months_in_between$Date, "%m-%Y"), sep = "-")
+#     months_in_between$Date <-as.Date(months_in_between$Date_1, format="%d-%m-%Y")
+#     months_in_between$Date_1 <- NULL
+#   }  
+#   
+#   # For this data, the week ends on a friday (so friday is the cut off date for each week of data). It might be helpful for us to say as at this date this is the number of deaths. To do this we need to convert each week number into a 'friday date'.
+#   
+#   # Day of the week (name and then number)
+#   months_in_between <- months_in_between %>% 
+#     mutate(dw = format(Date, "%A"),
+#            dw_n = format(Date, "%w")) %>% 
+#     mutate(dw_n = ifelse(dw_n == 0, 7, dw_n),
+#            Month_year = format(Date, "%m-%Y"))
+#   
+#   # To make the calendar plot we are going to need to create a grid of 42 tiles (representing seven days in each week for six weeks, as any outlook calendar shows). From this we can start the data somewhere between tile one and tile seven depending on the day of the week the month starts (e.g. if the month starts on a wednesday, then we want the data to start on tile three).
+#   
+#   # Make an empty dataframe with each month of the 'months_in_between' dataframe repeated 42 times
+#   df_1 <- data.frame(Month_year = rep(months_in_between$Month_year, 42)) %>% 
+#     group_by(Month_year) %>% 
+#     mutate(id = row_number())
+#   
+#   # Add the information we created about the day each month starts
+#   cal_df <- cal_df %>% 
+#     left_join(months_in_between[c("Month_year", "dw_n")], by = "Month_year") %>% 
+#     mutate(dw_n = as.numeric(dw_n)) %>% 
+#     group_by(Month_year) %>% 
+#     mutate(id = row_number()) %>% 
+#     mutate(id = id + dw_n - 1) %>% # If we add this id number to the dw (day of the week that the month starts) number, the id number becomes the position in our grid of 42 that the date should be. As we can only start a sequence from 1 onwards, and not zero, we need to subtract one from the total otherwise the position is offset too far.
+#     mutate(Week = ifelse(id <= 7, 1, ifelse(id >= 8 & id <= 14, 2, ifelse(id >= 15 & id <= 21, 3, ifelse(id >= 22 & id <= 28, 4, ifelse(id >= 29 & id <= 35, 5, 6)))))) %>%  #  We can now overwrite the Week field in our dataframe to show what it should be given the grid of 42 days
+#     left_join(df_1, by = c("Month_year", "id")) %>% 
+#     mutate(Year = substr(Month_year, 4, 7), # We can now rebuild the artificially created grid with the year, month, and weekday information. Take the four to seventh characters from the Month_year field to create the year
+#            Month_n = substr(Month_year, 1, 2)) %>% # take the first and second characters from the Month_year field to create the month number
+#     mutate(Weekday_name = ifelse(id %in% c(1,8,15,22,29,36) & is.na(Date), "Mon", ifelse(id %in% c(2,9,16,23,30,37) & is.na(Date), "Tue", ifelse(id %in% c(3,10,17,24,31,38) & is.na(Date), "Wed", ifelse(id %in% c(4,11,18,25,32,39) & is.na(Date), "Thu", ifelse(id %in% c(5,12,19,26,33,40) & is.na(Date), "Fri", ifelse(id %in% c(6,13,20,27,34,41) & is.na(Date), "Sat", ifelse(id %in% c(7,14,21,28,35,42) & is.na(Date), "Sun", Weekday_name )))))))) %>% # look through the dataframe and where the date is missing (indicating a non-date filler value within our 42 grid) and the id value is 1,8,15,22,29, or 36 (i.e. the monday value in our 42 grid for the month) then add a "Mon" for the day of the week and so on.
+#     mutate(Weekday = ifelse(id %in% c(1,8,15,22,29,36) & is.na(Date), 1,ifelse(id %in% c(2,9,16,23,30,37) & is.na(Date), 2, ifelse(id %in% c(3,10,17,24,31,38) & is.na(Date), 3, ifelse(id %in% c(4,11,18,25,32,39) & is.na(Date), 4, ifelse(id %in% c(5,12,19,26,33,40) & is.na(Date), 5, ifelse(id %in% c(6,13,20,27,34,41) & is.na(Date), 6, ifelse(id %in% c(7,14,21,28,35,42) & is.na(Date), 7, Weekday )))))))) %>% 
+#     mutate(Week = factor(ifelse(id >= 1 & id  <= 7, 1,  ifelse(id >= 8 & id <= 14, 2,  ifelse(id >= 15 & id <= 21, 3,  ifelse(id >= 22 & id <= 28, 4,  ifelse(id >= 29 & id <= 35, 5,  ifelse(id >= 36 & id <= 42, 6, NA)))))), levels = c(6,5,4,3,2,1))) %>% # Add a calendar week value for faceting (1-6 from our 42 tile grid). This is not the same as the week of the month and save the levels of this field so R knows how to plot them.
+#     mutate(Month_name = factor(ifelse(Month_n == "01", "Jan",ifelse(Month_n == "02", "Feb", ifelse(Month_n == "03", "Mar",ifelse(Month_n == "04", "Apr",ifelse(Month_n == "05", "May",ifelse(Month_n == "06", "Jun",ifelse(Month_n == "07", "Jul",ifelse(Month_n == "08", "Aug",ifelse(Month_n == "09", "Sep",ifelse(Month_n == "10", "Oct",ifelse(Month_n == "11", "Nov", ifelse(Month_n == "12", "Dec", NA)))))))))))), levels = c('Jan', 'Feb', 'Mar', 'Apr', 'May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'))) %>% # Fill in the blanks of month name using the value in Month_n
+#     mutate(Weekday_name = factor(ifelse(Weekday_name == "Mon", "Monday", ifelse(Weekday_name == "Tue", "Tuesday", ifelse(Weekday_name == "Wed", "Wednesday", ifelse(Weekday_name == "Thu", "Thursday", ifelse(Weekday_name == "Fri", "Friday", ifelse(Weekday_name == "Sat", "Saturday", ifelse(Weekday_name == "Sun", "Sunday", Weekday_name))))))), levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))) %>% 
+#     arrange(Month_n, id) %>% 
+#     mutate(new_case_per_100000_key_v2 = factor(ifelse(is.na(new_case_per_100000_key), 'Not date', new_case_per_100000_key), levels =  c('No new cases', 'Less than 1 case per 100,000', '1-2 new cases per 100,000', '3-4 new cases per 100,000', '5-6 new cases per 100,000', '7-8 new cases per 100,000', '9-10 new cases per 100,000', 'More than 10 new cases per 100,000', 'Not date')))
+#   
+# cal_df_comp<- cal_df %>% 
+#   filter(Date == complete_date)
+#   
+# 
+# calendar_cases_plot <- ggplot(cal_df, 
+#                                 aes(x = Weekday_name, 
+#                                     y = Week, 
+#                                     fill = new_case_per_100000_key_v2)) + 
+#     geom_tile(colour = "#ffffff") + 
+#     facet_grid(Year ~ Month_name) +
+#     scale_x_discrete(expand = c(0,0.1)) +
+#     scale_fill_manual(values = c('#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#b10026', '#bbc2c8'),
+#                       breaks = c('No new cases', 'Less than 1 case per 100,000', '1-2 new cases per 100,000', '3-4 new cases per 100,000', '5-6 new cases per 100,000', '7-8 new cases per 100,000', '9-10 new cases per 100,000', 'More than 10 new cases per 100,000'),
+#                       name = 'Tile\ncolour\nkey',
+#                       drop = FALSE) +
+#     labs(title =  paste0('Summary of new confirmed Covid-19 cases per 100,000 population (all ages); ', area_x, '; ', format(min(cal_df$Date, na.rm = TRUE), '%d %B'), ' to ',format(max(cal_df$Date, na.rm = TRUE), '%d %B')),
+#          x = NULL, 
+#          y = NULL,
+#          caption = 'Cases for dates after the red dashed line are not considered complete due to a lag in test result reporting.') +
+#     geom_segment(data = cal_df_comp,
+#                  aes(
+#                    x = Weekday_name,
+#                    xend = Weekday_name,
+#                    y = as.numeric(Week) - .5,
+#                    yend = as.numeric(Week) + .5),
+#                  color = "red",
+#                  linetype = "dashed") +
+#     ph_cal_theme() +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.25)) +
+#     guides(fill = guide_legend(nrow = 3, byrow = TRUE))
+#   
+#   png(paste0(output_directory_x, '/Covid_19_calendar_cases_rate', gsub(' ', '_', area_x), '.png'),
+#       width = 1280,
+#       height = 550,
+#       res = 120)
+#   print(calendar_cases_plot)
+#   dev.off()
+#   
+# }
+

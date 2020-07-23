@@ -2589,7 +2589,7 @@ var selected_line_5_area_option = d3.select('#select_bars_daily_cases_1_area_but
 
 d3.select("#selected_daily_cases_bars_1_compare_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 ans 2 confirmed new daily confirmed cases over time; ' + selected_line_5_area_option
+    return 'Covid-19 pillar 1 and 2 confirmed new daily confirmed cases over time; ' + selected_line_5_area_option
   });
 
 var bars_daily_cases_1_chosen = daily_cases.filter(function(d) {

@@ -305,7 +305,6 @@ png(paste0(github_repo_dir, '/Outputs/004_',gsub(' ', '_', Area_x), '_wk_all_dea
 print(area_x_wk_all_deaths_plot)
 dev.off()
 
-
 area_x_all_cause <- area_x_all_cause %>% 
   mutate(three_week_average_deaths = round(rollapply(Deaths, 3, mean, align = 'right', fill = NA), 0)) %>% 
   mutate(death_label = ifelse(is.na(three_week_average_deaths), paste0(Deaths, '\n'), paste0(Deaths, '\n(', three_week_average_deaths, ')')))
@@ -318,10 +317,10 @@ area_x_wk_all_deaths_plot_2 <- ggplot(area_x_all_cause,
   geom_line(aes(x = Week_ending,
                 y = three_week_average_deaths,
                 group = 1),
-            colour = '#000000') +
+            colour = '#a3a19a') +
   labs(title = paste0('Weekly all cause deaths; ',Area_x,'; w/e 3rd Jan 2020 - ', latest_we$Week_ending),
        subtitle = 'By week of occurrence',
-       caption = 'The black line represents the rolling average number of deaths in the previous three weeks.\nThe number of deaths are given at the top of each bar, with the average number of deaths given in brackets.',
+       caption = 'The line represents the rolling average number of deaths in the previous three weeks.\nThe number of deaths are given at the top of each bar, with the average number of deaths given in brackets.',
        x = 'Week',
        y = 'Number of deaths') +
   scale_y_continuous(breaks = seq(0,ifelse(Area_x == 'Brighton and Hove', round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling), ifelse(round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling) < 250, 250, round_any(max(area_x_all_cause$Deaths, na.rm = TRUE), 50, ceiling))),ifelse(Area_x == 'Brighton and Hove',25, 50)),
@@ -339,10 +338,6 @@ area_x_wk_all_deaths_plot_2 <- ggplot(area_x_all_cause,
 png(paste0(github_repo_dir, '/Outputs/004_',gsub(' ', '_', Area_x), '_wk_all_deaths_plot_v2.png'), width = 1580, height = 1050, res = 150)
 print(area_x_wk_all_deaths_plot_2)
 dev.off()
-
-
-
-
 
 area_x_cov_non_cov <- weekly_all_place_deaths %>% 
   filter(Name == Area_x) %>% 
@@ -514,7 +509,7 @@ England_all_cause_rate <- all_cause_rate %>%
          Eng_uci = Deaths_crude_rate_uci) %>% 
   select(Week_ending, Eng_deaths_rate, Eng_lci, Eng_uci)
   
-all_cause_rate_df <- all_cause_rate %>% 
+ all_cause_rate_df <- all_cause_rate %>% 
   filter(Name != 'England') %>% 
   mutate(Name = factor(Name, levels = c('Brighton and Hove', 'East Sussex', 'West Sussex','Sussex areas combined'))) %>% 
   left_join(England_all_cause_rate, by = 'Week_ending') %>% 
