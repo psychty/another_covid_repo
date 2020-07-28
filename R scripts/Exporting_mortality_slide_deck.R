@@ -3,7 +3,6 @@ library(easypackages)
 
 libraries(c("readxl", "readr", "plyr", "dplyr", "ggplot2", "tidyverse", "reshape2", "scales", 'jsonlite', 'zoo', 'stats', 'fingertipsR', 'lemon', 'spdplyr', 'geojsonio', 'rmapshaper', 'jsonlite', 'rgeos', 'sp', 'sf', 'maptools', 'png', 'epitools', 'officer','flextable'))
 
-
 ph_theme = function(){
   theme( 
     plot.title = element_text(colour = "#000000", face = "bold", size = 10),    

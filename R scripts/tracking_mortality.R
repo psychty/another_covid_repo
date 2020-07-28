@@ -465,7 +465,6 @@ Place_death %>%
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/cumulative_deaths_covid_by_place_SE.json'))
 
 # Care home deaths ONS ####
-
 Care_home_deaths <- Occurrences %>% 
   filter(Place_of_death == 'Care home') %>% 
   group_by(Code, Name, Cause) %>% 
@@ -548,7 +547,20 @@ Care_home_deaths %>%
 
 # Note: The notifications only include those received by 5pm on 22nd May.
 
-download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200719officialsensitivecoviddeathnotificationsdata20200717v1.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
+# we could scrape this for latest file
+# https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/numberofdeathsincarehomesnotifiedtothecarequalitycommissionengland
+
+# find urls on a page
+scraped_urls_ch <- read_html('https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/numberofdeathsincarehomesnotifiedtothecarequalitycommissionengland') %>%
+  html_nodes("a") %>%
+  html_attr("href")
+
+# search for our specific url (the filename always contains this "total" string). This will return all strings
+url_ch <- grep('officialsensitivecoviddeathnotificationsdata', scraped_urls_ch, value = T)
+
+# download.file('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fbirthsdeathsandmarriages%2fdeaths%2fdatasets%2fnumberofdeathsincarehomesnotifiedtothecarequalitycommissionengland%2f2020/20200726officialsensitivecoviddeathnotificationsdata20200724v127072020174954.xlsx', paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
+
+download.file(paste0('https://www.ons.gov.uk/', url_ch), paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), mode = 'wb')
 
 cqc_care_home_daily_all_cause <- read_excel(paste0(github_repo_dir, '/cqc_mortality_care_homes.xlsx'), sheet = 'Table 3', skip = 2) %>% 
   rename(Name = ...1) %>% 

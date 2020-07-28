@@ -1659,11 +1659,11 @@ area_x_daily_cause_ch_deaths_plot <- ggplot(area_x_cqc_deaths_stack,
        label = Deaths)) +
   geom_bar(stat = 'identity',
            colour = '#ffffff') +
-  geom_text(data = subset(area_x_cqc_deaths_stack, Deaths > 0),
-            position = 'stack',
-            size = 2.4,
-            fontface = "bold",
-            aes(vjust = lab_posit)) +
+  # geom_text(data = subset(area_x_cqc_deaths_stack, Deaths > 0),
+  #           position = 'stack',
+  #           size = 2.4,
+  #           fontface = "bold",
+  #           aes(vjust = lab_posit)) +
   labs(title = paste0('Daily care home deaths by cause; by date of notification to CQC; ', Area_x ,'; 10th Apr - ', last_daily_cqc_date),
        subtitle = 'Where Covid-19 is suspected or confirmed as cause',
        x = 'Date',
@@ -1744,6 +1744,7 @@ print(paste0('This is ', round(latest_area_x_cqc_deaths$Prop_cumulative*100,1), 
 }
 
 rm(Area_x)
+
 # daily hospital view ####
 
 daily_deaths_trust_14_days <- daily_deaths_trust %>% 
