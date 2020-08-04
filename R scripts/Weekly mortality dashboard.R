@@ -1672,7 +1672,7 @@ area_x_daily_cause_ch_deaths_plot <- ggplot(area_x_cqc_deaths_stack,
                      limits = c(0,round_any(max(area_x_cqc_deaths$`All cause`, na.rm = TRUE), 15, ceiling)),
                      expand = c(0,0.1)) +
   scale_x_date(date_labels = "%b %d (%A)",
-               date_breaks = '1 day',
+               date_breaks = '2 days',
                # date_minor_breaks = '1 day',
                expand = c(0,.1)) +
   scale_fill_manual(values = c('#006d90','#003343')) +
@@ -1715,7 +1715,7 @@ area_x_cumulative_cqc_covid_ch_deaths_plot <- ggplot(area_x_cqc_deaths,
   scale_y_continuous(breaks = seq(0,round_any(max(area_x_cqc_deaths$Cumulative_covid, na.rm = TRUE), 20, ceiling), 20),
                      limits = c(0,round_any(max(area_x_cqc_deaths$Cumulative_covid, na.rm = TRUE), 20, ceiling))) +
   scale_x_date(date_labels = "%b %d (%A)",
-               date_breaks = '1 day',
+               date_breaks = '2 days',
                # date_minor_breaks = '1 day',
                expand = c(0,.5)) +
   ph_theme() +
@@ -1805,7 +1805,7 @@ deaths_trust_plot <- ggplot(data = daily_deaths_trust,
   theme(axis.text.x = element_text(angle = 90, hjust = .5, vjust = .5),
         legend.key.size = unit(0.5, "lines"),
         legend.text = element_text(size = 6),
-        legend.position = c(.2,.8)) +
+        legend.position = c(.18,.8)) +
   guides(colour = guide_legend(nrow = 5, byrow = TRUE))
 
 png(paste0(github_repo_dir, "/Outputs/023_deaths_trust_plot.png"), width = 1080, height = 550, res = 150)

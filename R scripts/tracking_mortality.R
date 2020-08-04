@@ -637,7 +637,7 @@ scraped_urls <- read_html('https://www.england.nhs.uk/statistics/statistical-wor
 url <- grep('COVID-19-total-announced-deaths', scraped_urls, value = T)
 
 #2nd query inverts findings to ignore new weekly file and only take summary
-query_url2 <- "weekly-table"
+query_url2 <- "weekly-file"
 url2 <- grep(query_url2, url, value = T, invert = T)
 
 download.file(url2, paste0(github_repo_dir, '/refreshed_daily_deaths_trust.xlsx'), mode = 'wb')
