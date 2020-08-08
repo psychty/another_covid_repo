@@ -81,7 +81,7 @@ daily_cases_raw <- read_csv('https://coronavirus.data.gov.uk/downloads/csv/coron
   select(Name, Code, `Area type`, Date, New_cases, Cumulative_cases) %>% 
   group_by(Name, Code, Date) %>% 
   mutate(Count = n()) %>% 
-  filter(!(`Area type` == 'Lower tier local authority' & Count == 2)) %>% 
+  filter(!(`Area type` == 'ltla' & Count == 2)) %>% 
   select(-c(`Area type`, Count)) %>% 
   left_join(mye_total, by = 'Code') %>% 
   select(-DATE_NAME) %>% 
