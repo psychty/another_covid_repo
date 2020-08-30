@@ -68,7 +68,7 @@ var chosen_utla_area = d3.select('#select_small_multiples_area_button').property
 
 d3.select("#selected_ltla_sm_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 and 2 confirmed new daily confirmed cases over time; areas within ' +  chosen_utla_area + '; ' + first_date + ' - ' + latest_date});
+    return 'Covid-19 pillar 1 and 2 confirmed new daily confirmed cases over time; areas within ' +  chosen_utla_area + '; as at ' + data_refreshed_date});
 
 d3.select("#case_key_title")
   .html(function(d) {
@@ -219,7 +219,7 @@ var chosen_utla_area = d3.select('#select_small_multiples_area_button').property
 
 d3.select("#selected_ltla_sm_title")
   .html(function(d) {
-    return 'Covid-19 pillar 1 and 2 confirmed new daily confirmed cases over time; areas within ' +  chosen_utla_area + '; ' + first_date + ' - ' + latest_date});
+    return 'Covid-19 pillar 1 and 2 confirmed new daily confirmed cases over time; areas within ' +  chosen_utla_area + '; as at ' + data_refreshed_date});
 
 var chosen_ltla_df = ltla_data.filter(function(d) {
   return d.UTLA19NM === chosen_utla_area

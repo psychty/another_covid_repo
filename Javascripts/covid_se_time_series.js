@@ -876,7 +876,7 @@ xAxis_line_2
   .attr("transform", 'translate(-10,10)rotate(-90)')
   .style("text-anchor", "end")
   .each(function(d,i) { // find the text in that tick and removing it: Thanks Gerardo Furtado on stackoverflow
-    if (i%2 == 1) d3.select(this).remove();
+    if (i%2 == 0) d3.select(this).remove();
     });
 
 var y_c2_ts = d3.scaleLinear()

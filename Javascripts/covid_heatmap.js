@@ -1,7 +1,7 @@
 
 d3.select("#summary_cases_title")
   .html(function(d) {
-    return 'Summary of Covid-19 pillar 1 and 2 confirmed cases; ' + first_date + ' - ' + latest_date
+    return 'Summary of Covid-19 pillar 1 and 2 confirmed cases; ' + '; as at ' + data_refreshed_date
   });
 
 start_tile_x_pos = 340
