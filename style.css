@@ -13,6 +13,21 @@
     }
 }
 
+p.highlight_dl {
+font-size: 1.3rem;
+color: #273f8a;
+}
+
+p.highlight_dl_link {
+color: #273f8a;
+}
+
+a.highlight_dl {
+font-size: 1.3rem;
+color: #ff004d;
+text-decoration: underline;
+}
+
 *{
   font-family: 'Open Sans', sans-serif;
   font-size: .85rem;

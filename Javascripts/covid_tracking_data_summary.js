@@ -105,6 +105,17 @@ d3.select("#data_recency")
     return 'The latest available data in this analysis are for <b>' + latest_date + '</b>. However, as data for recent days are likely to change significantly, <b> only data up to <b>' + complete_date + ' should be treated as complete</b>.'
   });
 
+var request = new XMLHttpRequest();
+request.open("GET", "./daily_case_update_date.json", false);
+request.send(null);
+var data_refreshed_date = JSON.parse(request.responseText)[0]
+
+// Update text based on selected area
+d3.select("#update_date")
+  .html(function(d) {
+    return 'The case data has been refreshed on ' + data_refreshed_date + ' with cases confirmed up to ' + latest_date
+  });
+
 // var request = new XMLHttpRequest();
 // request.open("GET", "./unconfirmed_latest.json", false);
 // request.send(null);
