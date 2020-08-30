@@ -573,6 +573,7 @@ daily_cases %>%
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/peak_average_SE.json'))
 
+
 format(last_date - 1, '%d %b') %>% 
   toJSON() %>% 
   write_lines(paste0('/Users/richtyler/Documents/Repositories/another_covid_repo/latest_daily_case.json'))
