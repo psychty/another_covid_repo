@@ -9,328 +9,327 @@ var Area_colours = d3.scaleOrdinal()
 
 
 // Number of outbreaks reported in care homes
-var request = new XMLHttpRequest();
-request.open("GET", "./care_home_outbreaks.json", false);
-request.send(null);
-var ch_outbreak_data = JSON.parse(request.responseText);
+// var request = new XMLHttpRequest();
+// request.open("GET", "./care_home_outbreaks.json", false);
+// request.send(null);
+// var ch_outbreak_data = JSON.parse(request.responseText);
+//
+// var request = new XMLHttpRequest();
+// request.open("GET", "./care_home_outbreak_dates.json", false);
+// request.send(null);
+// var ch_outbreak_data_date = JSON.parse(request.responseText);
+//
+// var svg_carehome_outbreak_number = d3.select('#carehome_outbreak_number')
+//   .append("svg")
+//   .attr("width", width_hm)
+//   .attr("height", height_line)
+//   .append("g")
+//   .attr("transform", "translate(" + 50 + "," + 20 + ")");
+//
+// // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
+// d3.select("#select_carehome_outbreak_area_button")
+//   .selectAll('myOptions')
+//   .data(['Sussex areas combined','Brighton and Hove', 'East Sussex', 'West Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
+//   .enter()
+//   .append('option')
+//   .text(function(d) {
+//     return d;
+//   })
+//   .attr("value", function(d) {
+//     return d;
+//   })
 
-var request = new XMLHttpRequest();
-request.open("GET", "./care_home_outbreak_dates.json", false);
-request.send(null);
-var ch_outbreak_data_date = JSON.parse(request.responseText);
+// // Retrieve the selected area name
+// var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
+//
+// d3.select("#carehome_outbreak_title")
+//   .html(function(d) {
+//     return 'Number of care homes reporting suspected or confirmed Covid-19 outbreak; 2020 to ' + ch_outbreak_data_date[1]['Week_beginning'] + '; ' + chosen_ch_outbreak_area });
+//
+// var chosen_ch_outbreak_df = ch_outbreak_data.filter(function(d) {
+//   return d.Name === chosen_ch_outbreak_area
+// });
+//
+// weeks_outbreak_ch = chosen_ch_outbreak_df.map(function(d) {return (d.Week_beginning);});
+//
+// var ch_number_in_area = d3.map(chosen_ch_outbreak_df, function(d){return d['Number of care homes'];}).keys()[0]
+//
+// ch_with_outbreaks_so_far =  d3.max(chosen_ch_outbreak_df, function(d) {return +d.Cumulative_outbreaks;})
 
-var svg_carehome_outbreak_number = d3.select('#carehome_outbreak_number')
-  .append("svg")
-  .attr("width", width_hm)
-  .attr("height", height_line)
-  .append("g")
-  .attr("transform", "translate(" + 50 + "," + 20 + ")");
-
-// We need to create a dropdown button for the user to choose which area to be displayed on the figure.
-d3.select("#select_carehome_outbreak_area_button")
-  .selectAll('myOptions')
-  .data(['Sussex areas combined','Brighton and Hove', 'East Sussex', 'West Sussex', 'Bracknell Forest', 'Buckinghamshire', 'Hampshire', 'Isle of Wight', 'Kent', 'Medway', 'Milton Keynes', 'Oxfordshire', 'Portsmouth', 'Reading', 'Slough', 'Southampton', 'Surrey', 'West Berkshire', 'Windsor and Maidenhead', 'Wokingham'])
-  .enter()
-  .append('option')
-  .text(function(d) {
-    return d;
-  })
-  .attr("value", function(d) {
-    return d;
-  })
-
-// Retrieve the selected area name
-var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
-
-d3.select("#carehome_outbreak_title")
-  .html(function(d) {
-    return 'Number of care homes reporting suspected or confirmed Covid-19 outbreak; 2020 to ' + ch_outbreak_data_date[1]['Week_beginning'] + '; ' + chosen_ch_outbreak_area });
-
-var chosen_ch_outbreak_df = ch_outbreak_data.filter(function(d) {
-  return d.Name === chosen_ch_outbreak_area
-});
-
-weeks_outbreak_ch = chosen_ch_outbreak_df.map(function(d) {return (d.Week_beginning);});
-
-var ch_number_in_area = d3.map(chosen_ch_outbreak_df, function(d){return d['Number of care homes'];}).keys()[0]
-
-ch_with_outbreaks_so_far =  d3.max(chosen_ch_outbreak_df, function(d) {return +d.Cumulative_outbreaks;})
-
-var x_ch_outbreaks = d3.scaleBand()
-  .domain(weeks_outbreak_ch)
-  .range([0, width_hm - 60]) // this is the 50 that was pushed over from the left plus another 10 so that the chart does not get cut off
-
-var xAxis_ch_outbreaks = svg_carehome_outbreak_number
-  .append("g")
-  .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
-  .call(d3.axisBottom(x_ch_outbreaks).tickSizeOuter(0));
-
-xAxis_ch_outbreaks
-  .selectAll("text")
-  .attr("transform", 'translate(-12,10)rotate(-90)')
-  .style("text-anchor", "end");
-
-var y_ch_outbreaks = d3.scaleLinear()
-  .domain([0, +ch_number_in_area])
-  .range([height_line - 120 , 0])
-  .nice();
-
-var y_ch_outbreaks_axis = svg_carehome_outbreak_number
-  .append("g")
-  .attr("transform", 'translate(0,0)')
-  .call(d3.axisLeft(y_ch_outbreaks));
-
-svg_carehome_outbreak_number
-  .append('line')
-  .attr('id', 'carehomes_baseline')
-  .attr('x1', 0)
-  .attr('y1', y_ch_outbreaks(+ch_number_in_area))
-  .attr('x2', width_hm - 60)
-  .attr('y2', y_ch_outbreaks(+ch_number_in_area))
-  .attr('stroke', '#000000')
-  .attr("stroke-dasharray", ("3, 3"))
-
-svg_carehome_outbreak_number
-  .append('text')
-  .attr('id', 'carehomes_baseline_value')
-  .attr('x', 10)
-  .attr('y', y_ch_outbreaks(+ch_number_in_area) + 10)
-  .text(ch_number_in_area + ' CQC registered settings')
-  .attr("text-anchor", 'start')
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-
-var tooltip_ch_outbreaks = d3.select("#carehome_outbreak_number")
-  .append("div")
-  .style("opacity", 0)
-  .attr("class", "tooltip_class")
-  .style("position", "absolute")
-  .style("z-index", "10")
-  .style("background-color", "white")
-  .style("border", "solid")
-  .style("border-width", "1px")
-  .style("border-radius", "5px")
-  .style("padding", "10px")
-
-var showTooltip_ch_outbreaks = function(d) {
-
-  tooltip_ch_outbreaks
-    .html("<h5>" + d.Name + '</h5><p><b>' + d.Week_beginning + '</b></p><p>This week ' + d3.format(',.0f')(d.Outbreaks) + ' new care homes* reported suspected or confirmed outbreaks to PHE.</p><p>The total number of care home settings which have reported at least one suspected or confirmed Covid-19 outbreak to PHE as at ' + d.Week_beginning + ' is ' + d3.format(',.0f')(d.Cumulative_outbreaks) + ' homes.</p><p>* Care homes are only included in the release once and subsequent outbreaks are not currently identified as new outbreaks.</p>')
-    .style("opacity", 1)
-    .style("top", (event.pageY - 10) + "px")
-    .style("left", (event.pageX + 10) + "px")
-    .style('opacity', 1)
-    .style("visibility", "visible")
-}
-
-var mouseleave_ch_outbreak = function(d) {
-  tooltip_ch_outbreaks
-    .style('opacity', 0)
-    .style("visibility", "hidden")
-}
-
-
-var lines_outbreaks = svg_carehome_outbreak_number
-    .append('g')
-    .append("path")
-    .datum(chosen_ch_outbreak_df)
-    .attr("d", d3.line()
-        .x(function (d) {
-            return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2)
-        })
-        .y(function (d) {
-            return y_ch_outbreaks(+d.Cumulative_outbreaks)
-        }))
-    .attr("stroke", function (d) {
-        return Area_colours(chosen_ch_outbreak_area)
-    })
-    .style("stroke-width", 2)
-    .style("fill", "none");
-
-var dots_outbreaks = svg_carehome_outbreak_number
-  .selectAll('myoutbreakCircles')
-  .data(chosen_ch_outbreak_df)
-  .enter()
-  .append("circle")
-  .attr("cx", function(d) { return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2) } )
-  .attr("cy", function(d) { return y_ch_outbreaks(+d.Cumulative_outbreaks) } )
-  .attr("r", 6)
-  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
-  .attr("stroke", "white")
-  .on('mousemove', showTooltip_ch_outbreaks)
-  .on('mouseout', mouseleave_ch_outbreak)
-
-var bars_weekly_outbreaks = svg_carehome_outbreak_number
-  .selectAll("myoutbreakbar")
-  .data(chosen_ch_outbreak_df)
-  .enter()
-  .append("rect")
-  .attr("x", function(d) { return x_ch_outbreaks(d.Week_beginning) +  (x_ch_outbreaks.bandwidth() / 4); })
-  .attr("y", function(d) { return y_ch_outbreaks(+d.Outbreaks); })
-  .attr("width", x_ch_outbreaks.bandwidth() / 2)
-  .attr("height", function(d) { return (height_line - 120 ) - y_ch_outbreaks(+d.Outbreaks); })
-  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
-  .on('mousemove', showTooltip_ch_outbreaks)
-  .on('mouseout', mouseleave_ch_outbreak)
-
-svg_carehome_outbreak_number
-  .append('text')
-  .attr('id', 'carehomes_so_far_text')
-  .attr('x', 15)
-  .attr('y', 60)
-  .text(ch_with_outbreaks_so_far)
-  .attr("text-anchor", 'start')
-  .style('font-weight', 'bold')
-  .style("font-size", "16px")
-
-svg_carehome_outbreak_number
-  .append('text')
-  .attr('x', 15)
-  .attr('y', 75)
-  .text('care home settings')
-  .attr("text-anchor", 'start')
-  .style("font-size", "10px")
-
-svg_carehome_outbreak_number
-  .append('text')
-  .attr('x', 15)
-  .attr('y', 90)
-  .text('with outbreaks reported')
-  .attr("text-anchor", 'start')
-  .style("font-size", "10px")
-
-function update_ch_outbreaks(chosen_ch_outbreak_area){
-var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
-d3.select("#carehome_outbreak_title")
-  .html(function(d) {
-    return 'Number of care homes reporting suspected or confirmed Covid-19 outbreak; 2020 to ' + ch_outbreak_data_date[1]['Week_beginning'] + '; ' + chosen_ch_outbreak_area });
-
-var chosen_ch_outbreak_df = ch_outbreak_data.filter(function(d) {
-  return d.Name === chosen_ch_outbreak_area
-});
-
-var ch_number_in_area = d3.map(chosen_ch_outbreak_df, function(d){return d['Number of care homes'];}).keys()[0]
-var weeks_outbreak_ch = chosen_ch_outbreak_df.map(function(d) {return (d.Week_beginning);})
-ch_with_outbreaks_so_far =  d3.max(chosen_ch_outbreak_df, function(d) {return +d.Cumulative_outbreaks;})
-
-y_ch_outbreaks
-  .domain([0, +ch_number_in_area])
-  .nice()
-
-y_ch_outbreaks_axis
-  .transition()
-  .duration(1000)
-  .call(d3.axisLeft(y_ch_outbreaks).tickFormat(d3.format(',.0f')));
-
-svg_carehome_outbreak_number
-    .selectAll("#carehomes_baseline")
-    .transition()
-    .duration(500)
-    .style("opacity", 0)
-    .remove();
-
-svg_carehome_outbreak_number
-    .selectAll("#carehomes_baseline_value")
-    .transition()
-    .duration(500)
-    .style("opacity", 0)
-    .remove();
-
-svg_carehome_outbreak_number
-    .selectAll("#carehomes_so_far_text")
-    .transition()
-    .duration(500)
-    .style("opacity", 0)
-    .remove();
-
-svg_carehome_outbreak_number
-  .append('text')
-  .attr('id', 'carehomes_so_far_text')
-  .attr('x', 15)
-  .attr('y', 60)
-  .text(ch_with_outbreaks_so_far)
-  .attr("text-anchor", 'start')
-  .style('font-weight', 'bold')
-  .style("font-size", "16px")
-
-svg_carehome_outbreak_number
-  .append('line')
-  .attr('id', 'carehomes_baseline')
-  .attr('x1', 0)
-  .attr('y1', y_ch_outbreaks(+ch_number_in_area))
-  .attr('x2', width_hm - 60)
-  .attr('y2', y_ch_outbreaks(+ch_number_in_area))
-  .attr('stroke', '#000000')
-  .attr("stroke-dasharray", ("3, 3"))
-  .style("opacity", 0)
-  .transition()
-  .duration(500)
-  .style("opacity", 1)
-
-svg_carehome_outbreak_number
-  .append('text')
-  .attr('id', 'carehomes_baseline_value')
-  .attr('x', 10)
-  .attr('y', y_ch_outbreaks(+ch_number_in_area) + 10)
-  .text(ch_number_in_area + ' CQC registered settings')
-  .attr("text-anchor", 'start')
-  .style('font-weight', 'bold')
-  .style("font-size", "10px")
-  .style("opacity", 0)
-  .transition()
-  .duration(500)
-  .style("opacity", 1)
-
-lines_outbreaks
-.datum(chosen_ch_outbreak_df)
-.transition()
-.duration(1000)
-.attr("d", d3.line()
-    .x(function (d) {
-          return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2)
-        })
-    .y(function (d) {
-          return y_ch_outbreaks(+d.Cumulative_outbreaks)
-        }))
-.attr("stroke", function (d) {
-        return Area_colours(chosen_ch_outbreak_area)
-    })
-
-dots_outbreaks
-  .data(chosen_ch_outbreak_df)
-  .transition()
-  .duration(1000)
-  .attr("cx", function(d) { return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2) } )
-  .attr("cy", function(d) { return y_ch_outbreaks(+d.Cumulative_outbreaks) } )
-  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
-
-dots_outbreaks
-  .on('mousemove', showTooltip_ch_outbreaks)
-  .on('mouseout', mouseleave_ch_outbreak)
-
-bars_weekly_outbreaks
-  .data(chosen_ch_outbreak_df)
-  .transition()
-  .duration(1000)
-  .attr("y", function(d) { return y_ch_outbreaks(+d.Outbreaks); })
-  .attr("height", function(d) { return (height_line - 120 ) - y_ch_outbreaks(+d.Outbreaks); })
-  .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
-
-bars_weekly_outbreaks
-  .on('mousemove', showTooltip_ch_outbreaks)
-  .on('mouseout', mouseleave_ch_outbreak)
-
-}
-
-update_ch_outbreaks()
-
-d3.select("#select_carehome_outbreak_area_button").on("change", function(d) {
-var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
-  update_ch_outbreaks(chosen_ch_outbreak_area)
-})
+// var x_ch_outbreaks = d3.scaleBand()
+//   .domain(weeks_outbreak_ch)
+//   .range([0, width_hm - 60]) // this is the 50 that was pushed over from the left plus another 10 so that the chart does not get cut off
+//
+// var xAxis_ch_outbreaks = svg_carehome_outbreak_number
+//   .append("g")
+//   .attr("transform", 'translate(0,' + (height_line - 120 ) + ")")
+//   .call(d3.axisBottom(x_ch_outbreaks).tickSizeOuter(0));
+//
+// xAxis_ch_outbreaks
+//   .selectAll("text")
+//   .attr("transform", 'translate(-12,10)rotate(-90)')
+//   .style("text-anchor", "end");
+//
+// var y_ch_outbreaks = d3.scaleLinear()
+//   .domain([0, +ch_number_in_area])
+//   .range([height_line - 120 , 0])
+//   .nice();
+//
+// var y_ch_outbreaks_axis = svg_carehome_outbreak_number
+//   .append("g")
+//   .attr("transform", 'translate(0,0)')
+//   .call(d3.axisLeft(y_ch_outbreaks));
+//
+// svg_carehome_outbreak_number
+//   .append('line')
+//   .attr('id', 'carehomes_baseline')
+//   .attr('x1', 0)
+//   .attr('y1', y_ch_outbreaks(+ch_number_in_area))
+//   .attr('x2', width_hm - 60)
+//   .attr('y2', y_ch_outbreaks(+ch_number_in_area))
+//   .attr('stroke', '#000000')
+//   .attr("stroke-dasharray", ("3, 3"))
+//
+// svg_carehome_outbreak_number
+//   .append('text')
+//   .attr('id', 'carehomes_baseline_value')
+//   .attr('x', 10)
+//   .attr('y', y_ch_outbreaks(+ch_number_in_area) + 10)
+//   .text(ch_number_in_area + ' CQC registered settings')
+//   .attr("text-anchor", 'start')
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//
+// var tooltip_ch_outbreaks = d3.select("#carehome_outbreak_number")
+//   .append("div")
+//   .style("opacity", 0)
+//   .attr("class", "tooltip_class")
+//   .style("position", "absolute")
+//   .style("z-index", "10")
+//   .style("background-color", "white")
+//   .style("border", "solid")
+//   .style("border-width", "1px")
+//   .style("border-radius", "5px")
+//   .style("padding", "10px")
+//
+// var showTooltip_ch_outbreaks = function(d) {
+//
+//   tooltip_ch_outbreaks
+//     .html("<h5>" + d.Name + '</h5><p><b>' + d.Week_beginning + '</b></p><p>This week ' + d3.format(',.0f')(d.Outbreaks) + ' new care homes* reported suspected or confirmed outbreaks to PHE.</p><p>The total number of care home settings which have reported at least one suspected or confirmed Covid-19 outbreak to PHE as at ' + d.Week_beginning + ' is ' + d3.format(',.0f')(d.Cumulative_outbreaks) + ' homes.</p><p>* Care homes are only included in the release once and subsequent outbreaks are not currently identified as new outbreaks.</p>')
+//     .style("opacity", 1)
+//     .style("top", (event.pageY - 10) + "px")
+//     .style("left", (event.pageX + 10) + "px")
+//     .style('opacity', 1)
+//     .style("visibility", "visible")
+// }
+//
+// var mouseleave_ch_outbreak = function(d) {
+//   tooltip_ch_outbreaks
+//     .style('opacity', 0)
+//     .style("visibility", "hidden")
+// }
+//
+//
+// var lines_outbreaks = svg_carehome_outbreak_number
+//     .append('g')
+//     .append("path")
+//     .datum(chosen_ch_outbreak_df)
+//     .attr("d", d3.line()
+//         .x(function (d) {
+//             return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2)
+//         })
+//         .y(function (d) {
+//             return y_ch_outbreaks(+d.Cumulative_outbreaks)
+//         }))
+//     .attr("stroke", function (d) {
+//         return Area_colours(chosen_ch_outbreak_area)
+//     })
+//     .style("stroke-width", 2)
+//     .style("fill", "none");
+//
+// var dots_outbreaks = svg_carehome_outbreak_number
+//   .selectAll('myoutbreakCircles')
+//   .data(chosen_ch_outbreak_df)
+//   .enter()
+//   .append("circle")
+//   .attr("cx", function(d) { return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2) } )
+//   .attr("cy", function(d) { return y_ch_outbreaks(+d.Cumulative_outbreaks) } )
+//   .attr("r", 6)
+//   .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+//   .attr("stroke", "white")
+//   .on('mousemove', showTooltip_ch_outbreaks)
+//   .on('mouseout', mouseleave_ch_outbreak)
+//
+// var bars_weekly_outbreaks = svg_carehome_outbreak_number
+//   .selectAll("myoutbreakbar")
+//   .data(chosen_ch_outbreak_df)
+//   .enter()
+//   .append("rect")
+//   .attr("x", function(d) { return x_ch_outbreaks(d.Week_beginning) +  (x_ch_outbreaks.bandwidth() / 4); })
+//   .attr("y", function(d) { return y_ch_outbreaks(+d.Outbreaks); })
+//   .attr("width", x_ch_outbreaks.bandwidth() / 2)
+//   .attr("height", function(d) { return (height_line - 120 ) - y_ch_outbreaks(+d.Outbreaks); })
+//   .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+//   .on('mousemove', showTooltip_ch_outbreaks)
+//   .on('mouseout', mouseleave_ch_outbreak)
+//
+// svg_carehome_outbreak_number
+//   .append('text')
+//   .attr('id', 'carehomes_so_far_text')
+//   .attr('x', 15)
+//   .attr('y', 60)
+//   .text(ch_with_outbreaks_so_far)
+//   .attr("text-anchor", 'start')
+//   .style('font-weight', 'bold')
+//   .style("font-size", "16px")
+//
+// svg_carehome_outbreak_number
+//   .append('text')
+//   .attr('x', 15)
+//   .attr('y', 75)
+//   .text('care home settings')
+//   .attr("text-anchor", 'start')
+//   .style("font-size", "10px")
+//
+// svg_carehome_outbreak_number
+//   .append('text')
+//   .attr('x', 15)
+//   .attr('y', 90)
+//   .text('with outbreaks reported')
+//   .attr("text-anchor", 'start')
+//   .style("font-size", "10px")
+//
+// function update_ch_outbreaks(chosen_ch_outbreak_area){
+// var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
+// d3.select("#carehome_outbreak_title")
+//   .html(function(d) {
+//     return 'Number of care homes reporting suspected or confirmed Covid-19 outbreak; 2020 to ' + ch_outbreak_data_date[1]['Week_beginning'] + '; ' + chosen_ch_outbreak_area });
+//
+// var chosen_ch_outbreak_df = ch_outbreak_data.filter(function(d) {
+//   return d.Name === chosen_ch_outbreak_area
+// });
+//
+// var ch_number_in_area = d3.map(chosen_ch_outbreak_df, function(d){return d['Number of care homes'];}).keys()[0]
+// var weeks_outbreak_ch = chosen_ch_outbreak_df.map(function(d) {return (d.Week_beginning);})
+// ch_with_outbreaks_so_far =  d3.max(chosen_ch_outbreak_df, function(d) {return +d.Cumulative_outbreaks;})
+//
+// y_ch_outbreaks
+//   .domain([0, +ch_number_in_area])
+//   .nice()
+//
+// y_ch_outbreaks_axis
+//   .transition()
+//   .duration(1000)
+//   .call(d3.axisLeft(y_ch_outbreaks).tickFormat(d3.format(',.0f')));
+//
+// svg_carehome_outbreak_number
+//     .selectAll("#carehomes_baseline")
+//     .transition()
+//     .duration(500)
+//     .style("opacity", 0)
+//     .remove();
+//
+// svg_carehome_outbreak_number
+//     .selectAll("#carehomes_baseline_value")
+//     .transition()
+//     .duration(500)
+//     .style("opacity", 0)
+//     .remove();
+//
+// svg_carehome_outbreak_number
+//     .selectAll("#carehomes_so_far_text")
+//     .transition()
+//     .duration(500)
+//     .style("opacity", 0)
+//     .remove();
+//
+// svg_carehome_outbreak_number
+//   .append('text')
+//   .attr('id', 'carehomes_so_far_text')
+//   .attr('x', 15)
+//   .attr('y', 60)
+//   .text(ch_with_outbreaks_so_far)
+//   .attr("text-anchor", 'start')
+//   .style('font-weight', 'bold')
+//   .style("font-size", "16px")
+//
+// svg_carehome_outbreak_number
+//   .append('line')
+//   .attr('id', 'carehomes_baseline')
+//   .attr('x1', 0)
+//   .attr('y1', y_ch_outbreaks(+ch_number_in_area))
+//   .attr('x2', width_hm - 60)
+//   .attr('y2', y_ch_outbreaks(+ch_number_in_area))
+//   .attr('stroke', '#000000')
+//   .attr("stroke-dasharray", ("3, 3"))
+//   .style("opacity", 0)
+//   .transition()
+//   .duration(500)
+//   .style("opacity", 1)
+//
+// svg_carehome_outbreak_number
+//   .append('text')
+//   .attr('id', 'carehomes_baseline_value')
+//   .attr('x', 10)
+//   .attr('y', y_ch_outbreaks(+ch_number_in_area) + 10)
+//   .text(ch_number_in_area + ' CQC registered settings')
+//   .attr("text-anchor", 'start')
+//   .style('font-weight', 'bold')
+//   .style("font-size", "10px")
+//   .style("opacity", 0)
+//   .transition()
+//   .duration(500)
+//   .style("opacity", 1)
+//
+// lines_outbreaks
+// .datum(chosen_ch_outbreak_df)
+// .transition()
+// .duration(1000)
+// .attr("d", d3.line()
+//     .x(function (d) {
+//           return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2)
+//         })
+//     .y(function (d) {
+//           return y_ch_outbreaks(+d.Cumulative_outbreaks)
+//         }))
+// .attr("stroke", function (d) {
+//         return Area_colours(chosen_ch_outbreak_area)
+//     })
+//
+// dots_outbreaks
+//   .data(chosen_ch_outbreak_df)
+//   .transition()
+//   .duration(1000)
+//   .attr("cx", function(d) { return x_ch_outbreaks(d.Week_beginning) + (x_ch_outbreaks.bandwidth() /2) } )
+//   .attr("cy", function(d) { return y_ch_outbreaks(+d.Cumulative_outbreaks) } )
+//   .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+//
+// dots_outbreaks
+//   .on('mousemove', showTooltip_ch_outbreaks)
+//   .on('mouseout', mouseleave_ch_outbreak)
+//
+// bars_weekly_outbreaks
+//   .data(chosen_ch_outbreak_df)
+//   .transition()
+//   .duration(1000)
+//   .attr("y", function(d) { return y_ch_outbreaks(+d.Outbreaks); })
+//   .attr("height", function(d) { return (height_line - 120 ) - y_ch_outbreaks(+d.Outbreaks); })
+//   .style("fill", function(d){ return Area_colours(chosen_ch_outbreak_area)})
+//
+// bars_weekly_outbreaks
+//   .on('mousemove', showTooltip_ch_outbreaks)
+//   .on('mouseout', mouseleave_ch_outbreak)
+//
+// }
+//
+// update_ch_outbreaks()
+//
+// d3.select("#select_carehome_outbreak_area_button").on("change", function(d) {
+// var chosen_ch_outbreak_area = d3.select('#select_carehome_outbreak_area_button').property("value")
+//   update_ch_outbreaks(chosen_ch_outbreak_area)
+// })
 
 // Line graph one - actual cases - linear scale
-
 
 var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
   .append("svg")
@@ -338,7 +337,6 @@ var svg_cumulative_actual_linear = d3.select("#cumulative_ts_actual_linear")
   .attr("height", height_line)
   .append("g")
   .attr("transform", "translate(" + 50 + "," + 20 + ")");
-
 
 // We need to create a dropdown button for the user to choose which area to be displayed on the figure.
 d3.select("#select_line_1_area_button")

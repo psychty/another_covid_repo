@@ -107,7 +107,6 @@ daily_cases <- daily_cases_raw %>%
 
 rm(daily_cases_raw, sussex_daily_cases, sussex_pop)
 
-
 # One way to do this is to create a new dataframe with a row for each area and date, and left join the daily_cases data to it.
 first_date <- min(daily_cases$Date)
 last_case_date <- max(daily_cases$Date)
@@ -162,7 +161,7 @@ daily_cases_reworked %>%
 # I think we need to keep an eye on this and deal with any areas that are in the SE that may return issues for our work as the above has some implications for rates.
 
 # PHE say the last five data points are incomplete (perhaps they should not publish them). Instead, we need to make sure we account for this so that it is not misinterpreted.
-complete_date <- last_date - 4
+complete_date <- last_date - 5
 
 daily_cases_reworked <- data.frame(Name = rep(Areas$Name, length(Dates)), Code = rep(Areas$Code, length(Dates)), Type = rep(Areas$Type, length(Dates)), check.names = FALSE) %>% 
   arrange(Name) %>% 
@@ -217,8 +216,6 @@ p12_test_df_2 <- daily_cases_reworked %>%
 
 p12_df <- daily_cases_reworked %>% 
   left_join(p12_test_df_2, by = 'Name')
-
-
 
 # I want to make a ltla small multiples plot where the user can select the UTLA an all LTLAs within that area are displayed.
 
@@ -675,15 +672,6 @@ daily_cases %>%
   rename(Area = Name) %>% 
   select(Area, Date, New_cases, Cumulative_cases) %>% 
   write.csv(., paste0(github_repo_dir, '/utla_local_daily_cases.csv'), row.names = FALSE)
-
-# MSOA data
-# requires a bit of tidying but should be straightforward to access
-
-download.file('https://c19downloads.azureedge.net/downloads/msoa_data/MSOAs-09-07-2020.xlsx', paste0(github_repo_dir, '/msoa_case_data.xlsx'), mode = 'wb')
-
-msoa_case_data <- read_excel("Documents/Repositories/another_covid_repo/msoa_case_data.xlsx", 
-                             sheet = "MSOAs-09-07-2020")
-
 
 # # Calendar view ####
 # 
