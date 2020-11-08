@@ -17,7 +17,7 @@
   <h1>Coronavirus (Covid-19) local summary - Sussex and the South East region</h1>
 </div>
 
-<div class="main" id = 'section_summary'>
+<!-- <div class="main" id = 'section_summary'>
 <h4 class = 'small_screen_show'>The size of this browser window or screen is a little too small to read the data visualisation without some of it overlapping. This will be fixed at some point in the future, but for now please use a larger screen to view.</h4>
 <h2 style = "padding-left: 25px;">What does this analysis tell us?</h2>
 <div class = "content">
@@ -37,436 +37,27 @@
 <div class = 'right-sidebar'>
   <p class = 'side'>This page works best in certain browsers such as Chrome, Firefox, and Safari, and does not currently work well in Internet Explorer or Edge.</p>
   <p class = 'side'>This analysis has been created by Dr Rich Tyler at the West Sussex Public Health and Social Research Unit.</p>
+  <p class = 'side'>However, whilst it has been made to support the work of West Sussex County Council, it is not a West Sussex County Council website.</p>
 </div>
-</div>
+</div> -->
 
-<div class = 'main' id = 'confirmed_cases'>
+<div class = 'main' id = 'explainer'>
 
-<h2 style = "padding-left: 25px;">Confirmed cases</h2>
+<h2 style = "padding-left: 25px;">Temporary notice</h2>
 <div class = 'content'  id = 'content_size'>
-<!-- <p id = 'unconfirmed_cases_count'></p> -->
-<p>Data are back dated and revised such that every lab-confirmed case is attributed to the date at which the specimen was taken, which means the outbreak starts on different dates for different areas. The first specimens for a confirmed Covid-19 infection were taken on January 30th 2020.</p>
-<p class ='highlight_dl' id = 'update_date'></p>
-<p id = 'data_recency'></p>
-<p>Case results are generally published in the afternoon and represent cases reported up to 9am of the reporting day. However, cases are assigned to the date on which the specimen was taken rather than when it was reported. It would be very unlikely that a specimen would be taken on the day of reporting with results returned by 9am. It can take as many as four days for results to be reported (e.g. specimens taken on 1st August may not be reported until the 5th). As such, we consider the last four days as incomplete as more cases may be added to the totals for these days.</p>
-<p>The first table and visualisation shows the most recently recorded confirmed cases and the number of new confirmed cases by day from pillar 1 (NHS and PHE laboratories) and pillar 2 (commercial testing) combined. It is ordered by total number (cumulative) of confirmed cases to date with the highest number of confirmed cases at the top. You can toggle between viewing the coloured tiles as actual confirmed cases or as confirmed cases per 100,000 population (crude, all age population as at 2018). </p>
-<p><font color = 'red'>The cumulative cases are taken from the most recently available date, although number of confirmed cases in a single day (a proxy for new cases) is taken from five days ago (latest complete date). Given the differences in population, you might naturally expect there to be more cases in one area than another. Viewing the cases per 100,000 allows you to compare across areas as if they had the same population size.</font></p>
+<p>As the COVID-19 pandemic has progressed, the volume of new information has increased exponentially with frequent changes to the data formats, as well as new caveats for understanding the data. Processing this information is becomming a task too difficult to maintain and this has largely been done in my own time.</p>
+<p>I have had to prioritise work on a local version of this analysis (<ahref = 'https://wsx-c19-weekly-supplement.netlify.app'>https://wsx-c19-weekly-supplement.netlify.app</a>) which is updated every day as new data is released. The West Sussex version does contain some comparisons with other areas (including maps) but it is focused primarily on the districts and boroughs in the county only.</p>
+<p>For the time being, I will not be updating this version, which showed West Sussex and other Local Authorities in the South East of England. There may be an opportunity in the future for me to catch up with the changes and present a view comparing areas. Many Local Authorities are now publishing their own weekly updates of the local pictures and these provide valuable interpretations of the data so I would recommend searching for your local authority webpages and sign up to alerts.</p>
 </div>
 
 <div class = 'right-sidebar'>
-  <p class = 'side'>The areas across the South East have vast differences in population sizes.</p>
-  <p class = 'side'>The smallest area in terms of population,  Bracknell Forest, is estimated to be home for around 121,600 residents whilst Kent, with the biggest population, is estimated to be home for almost 13 times Bracknell Forest's population with around 1,568,600 people estimated to live there.</p>
+<p>Please do contact me via my github page below if you rely on these figures and I can try and help.</p>
 </div>
 
-<div class = 'content'>
-<h4 id = 'summary_cases_title'></h4>
-<form class="btn-group btn-group-toggle stay-right-classy" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name = 'toggle_count_rate' value = 'counts muth' checked = 'checked' onchange="toggle_count_rate_func();">actual cases<br>
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name = 'toggle_count_rate' value = 'rate per yo' onchange ='toggle_count_rate_func();'>cases per 100,000<br>
-  </label>
-</form>
-</div>
-<div class = 'content'>
-<div id = 'case_headings'></div>
-<div id = 'new_cases_plotted'></div>
-
-<!-- <p>* No confirmed cases reported in the doubling time period and as such it is not possible to calculated a doubling time. This does not mean there are no cases</p> -->
-</div>
-
-<div class = 'right-sidebar'>
-  <p class = 'side'>The colour key for the tiles has been chosen to capture the breadth of new cases across the region, whilst being sensitive to small numbers as well as periods of no reported cases.</p>
-  <div id = 'new_case_key_figure'></div>
-  <p class = 'side'>The colour key may change as the number of cases are expected to increase in coming weeks.</p>
-<p class = 'side_important'>It is important to consider the testing strategy, capacity limitations, and any lag or delay in testing results, as outlined above, when interpreting cases as this can have an impact on the daily figures for local areas.</p>
-<p class = 'side_important'>A Surge in cases can in part be due to the amount of testing done locally from one day to the next.</p>
-
-</div>
-</div>
-
-<div class = 'main'>
-<div class = 'content'>
-<p id = 'sussex_latest_figures'></p>
-<!-- <p id = 'doubling_time_sussex_narrative'></p>
-<p>As the initial peak passes, and testing is maintained at a consistent level, we should see smaller numbers of new cases and we may exchange the doubling time value with a value of how long it takes cases to halve.</p>
-</div> -->
-<!-- <div class = 'right-sidebar'>
-<p class = 'side' id = 'doubling_time_narrative_1'></p>
-<p class = 'side'><b>A longer doubling time indicates slower growth and a shorter doubling time indicates growth rate is increasing.</b></p>
-</div> -->
-</div>
-
-<div class = 'main' id = 'cases_come_down'>
-<div class = 'content'>
-<h4>Daily case changes and initial peaks</h4>
-<p>The figure below shows the daily confirmed cases of Covid-19 over time by area (showing Sussex areas combined by default). The line represents the rolling average number of new cases confirmed in the previous seven days. You can change the area using the drop down menu. As with other figures in this analyses, the last four days of data are greyed out and should be treated as incomplete.</p>
-<p>The figure includes key dates when changes to testing capacity and eligibility were announced. These are adapted from The Health Foundation <a href = 'https://www.health.org.uk/news-and-comment/charts-and-infographics/covid-19-policy-tracker'>Covid-19 Policy Tracker</a>.</p>
-</div>
-<h4 style = 'padding-left: 25px; padding-top: 10px;' id = 'selected_daily_cases_bars_1_compare_title'></h4>
-<div class = 'content'>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_bars_daily_cases_1_area_button'></select>
-<div id = 'daily_new_case_bars'></div>
-
-<p>The figures for most areas in the region generally show a pattern of a single peak in new cases, illustrated by the rolling average line, although for some areas such as Southampton and Windsor and Maidenhead there is much more fluctuation and less of a pronounced single spike in confirmed cases.</p>
-<p id = 'sussex_peaks'></p>
-<p>It is useful to reiterate caution when considering changes in daily cases over time, as these are confirmed cases based on testing strategies and changes in capacity. More people are now able to be tested than in the first few weeks of the pandemic, when only hospital inpatients were tested, so new cases may be higher as a result of more people being tested. This ultimately means that the benefit of exploring daily cases will be realised only once a consistent number of tests are conducted each day. At the moment, details on local testing numbers are unavailable but this information will also strengthen our understanding of the true spread of Covid-19 and any local outbreaks.</p>
-<!-- https://cmmid.github.io/topics/covid19/nhs-pathways.html -->
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>The grey lines with circles at the top show dates on which the Covid-19 testing eligibility criteria was amended to include a wider population. Hover over each point to see which population groups were added to the test eligibility criteria.</p>
-</div>
-</div>
-
-<div class = 'main' id = 'ltlas_cases'>
-<h3 style="padding-left:25px;">Lower tier authority cases</h3>
-<div class = 'content'>
-<p>The next set of figures shows a quick glance of the lower tier local authorities within upper tier authorities (showing West Sussex areas by default). You can change the upper tier authority using the drop down box below. If you select a unitary authority such as Brighton and Hove, then only the authorities figure will be shown.</p>
-<p id = 'case_key_title'></p>
-<p>The black lines (shown on the actual numbers figures only) on each figure represent the rolling average number of new cases confirmed in the previous seven days.</p>
-<h4 id = 'selected_ltla_sm_title'></h4>
-<span class = 'give_me_space'>Area to highlight: </span>
-<select id = 'select_small_multiples_area_button'></select>
-<div class = 'drop'>
-<form class="btn-group btn-group-toggle stay-left-classy" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name = 'toggle_sm_rate' value = 'raw' checked = 'checked' onchange="toggle_sm_rate_func();">actual case numbers<br>
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name = 'toggle_sm_rate' value = 'rate' onchange ='toggle_sm_rate_func();'>rate per 100,000<br>
-  </label>
-</form>
-
-</div>
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>As with other figures, the most recent four days are to be considered incomplete. As such, these dates are excluded from the calculation of change in confirmed cases.</p>
-</div>
-<div class = 'content'>
-<div id = 'my_sm_dataviz' class = 'sm-container'></div>
-</div>
-<div class = 'right-sidebar'>
-  <h5>Colour key for plots</h5>
-  <div id = 'ltla_sm_key_figure'></div>
-<p>Hover over a bar to see the number of new cases and cumulative cases to date.</p>
-</div>
-</div>
-
-
-<!-- <div class='main' id = 'ch_outbreaks'>
-<h3 style="padding-left:25px;">Suspected and confirmed Covid-19 outbreaks in care home settings</h3>
-<div class = "content">
-<p>Care homes have been significantly impacted by the Covid-19 pandemic and as at May 15th deaths in these settings accounted for around one in four Covid-19 deaths nationally and almost half of deaths across Sussex (see section on <a href = '#selected_m3_title'>mortality in this analysis)</a>.</p>
-<p>Public Health England have begun publishing the number of care homes where a suspected or confirmed outbreak of Covid-19 has been reported to Public Health England each week from the beginning of March 2020 and this is updated every Thursday for the previous week (counted as Monday to Sunday).</p>
-
-<p>The data release includes the number of CQC registered care homes in the area and a percentage value of care homes reporting a suspected or confirmed outbreak of COVID-19. However, areas such as rehabilitation units and assisted living units are not required to register with the CQC and so are may not be included in the denominator for the percentage value. The true denominator (all potential care homes and rehabilitation settings) is unknown but will likely be similar to the number registered with the CQC (which is shown as a dashed line on the figure).</p>
-<p>You can choose a different area below using the drop down menu.</p>
-<h4 id = 'carehome_outbreak_title'></h4>
-<p><font color = 'red'>The line represents the cumulative number of homes reporting an outbreak since March and the bars show the number of care homes reporting an outbreak in that week.</font></p>
-<div class = 'drop'>
-<span>Area: </span>
-<select id = 'select_carehome_outbreak_area_button'></select>
-</div>
-</div>
-<div class = 'right-sidebar'>
-<p>An individual setting is only included in the dataset once even if there are subsequent outbreaks reported. There is also no indication of any status change in outbreak (whether it is active or not) although suspected outbreaks investigated and subsequently confirmed to be not related to Covid-19 are removed from the dataset.</p>
-</div>
-<div class = 'content'>
-<div id = 'carehome_outbreak_number'></div>
-<p>Areas where the cumulative number of outbreaks is close to the dashed line are areas where almost all of the care home settings have experienced at least one suspected or confirmed Covid-19 outbreak.</p>
-<p>This data set only tells us the number of settings in which an outbreak is reported and we do not know how many people in the care home are potentially at risk or how many confirmed cases there are.</p>
-</div>
-<div class = 'right-sidebar'>
-<p class = 'side_important'>The numbers of homes with outbreaks (numerator data) may include premises such as rehabilitation units and assisted living units that are not registered with the Care Quality Commission (CQC) which is the denominator used in the specified geographical area.</p>
-</div>
-</div> -->
-
-<div class = 'main'>
-<h3 style = 'padding-left: 25px;'>A note on testing and data</h3>
-<div class = 'content'>
-<ul class = 'summary'>
-<li class = 'list_summary'>The initial testing strategy was to prioritise testing among those patients with suspected Covid-19 symptoms in intensive care units within hospitals, then in isolated cluster outbreak settings such as care homes as well as a small sample of general practices carrying out random testing for surveillance purposes (<a href = 'https://www.bmj.com/content/368/bmj.m1222'>BMJ, 2020</a>).</li>
-<li class = 'list_summary'>As capacity increased, more and more healthcare workers as well as other keyworkers were prioritised for testing in what has been termed 'pillar 2' testing, which includes testing from commercial partners. From 23rd April, all symptomatic essential workers and members of thier households were included in the eligibility criteria and from the 28th April anyone aged 65 and over who must leave their home to go to work could access a test.</li>
-<li class = 'list_summary'><b>From 27th May 2020, anyone with one or more symptoms is be able to have a Covid-19 test.</b></li>
-<li class = 'list_summary'>Beyond this, the government is planning to expand diagnostics to antibody testing to confirm that a person has had the virus and is therefore likely to be immune from catching it again. See <a href = 'https://www.gov.uk/government/publications/coronavirus-covid-19-scaling-up-testing-programmes/coronavirus-covid-19-scaling-up-our-testing-programmes'>Government testing plans April 6th 2020</a> for more details.</li>
-<br>
-<li class = 'list_summary'>From the 14th April, PHE changed the method of reporting to show confirmed cases by the date at which the specimen for testing was taken. The first positive specimen date is used and duplicate tests for the same patient are removed. Whilst this method more accurately tracks the dates at which people are known to be infected, it may look like cases on the most recent days (which are still being reported daily) are sloping off (getting smaller). <b>This is not necessarily the case, it is simply that the most recent testing results may take several days to be reported.</b> PHE suggest that data for the most recent four days should be treated with caution and considered 'incomplete'.</li>
-</ul>
-</div>
-</div>
-
-<div class='main' id = 'case_time_series'>
-<h3 style="padding-left:25px;">Cumulative pillar 1 and pillar 2 confirmed cases over time</h3>
-<div class = "content">
-<p>The line chart below shows the actual number of confirmed Covid-19 cases over time diagnosed via pillar 1 and 2 testing combined. You can choose which area to display using the drop down menu. Remember, the last four dots on this figure should be considered incomplete whilst specimens taken on these dates take time to be tested.</p>
-<p>The dashed line represents the average number of cases reported over the last seven days. This goes some way in smoothing out fluctuation occurring daily as a result of delays or validation. The average line will usually trail a little lower than the actual line whilst cases continue to increase each day.</p>
-<div class = 'drop'>
-<span>Area: </span>
-<select id='select_line_1_area_button'></select>
-</div>
-
-<h4 id = 'selected_line_1_compare_title'></h4>
-<div id = 'cumulative_ts_actual_linear'></div>
-</div>
-
-<div class = 'right-sidebar'>
-<p class = 'side_important'>You might notice that the lines and dots shift up and down as you change the area, giving the impression that one area is higher than another.</p>
-<p class = 'side_important'>The y axis is redrawn when you choose a new area so be sure to check that the count of confirmed cases on the chart.</p>
-</div>
-</div>
-<!-- <h2>Maybe add an early description of trends for each area compared to England which can be displayed on the plots</h2> -->
-<div class="main" id = 'case_time_series_rate'>
-<div class = 'content'>
-<p>This figure shows the number of pillar 1 and pillar 2 confirmed Covid-19 cases per 100,000 population over time. It allows you to compare different areas as if they had the same size population.</p>
-<p>England is shown as the second, reference line, in purple. However, you can change both the chosen area and the second area for comparison to explore differences between any pair of areas in the South East region or against national and regional values.</p>
-<h4 id = 'selected_line_2_compare_title'></h4>
-<div class = 'drop'>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_line_2_area_button'></select>
-<span>Second area (for comparison): </span>
-<select id='select_line_2_comp_area_button'></select>
-</div>
-
-<div id = 'cumulative_ts_per100000_linear'></div>
-</div>
-
-<div class = 'right-sidebar'>
-<p class = 'side'>Whilst comparing rates per 100,000 helps to standardise the total population size, it does not take into account different demographics of the populations in each area (e.g. the age and sex structure of a population). Data on the confirmed cases by age and sex, particularly at sub-national level, is currently unavailable. When and if these data become available, the figures will be updated to include age-sex standardised rates.</p>
-<p class = 'side'>Population denominators are taken from the mid-year estimates for 2018 published by the <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland'>Office for National Statistics (ONS)</a>.</p>
-<p class = 'side'>Rates are rounded to the nearest whole number (case). It should be noted that whilst cases are relatively low in some areas, rates may not be robust and in many cases may hover around zero for some time, although this does not necessarily mean zero cases.</p>
-</div>
-</div>
-
-<div class="main" id = 'loglinear_timeseries'>
-<h3 style = 'padding-left:25px;'>Cumulative pillar 1 and pillar 2 cases over time from a different perspective</h3>
-<div class = 'content'>
-<p>So far, we have compared areas over time using counts and rates. These have shown vast differences across areas, and particularly highlighted that some local areas might be much further along their individual outbreaks than others. Indeed, we see that some areas such as Kent are recording their 2,000th confirmed case whilst the 50th case is being reported on the Isle of Wight.</p>
-<p>As some areas record their first few confirmed cases on different days, we have redrawn the x axis (along the bottom from left to right) on the next figure to count the number of days since case number 10. By doing this, you pull all of the trajectories to start at the same point on the figure and they can be compared with other areas on this basis. Starting on case number 10, rather than case number 1, means that the trajectories are a little more established and potentially showing transmission within an area as opposed to single cases coming into the area.</p>
-<p>In addition, we have redrawn the y (vertical) axis to show the cumulative number of confirmed cases on a logarithmic scale (briefly explained on the right) to particularly highlight changes in growth (speeding up or slowing down) of infections. You can toggle between loglinear and linear scales to consider what each representation does to the data and trends.</p>
-<p>The figure shows all of the South East region Local Authority areas on one figure (South East region and England have been excluded to make it easier to see each local area). You can hover over an area with you mouse pointer to find out more or choose an area from the drop down menu to highlight without hovering.</p>
-
-<h4 id = 'selected_line_3_log_title'></h4>
-<div class = 'drop'>
-<form class="btn-group btn-group-toggle stay-left-classy" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name = 'toggle_c3_scale' value = 'log' checked = 'checked' onchange="toggle_scale_c3_func();">loginear scale<br>
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name = 'toggle_c3_scale' value = 'linear' onchange ='toggle_scale_c3_func();'>linear scale<br>
-  </label>
-</form>
-<span class = 'give_me_space'>Area to highlight: </span>
-<select id='select_line_3_area_button'></select>
-</div>
-<div id = 'cumulative_log'></div>
-</div>
-
-<div class = 'right-sidebar'>
-  <p class = 'side'>Much like the importance of considering both actual cases and cases per 100,000, it is also useful to view the data from both a linear and a logarithmic scale.</p>
-  <p class = 'side'>The log scale also helps us to visualise exponential growth and doubling over time. A straight line with a steep slope indicates that the diagnosed cases will double in a short period of time whereas a line with a flatter slope suggests that the cases are not growing as quickly and will take much longer to double.</p>
-<p class = 'side'><b>The data remains the same.</b> However, the logarithmic scale is more sensitive to changes in the rate of confirmed cases. This would make it easier to highlight significant changes in trends.</p>
-</div>
-</div>
-<!-- <div class="main" id = 'loglinear_timeseries_plus_doubling'>
-<div class = 'content'>
-<p>The last figure for confirmed cases shows when we might expect the confirmed cases for a single area to double; given the most recent doubling time estimate (e.g. based on the most recent four days of complete data).</p>
-<p>In this figure you can select an area to show the current trajectory, highlighting what the current trajectory means in terms of confirmed cases in the near future. You can also toggle between viewing the figure on a logarithmic scale (by default) or linear scale. Aggregated confirmed cases for Sussex areas combined, as well as South East region, and England can also be selected.</p>
-<h4 id = 'selected_line_4_log_title'></h4>
-<div class = 'drop'>
-<form class="btn-group btn-group-toggle stay-left-classy" data-toggle="buttons">
-  <label class="btn btn-secondary active">
-    <input type="radio" name = 'toggle_c4_scale' value = 'log' checked = 'checked' onchange="toggle_scale_c4_func();">loginear scale<br>
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name = 'toggle_c4_scale' value = 'linear' onchange ='toggle_scale_c4_func();'>linear scale<br>
-  </label>
-</form>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_line_4_area_button'></select>
-</div>
-<div id = 'cumulative_log_double_time_added'></div>
-<div id = 'test_animated_line'></div>
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>The dashed lines at the end show the doubling of cases from the last 'complete' day of data as if the trajectory continued on its current course.</p>
-  <p class = 'side_important'>It should be noted that the effects of measures such as social distancing will hopefully continue to alter the trajectory and will impact the doubling time.</p>
- <p class ='side'>The last four datapoints are not included in the doubling time calculation because they are considered incomplete. The dashed line gives some indication of what the confirmed cases might be and the potential cases awaiting results.</p>
-</div>
-</div> -->
-
-<div class="main" id = 'other_cases_and_metrics'>
-<div class ='content'>
-<h4>Measuring the true spread of Covid-19 spread</h4>
-<p>The data presented so far has been based on confirmed cases of Covid-19. As alluded to in the last section, confirmed cases are only a representation of the testing strategy and until recently showed test results for patients in hospital as well as frontline healthcare workers. As at May 2020, there is capacity for 100,000 tests per day and anyone aged 5 and other with symptoms is now eligible for testing.</p>
-<p>Until a robust community testing capability is realised, it is impossible to define the true spread of Covid-19. However, there are some other data sources and measures that can help to fill in the gaps.</p>
-<p>Symptom tracker applications such as the 'COVID Symptom Tracker' by researchers at King's College London, Guys and St Thomas' Hospitals, and ZOE Global ltd. This allows users to enter how they are physically feeling daily along with information on their sex, age, ethnicity, and first part of their postcode. Users can say if they are feeling well and have no symptoms or to indicate that they are symptomatic. Whilst much of this detailed data is not publicly available, it is possible to see at lower tier local authority level, the proportion of users who report at least some symptoms of the Covid-19 virus. In the UK (as at 19th May), there were 252,629 people aged 20-69 who reported currently having symptoms of the virus, this is down by more than 200,000 people compared to the month before (462,672 people as at 18th April). Of course, more people are able to have swab testing now to confirm symptoms and may cease reporting symptoms following a negative test result. More generally, not all those with symptoms will use the application, and the local figures do not include those under the age of 20 or over the age of 69.</p>
-<p>Another source of information comes from the the NHS 111 symptom reporting pathways and 111 online. This shows, at the level of Clinical Commissioning Groups (which are largely coterminous with local authority boundaries through aggregation), the number of pathway triages and online assessments in which a user reports Covid-19 symptoms. Data include assessments by sex and broad age group (0-18, 19-69, and 70-120 years) of the user. There are many caveats around this, including that the data are not counts of people but rather assessments, people with symptoms might not use this or might use it multiple times over the course of their symptoms (and maybe not at the start of their symptoms). People are encouraged NOT to call NHS 111 to report Covid-19 symptoms unless they are worried but are asked to complete an NHS 111 online triage assessment. However, this data may give some indication of the symptom reporting locally.</p>
-<p><font color = 'red'>Both the COVID Symptom Tracker, and NHS triage data, are for reporting of symptoms and they are not in anyway representative of confirmed cases of Covid-19.</font></p>
-</div>
-</div>
-<!--
-<div class="main" id = 'deaths_summary'>
-<h2 style = 'padding-left:25px;'>Mortality</h2>
-
-<div class ='content'>
-<p>This section focuses on the burden of Covid-19 in terms of the number of lives lost as a result of the virus.</p>
-<p>When a person dies, their death is certified and registered formally with the registry office for the local authority district in which the person lived. If a person dies in hospital deaths, their death is registered with the district office in which the hospital is located. A death should be registered within five days of the death occurring, and upon the issue of a medical certificate detailing the cause or causes of death although registration can be delayed if the death has been reported to the coroner and an investigation or inquest is required.</p>
-<p>These registration processes naturally take time and so NHS England, and now the Care Quality Commission, have begun reporting the number of deaths they have been notified as soon as it is practicably possible to support the response to Covid-19.</p>
-<p>There are at least three sources of data for understanding the number of Covid-19 deaths. A summary of the key differences in the three sources is given in the table below.</p>
-<table>
-  <tr>
-  <td colspan="4"><h3>A note on mortality data sources</h3></td>
-  </tr>
-  <tr>
-<th style = 'width: 16%;'></th>
-    <th style = 'width:28%;'>Department for Health and Social Care</th>
-    <th style = 'width:28%;'>Office for National Statistics</th>
-    <th style = 'width:28%;'>Care Quality Commission</th>
-  </tr>
-  <tr>
-    <td class = 'highlighter_tab'>What is counted?</td>
-    <td>Deaths in hospitals where the deceased had a positive Covid-19 test result confirmed by a Public Health or NHS laboratory. Daily figures are based on the date of reporting and not on the date of occurrence.</td>
-    <td>All deaths registered in England and Wales, by place of death (Hospital, Care home, Hospice, Home) by the week in which the death occurred.</td>
-    <td>Care home deaths where the care home provider has stated COVID-19 as a suspected or confirmed cause of death on the death notification.</td>
-  </tr>
-  <tr>
-    <td class = 'highlighter_tab'>Geographical granularity</td>
-    <td>Hospital Trust level</td>
-    <td>Lower Tier Local Authority</td>
-    <td>Lower Tier Local Authority</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>Deaths are included where patient has been tested for COVID-19.</td>
-    <td>Since 1st April 2020, deaths are included where COVID-19 has been mentioned anywhere on the death certificate.</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td class = 'highlighter_tab'>How often are data released</td>
-    <td>Data are provided daily by NHS Trusts and PHE Health protection teams to NHS England and only once confirmed family have been notified of the death.</td>
-    <td>Data are provided weekly, based on the date on which the death occurred with a lag of just over one week to allow for registering.</td>
-    <td>Death notifications by date of notification are provided weekly at the same time as the ONS release</td>
-  </tr>
-  <tr>
-    <td class = 'highlighter_tab'>Are the data complete?</td>
-    <td>Whilst data can be provided rapidly, it is not always possible and data providers suggest that data in the most recent four days should be considered incomplete. The data do not include deaths of people who had Covid-19 but had not been tested, people who were tested positive only via a non-NHS or Public Health laboratory, or people who subsequently caught the virus and died following a negative test result.</td>
-    <td>Estimates prior to 2020 suggest around 26% of deaths in England and Wales are registered later than seven calendar days after occurrence, with the proportion as high as 32% in the South East region. Deaths occurring in the last week but not registered within 7 days are not included in the latest weeks figures but may be added in future releases. </td>
-    <td>Death notifications take on average 4 days to receive and process. These are not officially registered deaths and can be subject to revision and verification. Data are for April 10th onwards.</td>
-  </tr>
-<tr><td style = 'font-style:italic;'colspan="4">Adapted from the Office for National Statistics and Public Health England</td></tr>
-</table>
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>It is very difficult to know the true impact of Covid-19 quickly, it may take many weeks and months to understand which deaths can be attributed to the virus directly or indirectly. <b>These figures help to build as complete a picture as possible</b>.</p>
-</div>
-
-<h3 style = 'padding-left: 25px; padding-top: 10px;'>Daily hospital deaths attributed to Covid-19</h3>
-<div class = 'content'>
-<p>The number of deaths of patients who have died in hospitals in England and had tested positive for Covid-19 at time of death. All deaths are recorded against the date of death rather than the day the deaths were announced.</p>
-<p>These figures are updated at 2pm each day and include confirmed deaths reported at 5pm the previous day. The totals reported at 5pm on each day may not include all deaths that occurred on that day or on recent prior days due to operational pressures.</p>
-<p>Data are provided daily by NHS Trusts and PHE Health protection teams to NHS England and only once confirmed family have been notified of the death.</p>
-<p id = 'latest_hospital_deaths_sussex'></p>
-
-<p>The figure below shows the five hospital trusts in Sussex with data on Covid-19 mortality</p>
-<h4 id = 'sussex_hospital_deaths_title'></h4>
-<div id = 'sussex_trusts_daily_deaths'></div>
-
-<p>The next figure shows individual trusts daily reported deaths and you can select any hospital trust in the South East NHS Commissioning region using the drop down menu below to change the trust on the figure.</p>
-<h4 id = 'selected_trust_mortality_title'></h4>
-<span class = 'give_me_space'>Trust: </span>
-<select id = 'select_hospital_trust_button'></select>
-<div id = 'south_east_trusts_daily_deaths'></div>
-
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>Hospital provider trusts do not have geographically defined boundaries for the populations they serve nor do they have all encompassing lists of registered patients.</p>
-  <p class = 'side'>There are five provider trusts in the mortality dataset which largely serve residents in Sussex (Brighton and Sussex University Hospitals NHS Trust, East Sussex Healthcare NHS Trust, Surrey and Sussex Healthcare NHS Trust, Sussex Community NHS Foundation Trust, Western Sussex Hospitals NHS Foundation Trust). As a general rule of thumb in planning and monitoring, half the patients in the Surrey and Sussex Healthcare NHS Trust are assigned to Surrey and half to Sussex. This is a crude assumption but if we take all deaths in the other four trusts and half of the deaths in Surrey and Sussex Healthcare NHS Trust, this is assumed to offer a good approximation of daily mortality in Sussex.</p>
-</div>
-
-<h3 style = 'padding-left: 25px; padding-top: 10px;'>Overall number of deaths attributed to Covid-19</h3>
-<div class = 'content'>
-<p id = 'latest_national_deaths_confirmed'></p>
-<p>The national figures covering all settings are reported daily. However, to understand mortality at a local level using publicly available data we have to look at the individual settings and for deaths occurring outside of hospital, there is some time delay in reporting. There are more timely figures for hospital deaths, which are explored further down in the analysis, but these are reported at Acute Hospital Trust and this is not always coterminous with residential populations of local authorities.</p>
-
-<p>The ONS has begun publishing weekly data at lower tier local authority for the number of deaths occurring in each week in the 2020 calendar year. From 31 March 2020 these figures also show the number of deaths involving coronavirus (COVID-19), based on any mention of COVID-19 on the death certificate. These are aggregated to upper tier local authority for this analysis.</p>
-
-<p id = 'ons_dates_mortality'></p>
-
-<h4 id = 'selected_m1_title'></h4>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_mortality_1_area_button'></select>
-<div id = 'covid_non_covid_mortality_all_settings'></div>
-
-
-<h4 id = 'selected_m2_title' style = 'padding-top: 10px;'></h4>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_mortality_2_area_button'></select>
-<div id = 'all_cause_mortality_by_place'></div>
-
-
-</div>
-<div class = 'right-sidebar'>
-  <p class = 'side'>The ONS weekly release of mortality at local authority level can be found <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/healthandsocialcare/causesofdeath/datasets/deathregistrationsandoccurrencesbylocalauthorityandhealthboard'>here</a>. Figures for previous weeks can be revised when new data are published to reflect more complete registrations.</p>
-</div>
-
-<div class = 'content'>
-<p style = 'padding-top: 10px'>The next figure shows the place of death for deaths where there is a mention of Covid-19 as an underlying or contributing factor on the death certificate.</p>
-<p>For most areas deaths with Covid-19 mentioned begin occurring around the week ending 20th March.</p>
-<h4 id = 'selected_m3_title' style = 'padding-top: 10px;'></h4>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_mortality_3_area_button'></select>
-<div id = 'covid_mortality_by_place'></div>
-
-<h4 style = 'padding-top: 10px'>Excess mortality and deaths not recorded as Covid-19</h4>
-<p>It is important to remember that these Covid-19 deaths represent only those deaths where Covid-19 was confirmed or suspected as a cause of death. This is dependent on consistent and accurate recording of cause, which can be subjective for the doctors and officials completing certificates and there is thought to be variation in what is counted as a Covid-19 death locally, regionally and internationally.</p>
-<p>There will also be deaths that occur as an <b>indirect</b> consequence of the Covid-19 pandemic (not the virus itself). A simple example is where an individual experiencing symptoms of a heart attack avoids seeking help or going to Accident & Emergency department due to a fear of getting the virus. There are many other examples of indirect causes of death including lack of nutrition as a result of not being able to access quality food or a person who would normally have a number of friends or family members to check their welfare suddenly being isolated and having fewer or no contacts with others.</p>
-<p>Widely accepted as a superior measure of the true burden of the pandemic is to examine the excess deaths occurring in a population. This measures the additional deaths over a given time period compared to the number usually expected in a population (often a five year average). Such a measure would include those direct Covid-19 deaths that had not been diagnosed as well as indirect deaths.</p>
-<p>The Office for National Statistics do not currently publish historical figures on weekly occurrences of deaths at a local level prior to 2020, so it is not possible to examine excess deaths at this time, but it is hoped that further data will be made available in the near future. Note that weekly death registrations data are available at national and regional level <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/weeklyprovisionalfiguresondeathsregisteredinenglandandwales'>here</a> and registrations by month are available at local authority level <a href = 'https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/monthlyfiguresondeathsregisteredbyareaofusualresidence'>here</a>, however these are not included in this analysis to avoid confusion between occurrences and registrations of deaths.</p>
-
-</div>
-
-<div class = 'right-sidebar'>
-  <p class = 'side_important'>Note that the y axis scale is much smaller for Covid-19 deaths compared to all deaths and the bars are redrawn to fill the height of the figure.</p>
-</div>
-
-</div> -->
-
-<div class="main" id = 'behaviours'>
-<div class ='content'>
-<h4>Population mobility trends</h4>
-<p>Google publish local reports on relative changes to movement trends over time across different categories of places (retail and recreation, groceries and pharmacies, parks, transit stations, workplaces, and residential locations).</p>
-<p>The reports highlight the percentage change in visits to each type of place (see right hand side for more detail) although the residential category shows a change in duration of time spent there rather than a change in total visitors (which is not likely to change). Food shopping is separated from other retail locations as most non-food retailers have been closed for at least part of the lock down period. Visits to parks are likely to be partly dependent on the weather.</p>
-<p>The figure below shows these changes in mobility in the local authority areas of the region. Choose a different area to change the figure.</p>
-<p>The baseline (shown as the dashed line) is the median value of visits/duration, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020. This means that a Saturday is compared with the median value for Saturdays during January and the beginning of February. The datasets show trends from mid February to the last few days (there is some lag as it takes a few days to compile the data).</p>
-
-<h4 id = 'selected_mobility_title' style = 'padding-top: 10px;'></h4>
-<span class = 'give_me_space'>Area: </span>
-<select id='select_mobility_area_button'></select>
-<div id = 'mobility_trends_google'></div>
-<p id = 'attribution_mobility_google'></p>
-
-</div>
-
-<div class = 'right-sidebar'>
-<p class = 'side'>Data are available at upper tier local authority level and there are wide ranging communities within these geographies that will behave differently.</p>
-<p class = 'side'>Source data on travel are from <b>users who have turned on location history</b> which is off by default. There may be different characteristics of people who turn their location history on or off and this may vary from place to place, and as such this sample may not be representative of the whole population.</p>
-<p class = 'side_important'>There can be days in which the number of visitors is too low to ensure privacy and anonymity of users and these are represented as gaps. These gaps should be treated as true unknowns and do not necessarily mean that places weren’t busy.</p>
-<p><b>Place categories shown:</b></p>
-<ul>
-<li><b>Grocery & pharmacy</b> includes markets, food warehouses, farmers markets, specialty food shops, and pharmacies</li>
-<li><b>Parks</b> include local and national parks, public beaches, marinas and public gardens.</li>
-<li><b>Public transport (transit)</b> includes public transport hubs such as subway, bus, and train stations.</li>
-<li><b>Retail & recreation</b> includes restaurants, cafes, shopping centers, theme parks, museums, libraries, theatres and cinemas.</li>
-<li><b>Residential</b></li>
-<li><b>Workplaces</b></li>
-</ul>
-</div>
 </div>
 
 <div class="main">
-<footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a>2020</footer>
+<footer class="footer">Made by Dr Rich Tyler <a href = "https://github.com/psychty", target = "_blank">github/psychty</a> Made in 2020</footer>
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -476,13 +67,12 @@
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<script src = "Javascripts/covid_tracking_data_summary.js"></script>
+<!-- <script src = "Javascripts/covid_tracking_data_summary.js"></script>
 <script src = "Javascripts/covid_heatmap.js"></script>
 <script src = "Javascripts/covid_se_time_series.js"></script>
 <script src = 'Javascripts/covid_ltla_small_multiples.js'></script>
 <script src = 'Javascripts/covid_mortality.js'></script>
-<script src = 'Javascripts/google_mobility_trends.js'></script>
-
+<script src = 'Javascripts/google_mobility_trends.js'></script> -->
 
 </body>
 </html>
